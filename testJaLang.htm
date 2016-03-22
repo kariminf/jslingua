@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Testing JaLang</title>
+        <script type="text/javascript" src="JaLang.js" ></script>
+    </head>
+    <body>
+        <input type="text" id="in" ></input>
+        <button onclick="myFunction()">Try it</button>
+        <script type="text/javascript">
+            function myFunction() {
+                var hiraganas = document.getElementsByClassName("hiragana");
+                var katakanas = document.getElementsByClassName("katakana");
+                var kanjis = document.getElementsByClassName("kanji");
+                var punctuations = document.getElementsByClassName("punc");
+                
+                var text = document.getElementById("in").value;
+                
+                document.getElementById("uni").innerHTML = "" + getUnicode(text);
+                
+                hiraganas[0].innerHTML = "" + isHiragana(text);
+                hiraganas[1].innerHTML = "" + containsHiragana(text);
+                hiraganas[2].innerHTML = "" + allHiragana(text);
+
+                katakanas[0].innerHTML = "" + isKatakana(text);
+                katakanas[1].innerHTML = "" + containsKatakana(text);
+                katakanas[2].innerHTML = "" + allKatakana(text);
+                
+                kanjis[0].innerHTML = "" + isKanji(text);
+                kanjis[1].innerHTML = "" + containsKanji(text);
+                kanjis[2].innerHTML = "" + allKanji(text);
+                
+                punctuations[0].innerHTML = "" + isPunctuation(text);
+                punctuations[1].innerHTML = "" + containsPunctuation(text);
+                punctuations[2].innerHTML = "" + allPunctuation(text);
+            }
+        </script>
+        <br/>
+        <table border="1">
+        <tr>
+            <th></th>
+            <th>Hiragana</th>
+            <th>Katakana</th>
+            <th>Kanji</th>
+            <th>Punctuation</th>
+        </tr>
+        <tr>
+            <th>Unicode first char</th>
+            <td id="uni" colspan="4"></td>
+        </tr>
+        <tr>
+            <th>Is it Japanese?</th>
+            <td id="jap" colspan="4"></td>
+        </tr>
+        <tr>
+            <th>First char is:</th>
+            <td class="hiragana"></td>
+            <td class="katakana"></td>
+            <td class="kanji"></td>
+            <td class="punc"></td>
+        </tr>
+        <tr>
+            <th>Contains :</th>
+            <td class="hiragana"></td>
+            <td class="katakana"></td>
+            <td class="kanji"></td>
+            <td class="punc"></td>
+        </tr>
+        <tr>
+            <th>Is all:</th>
+            <td class="hiragana"></td>
+            <td class="katakana"></td>
+            <td class="kanji"></td>
+            <td class="punc"></td>
+        </tr>
+        </table>
+
+    </body>
+</html>
