@@ -167,6 +167,9 @@ var bigNbr = [
 */
 function toJapaneseLetters (num) {
     
+    if (isNaN(num))
+        return "";
+    
     var neg = false;
     if(num < 0){
         neg = true;
@@ -194,6 +197,9 @@ function toJapaneseLetters (num) {
     result += lookup[max];
     if(rem > 0)
         result += toJapaneseLetters(rem);
+    
+    if(neg)
+        result = "マイナス" + result;
     
     return result;
     
