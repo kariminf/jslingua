@@ -37,12 +37,19 @@
                 punctuations[2].innerHTML = "" + allPunctuation(text);
             }
             function numToJap() {
-              var intxt = document.getElementById("arNum").value;
-              
-              var outtxt = toJapaneseLetters(intxt); 
-                  
-              document.getElementById("jaNum").value = outtxt;
-          }
+                var intxt = document.getElementById("arNum").value;
+                var outtxt = toJapaneseLetters(intxt); 
+                document.getElementById("jaNum").value = outtxt;
+            }
+            
+            function hktrans(b) {
+                var hiraInput = document.getElementById("hira");
+                var kataInput = document.getElementById("kata");
+                if (b)
+                    kataInput.value = hiraganaToKatakana(hiraInput.value);
+                else
+                    hiraInput.value = katakanaToHiragana(kataInput.value);
+            }
         </script>
         <br/>
         <table border="1">
@@ -87,5 +94,13 @@
         <input type="text" id="arNum" ></input>
         <button onclick="numToJap()">Japanese number</button>
         <input type="text" id="jaNum" ></input>
+        <p>The left input is for hiragana, the right one for katakana.
+        There are two buttons to transform between them.
+        </p>
+        <input type="text" id="hira" ></input>
+        <button onclick="hktrans(true)">To katakana</button>
+        <button onclick="hktrans(false)">To hiragana</button>
+        <input type="text" id="kata" ></input>
+
     </body>
 </html>

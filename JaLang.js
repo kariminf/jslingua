@@ -148,7 +148,7 @@ var containsPunctuation = contains(isPunctuation);
 var allPunctuation = all(isPunctuation);
 
 var lookup = {
-    1:"一", 2:"二", 3:"三", 4:"四", 5:"五", 
+    0: "零", 1:"一", 2:"二", 3:"三", 4:"四", 5:"五", 
     6:"六", 7:"七", 8:"八", 9:"九", 10:"十",
     100:"百", 1000:"千", 10000:"万", 
     100000000:"億", 1000000000000:"兆"  
@@ -189,7 +189,8 @@ function toJapaneseLetters (num) {
     var rem = ~~(num % max);
     var result = "";
     if (div > 0)
-        result += toJapaneseLetters(div);
+        if (div > 1 || max > 1000)
+            result += toJapaneseLetters(div);
     result += lookup[max];
     if(rem > 0)
         result += toJapaneseLetters(rem);
@@ -197,3 +198,32 @@ function toJapaneseLetters (num) {
     return result;
     
 }
+
+function transform (diff, charTestFunc) {
+    return function(text) {
+        var result = "";
+        for (var i = 0; i < text.length; i++){
+            var u = text.charCodeAt(i);
+            if (charTestFunc(u))
+                u += diff;
+            result += String.fromCharCode(u);
+        }
+        return result;
+    }
+}
+
+/**
+* Transform from hiragana to katakana
+* @method hiraganaToKatakana
+* @param {String} text the input text
+* @return {String} The result text where hiragana characters are transformed to katakana
+*/
+var hiraganaToKatakana = transform(0x0060, isHiragana);
+
+/**
+* Transform from katakana to hiragana
+* @method katakanaToHiragana
+* @param {String} text the input text
+* @return {String} The result text where katakana characters are transformed to hiragana
+*/
+var katakanaToHiragana = transform(-0x0060, isKatakana);
