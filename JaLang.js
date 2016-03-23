@@ -147,3 +147,53 @@ var containsPunctuation = contains(isPunctuation);
 */
 var allPunctuation = all(isPunctuation);
 
+var lookup = {
+    1:"一", 2:"二", 3:"三", 4:"四", 5:"五", 
+    6:"六", 7:"七", 8:"八", 9:"九", 10:"十",
+    100:"百", 1000:"千", 10000:"万", 
+    100000000:"億", 1000000000000:"兆"  
+}
+
+var bigNbr = [
+    1000000000000, 100000000,
+    10000, 1000, 100, 10
+]
+
+/**
+* Transform from Arabic numbers to Japanese letters
+* @method toJapaneseLetters
+* @param {Number} num the integer number
+* @return {String} Japanese writing of numbers
+*/
+function toJapaneseLetters (num) {
+    
+    var neg = false;
+    if(num < 0){
+        neg = true;
+        num = - num;
+    }
+    
+    if (num < 10)
+        return lookup[num];
+    
+    //search for the max index
+    var i = 0;
+    var max = 1;
+    var div;
+    for (i = 0; i < bigNbr.length; i++){
+        max = bigNbr[i]
+        div = ~~(num/max);
+        if (div > 0)
+            break;
+    }
+    var rem = ~~(num % max);
+    var result = "";
+    if (div > 0)
+        result += toJapaneseLetters(div);
+    result += lookup[max];
+    if(rem > 0)
+        result += toJapaneseLetters(rem);
+    
+    return result;
+    
+}

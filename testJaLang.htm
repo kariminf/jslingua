@@ -7,7 +7,8 @@
     </head>
     <body>
         <input type="text" id="in" ></input>
-        <button onclick="myFunction()">Try it</button>
+        <button onclick="myFunction()">Test Writing system</button>
+    
         <script type="text/javascript">
             function myFunction() {
                 var hiraganas = document.getElementsByClassName("hiragana");
@@ -35,6 +36,13 @@
                 punctuations[1].innerHTML = "" + containsPunctuation(text);
                 punctuations[2].innerHTML = "" + allPunctuation(text);
             }
+            function numToJap() {
+              var intxt = document.getElementById("arNum").value;
+              
+              var outtxt = toJapaneseLetters(intxt); 
+                  
+              document.getElementById("jaNum").value = outtxt;
+          }
         </script>
         <br/>
         <table border="1">
@@ -75,6 +83,9 @@
             <td class="punc"></td>
         </tr>
         </table>
-
+        <br>
+        <input type="text" id="arNum" ></input>
+        <button onclick="numToJap()">Japanese number</button>
+        <input type="text" id="jaNum" ></input>
     </body>
 </html>
