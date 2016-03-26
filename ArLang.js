@@ -182,7 +182,7 @@ function toArabicLetters (num) {
             if (div < 3){
                 if (div == 2)
                 pron = lookup2[lessBig];
-            } else if (div < 9 ){
+            } else if (div < 10 ){
                 pref = lookup[div];
                 if (lessBig != 100)
                     pref += "ة ";
