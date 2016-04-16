@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Testing ArTrans</title>
+        <script type="text/javascript" src="ArTrans.js" ></script>
+        <script type="text/javascript">
+            function arabic2buckwalter() {
+                var arabicInput = document.getElementById("arabic");
+                var transOutput = document.getElementById("trans");
+                var result = "<b>Buckwalter Tranlateration</b><br>";
+                result = result + toBuckwalterTrans(arabicInput.value);
+                transOutput.innerHTML = result;
+            }
+        </script>
+        
+    </head>
+    <body>
+        <input type="text" id="arabic" ></input>
+        <button onclick="arabic2buckwalter()">To Buckwalter</button>
+        <div id="trans"></div>
+    </body>
+</html>
