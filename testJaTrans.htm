@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Testing ArTrans</title>
+        <script type="text/javascript" src="JaTrans.js" ></script>
+        <script type="text/javascript">
+            function jap2trans() {
+                var jaInput = document.getElementById("jap");
+                var transOutput = document.getElementById("trans");
+                var result = "<b>Tranlateration</b><br>";
+                result = result + toTrans(jaInput.value);
+                transOutput.innerHTML = result;
+            }
+        </script>
+        
+    </head>
+    <body>
+        <input type="text" id="jap" ></input>
+        <button onclick="jap2trans()">To Buckwalter</button>
+        <div id="trans"></div>
+    </body>
+</html>
