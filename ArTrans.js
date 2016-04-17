@@ -7,7 +7,6 @@ var buckwalter = {
 		"ج": "j", // jim
 		"ح": "H", // Ḥa
 		"خ": "x", // kha
-    /*
 		"د": "d", // dal
 		"ذ": "*", // dhal
 		"ر": "r", // ra
@@ -52,26 +51,22 @@ var buckwalter = {
 		//others
 		"ة": "p", // ta marbuta
 		"\u0652": "o" // sukun
-        */
+        
 };
 
 
 function getTranslaterator(lookupTable) {
     return function(text) {
-        var result = ".";
-        alert(lookupTable.length);
-        if (text.length < lookupTable.length) {
-            for (var i = 0; i < text.length; i++){
-                var char = text.charAt(i);
-                if (char in lookupTable){
-                    result += lookupTable[char];
-                } else {
-                    result += char;
-                }
-                
+        var result = "";
+        for (var i = 0; i < text.length; i++){
+            var char = text.charAt(i);
+            if (char in lookupTable){
+                result += lookupTable[char];
+            } else {
+                result += char;
             }
-            return result;
-        } 
+                
+        }
         
         return result;
     }
