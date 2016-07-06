@@ -78,27 +78,22 @@ var hiraganaTrans = {
 function getTranslaterator(lookupTable) {
     return function(text) {
         var result = "";
-        //alert(lookupTable.length);
-        //if (text.length < lookupTable.length) {
-            for (var i = 0; i < text.length; i++){
-                var char = text.charAt(i);
+        for (var i = 0; i < text.length; i++){
+            var char = text.charAt(i);
+            if (char in lookupTable){
+                result += lookupTable[char];
+            } else {
+                var u = char.charCodeAt(0) - 0x0060;
+                char = String.fromCharCode(u);
                 if (char in lookupTable){
-                    result += lookupTable[char];
+                result += lookupTable[char];
                 } else {
-                    var u = char.charCodeAt(0) - 0x0060;
-                    char = String.fromCharCode(u);
-                    if (char in lookupTable){
-                    result += lookupTable[char];
-                    } else {
-                        result += text.charAt(i);
-                    }      
-                }
-                
+                    result += text.charAt(i);
+                }      
             }
-            return result;
-        //} 
-        
-        //return result;
+                
+        }
+        return result;
     }
 }
 
