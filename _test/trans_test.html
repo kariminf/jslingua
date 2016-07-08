@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Testing ArTrans</title>
+  <script type="text/javascript" src="../trans.js" ></script>
+  <script type="text/javascript" src="../ar/ar.trans.js" ></script>
+  <script type="text/javascript" src="../ja/ja.trans.js" ></script>
+  <script type="text/javascript">
+
+  function getTrans (){
+    var e = document.getElementById("l");
+    var l = e.options[e.selectedIndex].value;
+    var transformer = {};
+    switch(l) {
+      case "1":
+      transformer = new ArTrans();
+      break;
+      case "2":
+      transformer = new JaTrans();
+      break;
+      default:
+      transformer = new ArTrans();
+    }
+    return transformer;
+  }
+
+  function lang2trans() {
+    var lang = document.getElementById("lang");
+    var trans = document.getElementById("2trans");
+    trans.value = getTrans().translaterate(lang.value);
+  }
+
+  function trans2lang() {
+    var lang = document.getElementById("2lang");
+    var trans = document.getElementById("trans");
+    lang.value = getTrans().untranslaterate(trans.value);
+  }
+  </script>
+
+</head>
+<body>
+  Choose the language:
+  <select id="l">
+    <option value="1" >Arabic</option>
+    <option value="2">Japanese</option>
+  </select>
+  <br>
+  <input type="text" id="lang" />
+  <button onclick="lang2trans()">To Translateration</button>
+  <input type="text" id="2trans" />
+  <br>
+  <input type="text" id="trans" />
+  <button onclick="trans2lang()">From Translateration</button>
+  <input type="text" id="2lang" />
+
+</body>
+</html>
