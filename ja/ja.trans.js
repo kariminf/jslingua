@@ -96,9 +96,8 @@ var JaTrans = (function(){
   JaTrans.prototype = new Trans(hiraganaTrans, firstUnTrans);
 
   JaTrans.prototype.untranslaterate = function(text){
-
-    var result = super.untranslaterate(text);
-    var secTrans = new Trans(secondUnTrans, firstUnTrans);
+    var result = Trans.prototype.untranslaterate(text);
+    var secTrans = new Trans(firstUnTrans, secondUnTrans);
     return secTrans.untranslaterate(result);
   }
 

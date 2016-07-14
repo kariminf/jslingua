@@ -1,53 +1,4 @@
 /**
-* Returns unicode 
-* @method getUnicode
-* @param {String, Number} char a character or a unicode int
-* @return {Number} returns the same number or the unicode of the first character
-*/
-function getUnicode(char) {
-    var type = typeof char;
-    if (type === "number")
-        return char;
-    
-    if (type === "string" && char != "")
-        return char.charCodeAt(0);
-    
-    return -1;
-}
-
-function isBetween(min,  max){
-    return function (char){
-        var u = getUnicode(char); 
-        if(min <= u && u <= max)
-            return true;
-        return false;
-    }
-}
-
-function contains(charTestFunc) {
-    return function(text) {
-        for (var i = 0; i < text.length; i++) {
-            var u = text.charCodeAt(i);
-            if (charTestFunc(u)) 
-                return true;    
-        }
-        return false;
-    }
-}
-
-
-function all(charTestFunc) {
-    return function(text) {
-        for (var i = 0; i < text.length; i++) {
-            var u = text.charCodeAt(i);
-            if (! charTestFunc(u)) 
-                return false;    
-        }
-        return true;
-    }
-}
-
-/**
 * Check out if a character is a hiragana
 * @method isHiragana
 * @param {Object} char a character or a unicode int
@@ -148,10 +99,10 @@ var containsPunctuation = contains(isPunctuation);
 var allPunctuation = all(isPunctuation);
 
 var lookup = {
-    0: "零", 1:"一", 2:"二", 3:"三", 4:"四", 5:"五", 
+    0: "零", 1:"一", 2:"二", 3:"三", 4:"四", 5:"五",
     6:"六", 7:"七", 8:"八", 9:"九", 10:"十",
-    100:"百", 1000:"千", 10000:"万", 
-    100000000:"億", 1000000000000:"兆"  
+    100:"百", 1000:"千", 10000:"万",
+    100000000:"億", 1000000000000:"兆"
 }
 
 var bigNbr = [
@@ -166,19 +117,19 @@ var bigNbr = [
 * @return {String} Japanese writing of numbers
 */
 function toJapaneseLetters (num) {
-    
+
     if (isNaN(num))
         return "";
-    
+
     var neg = false;
     if(num < 0){
         neg = true;
         num = - num;
     }
-    
+
     if (num < 10)
         return lookup[num];
-    
+
     //search for the max index
     var i = 0;
     var max = 1;
@@ -197,12 +148,12 @@ function toJapaneseLetters (num) {
     result += lookup[max];
     if(rem > 0)
         result += toJapaneseLetters(rem);
-    
+
     if(neg)
         result = "マイナス" + result;
-    
+
     return result;
-    
+
 }
 
 function transform (diff, charTestFunc) {

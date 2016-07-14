@@ -3,23 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <title>Testing JaLang</title>
-        <script type="text/javascript" src="JaLang.js" ></script>
+        <script type="text/javascript" src="../lang.js" ></script>
+        <script type="text/javascript" src="../ja/ja.lang.js" ></script>
     </head>
     <body>
         <input type="text" id="in" ></input>
         <button onclick="myFunction()">Test Writing system</button>
-    
+
         <script type="text/javascript">
             function myFunction() {
                 var hiraganas = document.getElementsByClassName("hiragana");
                 var katakanas = document.getElementsByClassName("katakana");
                 var kanjis = document.getElementsByClassName("kanji");
                 var punctuations = document.getElementsByClassName("punc");
-                
+
                 var text = document.getElementById("in").value;
-                
+
                 document.getElementById("uni").innerHTML = "" + getUnicode(text);
-                
+
                 hiraganas[0].innerHTML = "" + isHiragana(text);
                 hiraganas[1].innerHTML = "" + containsHiragana(text);
                 hiraganas[2].innerHTML = "" + allHiragana(text);
@@ -27,21 +28,21 @@
                 katakanas[0].innerHTML = "" + isKatakana(text);
                 katakanas[1].innerHTML = "" + containsKatakana(text);
                 katakanas[2].innerHTML = "" + allKatakana(text);
-                
+
                 kanjis[0].innerHTML = "" + isKanji(text);
                 kanjis[1].innerHTML = "" + containsKanji(text);
                 kanjis[2].innerHTML = "" + allKanji(text);
-                
+
                 punctuations[0].innerHTML = "" + isPunctuation(text);
                 punctuations[1].innerHTML = "" + containsPunctuation(text);
                 punctuations[2].innerHTML = "" + allPunctuation(text);
             }
             function numToJap() {
                 var intxt = document.getElementById("arNum").value;
-                var outtxt = toJapaneseLetters(intxt); 
+                var outtxt = toJapaneseLetters(intxt);
                 document.getElementById("jaNum").value = outtxt;
             }
-            
+
             function hktrans(b) {
                 var hiraInput = document.getElementById("hira");
                 var kataInput = document.getElementById("kata");

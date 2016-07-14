@@ -22,12 +22,13 @@ var Trans = (function(){
 		var rlookup = {};
 		if (typeof(invLookupTable) != "undefined"){
 			rlookup = invLookupTable;
-			return;
+		} else {
+			Object.keys(lookup).forEach(function(key) {
+				var val = lookup[key];
+				rlookup[val] = key;
+			});
 		}
-		Object.keys(lookup).forEach(function(key) {
-			var val = lookup[key];
-			rlookup[val] = key;
-		});
+
 
 		Trans.prototype.translaterate = getTranslaterator(lookup);
 		Trans.prototype.untranslaterate = getTranslaterator(rlookup);

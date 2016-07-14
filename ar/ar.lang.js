@@ -1,52 +1,3 @@
-/**
-* Returns unicode 
-* @method getUnicode
-* @param {String, Number} char a character or a unicode int
-* @return {Number} returns the same number or the unicode of the first character
-*/
-function getUnicode(char) {
-    var type = typeof char;
-    if (type === "number")
-        return char;
-    
-    if (type === "string" && char != "")
-        return char.charCodeAt(0);
-    
-    return -1;
-}
-
-function isBetween(min,  max){
-    return function (char){
-        var u = getUnicode(char); 
-        if(min <= u && u <= max)
-            return true;
-        return false;
-    }
-}
-
-function contains(charTestFunc) {
-    return function(text) {
-        for (var i = 0; i < text.length; i++) {
-            var u = text.charCodeAt(i);
-            if (charTestFunc(u)) 
-                return true;    
-        }
-        return false;
-    }
-}
-
-
-function all(charTestFunc) {
-    return function(text) {
-        for (var i = 0; i < text.length; i++) {
-            var u = text.charCodeAt(i);
-            if (! charTestFunc(u)) 
-                return false;    
-        }
-        return true;
-    }
-}
-
 //========================================================
 //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
 //========================================================
@@ -89,7 +40,7 @@ var allArabic = all(isArabic);
 
 //https://ar.wikipedia.org/wiki/قائمة_الأعداد
 var lookup = {
-    0: "صفر", 1:"واحد", 2:"اثنان", 3:"ثلاث", 4:"أربع", 5:"خمس", 
+    0: "صفر", 1:"واحد", 2:"اثنان", 3:"ثلاث", 4:"أربع", 5:"خمس",
     6:"ست", 7:"سبع", 8:"ثمان", 9:"تسع", 10:"عشر",
     100:"مائة", 1000:"ألف", 1000000:"مليون", 1000000000:"مليار"
 }
@@ -122,29 +73,29 @@ var lookupPl = {
 * @return {String} Arabic writing of numbers
 */
 function toArabicLetters (num) {
-    
+
     if (isNaN(num))
         return "";
-    
+
     if(num < 0)
         return "ناقص " + toArabicLetters(-num);
-    
+
     if (num == 0)
         return lookup[num];
-    
+
     if (num == 8)
         return lookup[num] + "ية";
-    
+
     if (num < 3)
         return lookup[num];
-    
+
     if (num < 10)
         return lookup[num] + "ة";
-    
+
     if (num < 100 ){
         var div = ~~(num/10);
         var rem = ~~(num % 10);
-        
+
         if (div == 1){
             if (rem == 0)
                 return lookup[10] + "ة";
@@ -154,31 +105,31 @@ function toArabicLetters (num) {
                 return "إثنا " + lookup[10];
             return toArabicLetters(rem) + " " + lookup[10];
         }
-        
+
         var tenth = lookup[div] + "ون";
         if (div == 2)
             tenth = lookup[10] + "ون";
-        
+
         if (rem == 0)
                 return tenth;
-        
+
         var suff = " و";
-        
+
         return toArabicLetters(rem) + suff + tenth;
-        
+
     }
-    
+
     for (var i = 1; i < bigNbr.length; i++) {
         var big = bigNbr[i];
         var lessBig = bigNbr[i-1];
         if (num < big ){
             var div = ~~(num/lessBig);
             var rem = ~~(num % lessBig);
-        
+
             var pron = lookup[lessBig];
             var pref = "";
             var suff = "";
-        
+
             if (div < 3){
                 if (div == 2)
                 pron = lookup2[lessBig];
@@ -190,26 +141,26 @@ function toArabicLetters (num) {
             } else {
                 pref = toArabicLetters(div) + " ";
             }
-            
+
             if (div == 2){
                 pron = lookup2[lessBig];
                 pref = "";
             }
-                
-                
+
+
             if (rem > 0)
                 suff = " و" + toArabicLetters(rem);
-        
+
         return pref + pron + suff;
-        
+
         }
     }
-    
+
     var lessBig = bigNbr[bigNbr.length-1];
-    
+
     var div = ~~(num/lessBig);
     var rem = ~~(num % lessBig);
-        
+
     var pron = lookup[lessBig];
     var pref = "";
     var suff = "";
@@ -225,12 +176,12 @@ function toArabicLetters (num) {
     } else {
         pref = toArabicLetters(div) + " ";
     }
-          
+
     if (rem > 0)
         suff = " و" + toArabicLetters(rem);
-        
+
     return pref + pron + suff;
-    
+
 }
 
 function transform (diff, charTestFunc) {

@@ -3,17 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Testing ArLang</title>
-        <script type="text/javascript" src="ArLang.js" ></script>
+        <script type="text/javascript" src="../lang.js" ></script>
+        <script type="text/javascript" src="../ar/ar.lang.js" ></script>
     </head>
     <body>
         <input type="text" id="in" ></input>
         <button onclick="myFunction()">Test Writing system</button>
-    
+
         <script type="text/javascript">
             function myFunction() {
-                
+
                 var text = document.getElementById("in").value;
-                
+
                 document.getElementById("uni").innerHTML = "" + getUnicode(text);
                 document.getElementById("ar").innerHTML = "" + isArabic(text);
                 document.getElementById("car").innerHTML = "" + containsArabic(text);
@@ -25,13 +26,13 @@
                 document.getElementById("indn").innerHTML = "" + isIndicNumeral(text);
                 document.getElementById("aran").innerHTML = "" + isArabicNumeral(text);
             }
-            
+
             function numToWords() {
                 var intxt = document.getElementById("arNum").value;
-                var outtxt = toArabicLetters(intxt); 
+                var outtxt = toArabicLetters(intxt);
                 document.getElementById("words").innerHTML = outtxt;
             }
-            
+
             function aitrans(b) {
                 var arabicInput = document.getElementById("arad");
                 var indicInput = document.getElementById("indd");
@@ -89,7 +90,7 @@
         </tr>
         </table>
         Arabic numerals are not part of Arabic table, so the text containing them will be not all Arabic.
-    
+
         <br>
         <fieldset>
             <legend>Numerals transformation</legend>
@@ -109,7 +110,7 @@
             <button onclick="numToWords()">transform</button><br>
             <div style="background-color:yellow; direction:rtl;" id="words" ></div>
         </fieldset>
-        
+
 
     </body>
 </html>
