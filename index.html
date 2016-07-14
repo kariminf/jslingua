@@ -5,28 +5,19 @@
   <title>JsLingua</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="use/pure-min.css">
+  <link rel="stylesheet" href="use/grids-responsive-min.css">
+  <link rel="stylesheet" href="use/jslingua.css">
   <link rel="stylesheet" href="use/animate.min.css">
+
 
   <style type="text/css">
 
-  body{
-    background: Beige;
-  }
-  .site_header {
+  .splash-head {
     text-align: center;
     animation: bounceInUp 1s;
   }
 
-  .site_title {
-    color: DarkViolet;
-    text-shadow: 0 0 10px Lime;
-  }
-
-  .title_desc {
-    color: Chocolate;
-  }
-
-  .site_content {
+  .splash-subhead {
     animation: bounceInUp 1s;
     animation-delay: .3s;
   }
@@ -34,21 +25,77 @@
   </style>
 </head>
 <body>
-  <div class="pure-g">
-    <header class="pure-u-1-1 site_header">
-      <h1 class="site_title infinite animated">JsLingua</h1>
-      <span class="title_desc">A javascript library to process languages</span>
+  <div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+      <a class="pure-menu-heading" href="index.html">home</a>
     </div>
-    <hr />
-  </header>
-
-  <div class="site_content pure-u-1-1">
-    <p>
-      JsLingua is a Javascript library intended for language processing.
-    </p>
-
   </div>
-</div>
+  <div class="splash-container">
+    <div class="splash">
+      <h1 class="splash-head">JsLingua</h1>
+      <div class="splash-subhead">
+        <p>
+          A javascript library to process languages.
+        </p>
+        <a href="https://github.com/kariminf/JsLingua" class="pure-button pure-button-primary">Check the code</a>
+      </div>
+    </div>
+  </div>
 
-</body>
-</html>
+  <div class="content-wrapper">
+    <div class="content">
+      <h2 class="content-head is-center">JsLingua affords these modules:</h2>
+
+      <!-- Module 1: Lang -->
+      <div class="pure-g">
+        <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+          <h3 class="content-subhead">
+            Lang module:
+          </h3>
+          <p>
+            This module is responsible of languages character detection.
+            It is used to test if a text contains all the characters of a language or it is a hybrid.
+            Also, it affords the function which transforms the numbers to their pronunciation in a certain language.
+          </p>
+          <p>
+            <a href="lang.html" class="pure-button pure-button-secondary">Test it</a>
+          </p>
+        </div>
+
+        <!-- Module 2: Trans -->
+        <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+          <h3 class="content-subhead">
+            Trans module:
+          </h3>
+          <p>
+            It is used for language translateration.
+            Certain languages have many translateration systems.
+          </p>
+          <p>
+            <a href="trans.html" class="pure-button pure-button-secondary">Test it</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ribbon l-box-lrg pure-g">
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+
+        <h2 class="content-head content-head-ribbon">Many thanks to:</h2>
+        <p>
+          <a href="http://purecss.io">Pure.css</a> for their responsive css modules.
+          Also, for the index template.
+        </p>
+        <p>
+          <a href="https://daneden.github.io/animate.css/">Animate.css</a> for the amazing animations.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer l-box">
+      Copyright Abdelkrime Aries 2016.
+    </div>
+
+
+  </body>
+  </html>
