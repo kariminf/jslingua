@@ -29,7 +29,7 @@ var ArTrans = (function(){
     "و": "w", // waw
     "ي": "y", // ya
     //hamza
-    "\u0621": "'", // lone hamza
+    "ء": "'", // lone hamza
     "أ": ">", // hamza on alif
     "إ": "<", // hamza below alif
     "ؤ": "&", // hamza on waw
@@ -41,7 +41,7 @@ var ArTrans = (function(){
     "ى": "Y", // alif maqsura
     //harakat
     "\u064E": "a", // fatha
-    "\u064F": "", // Damma
+    "\u064F": "u", // Damma
     "\u0650": "i", // kasra
     "\u064B": "F", // fathatayn
     "\u064C": "N", // dammatayn
