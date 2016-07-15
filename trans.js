@@ -12,7 +12,7 @@ var Trans = (function(){
 	        var result = text;
 	        for (var key in lookupTable){
 						var keyEscaped = key.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-						result = result.replace(new RegExp(keyEscaped, 'gi'), lookupTable[key]);
+						result = result.replace(new RegExp(keyEscaped, 'g'), lookupTable[key]);
 	        }
 	        return result;
 	    }
