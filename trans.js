@@ -11,8 +11,8 @@ var Trans = (function(){
 	    return function(text) {
 	        var result = text;
 	        for (var key in lookupTable){
-						var keyEscaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-						result = result.replace(new RegExp(keyEscaped, 'g'), lookupTable[key]);
+						var keyEscaped = key.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+						result = result.replace(new RegExp(keyEscaped, 'gi'), lookupTable[key]);
 	        }
 	        return result;
 	    }
@@ -25,7 +25,7 @@ var Trans = (function(){
 	 * the first one will be inversed and used for this operation.
 	 */
 	function Trans(lookupTable, invLookupTable) {
-		var rlookup = {};
+		rlookup = {};
 		var transPreFunc;
 		var utransPreFunc;
 		var transPostFunc;
@@ -41,6 +41,8 @@ var Trans = (function(){
 
 		var translaterator = getTranslaterator(lookupTable);
 		var untranslaterator = getTranslaterator(rlookup);
+
+		Trans.prototype.inverseLookup = rlookup;
 
 		Trans.prototype.addTransPreFunction = function (func) {
 			if (typeof func === "function"){

@@ -1,5 +1,8 @@
 var JaTrans = (function(){
   var hiraganaTrans = {
+    "ふぁ": "fa",
+    "ふぉ": "fo",
+    "ふぃ": "fi",
     "か": "ka",
     "き": "ki",
     "く": "ku",
@@ -7,10 +10,19 @@ var JaTrans = (function(){
     "こ": "ko",
     "た": "ta",
     "ち": "chi",
+    "ちゃ": "cha",
+    "ちぇ": "che",
+    "ちゅ": "chu",
+    "ちょ": "cho",
     "つ": "tsu",
     "て": "te",
     "と": "to",
     "さ": "sa",
+    "し": "shi",
+    "しゃ": "sha",
+    "しぇ": "she",
+    "しゅ": "shu",
+    "しょ": "sho",
     "し": "shi",
     "す": "su",
     "せ": "se",
@@ -70,7 +82,12 @@ var JaTrans = (function(){
     "う": "u",
     "え": "e",
     "お": "o",
-    "ん": "n"
+    "ん": "n",
+    "ゃ": "ya",
+    "ぇ": "ye",
+    "ゅ": "yu",
+    "ぃ": "yi",
+    "ょ": "yo"
   };
 
   var loneUnTrans = {
@@ -78,6 +95,7 @@ var JaTrans = (function(){
     "su": "す",
     "nu": "ぬ",
     "fu": "ふ",
+    "hu": "ふ",
     "mu": "む",
     "yu": "ゆ",
     "ru": "る",
@@ -93,7 +111,7 @@ var JaTrans = (function(){
   */
   function JaTrans() {
     Trans.call(this, hiraganaTrans);
-    Trans.prototype.addUnTransPreFunction(doubleReplace);
+    Trans.prototype.addUnTransPreFunction(unTransPreFunction);
     Trans.prototype.addUnTransPostFunction(loneCharReplace);
   }
 
@@ -113,6 +131,29 @@ var JaTrans = (function(){
       return p + x[0];
     });
   }
+
+  var xya2Jap = function (text){
+    return text.replace(/(.)y[aeuio]/gi, function(x){
+      var key = x[0] + "i";
+      if (key in Trans.prototype.inverseLookup){
+        var result =  Trans.prototype.inverseLookup[key];
+        key = "y" + x[2];
+        if (key in Trans.prototype.inverseLookup){
+          result += Trans.prototype.inverseLookup[key];
+        }
+        return result;
+      } else {
+        return x;
+      }
+
+    });
+  }
+
+  var unTransPreFunction = function(text){
+    return xya2Jap(doubleReplace(text));
+  }
+
+
 
   /**
   * Replace the lone characters with their equivalent + "u"
