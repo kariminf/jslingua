@@ -2,114 +2,145 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Testing ArLang</title>
-  <script type="text/javascript" src="ArLang.js" ></script>
+  <title>Lang model test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="use/pure-min.css">
+  <link rel="stylesheet" href="use/grids-responsive-min.css">
+  <link rel="stylesheet" href="use/jslingua.css">
+
+  <script type="text/javascript" src="js/lang.js" ></script>
+  <script type="text/javascript" src="js/ar.lang.js" ></script>
+
 </head>
 <body>
-  <input type="text" id="in" ></input>
-  <button onclick="myFunction()">Test Writing system</button>
-
-  <script type="text/javascript">
-  function myFunction() {
-
-    var text = document.getElementById("in").value;
-
-    document.getElementById("uni").innerHTML = "" + getUnicode(text);
-    document.getElementById("ar").innerHTML = "" + isArabic(text);
-    document.getElementById("car").innerHTML = "" + containsArabic(text);
-    document.getElementById("aar").innerHTML = "" + allArabic(text);
-    document.getElementById("arsup").innerHTML = "" + isArabicSupplement(text);
-    document.getElementById("arext").innerHTML = "" + isArabicExtendedA(text);
-    document.getElementById("arpr1").innerHTML = "" + isArabicPresentationA(text);
-    document.getElementById("arpr2").innerHTML = "" + isArabicPresentationB(text);
-    document.getElementById("indn").innerHTML = "" + isIndicNumeral(text);
-    document.getElementById("aran").innerHTML = "" + isArabicNumeral(text);
-  }
-
-  function numToWords() {
-    var intxt = document.getElementById("arNum").value;
-    var outtxt = toArabicLetters(intxt);
-    document.getElementById("words").innerHTML = outtxt;
-  }
-
-  function aitrans(b) {
-    var arabicInput = document.getElementById("arad");
-    var indicInput = document.getElementById("indd");
-    if (b)
-    indicInput.value = arabicToIndicNumeral(arabicInput.value);
-    else
-    arabicInput.value = indicToArabicNumeral(indicInput.value);
-  }
-  </script>
-  <br/>
-  <table border="1">
-    <tr>
-      <th>Aspect</th>
-      <th>result</th>
-    </tr>
-    <tr>
-      <th>Unicode first char</th>
-      <td id="uni" ></td>
-    </tr>
-    <tr>
-      <th>First char Arabic? (0x0600, 0x06FF)</th>
-      <td id="ar" ></td>
-    </tr>
-    <tr>
-      <th>Contains Arabic char? </th>
-      <td id="car" ></td>
-    </tr>
-    <tr>
-      <th>All Arabic char? space not counted</th>
-      <td id="aar" ></td>
-    </tr>
-    <tr>
-      <th>First char Arabic supplement? (0x0750, 0x077F)</th>
-      <td id="arsup" ></td>
-    </tr>
-    <tr>
-      <th>First char Arabic ExtendedA? (0x08A0, 0x08FF)</th>
-      <td id="arext" ></td>
-    </tr>
-    <tr>
-      <th>First char Arabic PresentationA? (0xFB50, 0xFDFF)</th>
-      <td id="arpr1" ></td>
-    </tr>
-    <tr>
-      <th>First char Arabic PresentationB? (0xFE70, 0xFEFF)</th>
-      <td id="arpr2" ></td>
-    </tr>
-    <tr>
-      <th>First char Arabic Indic numeral?</th>
-      <td id="indn" ></td>
-    </tr>
-    <tr>
-      <th>First char Arabic numeral?</th>
-      <td id="aran" ></td>
-    </tr>
-  </table>
-  Arabic numerals are not part of Arabic table, so the text containing them will be not all Arabic.
-
-  <br>
-  <fieldset>
-    <legend>Numerals transformation</legend>
-    <input type="text" id="arad" ></input>
-    <button onclick="aitrans(true)">To Indic</button>
-    <button onclick="aitrans(false)">To Arabic</button>
-    <input type="text" id="indd" ></input>
-    <p>The left input is for Arabic numerals, the right one for Indic numerals.
-      There are two buttons to transform between them.
-    </p>
-  </fieldset>
-  <br>
-  <fieldset>
-    <legend>Number to words:</legend>
-    Write a number in Arabic digits (0,1,2, etc.) and push transform.<br>
-    <input type="text" id="arNum" ></input>
-    <button onclick="numToWords()">transform</button><br>
-    <div style="background-color:yellow; direction:rtl;" id="words" ></div>
-  </fieldset>
+  <div class="pure-menu pure-menu-horizontal pure-menu-fixed">
+    <a class="pure-menu-heading" href="index.html">home</a>
+  </div>
 
 
+  <div class="content-wrapper">
+    <div class="content">
+
+      <input type="text" id="in" ></input>
+      <button  onclick="myFunction()">Test Writing system</button>
+
+      <script type="text/javascript">
+      function myFunction() {
+
+        var text = document.getElementById("in").value;
+
+        document.getElementById("uni").innerHTML = "" + getUnicode(text);
+        document.getElementById("ar").innerHTML = "" + isArabic(text);
+        document.getElementById("car").innerHTML = "" + containsArabic(text);
+        document.getElementById("aar").innerHTML = "" + allArabic(text);
+        document.getElementById("arsup").innerHTML = "" + isArabicSupplement(text);
+        document.getElementById("arext").innerHTML = "" + isArabicExtendedA(text);
+        document.getElementById("arpr1").innerHTML = "" + isArabicPresentationA(text);
+        document.getElementById("arpr2").innerHTML = "" + isArabicPresentationB(text);
+        document.getElementById("indn").innerHTML = "" + isIndicNumeral(text);
+        document.getElementById("aran").innerHTML = "" + isArabicNumeral(text);
+      }
+
+      function numToWords() {
+        var intxt = document.getElementById("arNum").value;
+        var outtxt = toArabicLetters(intxt);
+        document.getElementById("words").innerHTML = outtxt;
+      }
+
+      function aitrans(b) {
+        var arabicInput = document.getElementById("arad");
+        var indicInput = document.getElementById("indd");
+        if (b)
+        indicInput.value = arabicToIndicNumeral(arabicInput.value);
+        else
+        arabicInput.value = indicToArabicNumeral(indicInput.value);
+      }
+      </script>
+      <br/>
+      <table border="1">
+        <tr>
+          <th>Aspect</th>
+          <th>result</th>
+        </tr>
+        <tr>
+          <th>Unicode first char</th>
+          <td id="uni" ></td>
+        </tr>
+        <tr>
+          <th>First char Arabic? (0x0600, 0x06FF)</th>
+          <td id="ar" ></td>
+        </tr>
+        <tr>
+          <th>Contains Arabic char? </th>
+          <td id="car" ></td>
+        </tr>
+        <tr>
+          <th>All Arabic char? space not counted</th>
+          <td id="aar" ></td>
+        </tr>
+        <tr>
+          <th>First char Arabic supplement? (0x0750, 0x077F)</th>
+          <td id="arsup" ></td>
+        </tr>
+        <tr>
+          <th>First char Arabic ExtendedA? (0x08A0, 0x08FF)</th>
+          <td id="arext" ></td>
+        </tr>
+        <tr>
+          <th>First char Arabic PresentationA? (0xFB50, 0xFDFF)</th>
+          <td id="arpr1" ></td>
+        </tr>
+        <tr>
+          <th>First char Arabic PresentationB? (0xFE70, 0xFEFF)</th>
+          <td id="arpr2" ></td>
+        </tr>
+        <tr>
+          <th>First char Arabic Indic numeral?</th>
+          <td id="indn" ></td>
+        </tr>
+        <tr>
+          <th>First char Arabic numeral?</th>
+          <td id="aran" ></td>
+        </tr>
+      </table>
+      Arabic numerals are not part of Arabic table, so the text containing them will be not all Arabic.
+
+      <br>
+      <fieldset>
+        <legend>Numerals transformation</legend>
+        <input type="text" id="arad" ></input>
+        <button onclick="aitrans(true)">To Indic</button>
+        <button onclick="aitrans(false)">To Arabic</button>
+        <input type="text" id="indd" ></input>
+        <p>The left input is for Arabic numerals, the right one for Indic numerals.
+          There are two buttons to transform between them.
+        </p>
+      </fieldset>
+      <br>
+      <fieldset>
+        <legend>Number to words:</legend>
+        Write a number in Arabic digits (0,1,2, etc.) and push transform.<br>
+        <input type="text" id="arNum" ></input>
+        <button onclick="numToWords()">transform</button><br>
+        <div style="background-color:yellow; direction:rtl;" id="words" ></div>
+      </fieldset>
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+
+    </div>
+
+    <div class="footer">
+      <div class="footer-vcenter">
+        Copyright 2016 Abdelkrime Aries.
+      </div>
+    </div>
+  </div>
 </body>
 </html>
