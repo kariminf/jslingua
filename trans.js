@@ -16,12 +16,6 @@ var Trans = (function(){
 	    }
 	}
 
-
-	var uid = 0;
-	var p = {};
-
-
-
 	/**
 	 * Constructor of the class
 	 * @param {lookup table} lookupTable table used for translateration
@@ -42,16 +36,9 @@ var Trans = (function(){
 			});
 		}
 
-		var translaterator = getTranslaterator(lookupTable);
-		var untranslaterator = getTranslaterator(rlookup);
+		this.translaterator = getTranslaterator(lookupTable);
 
-		p[this.id = uid++] = {};
-
-		//p[this.id].rlookup = rlookup;
-
-		p[this.id].translaterator = translaterator;
-
-		p[this.id].untranslaterator = untranslaterator;
+		this.untranslaterator = getTranslaterator(rlookup);
 
 		this.inverseLookup = rlookup;
 
@@ -59,39 +46,39 @@ var Trans = (function(){
 
 			Trans.prototype.addTransPreFunction = function (func) {
 				if (typeof func === "function"){
-					p[this.id].transPreFunc = func;
+					this.transPreFunc = func;
 				}
 			}
 
 			Trans.prototype.addUnTransPreFunction = function (func) {
 				if (typeof func === "function"){
-					p[this.id].utransPreFunc = func;
+					this.utransPreFunc = func;
 				}
 			}
 
 			Trans.prototype.addTransPostFunction = function (func) {
 				if (typeof func === "function"){
-					p[this.id].transPostFunc = func;
+					this.transPostFunc = func;
 				}
 			}
 
 			Trans.prototype.addUnTransPostFunction = function (func) {
 				if (typeof func === "function"){
-					p[this.id].utransPostFunc = func;
+					this.utransPostFunc = func;
 				}
 			}
 
 			Trans.prototype.translaterate = function(text){
 				var result = text;
 
-				if (typeof p[this.id].transPreFunc === "function"){
-					result = p[this.id].transPreFunc(result);
+				if (typeof this.transPreFunc === "function"){
+					result = this.transPreFunc(result);
 				}
 
-				result = p[this.id].translaterator(result);
+				result = this.translaterator(result);
 
-				if (typeof p[this.id].transPostFunc === "function"){
-					result = p[this.id].transPostFunc(result);
+				if (typeof this.transPostFunc === "function"){
+					result = this.transPostFunc(result);
 				}
 				return result;
 			}
@@ -99,14 +86,14 @@ var Trans = (function(){
 			Trans.prototype.untranslaterate = function(text){
 				var result = text;
 
-				if (typeof p[this.id].utransPreFunc === "function"){
-					result = p[this.id].utransPreFunc(result);
+				if (typeof this.utransPreFunc === "function"){
+					result = this.utransPreFunc(result);
 				}
 
-				result = p[this.id].untranslaterator(result);
+				result = this.untranslaterator(result);
 
-				if (typeof p[this.id].utransPostFunc === "function"){
-					result = p[this.id].utransPostFunc(result);
+				if (typeof this.utransPostFunc === "function"){
+					result = this.utransPostFunc(result);
 				}
 				return result;
 			}

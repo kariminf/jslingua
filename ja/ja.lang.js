@@ -3,13 +3,14 @@ var JaLang = (function(){
   function JaLang() {
     Lang.call(this, "Japanese");
 
-    this.addCharCheckFunction("Hiragana", 0x3040, 0x309F);
-    this.addCharCheckFunction("Katakana", 0x30A0, 0x30FF);
-    this.addCharCheckFunction("Kanji", 0x4E00, 0x9FBF);
-    this.addCharCheckFunction("Punctuation", 0x3000, 0x303F);
+    this.addCharSet("Hiragana", 0x3040, 0x309F);
+    this.addCharSet("Katakana", 0x30A0, 0x30FF);
+    this.addCharSet("Kanji", 0x4E00, 0x9FBF);
+    this.addCharSet("Punctuation", 0x3000, 0x303F);
   }
 
   JaLang.prototype = new Lang("Japanese");
+  JaLang.prototype.constructor = JaLang;
 
 
   var lookup = {

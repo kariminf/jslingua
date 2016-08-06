@@ -6,16 +6,17 @@ var ArLang = (function(){
     this.dir = "rtl";
 
     //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
-    this.addCharCheckFunction("MainArabic", 0x0600, 0x06FF);
-    this.addCharCheckFunction("ArabicSupplement", 0x0750, 0x077F);
-    this.addCharCheckFunction("ArabicExtendedA", 0x08A0, 0x08FF);
-    this.addCharCheckFunction("ArabicPresentationA", 0xFB50, 0xFDFF);
-    this.addCharCheckFunction("ArabicPresentationB", 0xFE70, 0xFEFF);
-    this.addCharCheckFunction("IndicNumeral", 0x0660, 0x0669);
-    this.addCharCheckFunction("ArabicNumeral", 0x0030, 0x0039);
+    this.addCharSet("MainArabic", 0x0600, 0x06FF);
+    this.addCharSet("ArabicSupplement", 0x0750, 0x077F);
+    this.addCharSet("ArabicExtendedA", 0x08A0, 0x08FF);
+    this.addCharSet("ArabicPresentationA", 0xFB50, 0xFDFF);
+    this.addCharSet("ArabicPresentationB", 0xFE70, 0xFEFF);
+    this.addCharSet("IndicNumeral", 0x0660, 0x0669);
+    this.addCharSet("ArabicNumeral", 0x0030, 0x0039);
   }
 
   ArLang.prototype = new Lang("Arabic");
+  ArLang.prototype.constructor = ArLang;
 
   //https://ar.wikipedia.org/wiki/قائمة_الأعداد
   var lookup = {

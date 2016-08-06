@@ -62,15 +62,14 @@ var Lang = (function(){
       }
   }
 
-  var p = {};
-
   function Lang(langName) {
+
     this.name = langName;
     this.dir = "ltr";
     //Contains name of service and the function
-    p[this.name] = {
-      charCheck: {}
-    };
+    this.CS = {};
+
+  }
 
     /**
      * Add char sets of a language
@@ -79,28 +78,28 @@ var Lang = (function(){
      * @param  {number} end     integer value: end of the charSet
      * @return {null}         [description]
      */
-    Lang.prototype.addCharCheckFunction = function(setName, begin, end){
-      var charCheck = p[this.name].charCheck;
-      charCheck[setName] = isBetween(begin, end);
+    Lang.prototype.addCharSet = function(setName, begin, end){
+      this.CS[setName] = isBetween(begin, end);
     }
 
-    Lang.prototype.getCharCheckSetNames = function(){
-      return Object.keys(p[this.name].charCheck);
+    Lang.prototype.availableCharSets = function(){
+      return Object.keys(this.CS);
     }
 
-    /**
-     * Get a function which decides if a character is in a charSet
-     * @param  {string} setName charSet's name
-     * @return {function}         function which return true or false
-     */
-    Lang.prototype.getCharCheckFunction = function(setName){
-      var fallDownFunc = function(char){
-        return false;
+    Lang.prototype.verifyCharSetFunction = function(setName){
+      if (typeof setName !== "string"){
+        return function(char){return false}
       }
 
-      if (typeof setName !== "String"){ return fallDownFunc}
-      if (! setName in p[this.name].charCheck){ return fallDownFunc}
-      return p[this.name].charCheck[setName];
+      return this.CS[setName];
+    }
+
+    Lang.prototype.containsCharSetFunction = function(setName){
+      return contains(this.CS[setName]);
+    }
+
+    Lang.prototype.allCharSetFunction = function(setName){
+      return all(this.CS[setName]);
     }
 
     /**
@@ -111,11 +110,6 @@ var Lang = (function(){
     Lang.prototype.pronounceNumber = function(num){
       return num;
     }
-
-
-
-  }
-
 
   return Lang;
 
