@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Translateration</title>
+  <script type="text/javascript" src="../trans.js" ></script>
+  <script type="text/javascript" src="../ar/ar.trans.js" ></script>
+  <script type="text/javascript" src="../ja/ja.trans.js" ></script>
+  <script type="text/javascript">
+
+  function trans2lang() {
+    var lang = document.getElementById("2lang");
+    var lang2 = document.getElementById("2lang2");
+    var trans = document.getElementById("trans");
+    var ar = new ArTrans();
+    var ja = new JaTrans();
+    lang.value = ar.untranslaterate(trans.value);
+    lang2.value = ja.untranslaterate(trans.value);
+  }
+  </script>
+
+</head>
+<body>
+  <input type="text" id="trans" /><br>
+  <button onclick="trans2lang()">From Translateration</button><br>
+  <input type="text" id="2lang" /><br>
+  <input type="text" id="2lang2" />
+
+</body>
+</html>

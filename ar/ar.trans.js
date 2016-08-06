@@ -59,6 +59,7 @@ var ArTrans = (function(){
   }
 
   ArTrans.prototype = new Trans(buckwalter);
+  ArTrans.prototype.constructor = ArTrans;
 
   return ArTrans;
 

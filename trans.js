@@ -18,6 +18,12 @@ var Trans = (function(){
 	    }
 	}
 
+
+	var uid = 0;
+	var privateStore = {};
+
+
+
 	/**
 	 * Constructor of the class
 	 * @param {lookup table} lookupTable table used for translateration
@@ -25,11 +31,10 @@ var Trans = (function(){
 	 * the first one will be inversed and used for this operation.
 	 */
 	function Trans(lookupTable, invLookupTable) {
-		rlookup = {};
-		var transPreFunc;
-		var utransPreFunc;
-		var transPostFunc;
-		var utransPostFunc;
+
+		var rlookup = {};
+
+
 		if (typeof(invLookupTable) !== "undefined"){
 			rlookup = invLookupTable;
 		} else {
@@ -42,63 +47,71 @@ var Trans = (function(){
 		var translaterator = getTranslaterator(lookupTable);
 		var untranslaterator = getTranslaterator(rlookup);
 
-		Trans.prototype.inverseLookup = rlookup;
+		privateStore[this.id = uid++] = {};
 
-		Trans.prototype.addTransPreFunction = function (func) {
-			if (typeof func === "function"){
-				transPreFunc = func;
-			}
+		privateStore[this.id].rlookup = rlookup;
+
+		privateStore[this.id].translaterator = translaterator;
+
+		privateStore[this.id].untranslaterator = untranslaterator;
+
+		this.inverseLookup = rlookup;
+
 		}
 
-		Trans.prototype.addUnTransPreFunction = function (func) {
-			if (typeof func === "function"){
-				utransPreFunc = func;
-			}
-		}
-
-		Trans.prototype.addTransPostFunction = function (func) {
-			if (typeof func === "function"){
-				transPostFunc = func;
-			}
-		}
-
-		Trans.prototype.addUnTransPostFunction = function (func) {
-			if (typeof func === "function"){
-				utransPostFunc = func;
-			}
-		}
-
-		Trans.prototype.translaterate = function(text){
-			var result = text;
-
-			if (typeof transPreFunc === "function"){
-				result = transPreFunc(result);
+			Trans.prototype.addTransPreFunction = function (func) {
+				if (typeof func === "function"){
+					privateStore[this.id].transPreFunc = func;
+				}
 			}
 
-			result = translaterator(result);
-
-			if (typeof transPostFunc === "function"){
-				result = transPostFunc(result);
-			}
-			return result;
-		}
-
-		Trans.prototype.untranslaterate = function(text){
-			var result = text;
-
-			if (typeof utransPreFunc === "function"){
-				result = utransPreFunc(result);
+			Trans.prototype.addUnTransPreFunction = function (func) {
+				if (typeof func === "function"){
+					privateStore[this.id].utransPreFunc = func;
+				}
 			}
 
-			result = untranslaterator(result);
-
-			if (typeof utransPostFunc === "function"){
-				result = utransPostFunc(result);
+			Trans.prototype.addTransPostFunction = function (func) {
+				if (typeof func === "function"){
+					privateStore[this.id].transPostFunc = func;
+				}
 			}
-			return result;
-		}
 
-	}
+			Trans.prototype.addUnTransPostFunction = function (func) {
+				if (typeof func === "function"){
+					privateStore[this.id].utransPostFunc = func;
+				}
+			}
+
+			Trans.prototype.translaterate = function(text){
+				var result = text;
+
+				if (typeof privateStore[this.id].transPreFunc === "function"){
+					result = privateStore[this.id].transPreFunc(result);
+				}
+
+				result = privateStore[this.id].translaterator(result);
+
+				if (typeof privateStore[this.id].transPostFunc === "function"){
+					result = privateStore[this.id].transPostFunc(result);
+				}
+				return result;
+			}
+
+			Trans.prototype.untranslaterate = function(text){
+				var result = text;
+
+				if (typeof privateStore[this.id].utransPreFunc === "function"){
+					result = privateStore[this.id].utransPreFunc(result);
+				}
+
+				result = privateStore[this.id].untranslaterator(result);
+
+				if (typeof privateStore[this.id].utransPostFunc === "function"){
+					result = privateStore[this.id].utransPostFunc(result);
+				}
+				return result;
+			}
 
 	return Trans;
 }());

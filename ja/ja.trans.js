@@ -111,9 +111,14 @@ var JaTrans = (function(){
   */
   function JaTrans() {
     Trans.call(this, hiraganaTrans);
-    Trans.prototype.addUnTransPreFunction(unTransPreFunction);
-    Trans.prototype.addUnTransPostFunction(loneCharReplace);
+    //JaTrans.prototype.addUnTransPreFunction(unTransPreFunction);
+    //JaTrans.prototype.addUnTransPostFunction(loneCharReplace);
   }
+
+  JaTrans.prototype = new Trans(hiraganaTrans);
+  //JaTrans.prototype.constructor = JaTrans;
+  JaTrans.prototype.addUnTransPreFunction(unTransPreFunction);
+  JaTrans.prototype.addUnTransPostFunction(loneCharReplace);
 
 
   /**
@@ -183,8 +188,6 @@ var JaTrans = (function(){
       return result;
     });
   }
-
-  JaTrans.prototype = new Trans(hiraganaTrans);
 
   return JaTrans;
 
