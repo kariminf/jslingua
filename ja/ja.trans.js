@@ -111,15 +111,11 @@ var JaTrans = (function(){
   */
   function JaTrans() {
     Trans.call(this, hiraganaTrans);
-    //JaTrans.prototype.addUnTransPreFunction(unTransPreFunction);
-    //JaTrans.prototype.addUnTransPostFunction(loneCharReplace);
+    this.addUnTransPreFunction(unTransPreFunction);
+    this.addUnTransPostFunction(loneCharReplace);
   }
 
   JaTrans.prototype = new Trans(hiraganaTrans);
-  //JaTrans.prototype.constructor = JaTrans;
-  JaTrans.prototype.addUnTransPreFunction(unTransPreFunction);
-  JaTrans.prototype.addUnTransPostFunction(loneCharReplace);
-
 
   /**
   * Replace the doubled characters with a little "tsu" if different from "n"

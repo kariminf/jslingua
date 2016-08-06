@@ -62,11 +62,15 @@ var Lang = (function(){
       }
   }
 
-  function Lang(langName) {
-    var name = langName;
-    //Contains name of service and the function
-    var charCheck = {};
+  var p = {};
 
+  function Lang(langName) {
+    this.name = langName;
+    this.dir = "ltr";
+    //Contains name of service and the function
+    p[this.name] = {
+      charCheck: {}
+    };
 
     /**
      * Add char sets of a language
@@ -76,11 +80,12 @@ var Lang = (function(){
      * @return {null}         [description]
      */
     Lang.prototype.addCharCheckFunction = function(setName, begin, end){
+      var charCheck = p[this.name].charCheck;
       charCheck[setName] = isBetween(begin, end);
     }
 
     Lang.prototype.getCharCheckSetNames = function(){
-      return charCheck.keys();
+      return Object.keys(p[this.name].charCheck);
     }
 
     /**
@@ -93,9 +98,9 @@ var Lang = (function(){
         return false;
       }
 
-      if (! setName typeof "String"){ return fallDownFunc}
-      if (! setName in charCheck){ return fallDownFunc}
-      return charCheck[setName];
+      if (typeof setName !== "String"){ return fallDownFunc}
+      if (! setName in p[this.name].charCheck){ return fallDownFunc}
+      return p[this.name].charCheck[setName];
     }
 
     /**
@@ -103,8 +108,8 @@ var Lang = (function(){
      * language (this must be overriden)
      * @return {string} the pronounciation
      */
-    Lang.prototype.pronounceNumber = function(nbr){
-      return nbr;
+    Lang.prototype.pronounceNumber = function(num){
+      return num;
     }
 
 

@@ -1,7 +1,5 @@
 var Trans = (function(){
 
-
-
 	/**
 	 * This function returns another function which do the transformation
 	 * @param  {lookup table} lookupTable A lookup table to replace the keys with values
@@ -20,7 +18,7 @@ var Trans = (function(){
 
 
 	var uid = 0;
-	var privateStore = {};
+	var p = {};
 
 
 
@@ -47,13 +45,13 @@ var Trans = (function(){
 		var translaterator = getTranslaterator(lookupTable);
 		var untranslaterator = getTranslaterator(rlookup);
 
-		privateStore[this.id = uid++] = {};
+		p[this.id = uid++] = {};
 
-		privateStore[this.id].rlookup = rlookup;
+		//p[this.id].rlookup = rlookup;
 
-		privateStore[this.id].translaterator = translaterator;
+		p[this.id].translaterator = translaterator;
 
-		privateStore[this.id].untranslaterator = untranslaterator;
+		p[this.id].untranslaterator = untranslaterator;
 
 		this.inverseLookup = rlookup;
 
@@ -61,39 +59,39 @@ var Trans = (function(){
 
 			Trans.prototype.addTransPreFunction = function (func) {
 				if (typeof func === "function"){
-					privateStore[this.id].transPreFunc = func;
+					p[this.id].transPreFunc = func;
 				}
 			}
 
 			Trans.prototype.addUnTransPreFunction = function (func) {
 				if (typeof func === "function"){
-					privateStore[this.id].utransPreFunc = func;
+					p[this.id].utransPreFunc = func;
 				}
 			}
 
 			Trans.prototype.addTransPostFunction = function (func) {
 				if (typeof func === "function"){
-					privateStore[this.id].transPostFunc = func;
+					p[this.id].transPostFunc = func;
 				}
 			}
 
 			Trans.prototype.addUnTransPostFunction = function (func) {
 				if (typeof func === "function"){
-					privateStore[this.id].utransPostFunc = func;
+					p[this.id].utransPostFunc = func;
 				}
 			}
 
 			Trans.prototype.translaterate = function(text){
 				var result = text;
 
-				if (typeof privateStore[this.id].transPreFunc === "function"){
-					result = privateStore[this.id].transPreFunc(result);
+				if (typeof p[this.id].transPreFunc === "function"){
+					result = p[this.id].transPreFunc(result);
 				}
 
-				result = privateStore[this.id].translaterator(result);
+				result = p[this.id].translaterator(result);
 
-				if (typeof privateStore[this.id].transPostFunc === "function"){
-					result = privateStore[this.id].transPostFunc(result);
+				if (typeof p[this.id].transPostFunc === "function"){
+					result = p[this.id].transPostFunc(result);
 				}
 				return result;
 			}
@@ -101,14 +99,14 @@ var Trans = (function(){
 			Trans.prototype.untranslaterate = function(text){
 				var result = text;
 
-				if (typeof privateStore[this.id].utransPreFunc === "function"){
-					result = privateStore[this.id].utransPreFunc(result);
+				if (typeof p[this.id].utransPreFunc === "function"){
+					result = p[this.id].utransPreFunc(result);
 				}
 
-				result = privateStore[this.id].untranslaterator(result);
+				result = p[this.id].untranslaterator(result);
 
-				if (typeof privateStore[this.id].utransPostFunc === "function"){
-					result = privateStore[this.id].utransPostFunc(result);
+				if (typeof p[this.id].utransPostFunc === "function"){
+					result = p[this.id].utransPostFunc(result);
 				}
 				return result;
 			}

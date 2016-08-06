@@ -1,15 +1,18 @@
 var ArLang = (function(){
+
   function ArLang() {
     Lang.call(this, "Arabic");
 
+    this.dir = "rtl";
+
     //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
-    this.prototype.addCharCheckFunction("Main Arabic", 0x0600, 0x06FF);
-    this.prototype.addCharCheckFunction("Arabic Supplement", 0x0750, 0x077F);
-    this.prototype.addCharCheckFunction("Arabic Extended A", 0x08A0, 0x08FF);
-    this.prototype.addCharCheckFunction("Arabic Presentation A", 0xFB50, 0xFDFF);
-    this.prototype.addCharCheckFunction("Arabic Presentation B", 0xFE70, 0xFEFF);
-    this.prototype.addCharCheckFunction("Indic Numeral", 0x0660, 0x0669);
-    this.prototype.addCharCheckFunction("Arabic Numeral", 0x0030, 0x0039);
+    this.addCharCheckFunction("MainArabic", 0x0600, 0x06FF);
+    this.addCharCheckFunction("ArabicSupplement", 0x0750, 0x077F);
+    this.addCharCheckFunction("ArabicExtendedA", 0x08A0, 0x08FF);
+    this.addCharCheckFunction("ArabicPresentationA", 0xFB50, 0xFDFF);
+    this.addCharCheckFunction("ArabicPresentationB", 0xFE70, 0xFEFF);
+    this.addCharCheckFunction("IndicNumeral", 0x0660, 0x0669);
+    this.addCharCheckFunction("ArabicNumeral", 0x0030, 0x0039);
   }
 
   ArLang.prototype = new Lang("Arabic");
@@ -42,13 +45,14 @@ var ArLang = (function(){
       //1000000000, 1000000, 1000, 100, 10
   }
 
+ ArLang.prototype.pronounceNumber = toArabicLetters;
   /**
   * Transform from Arabic numbers to Arabic letters
   * @method toArabicLetters
   * @param {Number} nbr the integer number
   * @return {String} Arabic writing of numbers
   */
-  ArLang.prototype.pronounceNumber = function (nbr) {
+  function toArabicLetters (num) {
 
       if (isNaN(num))
           return "";

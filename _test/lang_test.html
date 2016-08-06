@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Translateration</title>
+  <script type="text/javascript" src="../lang.js" ></script>
+  <script type="text/javascript" src="../ar/ar.lang.js" ></script>
+  <script type="text/javascript" src="../ja/ja.lang.js" ></script>
+  <script type="text/javascript">
+
+  var tester;
+  var cs = [];
+  var dir = "ltr";
+
+  function setTester (){
+    var e = document.getElementById("l");
+    var l = e.options[e.selectedIndex].value || 100;
+    switch(l) {
+      case "1":
+      tester = new ArLang();
+      break;
+      case "2":
+      tester = new JaLang();
+      break;
+      default:
+      tester = new ArLang();
+    }
+    cs = tester.getCharCheckSetNames();
+    dir = tester.dir;
+  }
+
+  function update(){
+    setTester();
+
+    var lanCS = document.getElementById("lanCS");
+    var res = "";
+
+    for (var i=0; i<cs.length; i++){
+      res += cs[i] + ", ";
+    }
+
+    charSets.innerHTML = res;
+
+  }
+
+  function nbrPronounce() {
+    var nbr = document.getElementById("nbr");
+    var nbrp = document.getElementById("nbrp");
+    nbrp.value = tester.pronounceNumber(nbr.value);
+  }
+
+  function testLang() {
+    var ltst = document.getElementById("ltst");
+    var nbrp = document.getElementById("nbrp");
+    nbrp.value = tester.pronounceNumber(nbr.value);
+  }
+
+  </script>
+
+</head>
+<body>
+  <h2>Choose the language:</h2>
+  <select id="l" onchange="update()">
+    <option value="1" >Arabic</option>
+    <option value="2">Japanese</option>
+  </select>
+  <br>
+  <h2>Number in chars</h2>
+  <input type="text" id="nbr" />
+  <button onclick="nbrPronounce()">In letters</button>
+  <input type="text" id="nbrp" />
+  <br>
+  <hr>
+  <h2>Language test</h2>
+  <input type="text" id="ltst" />
+  <br>
+  <button onclick="testLang()">test text</button>
+  <br>
+  <h4>Language charsets</h4>
+  <div id="lanCS"></div>
+  <h4>Text contains charsets</h4>
+  <div id="contCS"></div>
+
+</body>
+</html>
