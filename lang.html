@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Lang model test</title>
+  <title>Language test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="use/pure-min.css">
   <link rel="stylesheet" href="use/grids-responsive-min.css">
@@ -10,6 +10,120 @@
 
   <script type="text/javascript" src="js/lang.js" ></script>
   <script type="text/javascript" src="js/ar.lang.js" ></script>
+  <script type="text/javascript" src="js/ja.lang.js" ></script>
+  <script type="text/javascript">
+
+  var tester;
+  var cs = [];
+  var dir = "ltr";
+
+  function setTester (){
+    var e = document.getElementById("l");
+    var l = e.options[e.selectedIndex].value || 100;
+    switch(l) {
+      case "1":
+      tester = new ArLang();
+      break;
+      case "2":
+      tester = new JaLang();
+      break;
+      default:
+      tester = new ArLang();
+    }
+    cs = tester.availableCharSets();
+    dir = tester.dir;
+  }
+
+  function update(){
+    setTester();
+
+    var lanCS = document.getElementById("lanCS");
+
+    affectElements(lanCS);
+
+    document.getElementById("nbrp").dir = dir;
+    document.getElementById("ltst").dir = dir;
+
+    var tsel = document.getElementById("tsel");
+
+    var tr = tester.availableTransformations();
+
+    for(var i = tsel.options.length - 1 ; i >= 0 ; i--)
+    tsel.remove(i);
+
+    tr.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      tsel.add(option);
+    });
+
+  }
+
+  function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function nbrPronounce() {
+    var nbr = document.getElementById("nbr");
+    var nbrp = document.getElementById("nbrp");
+    nbrp.innerHTML = htmlEntities(tester.pronounceNumber(nbr.value));
+  }
+
+  function affectElements(container, func, text){
+    var res = "";
+    cs.forEach(function(element, index, array){
+      var found = true;
+      if (func === undefined)
+      found = true;
+      else
+      found = tester[func](element)(text);
+
+      if (found)
+      res += '<span class="l t">' + element + "</span>";
+      else {
+        res += '<span class="l f">' + element + "</span>";
+      }
+    });
+    container.innerHTML = res;
+  }
+
+  function testLang() {
+    var ltst = document.getElementById("ltst");
+    var contCS = document.getElementById("contCS");
+    var allCS = document.getElementById("allCS");
+
+    affectElements(contCS, "containsCharSetFunction", ltst.value);
+    affectElements(allCS, "allCharSetFunction", ltst.value);
+  }
+
+  function transform(){
+    var tsel = document.getElementById("tsel");
+    var funcName = tsel.options[tsel.selectedIndex].value;
+    var tsrc = document.getElementById("tsrc");
+    var tdest = document.getElementById("tdest");
+
+    var transFunc = tester.transformationFunction(funcName);
+    tdest.innerHTML = htmlEntities(transFunc(tsrc.value));
+  }
+
+  </script>
+
+  <style >
+  .l {
+    display: inline-block;
+    border: 1px solid Black;
+    vertical-align: middle;
+    border-radius: 2px;
+    margin: 2px;
+    padding: 2px;
+  }
+  .t {
+    background-color: DarkOrchid;
+  }
+  .f {
+    background-color: Gray;
+  }
+  </style>
 
 </head>
 <body>
@@ -19,120 +133,55 @@
 
 
   <div class="content-wrapper">
-    <div class="content">
+    <div class="content pure-g">
 
-      <input type="text" id="in" ></input>
-      <button  onclick="myFunction()">Test Writing system</button>
+      <div class="pure-u-1">
+        <fieldset class="k-fieldset">
+          <legend>Language</legend>
+          <label>Choose the language:</label>
+          <select id="l" class="k-select" onchange="update()">
+            <option value="1" >Arabic</option>
+            <option value="2">Japanese</option>
+          </select>
+        </fieldset>
+      </div>
 
-      <script type="text/javascript">
-      function myFunction() {
+      <div class="pure-u-1">
+        <fieldset class="k-fieldset">
+          <legend>Number in letters</legend>
+          <input type="text" id="nbr" class="k-input" /><br>
+          <button onclick="nbrPronounce()" class="pure-button-secondary pure-button">In letters</button><br>
+          <div id="nbrp" class="k-input"></div>
+        </fieldset>
+      </div>
 
-        var text = document.getElementById("in").value;
+      <div class="pure-u-1">
+        <fieldset class="k-fieldset">
+          <legend>Language charSets</legend>
+          <div id="lanCS" class="pure-u-1"></div>
+          <div class="pure-u-1">
+            <input type="text" id="ltst" class="k-input"/><br>
+            <button onclick="testLang()" class="pure-button-secondary pure-button">Test text</button><br>
+            <label>charSets in gray are the ones not selected.</label>
+          </div>
+          <h3>Text contains charsets:</h3>
+          <div id="contCS"></div>
+          <h3>All chars are in: </h3>
+          <div id="allCS"></div>
+        </fieldset>
+      </div>
 
-        document.getElementById("uni").innerHTML = "" + getUnicode(text);
-        document.getElementById("ar").innerHTML = "" + isArabic(text);
-        document.getElementById("car").innerHTML = "" + containsArabic(text);
-        document.getElementById("aar").innerHTML = "" + allArabic(text);
-        document.getElementById("arsup").innerHTML = "" + isArabicSupplement(text);
-        document.getElementById("arext").innerHTML = "" + isArabicExtendedA(text);
-        document.getElementById("arpr1").innerHTML = "" + isArabicPresentationA(text);
-        document.getElementById("arpr2").innerHTML = "" + isArabicPresentationB(text);
-        document.getElementById("indn").innerHTML = "" + isIndicNumeral(text);
-        document.getElementById("aran").innerHTML = "" + isArabicNumeral(text);
-      }
-
-      function numToWords() {
-        var intxt = document.getElementById("arNum").value;
-        var outtxt = toArabicLetters(intxt);
-        document.getElementById("words").innerHTML = outtxt;
-      }
-
-      function aitrans(b) {
-        var arabicInput = document.getElementById("arad");
-        var indicInput = document.getElementById("indd");
-        if (b)
-        indicInput.value = arabicToIndicNumeral(arabicInput.value);
-        else
-        arabicInput.value = indicToArabicNumeral(indicInput.value);
-      }
-      </script>
-      <br/>
-      <table border="1">
-        <tr>
-          <th>Aspect</th>
-          <th>result</th>
-        </tr>
-        <tr>
-          <th>Unicode first char</th>
-          <td id="uni" ></td>
-        </tr>
-        <tr>
-          <th>First char Arabic? (0x0600, 0x06FF)</th>
-          <td id="ar" ></td>
-        </tr>
-        <tr>
-          <th>Contains Arabic char? </th>
-          <td id="car" ></td>
-        </tr>
-        <tr>
-          <th>All Arabic char? space not counted</th>
-          <td id="aar" ></td>
-        </tr>
-        <tr>
-          <th>First char Arabic supplement? (0x0750, 0x077F)</th>
-          <td id="arsup" ></td>
-        </tr>
-        <tr>
-          <th>First char Arabic ExtendedA? (0x08A0, 0x08FF)</th>
-          <td id="arext" ></td>
-        </tr>
-        <tr>
-          <th>First char Arabic PresentationA? (0xFB50, 0xFDFF)</th>
-          <td id="arpr1" ></td>
-        </tr>
-        <tr>
-          <th>First char Arabic PresentationB? (0xFE70, 0xFEFF)</th>
-          <td id="arpr2" ></td>
-        </tr>
-        <tr>
-          <th>First char Arabic Indic numeral?</th>
-          <td id="indn" ></td>
-        </tr>
-        <tr>
-          <th>First char Arabic numeral?</th>
-          <td id="aran" ></td>
-        </tr>
-      </table>
-      Arabic numerals are not part of Arabic table, so the text containing them will be not all Arabic.
-
-      <br>
-      <fieldset>
-        <legend>Numerals transformation</legend>
-        <input type="text" id="arad" ></input>
-        <button onclick="aitrans(true)">To Indic</button>
-        <button onclick="aitrans(false)">To Arabic</button>
-        <input type="text" id="indd" ></input>
-        <p>The left input is for Arabic numerals, the right one for Indic numerals.
-          There are two buttons to transform between them.
-        </p>
-      </fieldset>
-      <br>
-      <fieldset>
-        <legend>Number to words:</legend>
-        Write a number in Arabic digits (0,1,2, etc.) and push transform.<br>
-        <input type="text" id="arNum" ></input>
-        <button onclick="numToWords()">transform</button><br>
-        <div style="background-color:yellow; direction:rtl;" id="words" ></div>
-      </fieldset>
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
-      dcvdcd dvfgdf jfguegf fugeufg dfugdy djgdugcud djcgudgcu dcdgugcud djcgudgc
+      <div class="pure-u-1">
+        <fieldset class="k-fieldset">
+          <legend>Transformation</legend>
+          <label>Choose the language:</label>
+          <select id="tsel" class="k-select">
+          </select>
+          <input type="text" id="tsrc" class="k-input"/><br>
+          <button onclick="transform()" class="pure-button-secondary pure-button">transform</button><br>
+          <div id="tdest" class="k-input"></div>
+        </fieldset>
+      </div>
 
     </div>
 
@@ -142,5 +191,9 @@
       </div>
     </div>
   </div>
+
+  <script>
+  update();
+  </script>
 </body>
 </html>

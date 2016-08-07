@@ -30,16 +30,20 @@
     return transformer;
   }
 
+  function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
   function lang2trans() {
     var lang = document.getElementById("lang");
     var trans = document.getElementById("2trans");
-    trans.value = getTrans().translaterate(lang.value);
+    trans.innerHTML = htmlEntities(getTrans().translaterate(lang.value));
   }
 
   function trans2lang() {
     var lang = document.getElementById("2lang");
     var trans = document.getElementById("trans");
-    lang.value = getTrans().untranslaterate(trans.value);
+    lang.innerHTML = htmlEntities(getTrans().untranslaterate(trans.value));
   }
   </script>
 
@@ -69,7 +73,7 @@
           <legend>Translateration</legend>
         <input type="text" id="lang" class="k-input" /><br>
         <button onclick="lang2trans()" class="pure-button-secondary pure-button">To Translateration</button><br>
-        <input type="text" id="2trans" class="k-input pure-input-1"/>
+        <div id="2trans" class="k-input pure-input-1"></div>
         </fieldset>
       </div>
 
@@ -78,7 +82,7 @@
           <legend>Untranslateration</legend>
         <input type="text" id="trans" class="k-input"/><br>
         <button onclick="trans2lang()" class="pure-button-secondary pure-button">From Translateration</button><br>
-        <input type="text" id="2lang" class="k-input"/>
+        <div id="2lang" class="k-input pure-input-1"></div>
       </fieldset>
       </div>
 

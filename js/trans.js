@@ -1,7 +1,5 @@
 var Trans = (function(){
 
-
-
 	/**
 	 * This function returns another function which do the transformation
 	 * @param  {lookup table} lookupTable A lookup table to replace the keys with values
@@ -25,11 +23,10 @@ var Trans = (function(){
 	 * the first one will be inversed and used for this operation.
 	 */
 	function Trans(lookupTable, invLookupTable) {
-		rlookup = {};
-		var transPreFunc;
-		var utransPreFunc;
-		var transPostFunc;
-		var utransPostFunc;
+
+		var rlookup = {};
+
+
 		if (typeof(invLookupTable) !== "undefined"){
 			rlookup = invLookupTable;
 		} else {
@@ -39,66 +36,67 @@ var Trans = (function(){
 			});
 		}
 
-		var translaterator = getTranslaterator(lookupTable);
-		var untranslaterator = getTranslaterator(rlookup);
+		this.translaterator = getTranslaterator(lookupTable);
 
-		Trans.prototype.inverseLookup = rlookup;
+		this.untranslaterator = getTranslaterator(rlookup);
 
-		Trans.prototype.addTransPreFunction = function (func) {
-			if (typeof func === "function"){
-				transPreFunc = func;
-			}
+		this.inverseLookup = rlookup;
+
 		}
 
-		Trans.prototype.addUnTransPreFunction = function (func) {
-			if (typeof func === "function"){
-				utransPreFunc = func;
-			}
-		}
-
-		Trans.prototype.addTransPostFunction = function (func) {
-			if (typeof func === "function"){
-				transPostFunc = func;
-			}
-		}
-
-		Trans.prototype.addUnTransPostFunction = function (func) {
-			if (typeof func === "function"){
-				utransPostFunc = func;
-			}
-		}
-
-		Trans.prototype.translaterate = function(text){
-			var result = text;
-
-			if (typeof transPreFunc === "function"){
-				result = transPreFunc(result);
+			Trans.prototype.addTransPreFunction = function (func) {
+				if (typeof func === "function"){
+					this.transPreFunc = func;
+				}
 			}
 
-			result = translaterator(result);
-
-			if (typeof transPostFunc === "function"){
-				result = transPostFunc(result);
-			}
-			return result;
-		}
-
-		Trans.prototype.untranslaterate = function(text){
-			var result = text;
-
-			if (typeof utransPreFunc === "function"){
-				result = utransPreFunc(result);
+			Trans.prototype.addUnTransPreFunction = function (func) {
+				if (typeof func === "function"){
+					this.utransPreFunc = func;
+				}
 			}
 
-			result = untranslaterator(result);
-
-			if (typeof utransPostFunc === "function"){
-				result = utransPostFunc(result);
+			Trans.prototype.addTransPostFunction = function (func) {
+				if (typeof func === "function"){
+					this.transPostFunc = func;
+				}
 			}
-			return result;
-		}
 
-	}
+			Trans.prototype.addUnTransPostFunction = function (func) {
+				if (typeof func === "function"){
+					this.utransPostFunc = func;
+				}
+			}
+
+			Trans.prototype.translaterate = function(text){
+				var result = text;
+
+				if (typeof this.transPreFunc === "function"){
+					result = this.transPreFunc(result);
+				}
+
+				result = this.translaterator(result);
+
+				if (typeof this.transPostFunc === "function"){
+					result = this.transPostFunc(result);
+				}
+				return result;
+			}
+
+			Trans.prototype.untranslaterate = function(text){
+				var result = text;
+
+				if (typeof this.utransPreFunc === "function"){
+					result = this.utransPreFunc(result);
+				}
+
+				result = this.untranslaterator(result);
+
+				if (typeof this.utransPostFunc === "function"){
+					result = this.utransPostFunc(result);
+				}
+				return result;
+			}
 
 	return Trans;
 }());

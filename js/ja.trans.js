@@ -83,11 +83,11 @@ var JaTrans = (function(){
     "え": "e",
     "お": "o",
     "ん": "n",
-    "ゃ": "ya",
-    "ぇ": "ye",
-    "ゅ": "yu",
-    "ぃ": "yi",
-    "ょ": "yo"
+    "ゃ": "xya",
+    "ぇ": "xye",
+    "ゅ": "xyu",
+    "ぃ": "xyi",
+    "ょ": "xyo"
   };
 
   var loneUnTrans = {
@@ -111,10 +111,11 @@ var JaTrans = (function(){
   */
   function JaTrans() {
     Trans.call(this, hiraganaTrans);
-    Trans.prototype.addUnTransPreFunction(unTransPreFunction);
-    Trans.prototype.addUnTransPostFunction(loneCharReplace);
+    this.addUnTransPreFunction(unTransPreFunction);
+    this.addUnTransPostFunction(loneCharReplace);
   }
 
+  JaTrans.prototype = new Trans(hiraganaTrans);
 
   /**
   * Replace the doubled characters with a little "tsu" if different from "n"
@@ -137,7 +138,7 @@ var JaTrans = (function(){
       var key = x[0] + "i";
       if (key in Trans.prototype.inverseLookup){
         var result =  Trans.prototype.inverseLookup[key];
-        key = "y" + x[2];
+        key = "xy" + x[2];
         if (key in Trans.prototype.inverseLookup){
           result += Trans.prototype.inverseLookup[key];
         }
@@ -183,8 +184,6 @@ var JaTrans = (function(){
       return result;
     });
   }
-
-  JaTrans.prototype = new Trans(hiraganaTrans);
 
   return JaTrans;
 
