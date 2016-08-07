@@ -39,6 +39,19 @@
     document.getElementById("nbrp").dir = dir;
     document.getElementById("ltst").dir = dir;
 
+    var tsel = document.getElementById("tsel");
+
+    var tr = tester.availableTransformations();
+
+    for(var i = tsel.options.length - 1 ; i >= 0 ; i--)
+        tsel.remove(i);
+
+    tr.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      tsel.add(option);
+    });
+
   }
 
   function nbrPronounce() {
@@ -72,6 +85,16 @@
 
     affectElements(contCS, "containsCharSetFunction", ltst.value);
     affectElements(allCS, "allCharSetFunction", ltst.value);
+  }
+
+  function transform(){
+    var tsel = document.getElementById("tsel");
+    var funcName = tsel.options[tsel.selectedIndex].value;
+    var tsrc = document.getElementById("tsrc");
+    var tdest = document.getElementById("tdest");
+
+    var transFunc = tester.transformationFunction(funcName);
+    tdest.value = transFunc(tsrc.value);
   }
 
   </script>
@@ -118,6 +141,15 @@
   <div id="contCS"></div>
   <h4>Text all charsets</h4>
   <div id="allCS"></div>
+
+  <h2>Transformation</h2>
+  <div id="trans">
+    <select id="tsel">
+    </select>
+    <input type="text" id="tsrc" />
+    <button onclick="transform()">transform</button>
+    <input type="text" id="tdest" />
+  </div>
   <script>
   update();
   </script>

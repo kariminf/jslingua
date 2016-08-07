@@ -13,6 +13,9 @@ var ArLang = (function(){
     this.addCharSet("ArabicPresentationB", 0xFE70, 0xFEFF);
     this.addCharSet("IndicNumeral", 0x0660, 0x0669);
     this.addCharSet("ArabicNumeral", 0x0030, 0x0039);
+
+    this.addTransform("indicToArabicNumeral", -0x0630, "IndicNumeral");
+    this.addTransform("arabicToIndicNumeral", 0x0630, "ArabicNumeral");
   }
 
   ArLang.prototype = new Lang("Arabic");
@@ -167,8 +170,3 @@ var ArLang = (function(){
 
   return ArLang;
 }());
-
-
-//var indicToArabicNumeral = transform(-0x0630, isIndicNumeral);
-
-//var arabicToIndicNumeral = transform(0x0630, isArabicNumeral);

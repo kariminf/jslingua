@@ -7,6 +7,9 @@ var JaLang = (function(){
     this.addCharSet("Katakana", 0x30A0, 0x30FF);
     this.addCharSet("Kanji", 0x4E00, 0x9FBF);
     this.addCharSet("Punctuation", 0x3000, 0x303F);
+
+    this.addTransform("hiraganaToKatakana", 0x0060, "Hiragana");
+    this.addTransform("katakanaToHiragana", -0x0060, "Katakana");
   }
 
   JaLang.prototype = new Lang("Japanese");
@@ -75,6 +78,3 @@ JaLang.prototype.pronounceNumber = toJapaneseLetters;
   return JaLang;
 
 }());
-
-//var hiraganaToKatakana = transform(0x0060, isHiragana);
-//var katakanaToHiragana = transform(-0x0060, isKatakana);

@@ -68,6 +68,7 @@ var Lang = (function(){
     this.dir = "ltr";
     //Contains name of service and the function
     this.CS = {};
+    this.TR = {};
 
   }
 
@@ -82,8 +83,26 @@ var Lang = (function(){
       this.CS[setName] = isBetween(begin, end);
     }
 
+    Lang.prototype.addTransform = function(transName, offset, origCharSet){
+      var charSetFunc = function(char){return false};
+      if (origCharSet in this.CS) charSetFunc = this.CS[origCharSet];
+      this.TR[transName] = transform(offset, charSetFunc);
+    }
+
     Lang.prototype.availableCharSets = function(){
       return Object.keys(this.CS);
+    }
+
+    Lang.prototype.availableTransformations = function(){
+      return Object.keys(this.TR);
+    }
+
+    Lang.prototype.transformationFunction = function(transName){
+      if (typeof transName !== "string"){
+        return function(text){return text}
+      }
+
+      return this.TR[transName];
     }
 
     Lang.prototype.verifyCharSetFunction = function(setName){
