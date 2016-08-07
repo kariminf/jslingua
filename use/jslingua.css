@@ -38,6 +38,7 @@
   border-radius: 5px;
   border: 1px solid DarkOrchid;
   padding: 3px;
+  min-height: 1.2em;
   font-size: 100%;
   margin: .5em;
   width: 80%;
