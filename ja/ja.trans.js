@@ -1,4 +1,12 @@
-var JaTrans = (function(){
+(function(){
+  var Trans = {};
+  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    Trans = require("../trans.js");
+    module.exports = JaTrans;
+  } else {
+    Trans = window.Trans;
+    window.JaTrans = JaTrans;
+  }
   var hiraganaTrans = {
     "ふぁ": "fa",
     "ふぉ": "fo",
@@ -110,12 +118,12 @@ var JaTrans = (function(){
   * Constructor to create a Japanese translaterator
   */
   function JaTrans() {
-    Trans.call(this, hiraganaTrans);
+    Trans.call(this, "Japanese", hiraganaTrans);
     this.addUnTransPreFunction(unTransPreFunction);
     this.addUnTransPostFunction(loneCharReplace);
   }
 
-  JaTrans.prototype = new Trans(hiraganaTrans);
+  JaTrans.prototype = new Trans("Japanese", hiraganaTrans);
 
   /**
   * Replace the doubled characters with a little "tsu" if different from "n"

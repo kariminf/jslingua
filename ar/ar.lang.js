@@ -1,4 +1,13 @@
-var ArLang = (function(){
+(function(window){
+
+  var Lang = {};
+  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    Lang = require("../lang.js");
+    module.exports = ArLang;
+  } else {
+    Lang = window.Lang;
+    window.ArLang = ArLang;
+  }
 
   function ArLang() {
     Lang.call(this, "Arabic");
@@ -168,5 +177,4 @@ var ArLang = (function(){
 
   }
 
-  return ArLang;
-}());
+}(this));

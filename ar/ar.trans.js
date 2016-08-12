@@ -1,4 +1,13 @@
-var ArTrans = (function(){
+(function(window){
+  var Trans = {};
+  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    Trans = require("../trans.js");
+    module.exports = ArTrans;
+  } else {
+    Trans = window.Trans;
+    window.ArTrans = ArTrans;
+  }
+
   var buckwalter = {
     "ا": "A", // alif
     "ب": "b", // ba
@@ -55,12 +64,12 @@ var ArTrans = (function(){
   };
 
   function ArTrans() {
-    Trans.call(this, buckwalter);
+    Trans.call(this, "Arabic", buckwalter);
   }
 
-  ArTrans.prototype = new Trans(buckwalter);
+  ArTrans.prototype = new Trans("Arabic", buckwalter);
   ArTrans.prototype.constructor = ArTrans;
 
   return ArTrans;
 
-}());
+}(this));

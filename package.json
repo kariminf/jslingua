@@ -1,0 +1,32 @@
+{
+  "name": "JsLingua",
+  "version": "0.0.1",
+  "description": "Language processing modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kariminf/JsLingua.git"
+  },
+  "keywords": [
+    "NLP",
+    "translateration",
+    "language"
+  ],
+  "files": [
+    "lang.js",
+    "trans.js",
+    "ar/ar.lang.js",
+    "ar/ar.trans.js",
+    "ja/ja.lang.js",
+    "ja/ja.trans.js"
+  ],
+  "author": "Abdelkrime Aries <kariminfo0@gmail.com>",
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/kariminf/JsLingua/issues"
+  },
+  "homepage": "http://kariminf.github.io/JsLingua"
+}
