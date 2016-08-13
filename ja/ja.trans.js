@@ -238,8 +238,8 @@
 
       if (p1 === "n")
         repChar = "ん";
-
-      var rep = new Array(match.length).join(repChar);
+      var repNbr = match.length/p1.length; //Math.floor() match is always a multiple of p1
+      var rep = new Array(repNbr).join(repChar);
 
       return rep + p1;
     });
@@ -256,9 +256,9 @@
           result += hiragana[hepburn.indexOf(key)];
         }
         return result;
-      } else {
-        return x;
       }
+
+      return match;
 
     });
   }

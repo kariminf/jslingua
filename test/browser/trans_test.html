@@ -8,10 +8,12 @@
   <script type="text/javascript" src="../../ja/ja.trans.js" ></script>
   <script type="text/javascript">
 
-  function getTrans (){
+  var transformer = {};
+
+  function update (){
     var e = document.getElementById("l");
     var l = e.options[e.selectedIndex].value;
-    var transformer = {};
+
     switch(l) {
       case "1":
       transformer = new ArTrans();
@@ -22,28 +24,51 @@
       default:
       transformer = new ArTrans();
     }
-    return transformer;
+
+    var methods = transformer.availableMethods();
+
+    var m = document.getElementById("m");
+    var i;
+    for(i = m.options.length - 1 ; i >= 0 ; i--){
+      m.remove(i);
+    }
+
+    methods.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      m.add(option);
+    });
+
+    setMethod();
+
+  }
+
+  function setMethod(){
+    var m = document.getElementById("m");
+    transformer.setCurrentMethod(m.options[m.selectedIndex].value);
   }
 
   function lang2trans() {
     var lang = document.getElementById("lang");
     var trans = document.getElementById("2trans");
-    trans.value = getTrans().translaterate(lang.value);
+    trans.value = transformer.translaterate(lang.value);
   }
 
   function trans2lang() {
     var lang = document.getElementById("2lang");
     var trans = document.getElementById("trans");
-    lang.value = getTrans().untranslaterate(trans.value);
+    lang.value = transformer.untranslaterate(trans.value);
   }
   </script>
 
 </head>
 <body>
   Choose the language:
-  <select id="l">
+  <select id="l" onchange="update()">
     <option value="1" >Arabic</option>
     <option value="2">Japanese</option>
+  </select>
+  <select id="m" onchange="setMethod()">
   </select>
   <br>
   <input type="text" id="lang" />
@@ -53,6 +78,8 @@
   <input type="text" id="trans" />
   <button onclick="trans2lang()">From Translateration</button>
   <input type="text" id="2lang" />
-
+  <script>
+  update();
+  </script>
 </body>
 </html>
