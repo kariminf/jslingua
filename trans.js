@@ -1,111 +1,166 @@
 (function(window){
 
+	if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+		module.exports = Trans;
+	} else {
+		window.Trans = Trans;
+	}
+
 	/**
-	* This function returns another function which do the transformation
-	* @param  {lookup table} lookupTable A lookup table to replace the keys with values
-	* @return {function} a function which takes a text and replace the keys in it with the equivalent values.
-	*/
-	function getTranslaterator(lookupTable) {
+	 * This function returns another function which do the transformation
+	 * @param  {[type]} srcTbl [description]
+	 * @param  {[type]} dstTbl [description]
+	 * @return {[type]}        [description]
+	 */
+	function getTranslaterator(srcTbl, dstTbl) {
 		return function(text) {
 			var result = text;
-			for (var key in lookupTable){
-				var keyEscaped = key.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-				result = result.replace(new RegExp(keyEscaped, 'g'), lookupTable[key]);
+			var i;
+			for (i=0; i< srcTbl.length; i++){
+				var keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+				result = result.replace(new RegExp(keyEscaped, 'g'), dstTbl[i]);
 			}
 			return result;
 		}
 	}
 
 	/**
-	* Constructor of the class
-	* @param {lookup table} lookupTable table used for translateration
-	* @param {lookup table} invLookupTable table used for untranslateration; if it doesn't exist
-	* the first one will be inversed and used for this operation.
-	*/
-	function Trans(langName, lookupTable, invLookupTable) {
+	 * Constructor of the class
+	 * @param {string} langName the name of the language: Arabic, Japanese, etc.
+	 */
+	function Trans(langName) {
 		this.name = langName;
+		this.methods = {};
+		//default method (here we will take the first added one)
+		this.defMethod = "";
 
-		var rlookup = {};
-
-
-		if (typeof(invLookupTable) !== "undefined"){
-			rlookup = invLookupTable;
-		} else {
-			Object.keys(lookupTable).forEach(function(key) {
-				var val = lookupTable[key];
-				rlookup[val] = key;
-			});
-		}
-
-		this.translaterator = getTranslaterator(lookupTable);
-
-		this.untranslaterator = getTranslaterator(rlookup);
-
-		this.inverseLookup = rlookup;
-
+		this.currentMethod = "";
 	}
 
-	Trans.prototype.addTransPreFunction = function (func) {
-		if (typeof func === "function"){
-			this.transPreFunc = func;
-		}
-	}
-
-	Trans.prototype.addUnTransPreFunction = function (func) {
-		if (typeof func === "function"){
-			this.utransPreFunc = func;
+	/**
+	 * Add new translateration method
+	 * @param  {string} methodName the name of the method
+	 * @param  {Array[string]} langTbl    the languages characters
+	 * @param  {Array[string]} transTbl   their respective representations
+	 */
+	Trans.prototype.newMethod = function (methodName, langTbl, transTbl) {
+		if (typeof methodName === "string" && methodName.length > 0){
+			this.methods[methodName] = {};
+			if (this.defMethod.length < 1)
+				this.currentMethod = this.defMethod = methodName;
+			this.methods[methodName].trans = this.methods[methodName].untrans = function(text){
+				return text;
+			};
+			if (Array.isArray(langTbl)  && Array.isArray(transTbl))
+				if (langTbl.length  === transTbl.length){
+					this.methods[methodName].trans = getTranslaterator(langTbl, transTbl);
+					this.methods[methodName].untrans = getTranslaterator(transTbl, langTbl);
+				}
 		}
 	}
 
-	Trans.prototype.addTransPostFunction = function (func) {
-		if (typeof func === "function"){
-			this.transPostFunc = func;
+	/**
+	 * Sets the current method for translateration
+	 * @param {string} methodName method's name
+	 */
+	Trans.prototype.setCurrentMethod = function (methodName) {
+		if (methodName in this.methods){
+			this.currentMethod = methodName;
 		}
 	}
 
-	Trans.prototype.addUnTransPostFunction = function (func) {
-		if (typeof func === "function"){
-			this.utransPostFunc = func;
+	/**
+	 * Returns the list of available translateration methods
+	 * @return {Array[string]} [description]
+	 */
+	Trans.prototype.availableMethods = function(){
+    return Object.keys(this.methods);
+  }
+
+	/**
+	 * [setTransUntrasMethods description]
+	 * @param {[type]} trans   [description]
+	 * @param {[type]} untrans [description]
+	 */
+	Trans.prototype.setTransUntrasMethods = function (trans, untrans) {
+		if (methodName in this.methods){
+			if (typeof trans === "function"){
+				this.methods[methodName].trans = trans;
+			}
+			if (typeof untrans === "function"){
+				this.methods[methodName].untrans = untrans;
+			}
 		}
 	}
 
+	Trans.prototype.addTransPrePostMethods = function (methodName, preFunc, postFunc) {
+		if (methodName in this.methods){
+			if (typeof preFunc === "function"){
+				this.methods[methodName].preTrans = preFunc;
+			}
+			if (typeof untrans === "function"){
+				this.methods[methodName].postTrans = postFunc;
+			}
+		}
+	}
+
+	Trans.prototype.addUntransPrePostMethods = function (methodName, preFunc, postFunc) {
+		if (methodName in this.methods){
+			if (typeof preFunc === "function"){
+				this.methods[methodName].preUntrans = preFunc;
+			}
+			if (typeof untrans === "function"){
+				this.methods[methodName].postUntrans = postFunc;
+			}
+		}
+	}
+
+	/**
+	 * gets the language's name
+	 * @return {string} the language's name
+	 */
 	Trans.prototype.getLangName = function(){
     return this.name;
   }
 
+	/**
+	 * translaterate the text using the current method
+	 * @param  {string} text the untranslaterated text (original)
+	 * @return {string}      the translaterated text
+	 */
 	Trans.prototype.translaterate = function(text){
 		var result = text;
 
-		if (typeof this.transPreFunc === "function"){
-			result = this.transPreFunc(result);
+		if (typeof this.methods[this.currentMethod].preTrans === "function"){
+			result = this.methods[this.currentMethod].preTrans(result);
 		}
 
-		result = this.translaterator(result);
+		result = this.methods[this.currentMethod].trans(result);
 
-		if (typeof this.transPostFunc === "function"){
-			result = this.transPostFunc(result);
+		if (typeof this.methods[this.currentMethod].postTrans === "function"){
+			result = this.methods[this.currentMethod].postTrans(result);
 		}
 		return result;
 	}
 
+	/**
+	 * untranslaterates the text using the current method
+	 * @param  {string} text translaterated text
+	 * @return {string}      untranslaterated text (original text)
+	 */
 	Trans.prototype.untranslaterate = function(text){
 		var result = text;
 
-		if (typeof this.utransPreFunc === "function"){
-			result = this.utransPreFunc(result);
+		if (typeof this.methods[this.currentMethod].preUntrans === "function"){
+			result = this.methods[this.currentMethod].preUntrans(result);
 		}
 
-		result = this.untranslaterator(result);
+		result = this.methods[this.currentMethod].untrans(result);
 
-		if (typeof this.utransPostFunc === "function"){
-			result = this.utransPostFunc(result);
+		if (typeof this.methods[this.currentMethod].postUntrans === "function"){
+			result = this.methods[this.currentMethod].postUntrans(result);
 		}
 		return result;
 	}
 
-	if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-		module.exports = Trans;
-	} else {
-		window.Trans = Trans;
-	}
 }(this));

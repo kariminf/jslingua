@@ -7,96 +7,189 @@
     Trans = window.Trans;
     window.JaTrans = JaTrans;
   }
-  var hiraganaTrans = {
-    "ふぁ": "fa",
-    "ふぉ": "fo",
-    "ふぃ": "fi",
-    "か": "ka",
-    "き": "ki",
-    "く": "ku",
-    "け": "ke",
-    "こ": "ko",
-    "た": "ta",
-    "ち": "chi",
-    "ちゃ": "cha",
-    "ちぇ": "che",
-    "ちゅ": "chu",
-    "ちょ": "cho",
-    "つ": "tsu",
-    "て": "te",
-    "と": "to",
-    "さ": "sa",
-    "し": "shi",
-    "しゃ": "sha",
-    "しぇ": "she",
-    "しゅ": "shu",
-    "しょ": "sho",
-    "し": "shi",
-    "す": "su",
-    "せ": "se",
-    "そ": "so",
-    "な": "na",
-    "に": "ni",
-    "ぬ": "nu",
-    "ね": "ne",
-    "の": "no",
-    "は": "ha",
-    "ひ": "hi",
-    "ふ": "fu",
-    "へ": "he",
-    "ほ": "ho",
-    "ま": "ma",
-    "み": "mi",
-    "む": "mu",
-    "め": "me",
-    "も": "mo",
-    "や": "ya",
-    "ゆ": "yu",
-    "よ": "yo",
-    "ら": "ra",
-    "り": "ri",
-    "る": "ru",
-    "れ": "re",
-    "ろ": "ro",
-    "わ": "wa",
-    "を": "wo",
-    "が": "ga",
-    "ぎ": "gi",
-    "ぐ": "gu",
-    "げ": "ge",
-    "ご": "go",
-    "ざ": "za",
-    "じ": "ji",
-    "ず": "zu",
-    "ぜ": "ze",
-    "ぞ": "zo",
-    "だ": "da",
-    "ぢ": "di",
-    "づ": "du",
-    "で": "de",
-    "ど": "do",
-    "ば": "ba",
-    "び": "bi",
-    "ぶ": "bu",
-    "べ": "be",
-    "ぼ": "bo",
-    "ぱ": "pa",
-    "ぴ": "pi",
-    "ぷ": "pu",
-    "ぺ": "pe",
-    "ぽ": "po",
-    "あ": "a",
-    "い": "i",
-    "う": "u",
-    "え": "e",
-    "お": "o",
-    "ん": "n",
-    "ゃ": "xya",
-    "ぇ": "xye",
-    "ゅ": "xyu",
-    "ぃ": "xyi",
-    "ょ": "xyo"
-  };
+
+  var hiragana = [
+    "ふぁ",
+    "ふぉ",
+    "ふぃ",
+    "か",
+    "き",
+    "く",
+    "け",
+    "こ",
+    "た",
+    "ち",
+    "ちゃ",
+    "ちぇ",
+    "ちゅ",
+    "ちょ",
+    "つ",
+    "て",
+    "と",
+    "さ",
+    "し",
+    "しゃ",
+    "しぇ",
+    "しゅ",
+    "しょ",
+    "し",
+    "す",
+    "せ",
+    "そ",
+    "な",
+    "に",
+    "ぬ",
+    "ね",
+    "の",
+    "は",
+    "ひ",
+    "ふ",
+    "へ",
+    "ほ",
+    "ま",
+    "み",
+    "む",
+    "め",
+    "も",
+    "や",
+    "ゆ",
+    "よ",
+    "ら",
+    "り",
+    "る",
+    "れ",
+    "ろ",
+    "わ",
+    "を",
+    "が",
+    "ぎ",
+    "ぐ",
+    "げ",
+    "ご",
+    "ざ",
+    "じ",
+    "ず",
+    "ぜ",
+    "ぞ",
+    "だ",
+    "ぢ",
+    "づ",
+    "で",
+    "ど",
+    "ば",
+    "び",
+    "ぶ",
+    "べ",
+    "ぼ",
+    "ぱ",
+    "ぴ",
+    "ぷ",
+    "ぺ",
+    "ぽ",
+    "あ",
+    "い",
+    "う",
+    "え",
+    "お",
+    "ん",
+    "ゃ",
+    "ぇ",
+    "ゅ",
+    "ぃ",
+    "ょ"
+  ];
+
+  //https://en.wikipedia.org/wiki/Hepburn_romanization
+  var hepburn = [
+    "fa",
+    "fo",
+    "fi",
+    "ka",
+    "ki",
+    "ku",
+    "ke",
+    "ko",
+    "ta",
+    "chi",
+    "cha",
+    "che",
+    "chu",
+    "cho",
+    "tsu",
+    "te",
+    "to",
+    "sa",
+    "shi",
+    "sha",
+    "she",
+    "shu",
+    "sho",
+    "shi",
+    "su",
+    "se",
+    "so",
+    "na",
+    "ni",
+    "nu",
+    "ne",
+    "no",
+    "ha",
+    "hi",
+    "fu",
+    "he",
+    "ho",
+    "ma",
+    "mi",
+    "mu",
+    "me",
+    "mo",
+    "ya",
+    "yu",
+    "yo",
+    "ra",
+    "ri",
+    "ru",
+    "re",
+    "ro",
+    "wa",
+    "wo",
+    "ga",
+    "gi",
+    "gu",
+    "ge",
+    "go",
+    "za",
+    "ji",
+    "zu",
+    "ze",
+    "zo",
+    "da",
+    "di",
+    "du",
+    "de",
+    "do",
+    "ba",
+    "bi",
+    "bu",
+    "be",
+    "bo",
+    "pa",
+    "pi",
+    "pu",
+    "pe",
+    "po",
+    "a",
+    "i",
+    "u",
+    "e",
+    "o",
+    "n",
+    "xya",
+    "xye",
+    "xyu",
+    "xyi",
+    "xyo"
+  ];
 
   var loneUnTrans = {
     "ku": "く",
@@ -118,12 +211,17 @@
   * Constructor to create a Japanese translaterator
   */
   function JaTrans() {
-    Trans.call(this, "Japanese", hiraganaTrans);
+    Trans.call(this, "Japanese");
+
+    this.newMethod("Hepburn", hiragana, hepburn);
+    this.addUntransPrePostMethods("Hepburn", unTransPreFunction, loneCharReplace);
+    /*
     this.addUnTransPreFunction(unTransPreFunction);
     this.addUnTransPostFunction(loneCharReplace);
+    */
   }
 
-  JaTrans.prototype = new Trans("Japanese", hiraganaTrans);
+  JaTrans.prototype = new Trans("Japanese");
 
   /**
   * Replace the doubled characters with a little "tsu" if different from "n"
@@ -131,24 +229,31 @@
   * @return {String} The same string but the repeated characters are replaced
   */
   var doubleReplace = function(text){
-    return text.replace(/(.)\1+/gi, function(x){
+    return text.replace(/(sh|ch|.)\1+/gi, function(match, p1){
+      //vowels are ignored
+      if ("aeuio".indexOf(p1)>-1)
+        return match;
+
       var repChar = "っ";
-      if (x[0] === "n"){
+
+      if (p1 === "n")
         repChar = "ん";
-      }
-      var p = new Array(x.length).join(repChar);
-      return p + x[0];
+
+      var rep = new Array(match.length).join(repChar);
+
+      return rep + p1;
     });
   }
 
   var xya2Jap = function (text){
-    return text.replace(/(.)y[aeuio]/gi, function(x){
-      var key = x[0] + "i";
-      if (key in Trans.prototype.inverseLookup){
-        var result =  Trans.prototype.inverseLookup[key];
-        key = "xy" + x[2];
-        if (key in Trans.prototype.inverseLookup){
-          result += Trans.prototype.inverseLookup[key];
+    //var result = text.replace("sh", "し").replace("ch", "ち");
+    return text.replace(/(sh|ch|.)y([aeuio])/gi, function(match, p1, p2){
+      var key = p1 + "i";
+      if (hepburn.indexOf(key) > -1){
+        var result =  hiragana[hepburn.indexOf(key)];
+        key = "xy" + p2;
+        if (hepburn.indexOf(key) > -1){
+          result += hiragana[hepburn.indexOf(key)];
         }
         return result;
       } else {
