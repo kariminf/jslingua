@@ -98,7 +98,7 @@
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preTrans = preFunc;
 			}
-			if (typeof untrans === "function"){
+			if (typeof postFunc === "function"){
 				this.methods[methodName].postTrans = postFunc;
 			}
 		}
@@ -109,7 +109,7 @@
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preUntrans = preFunc;
 			}
-			if (typeof untrans === "function"){
+			if (typeof postFunc === "function"){
 				this.methods[methodName].postUntrans = postFunc;
 			}
 		}
