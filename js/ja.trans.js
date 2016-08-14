@@ -9,6 +9,33 @@
   }
 
   var hiragana = [
+    "が",
+    "ぎ",
+    "ぐ",
+    "げ",
+    "ご",
+    "ざ",
+    "じ",
+    "じ",
+    "ず",
+    "ぜ",
+    "ぞ",
+    "だ",
+    "ぢ",
+    "ぢ",
+    "づ",
+    "で",
+    "ど",
+    "ば",
+    "び",
+    "ぶ",
+    "べ",
+    "ぼ",
+    "ぱ",
+    "ぴ",
+    "ぷ",
+    "ぺ",
+    "ぽ",
     "ふぁ",
     "ふぉ",
     "ふぃ",
@@ -53,33 +80,6 @@
     "ろ",
     "わ",
     "を",
-    "が",
-    "ぎ",
-    "ぐ",
-    "げ",
-    "ご",
-    "ざ",
-    "じ",
-    "じ",
-    "ず",
-    "ぜ",
-    "ぞ",
-    "だ",
-    "ぢ",
-    "ぢ",
-    "づ",
-    "で",
-    "ど",
-    "ば",
-    "び",
-    "ぶ",
-    "べ",
-    "ぼ",
-    "ぱ",
-    "ぴ",
-    "ぷ",
-    "ぺ",
-    "ぽ",
     "あ",
     "い",
     "う",
@@ -95,6 +95,33 @@
 
   //https://en.wikipedia.org/wiki/Hepburn_romanization
   var hepburn = [
+    "ga",
+    "gi",
+    "gu",
+    "ge",
+    "go",
+    "za",
+    "ji",
+    "zi",
+    "zu",
+    "ze",
+    "zo",
+    "da",
+    "ji",
+    "di",
+    "zu",
+    "de",
+    "do",
+    "ba",
+    "bi",
+    "bu",
+    "be",
+    "bo",
+    "pa",
+    "pi",
+    "pu",
+    "pe",
+    "po",
     "fa",
     "fo",
     "fi",
@@ -139,33 +166,6 @@
     "ro",
     "wa",
     "wo",
-    "ga",
-    "gi",
-    "gu",
-    "ge",
-    "go",
-    "za",
-    "ji",
-    "zi",
-    "zu",
-    "ze",
-    "zo",
-    "da",
-    "ji",
-    "di",
-    "zu",
-    "de",
-    "do",
-    "ba",
-    "bi",
-    "bu",
-    "be",
-    "bo",
-    "pa",
-    "pi",
-    "pu",
-    "pe",
-    "po",
     "a",
     "i",
     "u",
@@ -195,6 +195,129 @@
     "pu": "ぷ"
   };
 
+  var wabun = [
+    " .-..  .. ",//ga
+    " -.-..  .. ",//gi
+    " ..-  .. ",//gu
+    " -.--  .. ",//ge
+    " ----  .. ",//go
+    " -.-.-  .. ",//za
+    " --.-.  .. ",//ji
+    " --.-.  .. ",//ji
+    " ---.-  .. ",//zu
+    " .---.  .. ",//ze
+    " ---.  .. ",//zo
+    " -.  .. ",//da
+    " ..-.  .. ",//dzi
+    " ..-.  .. ",//dzi
+    " .--.  .. ",//dzu
+    " .-.--  .. ",//de
+    " ..-..  .. ",//do
+    " -...  .. ",//ba
+    " --..-  .. ",//bi
+    " --..  .. ",//bu
+    " .  .. ",//be
+    " -..  .. ",//bo
+    " -...  .. ",//pa
+    " --..-  ..--. ",//pi
+    " --..  ..--. ",//pu
+    " .  ..--. ",//pe
+    " -..  ..--. ",//po
+    "*", //fa
+    "*", //fo
+    "*", //fi
+    " .-.. ",//ka
+    " -.-.. ",//ki
+    " ...- ",//ku
+    " -.-- ",//ke
+    " ---- ",//ko
+    " -. ",//ta
+    " ..-. ",//chi
+    " .--. ",//tsu
+    " .-.-- ",//te
+    " ..-.. ",//to
+    " -.-.- ",//sa
+    " --.-. ",//shi
+    " --.-. ",//shi
+    " ---.- ",//su
+    " .---. ",//se
+    " ---. ",//so
+    " .-. ",//na
+    " -.-. ",//ni
+    " .... ",//nu
+    " --.- ",//ne
+    " ..-- ",//no
+    " -... ",//ha
+    " --..- ",//hi
+    " --.. ",//fu
+    " . ",//he
+    " -.. ",//ho
+    " -..- ",//ma
+    " ..-.- ",//mi
+    " - ",//mu
+    " -...- ",//me
+    " -..-. ",//mo
+    " .-- ",//ya
+    " -..-- ",//yu
+    " -- ",//yo
+    " ... ",//ra
+    " --. ",//ri
+    " -.--. ",//ru
+    " --- ",//re
+    " .-.- ",//ro
+    " -.- ",//wa
+    " .--- ",//wo
+    " --.-- ",//a
+    " .- ",//i
+    " ..- ",//u
+    " -.--- ",//e
+    " .-... ",//o
+    " .-.-. ",//n
+    " .-- ",//xya
+    " -.--- ",//xe
+    " -..-- ",//xyu
+    " .- ",//xi
+    " -- "//xyo
+  ];
+
+  var otherMourseBef = [
+    //numbers,
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    //punctuation,
+    "。", //actually it is a dot, this is to prevent conflect
+    "、"
+  ];
+
+  var otherMourseAft = [
+    //numbers
+    " ----- ",
+    " .---- ",
+    " ..--- ",
+    " ...-- ",
+    " ....- ",
+    " ..... ",
+    " -.... ",
+    " --... ",
+    " ---.. ",
+    " ----. ",
+    //punctuation
+    " .-.-.- ",
+    " --..-- "
+  ];
+
+  var otherMourseTrans = new Trans("otherMourse");
+  otherMourseTrans.newMethod("def", otherMourseBef, otherMourseAft);
+
+
   /**
   * Constructor to create a Japanese translaterator
   */
@@ -212,13 +335,68 @@
     this.newMethod("KunreiShiki", hiragana, hepburn);
     this.addTransPrePostMethods("KunreiShiki", kunreiShikiPreTrans, shikiPostTrans);
     this.addUntransPrePostMethods("KunreiShiki", kunreiShikiPreUntrans, loneCharReplace);
-    /*
-    this.addUnTransPreFunction(unTransPreFunction);
-    this.addUnTransPostFunction(loneCharReplace);
-    */
+
+    this.newMethod("Morse", hiragana, wabun);
+    this.addTransPrePostMethods("Morse", morsePreTrans, morsePostTrans);
+    this.addUntransPrePostMethods("Morse", morsePreUntrans, morsePostUntrans);
   }
 
   JaTrans.prototype = new Trans("Japanese");
+
+  function ja2morseNormalize(text){
+    var result = text;
+    result = result.replace(/[っ]/gi, "つ");
+    return result;
+  }
+
+  function morsePreTrans(text){
+    var result = text;
+    //cleaning non supported codes
+    result = result.replace(/[\.\-]/gi, "");
+    result = result.replace(/[ ]+/gi, "\t");
+    //result = result.replace(/([^\t])([^\t])/gi, "$1 $2");
+    result = ja2morseNormalize(result);
+    return result;
+  }
+
+  function morsePostTrans(text){
+    var result = text;
+    result = otherMourseTrans.transliterate(result);
+    result = result.replace(/ +/gi, " ");
+    result = result.replace(/\t/gi, "   ");
+    //clean non morse characters
+    result = result.replace(/[^ \.\-]/gi, "");
+
+    //Add DO and SN prosigns
+    result = "-..---" + result + "...-.";
+    return result;
+  }
+
+  function morsePreUntrans(text){
+    var result = text;
+    //clean non morse characters
+    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[ ]{3,}/gi, " \t ");
+    result = result.replace(/ +/gi, "  ");
+    result = result.replace(/^/gi, " ");
+    result = result.replace(/$/gi, " ");
+
+    //delete DO and SN prosigns used to specify the beginning and end of wabun
+    result = result.replace(/ \-\.\.\-\-\- /gi, " ");
+    result = result.replace(/ \.\.\.\-\. /gi, " ");
+
+    return result;
+  }
+
+  function morsePostUntrans(text){
+    var result = text;
+    result = otherMourseTrans.untransliterate(result);
+    result = result.replace(/ +/gi, "");
+    result = result.replace(/\t/gi, " ");
+    return result;
+  }
+
+
 
   function shikiPreTrans(text){
     var result = text.replace(/し/gi, "si");
