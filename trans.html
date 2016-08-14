@@ -50,7 +50,9 @@
   }
 
   function htmlEntities(str) {
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    var result = String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    result = result.replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /gi, "&nbsp;");
+    return result;
   }
 
   function lang2trans() {
