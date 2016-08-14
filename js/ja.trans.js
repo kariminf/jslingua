@@ -347,7 +347,7 @@
     var result = text;
     result = result.replace(/[っ]/gi, "つ");
     //Japanese space
-    result = result.replace(/　/gi, " ");
+    result = result.replace(/　/gi, "\t");
     return result;
   }
 
@@ -394,7 +394,7 @@
     var result = text;
     result = otherMourseTrans.untransliterate(result);
     result = result.replace(/ +/gi, "");
-    result = result.replace(/\t/gi, " ");
+    result = result.replace(/\t/gi, "　");
     return result;
   }
 
