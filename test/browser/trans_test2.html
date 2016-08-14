@@ -14,15 +14,15 @@
     var trans = document.getElementById("trans");
     var ar = new ArTrans();
     var ja = new JaTrans();
-    lang.value = ar.untranslaterate(trans.value);
-    lang2.value = ja.untranslaterate(trans.value);
+    lang.value = ar.untransliterate(trans.value);
+    lang2.value = ja.untransliterate(trans.value);
   }
   </script>
 
 </head>
 <body>
   <input type="text" id="trans" /><br>
-  <button onclick="trans2lang()">From Translateration</button><br>
+  <button onclick="trans2lang()">From Transliteration</button><br>
   <input type="text" id="2lang" /><br>
   <input type="text" id="2lang2" />
 

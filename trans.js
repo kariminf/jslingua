@@ -12,7 +12,7 @@
 	 * @param  {[type]} dstTbl [description]
 	 * @return {[type]}        [description]
 	 */
-	function getTranslaterator(srcTbl, dstTbl) {
+	function getTransliterator(srcTbl, dstTbl) {
 		return function(text) {
 			var result = text;
 			var i;
@@ -53,8 +53,8 @@
 			};
 			if (Array.isArray(langTbl)  && Array.isArray(transTbl))
 				if (langTbl.length  === transTbl.length){
-					this.methods[methodName].trans = getTranslaterator(langTbl, transTbl);
-					this.methods[methodName].untrans = getTranslaterator(transTbl, langTbl);
+					this.methods[methodName].trans = getTransliterator(langTbl, transTbl);
+					this.methods[methodName].untrans = getTransliterator(transTbl, langTbl);
 				}
 		}
 	}
@@ -125,10 +125,10 @@
 
 	/**
 	 * translaterate the text using the current method
-	 * @param  {string} text the untranslaterated text (original)
-	 * @return {string}      the translaterated text
+	 * @param  {string} text the untransliterated text (original)
+	 * @return {string}      the transliterated text
 	 */
-	Trans.prototype.translaterate = function(text){
+	Trans.prototype.transliterate = function(text){
 		var result = text;
 
 		if (typeof this.methods[this.currentMethod].preTrans === "function"){
@@ -148,7 +148,7 @@
 	 * @param  {string} text translaterated text
 	 * @return {string}      untranslaterated text (original text)
 	 */
-	Trans.prototype.untranslaterate = function(text){
+	Trans.prototype.untransliterate = function(text){
 		var result = text;
 
 		if (typeof this.methods[this.currentMethod].preUntrans === "function"){

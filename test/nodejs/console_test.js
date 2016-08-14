@@ -9,19 +9,14 @@ var transList = [
 ];
 
 var langTest = {
-  "Arabic": "أهلا بالجميع",
+  "Arabic": "أهْلاً بِكُمْ فِي هـٰـذَا الاِختِبَار",
   "Japanese": "皆さん、こんにちは"
 };
 
 var langTrans = {
-  "Arabic": "أهلا بالجميع",
-  "Japanese": "みなさん、こんにちは"
+  "Arabic": "أهْلاً بِكُمْ فِي هـٰـذَا الاِختِبَار",
+  "Japanese": "しゃしん うち つづく ふえん ひゃく じゃない じむしょ ぢゃ"
 };
-
-var langUntrans = {
-  "Arabic": "*ahaba Eumaru <ilaY Als~uwqi",
-  "Japanese": "tanaka san ha ie ni kaerimasu"
-}
 
 console.log("");
 console.log("Testing Lang module ...");
@@ -37,15 +32,22 @@ for (var i=0; i< langList.length; i++){
 console.log("");
 console.log("Testing Trans module ...");
 console.log("=======================");
-for (var i=0; i< transList.length; i++){
+var i;
+for (i=0; i< transList.length; i++){
   var trans = new transList[i];
   var langName = trans.getLangName();
-  console.log("Language " + langName + ":");
-  if (langName in langTrans){
-    console.log(langTrans[langName] + " ==trans==> " + trans.translaterate(langTrans[langName]));
+  var methods = trans.availableMethods();
+  var j;
+  for (j = 0; j < methods.length; j++){
+    var method = methods[j];
+    console.log(langName + ": " + method);
+    trans.setCurrentMethod(method);
+    if (langName in langTrans){
+      var srcT = langTrans[langName];
+      var transT = trans.transliterate(srcT);
+      console.log(srcT + " ==trans==> " + transT);
+      console.log(transT + " ==untrans==> " + trans.untransliterate(transT));
+    }
+    console.log("");
   }
-  if (langName in langUntrans){
-    console.log(langUntrans[langName] + " ==untrans==> " + trans.untranslaterate(langUntrans[langName]));
-  }
-  console.log("");
 }

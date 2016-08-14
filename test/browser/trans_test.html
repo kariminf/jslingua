@@ -51,13 +51,13 @@
   function lang2trans() {
     var lang = document.getElementById("lang");
     var trans = document.getElementById("2trans");
-    trans.value = transformer.translaterate(lang.value);
+    trans.value = transformer.transliterate(lang.value);
   }
 
   function trans2lang() {
     var lang = document.getElementById("2lang");
     var trans = document.getElementById("trans");
-    lang.value = transformer.untranslaterate(trans.value);
+    lang.value = transformer.untransliterate(trans.value);
   }
   </script>
   <style type="text/css">
@@ -77,11 +77,11 @@
   </select>
   <br>
   <input type="text" id="lang" /><br>
-  <button onclick="lang2trans()">To Translateration</button><br>
+  <button onclick="lang2trans()">To Transliteration</button><br>
   <input type="text" id="2trans" /><br>
   <br>
   <input type="text" id="trans" /><br>
-  <button onclick="trans2lang()">From Translateration</button><br>
+  <button onclick="trans2lang()">From Transliteration</button><br>
   <input type="text" id="2lang" /><br>
   <script>
   update();

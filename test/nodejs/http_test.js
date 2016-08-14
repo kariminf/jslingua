@@ -2,30 +2,25 @@ function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-var langList = [
-  require("../../ar/ar.lang.js"), //ArLang
-  require("../../ja/ja.lang.js") //JaLang
-];
+  var langList = [
+    require("../../ar/ar.lang.js"), //ArLang
+    require("../../ja/ja.lang.js") //JaLang
+  ];
 
-var transList = [
-  require("../../ar/ar.trans.js"), //ArLang
-  require("../../ja/ja.trans.js") //JaLang
-];
+  var transList = [
+    require("../../ar/ar.trans.js"), //ArLang
+    require("../../ja/ja.trans.js") //JaLang
+  ];
 
-var langTest = {
-  "Arabic": "أهلا بالجميع",
-  "Japanese": "皆さん、こんにちは"
-};
+  var langTest = {
+    "Arabic": "أهْلاً بِكُمْ فِي هـٰـذَا الاِختِبَار",
+    "Japanese": "皆さん、こんにちは"
+  };
 
-var langTrans = {
-  "Arabic": "أهلا بالجميع",
-  "Japanese": "みなさん、こんにちは"
-};
-
-var langUntrans = {
-  "Arabic": "*ahaba Eumaru <ilaY Als~uwqi",
-  "Japanese": "tanaka san ha ie ni kaerimasu"
-}
+  var langTrans = {
+    "Arabic": "أهْلاً بِكُمْ فِي هـٰـذَا الاِختِبَار",
+    "Japanese": "しゃしん うち つづく ふえん ひゃく じゃない じむしょ ぢゃ"
+  };
 
 var resp = "<!DOCTYPE html>\n<html>\n<head>\n";
 resp += '<meta charset="UTF-8">\n';
@@ -44,17 +39,25 @@ for (var i=0; i< langList.length; i++){
 resp += "<br>\n";
 resp += "Testing Trans module ...<br>\n";
 resp += "=======================<br>\n";
-for (var i=0; i< transList.length; i++){
+
+var i;
+for (i=0; i< transList.length; i++){
   var trans = new transList[i];
   var langName = trans.getLangName();
-  resp += "Language " + langName + ":<br>\n";
-  if (langName in langTrans){
-    resp += htmlEntities(langTrans[langName] + " ==trans==> " + trans.translaterate(langTrans[langName])) + "<br>\n";
+  var methods = trans.availableMethods();
+  var j;
+  for (j = 0; j < methods.length; j++){
+    var method = methods[j];
+    resp += langName + ": " + method + "<br>\n";
+    trans.setCurrentMethod(method);
+    if (langName in langTrans){
+      var srcT = langTrans[langName];
+      var transT = trans.transliterate(srcT);
+      resp += htmlEntities(srcT + " ==trans==> " + transT) + "<br>\n";
+      resp += htmlEntities(transT + " ==untrans==> " + trans.untransliterate(transT)) + "<br>\n";
+    }
+    resp += "<br>\n";
   }
-  if (langName in langUntrans){
-    resp += htmlEntities(langUntrans[langName] + " ==untrans==> " + trans.untranslaterate(langUntrans[langName])) + "<br>\n";
-  }
-  resp += "<br>";
 }
 
 resp += '</body>\n<html>';
