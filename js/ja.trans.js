@@ -346,6 +346,8 @@
   function ja2morseNormalize(text){
     var result = text;
     result = result.replace(/[っ]/gi, "つ");
+    //Japanese space
+    result = result.replace(/　/gi, " ");
     return result;
   }
 
