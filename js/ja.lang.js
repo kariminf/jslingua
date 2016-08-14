@@ -1,5 +1,13 @@
-var JaLang = (function(){
-
+(function(window){
+  var Lang = {};
+  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    Lang = require("../lang.js");
+    module.exports = JaLang;
+  } else {
+    Lang = window.Lang;
+    window.JaLang = JaLang;
+  }
+  
   function JaLang() {
     Lang.call(this, "Japanese");
 
@@ -77,4 +85,4 @@ JaLang.prototype.pronounceNumber = toJapaneseLetters;
 
   return JaLang;
 
-}());
+}(this));
