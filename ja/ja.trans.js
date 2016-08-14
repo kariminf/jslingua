@@ -24,6 +24,7 @@
     "と",
     "さ",
     "し",
+    "し",
     "す",
     "せ",
     "そ",
@@ -59,10 +60,12 @@
     "ご",
     "ざ",
     "じ",
+    "じ",
     "ず",
     "ぜ",
     "ぞ",
     "だ",
+    "ぢ",
     "ぢ",
     "づ",
     "で",
@@ -107,6 +110,7 @@
     "to",
     "sa",
     "shi",
+    "si",
     "su",
     "se",
     "so",
@@ -142,12 +146,14 @@
     "go",
     "za",
     "ji",
+    "zi",
     "zu",
     "ze",
     "zo",
     "da",
     "ji",
-    "du",
+    "di",
+    "zu",
     "de",
     "do",
     "ba",
@@ -196,14 +202,16 @@
     Trans.call(this, "Japanese");
 
     this.newMethod("Hepburn", hiragana, hepburn);
-    this.addTransPrePostMethods("Hepburn", 0, hepburnPostTrans);
-    this.addUntransPrePostMethods("Hepburn", unTransPreFunction, loneCharReplace);
+    this.addTransPrePostMethods("Hepburn", hepburnPreTrans, shikiPostTrans);
+    this.addUntransPrePostMethods("Hepburn", hepburnPreUntrans, loneCharReplace);
 
     this.newMethod("NihonShiki", hiragana, hepburn);
     this.addTransPrePostMethods("NihonShiki", nihonShikiPreTrans, shikiPostTrans);
+    this.addUntransPrePostMethods("NihonShiki", nihonShikiPreUntrans, loneCharReplace);
 
     this.newMethod("KunreiShiki", hiragana, hepburn);
     this.addTransPrePostMethods("KunreiShiki", kunreiShikiPreTrans, shikiPostTrans);
+    this.addUntransPrePostMethods("KunreiShiki", kunreiShikiPreUntrans, loneCharReplace);
     /*
     this.addUnTransPreFunction(unTransPreFunction);
     this.addUnTransPostFunction(loneCharReplace);
@@ -225,22 +233,65 @@
     return result;
   }
 
-  /*
+  function shikiPreUntrans(text){
+    var result = text;
+    //result = result.replace(/([tzs])y/gi, "$1iy");
+    result = result.replace(/si/gi, "し");
+    result = result.replace(/ti/gi, "ち");
+    result = result.replace(/tu/gi, "つ");
+    result = result.replace(/hu/gi, "ふ");
+    result = result.replace(/zi/gi, "じ");
+
+    /*result = result.replace(/uぉ/gi, "o");
+    result = result.replace(/uぁ/gi, "a");
+    result = result.replace(/uぃ/gi, "i");
+    result = result.replace(/uぇ/gi, "e");*/
+    return result;
+  }
+
+
   function hepburnPreTrans(text){
-    return text.replace(/([しちじ])([ゃぇゅょ])/gi, function(match, p1, p2){
-      var result = hepburn[hiragana.indexOf()];
-      res
+    return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){
+      var result = hepburn[hiragana.indexOf(p1)];
+      result = result + hepburn[hiragana.indexOf(p2)];
+      return result.replace("ixy", "");
     });
-  }*/
+  }
+
+  function hepburnPreUntrans(text){
+    var result = doubleReplace(text);
+    result = result.replace(/(sh|ch|j)([aeuo])/gi, function(match, p1, p2){
+      var key = p1 + "i";
+      if (hepburn.indexOf(key) > -1){
+        var result =  hiragana[hepburn.indexOf(key)];
+        key = "xy" + p2;
+        if (hepburn.indexOf(key) > -1){
+          result += hiragana[hepburn.indexOf(key)];
+        }
+        return result;
+      }
+      return match;
+    });
+
+    return xya2Jap(result);
+  }
 
   function shikiPostTrans(text){
     var result = text.replace(/ix/gi, "");
     return result;
   }
 
-  function hepburnPostTrans(text){
+  /*function hepburnPostTrans(text){
     var result = text.replace(/ixy/gi, "");
     return result;
+  }*/
+
+  function nihonShikiPreUntrans(text){
+    var result = doubleReplace(text);
+    result = shikiPreUntrans(result);
+    result = result.replace(/di/gi, "ぢ");
+    result = result.replace(/du/gi, "づ");
+    return xya2Jap(result);
   }
 
   function nihonShikiPreTrans(text){
@@ -256,6 +307,14 @@
     //result = result.replace(/づ/gi, "zu"); //already on hepburn
     return result;
   }
+
+  function kunreiShikiPreUntrans(text){
+    var result = doubleReplace(text);
+    result = shikiPreUntrans(result);
+    result = result.replace(/zi/gi, "ぢ");
+    return xya2Jap(result);
+  }
+
 
   /**
   * Replace the doubled characters with a little "tsu" if different from "n"
@@ -297,9 +356,6 @@
     });
   }
 
-  function unTransPreFunction(text){
-    return xya2Jap(doubleReplace(text));
-  }
 
   /**
   * Replace the lone characters with their equivalent + "u"

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Translateration</title>
+  <title>Transliteration</title>
   <script type="text/javascript" src="../../trans.js" ></script>
   <script type="text/javascript" src="../../ar/ar.trans.js" ></script>
   <script type="text/javascript" src="../../ja/ja.trans.js" ></script>
@@ -60,6 +60,11 @@
     lang.value = transformer.untranslaterate(trans.value);
   }
   </script>
+  <style type="text/css">
+  input[type=text] {
+    width: 80%;
+  }
+  </style>
 
 </head>
 <body>
@@ -71,13 +76,13 @@
   <select id="m" onchange="setMethod()">
   </select>
   <br>
-  <input type="text" id="lang" />
-  <button onclick="lang2trans()">To Translateration</button>
-  <input type="text" id="2trans" />
+  <input type="text" id="lang" /><br>
+  <button onclick="lang2trans()">To Translateration</button><br>
+  <input type="text" id="2trans" /><br>
   <br>
-  <input type="text" id="trans" />
-  <button onclick="trans2lang()">From Translateration</button>
-  <input type="text" id="2lang" />
+  <input type="text" id="trans" /><br>
+  <button onclick="trans2lang()">From Translateration</button><br>
+  <input type="text" id="2lang" /><br>
   <script>
   update();
   </script>
