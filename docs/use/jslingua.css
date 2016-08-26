@@ -1,0 +1,145 @@
+.pure-menu.pure-menu-fixed {
+  /* Fixed menus normally have a border at the bottom. */
+  border-bottom: none;
+  /* I need a higher z-index here because of the scroll-over effect. */
+  z-index: 3;
+  padding: 0.3em;
+  text-align: left;
+  background: Black;
+}
+
+.pure-menu-heading {
+  color: white;
+  font-weight: bolder;
+}
+
+.pure-menu-heading:hover {
+  color: Lime;
+  background: Gray;
+}
+
+.fixed-wraper {
+  background: Bisque;
+  width: 100%;
+  position: fixed !important;
+  z-index: 1;
+  height: 50%;
+  overflow: hidden;
+}
+
+.pure-button {
+  background: DarkOrchid;
+  color: LimeGreen;
+  border-radius: 5px;
+  margin: .5em;
+}
+
+.k-input {
+  border-radius: 5px;
+  border: 1px solid DarkOrchid;
+  padding: 3px;
+  min-height: 1.2em;
+  font-size: 100%;
+  margin: .5em;
+  width: 80%;
+}
+
+.k-select {
+  border: 1px solid DarkViolet;
+  padding: 3px;
+  outline: none;
+  box-shadow: 0 0 5px DarkViolet;
+  margin: .5em;
+}
+
+.k-fieldset {
+  border-radius: 5px;
+  border: 2px solid DarkViolet;
+  padding: 2px;
+  margin: .5em;
+}
+
+.k-fieldset legend {
+    color: DarkViolet;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 2px DarkViolet;
+    margin-left: 1em;
+}
+
+.k-input:focus {
+  border: 1px solid DarkViolet;
+  outline: none;
+  box-shadow: 0 0 5px DarkViolet;
+}
+
+.pure-button:hover {
+  background: DarkViolet;
+  color: Lime;
+}
+
+.pure-button-secondary {
+  font-weight: bold;
+  font-size: 80%;
+}
+
+a {
+  color: Lime;
+}
+
+/*
+* -- CONTENT STYLES --
+* This represents the content area (everything below the blue section)
+*/
+.content-wrapper {
+  /* These styles are required for the "scroll-over" effect */
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  z-index: 2;
+  background: white;
+}
+
+.content {
+  padding: 1em 1em 1em 1em;
+}
+
+/* This is the class used for the main content headers (<h2>) */
+.content h1 {
+  font-weight: bolder;
+  letter-spacing: 0.1em;
+  /*margin: 2em 0 1em;*/
+}
+
+/* This is a modifier class used when the content-head is inside a ribbon */
+.ribbon h2 {
+  color: white;
+}
+
+/* This is the class used for the content sub-headers (<h3>) */
+.content h3 {
+  color: DarkViolet;
+}
+
+
+/* This is the class used for the dark-background areas. */
+.ribbon {
+  position: relative;
+  background: DarkViolet;
+  color: Black;
+}
+
+.footer {
+  position: relative;
+  height: 2.5em;
+  width: 100%;
+  background: Black;
+  color: Lime;
+}
+
+.footer-vcenter {
+  position: absolute;
+  top: 33%;
+  height: 50%;
+  right: 3em;
+}

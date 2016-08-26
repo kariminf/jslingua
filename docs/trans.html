@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Transliteration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="use/pure-min.css">
+  <link rel="stylesheet" href="use/grids-responsive-min.css">
+  <link rel="stylesheet" href="use/jslingua.css">
+
+  <script type="text/javascript" src="js/trans.js" ></script>
+  <script type="text/javascript" src="js/ar.trans.js" ></script>
+  <script type="text/javascript" src="js/ja.trans.js" ></script>
+  <script type="text/javascript">
+  var transformer = {};
+
+  function update(){
+    var e = document.getElementById("l");
+    var l = e.options[e.selectedIndex].value;
+    switch(l) {
+      case "1":
+      transformer = new ArTrans();
+      break;
+      case "2":
+      transformer = new JaTrans();
+      break;
+      default:
+      transformer = new ArTrans();
+    }
+
+    var methods = transformer.availableMethods();
+    var m = document.getElementById("m");
+    var i;
+    for(i = m.options.length - 1 ; i >= 0 ; i--){
+      m.remove(i);
+    }
+
+    methods.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      m.add(option);
+    });
+
+    setMethod();
+  }
+
+  function setMethod(){
+    var m = document.getElementById("m");
+    transformer.setCurrentMethod(m.options[m.selectedIndex].value);
+  }
+
+  function htmlEntities(str) {
+    var result = String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    result = result.replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /gi, "&nbsp;");
+    return result;
+  }
+
+  function lang2trans() {
+    var lang = document.getElementById("lang");
+    var trans = document.getElementById("2trans");
+    trans.innerHTML = htmlEntities(transformer.transliterate(lang.value));
+  }
+
+  function trans2lang() {
+    var lang = document.getElementById("2lang");
+    var trans = document.getElementById("trans");
+    lang.innerHTML = htmlEntities(transformer.untransliterate(trans.value));
+  }
+  </script>
+
+</head>
+<body>
+  <div class="pure-menu pure-menu-horizontal pure-menu-fixed">
+    <a class="pure-menu-heading" href="index.html">home</a>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content pure-g">
+
+      <div class="pure-u-1">
+        <fieldset class="k-fieldset" >
+          <legend>Language</legend>
+        <label>Choose the language:</label>
+        <select id="l" class="k-select" onchange="update()">
+          <option value="1" >Arabic</option>
+          <option value="2">Japanese</option>
+        </select>
+        <select id="m" class="k-select" onchange="setMethod()">
+        </select>
+      </fieldset>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
+        <fieldset class="k-fieldset">
+          <legend>Transliteration</legend>
+        <input type="text" id="lang" class="k-input" /><br>
+        <button onclick="lang2trans()" class="pure-button-secondary pure-button">To Transliteration</button><br>
+        <div id="2trans" class="k-input pure-input-1"></div>
+        </fieldset>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
+        <fieldset class="k-fieldset">
+          <legend>Untranslateration</legend>
+        <input type="text" id="trans" class="k-input"/><br>
+        <button onclick="trans2lang()" class="pure-button-secondary pure-button">From Transliteration</button><br>
+        <div id="2lang" class="k-input pure-input-1"></div>
+      </fieldset>
+      </div>
+
+    </div>
+    <div class="footer">
+      <div class="footer-vcenter">
+        Copyright 2016 Abdelkrime Aries.
+      </div>
+    </div>
+  </div>
+  <script>
+  update();
+  </script>
+</body>
+</html>
