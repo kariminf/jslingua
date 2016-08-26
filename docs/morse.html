@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Transliteration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="use/pure-min.css">
+  <link rel="stylesheet" href="use/grids-responsive-min.css">
+  <link rel="stylesheet" href="use/jslingua.css">
+
+  <script type="text/javascript" src="../tools.js" ></script>
+  <script type="text/javascript" src="../trans.js" ></script>
+  <script type="text/javascript" src="../ar/ar.trans.js" ></script>
+  <script type="text/javascript" src="../ja/ja.trans.js" ></script>
+  <script type="text/javascript">
+  var transformer = {};
+  var code = "";
+
+  function update(){
+    var e = document.getElementById("l");
+    var l = e.options[e.selectedIndex].value;
+    switch(l) {
+      case "1":
+      transformer = new ArTrans();
+      break;
+      case "2":
+      transformer = new JaTrans();
+      break;
+      default:
+      transformer = new ArTrans();
+    }
+
+    transformer.setCurrentMethod("Morse");
+  }
+
+
+  function lang2trans() {
+    var lang = document.getElementById("lang");
+    var trans = document.getElementById("2trans");
+    code = transformer.transliterate(lang.value);
+    trans.innerHTML = htmlEntities(code);
+  }
+
+  function hearIt(){
+    readMorse(code);
+  }
+
+  </script>
+
+</head>
+<body>
+  <div class="pure-menu pure-menu-horizontal pure-menu-fixed">
+    <a class="pure-menu-heading" href="index.html">home</a>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content pure-g">
+
+      <div class="pure-u-1">
+        <fieldset class="k-fieldset" >
+          <legend>Language</legend>
+        <label>Choose the language:</label>
+        <select id="l" class="k-select" onchange="update()">
+          <option value="1" >Arabic</option>
+          <option value="2">Japanese</option>
+        </select>
+      </fieldset>
+      </div>
+
+      <div class="pure-u-1">
+        <fieldset class="k-fieldset">
+          <legend>Morse code</legend>
+        <input type="text" id="lang" class="k-input" /><br>
+        <button onclick="lang2trans()" class="pure-button-secondary pure-button">To Transliteration</button><br>
+        <div id="2trans" class="k-input pure-input-1"></div><br>
+        <button onclick="hearIt()" class="pure-button-secondary pure-button">Hear it</button>
+        </fieldset>
+      </div>
+
+    </div>
+    <div class="footer">
+      <div class="footer-vcenter">
+        Copyright 2016 Abdelkrime Aries.
+      </div>
+    </div>
+  </div>
+  <script>
+  update();
+  </script>
+</body>
+</html>
