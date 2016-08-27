@@ -1,6 +1,6 @@
 
 
-JsLingua [![Hex.pm](https://img.shields.io/badge/Project-JsLingua-yellow.svg?style=plastic)](https://kariminf.github.com/JsLingua) [![Hex.pm](https://img.shields.io/badge/License-Apache_2-yellow.svg?style=plastic)](https://github.com/kariminf/JsLingua/blob/master/LICENSE) [![Hex.pm](https://img.shields.io/badge/Version-0.1.2-yellow.svg?style=plastic)](https://github.com/kariminf/JsLingua/releases) [![Build Status](https://travis-ci.org/kariminf/JsLingua.svg?branch=master)](https://travis-ci.org/kariminf/JsLingua)
+JsLingua [![Hex.pm](https://img.shields.io/badge/Project-JsLingua-yellow.svg?style=flat)](https://kariminf.github.com/JsLingua) [![Hex.pm](https://img.shields.io/badge/License-Apache_2-yellow.svg?style=flat)](https://github.com/kariminf/JsLingua/blob/master/LICENSE) [![Hex.pm](https://img.shields.io/badge/Version-0.1.2-yellow.svg?style=flat)](https://github.com/kariminf/JsLingua/releases) [![Build Status](https://travis-ci.org/kariminf/JsLingua.svg?branch=master)](https://travis-ci.org/kariminf/JsLingua)
 ===========
 Javascript library to process languages:
 * Basic language functions:
