@@ -14,12 +14,27 @@
     this.name = "japanese";
     //this.dir = "ltr";//already defined
     this.wordOrder = "sov";
-    //this.family = "";
-    this.population = 0;
+    this.family = "Japonic";
+    this.population = 125000000;
     this.locations = [
       "Japan"
     ];
-
+    this.dialects = [
+      "Kagoshima",
+      "Hichiku",
+      "Hōnichi",
+      "Chūgoku",
+      "Umpaku",
+      "Shikoku",
+      "Kansai",
+      "Hokuriku",
+      "Tōkai–Tōsan",
+      "Kantō",
+      "inland Hokkaidō",
+      "Tōhoku",
+      "coastal Hokkaidō",
+      "Hachijō language"
+    ];
   }
 
   JaInfo.prototype = new JaInfo("jpn");

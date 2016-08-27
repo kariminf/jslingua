@@ -21,7 +21,7 @@
     this.wordOrder = "svo";//most are svo
 
     //language family:
-    //this.family = "";
+    this.family = "";
 
     //number of native speakers
     this.population = 0;
