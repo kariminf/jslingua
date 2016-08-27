@@ -133,6 +133,11 @@
                   pron = lookupPl[lessBig];
               } else {
                   pref = toArabicLetters(div) + " ";
+                  var rem100 = ~~(div % 100);
+                  if (rem100 < 11){ // for example 103000
+                    pron = lookupPl[lessBig];
+                  }
+
               }
 
               if (div == 2){
