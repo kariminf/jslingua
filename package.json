@@ -1,6 +1,6 @@
 {
-  "name": "JsLingua",
-  "version": "0.0.1",
+  "name": "jslingua",
+  "version": "0.1.0",
   "description": "Language processing modules",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "language"
   ],
   "files": [
+    "index.js",
     "lang.js",
     "trans.js",
     "ar/ar.lang.js",
