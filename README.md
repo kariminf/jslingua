@@ -50,7 +50,7 @@ Just import the class that you want to use and its implementations. Here the imp
 ## Use in Node
 First of all, you have to install the package in your current project
 ```
-npm --install jslingua
+npm install jslingua
 ```
 Then in your test file, call the module:
 ```
