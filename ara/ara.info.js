@@ -3,14 +3,14 @@
   var Info = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Info = require("../info.js");
-    module.exports = ArInfo;
+    module.exports = AraInfo;
   } else {
     Info = window.Info;
-    window.ArInfo = ArInfo;
+    window.AraInfo = AraInfo;
   }
 
-  function ArInfo() {
-    Lang.call(this, "ara");
+  function AraInfo() {
+    Info.call(this, "ara");
     this.name = "arabic";
     this.dir = "rtl";
     this.wordOrder = "vso";
@@ -54,9 +54,8 @@
 
   }
 
-  ArInfo.prototype = new Info("ara");
-  ArInfo.prototype.constructor = ArInfo;
+  AraInfo.prototype = new Info("ara");
+  AraInfo.prototype.constructor = AraInfo;
 
-  }
 
 }(this));

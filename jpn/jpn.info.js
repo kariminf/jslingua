@@ -10,7 +10,7 @@
   }
 
   function JpnInfo() {
-    Lang.call(this, "jpn");
+    Info.call(this, "jpn");
     this.name = "japanese";
     //this.dir = "ltr";//already defined
     this.wordOrder = "sov";
@@ -37,9 +37,7 @@
     ];
   }
 
-  JpnInfo.prototype = new JpnInfo("jpn");
+  JpnInfo.prototype = new Info("jpn");
   JpnInfo.prototype.constructor = JpnInfo;
-
-  }
 
 }(this));

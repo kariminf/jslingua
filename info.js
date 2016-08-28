@@ -37,31 +37,39 @@
   }
 
 
-  Info.prototype.getName(){
+  Info.prototype.getName = function(){
     return this.name;
   }
 
-  Info.prototype.getCode(){
+  Info.prototype.getCode = function(){
     return this.name;
   }
 
-  Info.prototype.getDir(){
+  Info.prototype.getFamily = function(){
+    return this.family;
+  }
+
+  Info.prototype.getBranch = function(){
+    return this.branch;
+  }
+
+  Info.prototype.getDir = function(){
     return this.dir;
   }
 
-  Info.prototype.getWordOrder(){
+  Info.prototype.getWordOrder = function(){
     return this.wordOrder;
   }
 
-  Info.prototype.getPopulation(){
+  Info.prototype.getPopulation = function(){
     return this.population;
   }
 
-  Info.prototype.getLocations(){
+  Info.prototype.getLocations = function(){
     return this.locations;
   }
 
-  Info.prototype.getDialects(){
+  Info.prototype.getDialects = function(){
     return this.dialects;
   }
 

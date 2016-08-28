@@ -120,7 +120,7 @@
     return all(this.CS[setName]);
   }
 
-  Lang.prototype.getLangCode = function(){
+  Lang.prototype.getCode = function(){
     return this.code;
   }
 

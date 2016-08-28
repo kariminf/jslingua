@@ -6,9 +6,9 @@
     window.Morpho = Morpho;
   }
 
-  function Morpho(langName) {
+  function Morpho(langCode) {
 
-    this.name = langName;
+    this.code = langCode;
     //Contains name of service and the function
 
   }
@@ -73,10 +73,10 @@
   /**
    * This function is used for verb conjugation
    * @param  {string} verb the word to be conjugated
-   * @param  {object} opt  options for tense, case, voice, aspect, person, number, gender, mood, and other
+   * @param  {object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
    * @return {string}      inflected word
    */
-  Morpho.prototype.conjugate = function(verb, opt){
+  Morpho.prototype.conjugate = function(verb, opts){
     return word;
   }
 
@@ -84,10 +84,10 @@
    * This function is used for noun inflexion<br>
    * For example: noun to plural nouns
    * @param  {string} noun the noun to be inflected
-   * @param  {object} opt  the options: number for example
+   * @param  {object} opts  the options: number for example
    * @return {string}      the inflected noun
    */
-  Morpho.prototype.declenseNoun = function(noun, opt){
+  Morpho.prototype.declenseNoun = function(noun, opts){
     return word;
   }
 

@@ -119,7 +119,7 @@
 	 * gets the language's code
 	 * @return {string} the language's code
 	 */
-	Trans.prototype.getLangCode = function(){
+	Trans.prototype.getCode = function(){
     return this.code;
   }
 

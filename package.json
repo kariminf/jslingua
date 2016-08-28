@@ -2,9 +2,9 @@
   "name": "jslingua",
   "version": "0.1.2",
   "description": "Language processing modules",
-  "main": "index.js",
+  "main": "jslingua.js",
   "scripts": {
-    "test": "node test/nodejs/console_test.js"
+    "test": "node test/nodejs/test.js"
   },
   "repository": {
     "type": "git",
