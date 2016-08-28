@@ -12,8 +12,6 @@
   function AraLang() {
     Lang.call(this, "ara");
 
-    this.dir = "rtl";
-
     //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
     this.addCharSet("MainArabic", 0x0600, 0x06FF);
     this.addCharSet("ArabicSupplement", 0x0750, 0x077F);

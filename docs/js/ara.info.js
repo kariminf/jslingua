@@ -15,6 +15,7 @@
     this.dir = "rtl";
     this.wordOrder = "vso";
     this.family = "Afro-Asiatic";
+    this.branch = "Semitic";
     this.population = 420000000;
     this.locations = [
       "Algeria",
