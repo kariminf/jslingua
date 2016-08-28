@@ -26,10 +26,10 @@
 
 	/**
 	 * Constructor of the class
-	 * @param {string} langName the name of the language: Arabic, Japanese, etc.
+	 * @param {string} langCode the code of the language: ara, jpn, etc.
 	 */
-	function Trans(langName) {
-		this.name = langName;
+	function Trans(langCode) {
+		this.code = langCode;
 		this.methods = {};
 		//default method (here we will take the first added one)
 		this.defMethod = "";
@@ -116,11 +116,11 @@
 	}
 
 	/**
-	 * gets the language's name
-	 * @return {string} the language's name
+	 * gets the language's code
+	 * @return {string} the language's code
 	 */
-	Trans.prototype.getLangName = function(){
-    return this.name;
+	Trans.prototype.getLangCode = function(){
+    return this.code;
   }
 
 	/**

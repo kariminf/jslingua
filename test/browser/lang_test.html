@@ -4,29 +4,27 @@
   <meta charset="UTF-8">
   <title>Language test</title>
   <script type="text/javascript" src="../../lang.js" ></script>
-  <script type="text/javascript" src="../../ar/ar.lang.js" ></script>
-  <script type="text/javascript" src="../../ja/ja.lang.js" ></script>
+  <script type="text/javascript" src="../../ara/ara.lang.js" ></script>
+  <script type="text/javascript" src="../../jpn/jpn.lang.js" ></script>
   <script type="text/javascript">
 
   var tester;
   var cs = [];
-  var dir = "ltr";
 
   function setTester (){
     var e = document.getElementById("l");
     var l = e.options[e.selectedIndex].value || 100;
     switch(l) {
       case "1":
-      tester = new ArLang();
+      tester = new AraLang();
       break;
       case "2":
-      tester = new JaLang();
+      tester = new JpnLang();
       break;
       default:
-      tester = new ArLang();
+      tester = new AraLang();
     }
     cs = tester.availableCharSets();
-    dir = tester.dir;
   }
 
   function update(){
@@ -35,9 +33,6 @@
     var lanCS = document.getElementById("lanCS");
 
     affectElements(lanCS);
-
-    document.getElementById("nbrp").dir = dir;
-    document.getElementById("ltst").dir = dir;
 
     var tsel = document.getElementById("tsel");
 

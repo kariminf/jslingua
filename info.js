@@ -23,6 +23,9 @@
     //language family:
     this.family = "";
 
+    //language branch:
+    this.branch = "";
+
     //number of native speakers
     this.population = 0;
 

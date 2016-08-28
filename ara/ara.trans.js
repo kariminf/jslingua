@@ -312,7 +312,7 @@
   }
 
   AraTrans.prototype = new Trans("ara");
-  AraTrans.prototype.constructor = ArTrans;
+  AraTrans.prototype.constructor = AraTrans;
 
   function ar2morseNormalize(text){
     var result = text;

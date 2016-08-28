@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Transliteration</title>
   <script type="text/javascript" src="../../trans.js" ></script>
-  <script type="text/javascript" src="../../ar/ar.trans.js" ></script>
-  <script type="text/javascript" src="../../ja/ja.trans.js" ></script>
+  <script type="text/javascript" src="../../ara/ara.trans.js" ></script>
+  <script type="text/javascript" src="../../jpn/jpn.trans.js" ></script>
   <script type="text/javascript">
 
   var transformer = {};
@@ -16,13 +16,13 @@
 
     switch(l) {
       case "1":
-      transformer = new ArTrans();
+      transformer = new AraTrans();
       break;
       case "2":
-      transformer = new JaTrans();
+      transformer = new JpnTrans();
       break;
       default:
-      transformer = new ArTrans();
+      transformer = new AraTrans();
     }
 
     var methods = transformer.availableMethods();

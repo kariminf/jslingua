@@ -28,7 +28,7 @@
   }
 
   AraLang.prototype = new Lang("ara");
-  AraLang.prototype.constructor = ArLang;
+  AraLang.prototype.constructor = AraLang;
 
   //https://ar.wikipedia.org/wiki/قائمة_الأعداد
   var lookup = {

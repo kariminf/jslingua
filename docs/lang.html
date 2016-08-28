@@ -15,7 +15,6 @@
 
   var tester;
   var cs = [];
-  var dir = "ltr";
 
   function setTester (){
     var e = document.getElementById("l");
@@ -31,7 +30,6 @@
       tester = new ArLang();
     }
     cs = tester.availableCharSets();
-    dir = tester.dir;
   }
 
   function update(){
@@ -40,9 +38,6 @@
     var lanCS = document.getElementById("lanCS");
 
     affectElements(lanCS);
-
-    document.getElementById("nbrp").dir = dir;
-    document.getElementById("ltst").dir = dir;
 
     var tsel = document.getElementById("tsel");
 

@@ -2,10 +2,10 @@
   var Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
-    module.exports = JaTrans;
+    module.exports = JpnTrans;
   } else {
     Trans = window.Trans;
-    window.JaTrans = JaTrans;
+    window.JpnTrans = JpnTrans;
   }
 
   var hiragana = [
@@ -321,8 +321,8 @@
   /**
   * Constructor to create a Japanese translaterator
   */
-  function JaTrans() {
-    Trans.call(this, "Japanese");
+  function JpnTrans() {
+    Trans.call(this, "jpn");
 
     this.newMethod("Hepburn", hiragana, hepburn);
     this.addTransPrePostMethods("Hepburn", hepburnPreTrans, shikiPostTrans);
@@ -341,7 +341,7 @@
     this.addUntransPrePostMethods("Morse", morsePreUntrans, morsePostUntrans);
   }
 
-  JaTrans.prototype = new Trans("Japanese");
+  JpnTrans.prototype = new Trans("jpn");
 
   function ja2morseNormalize(text){
     var result = text;
@@ -565,7 +565,5 @@
       return result;
     });
   }
-
-  return JaTrans;
 
 }());

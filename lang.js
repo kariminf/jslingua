@@ -62,10 +62,9 @@
     }
   }
 
-  function Lang(langName) {
+  function Lang(langCode) {
 
-    this.name = langName;
-    this.dir = "ltr";
+    this.code = langCode;
     //Contains name of service and the function
     this.CS = {};
     this.TR = {};
@@ -121,12 +120,8 @@
     return all(this.CS[setName]);
   }
 
-  Lang.prototype.getLangName = function(){
-    return this.name;
-  }
-
-  Lang.prototype.getLangDir = function(){
-    return this.dir;
+  Lang.prototype.getLangCode = function(){
+    return this.code;
   }
 
   /**

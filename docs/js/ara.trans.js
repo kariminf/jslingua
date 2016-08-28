@@ -2,10 +2,10 @@
   var Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
-    module.exports = ArTrans;
+    module.exports = AraTrans;
   } else {
     Trans = window.Trans;
-    window.ArTrans = ArTrans;
+    window.AraTrans = AraTrans;
   }
 
   var arabic = [
@@ -302,8 +302,8 @@
   var otherMourseTrans = new Trans("otherMourse");
   otherMourseTrans.newMethod("def", otherMourseBef, otherMourseAft);
 
-  function ArTrans() {
-    Trans.call(this, "Arabic");
+  function AraTrans() {
+    Trans.call(this, "ara");
     this.newMethod("Buckwalter", arabic, buckwalter);
     this.newMethod("ArabTeX", arabic, arabtex);
     this.newMethod("Morse", arabic, armorse);
@@ -311,17 +311,8 @@
     this.addUntransPrePostMethods("Morse", morsePreUntrans, morsePostUntrans);
   }
 
-  function ArTrans() {
-    Trans.call(this, "Arabic");
-    this.newMethod("Buckwalter", arabic, buckwalter);
-    this.newMethod("ArabTeX", arabic, arabtex);
-    this.newMethod("Morse", arabic, armorse);
-    this.addTransPrePostMethods("Morse", morsePreTrans, morsePostTrans);
-    this.addUntransPrePostMethods("Morse", morsePreUntrans, morsePostUntrans);
-  }
-
-  ArTrans.prototype = new Trans("Arabic");
-  ArTrans.prototype.constructor = ArTrans;
+  AraTrans.prototype = new Trans("ara");
+  AraTrans.prototype.constructor = ArTrans;
 
   function ar2morseNormalize(text){
     var result = text;
@@ -373,7 +364,5 @@
     result = result.replace(/\t/gi, " ");
     return result;
   }
-
-  return ArTrans;
 
 }(this));
