@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="use/jslingua.css">
 
   <script type="text/javascript" src="js/trans.js" ></script>
-  <script type="text/javascript" src="js/ar.trans.js" ></script>
-  <script type="text/javascript" src="js/ja.trans.js" ></script>
+  <script type="text/javascript" src="js/ara.trans.js" ></script>
+  <script type="text/javascript" src="js/jpn.trans.js" ></script>
   <script type="text/javascript">
   var transformer = {};
 
@@ -19,13 +19,13 @@
     var l = e.options[e.selectedIndex].value;
     switch(l) {
       case "1":
-      transformer = new ArTrans();
+      transformer = new AraTrans();
       break;
       case "2":
-      transformer = new JaTrans();
+      transformer = new JpnTrans();
       break;
       default:
-      transformer = new ArTrans();
+      transformer = new AraTrans();
     }
 
     var methods = transformer.availableMethods();

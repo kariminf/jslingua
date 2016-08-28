@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="use/jslingua.css">
 
   <script type="text/javascript" src="js/lang.js" ></script>
-  <script type="text/javascript" src="js/ar.lang.js" ></script>
-  <script type="text/javascript" src="js/ja.lang.js" ></script>
+  <script type="text/javascript" src="js/ara.lang.js" ></script>
+  <script type="text/javascript" src="js/jpn.lang.js" ></script>
   <script type="text/javascript">
 
   var tester;
@@ -21,13 +21,13 @@
     var l = e.options[e.selectedIndex].value || 100;
     switch(l) {
       case "1":
-      tester = new ArLang();
+      tester = new AraLang();
       break;
       case "2":
-      tester = new JaLang();
+      tester = new JpnLang();
       break;
       default:
-      tester = new ArLang();
+      tester = new AraLang();
     }
     cs = tester.availableCharSets();
   }
