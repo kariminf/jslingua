@@ -3,14 +3,14 @@
   var Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
-    module.exports = ArLang;
+    module.exports = AraLang;
   } else {
     Lang = window.Lang;
-    window.ArLang = ArLang;
+    window.AraLang = AraLang;
   }
 
-  function ArLang() {
-    Lang.call(this, "Arabic");
+  function AraLang() {
+    Lang.call(this, "ara");
 
     this.dir = "rtl";
 
@@ -27,8 +27,8 @@
     this.addTransform("arabicToIndicNumeral", 0x0630, "ArabicNumeral");
   }
 
-  ArLang.prototype = new Lang("Arabic");
-  ArLang.prototype.constructor = ArLang;
+  AraLang.prototype = new Lang("ara");
+  AraLang.prototype.constructor = ArLang;
 
   //https://ar.wikipedia.org/wiki/قائمة_الأعداد
   var lookup = {
@@ -58,7 +58,7 @@
       //1000000000, 1000000, 1000, 100, 10
   }
 
- ArLang.prototype.pronounceNumber = toArabicLetters;
+ AraLang.prototype.pronounceNumber = toArabicLetters;
   /**
   * Transform from Arabic numbers to Arabic letters
   * @method toArabicLetters

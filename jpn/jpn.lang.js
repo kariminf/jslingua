@@ -2,14 +2,14 @@
   var Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
-    module.exports = JaLang;
+    module.exports = JpnLang;
   } else {
     Lang = window.Lang;
-    window.JaLang = JaLang;
+    window.JpnLang = JpnLang;
   }
-  
-  function JaLang() {
-    Lang.call(this, "Japanese");
+
+  function JpnLang() {
+    Lang.call(this, "jpn");
 
     this.addCharSet("Hiragana", 0x3040, 0x309F);
     this.addCharSet("Katakana", 0x30A0, 0x30FF);
@@ -20,8 +20,8 @@
     this.addTransform("katakanaToHiragana", -0x0060, "Katakana");
   }
 
-  JaLang.prototype = new Lang("Japanese");
-  JaLang.prototype.constructor = JaLang;
+  JpnLang.prototype = new Lang("jpn");
+  JpnLang.prototype.constructor = JpnLang;
 
 
   var lookup = {
@@ -36,7 +36,7 @@
       10000, 1000, 100, 10
   ]
 
-JaLang.prototype.pronounceNumber = toJapaneseLetters;
+JpnLang.prototype.pronounceNumber = toJapaneseLetters;
   /**
   * Transform from Arabic numbers to Japanese letters
   * @method toJapaneseLetters
@@ -82,7 +82,5 @@ JaLang.prototype.pronounceNumber = toJapaneseLetters;
       return result;
 
   }
-
-  return JaLang;
 
 }(this));

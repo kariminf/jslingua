@@ -1,5 +1,7 @@
 //These are classes
-exports.JaLang = require("./ja/ja.lang.js");
-exports.JaTrans = require("./ja/ja.trans.js");
-exports.ArLang = require("./ar/ar.lang.js");
-exports.ArTrans = require("./ar/ar.trans.js");
+
+exports.JpnLang = require("./jpn/jpn.lang.js");
+exports.JpnTrans = require("./jpn/jpn.trans.js");
+
+exports.AraLang = require("./ara/ara.lang.js");
+exports.AraTrans = require("./ara/ara.trans.js");

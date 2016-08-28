@@ -3,13 +3,13 @@
   var Info = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Info = require("../info.js");
-    module.exports = JaInfo;
+    module.exports = JpnInfo;
   } else {
     Info = window.Info;
-    window.JaInfo = JaInfo;
+    window.JpnInfo = JpnInfo;
   }
 
-  function JaInfo() {
+  function JpnInfo() {
     Lang.call(this, "jpn");
     this.name = "japanese";
     //this.dir = "ltr";//already defined
@@ -37,8 +37,8 @@
     ];
   }
 
-  JaInfo.prototype = new JaInfo("jpn");
-  JaInfo.prototype.constructor = JaInfo;
+  JpnInfo.prototype = new JpnInfo("jpn");
+  JpnInfo.prototype.constructor = JpnInfo;
 
   }
 
