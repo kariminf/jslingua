@@ -11,6 +11,10 @@ Javascript library to process languages:
 # Different classes
 These classes are abstract; it means each language has to extend these classes. For example: class Lang, we find: ArLang for Arabic and JaLang for Japanese
 
+## Info
+The **Info** class affords these services:
+* **availableCharSets()**:
+
 ## Lang
 The **Lang** class affords these services:
 * **availableCharSets()**: it returns a list of available charsets names. For Japanese as example, it returns: "Hiragana", "Katakana", "Kanji" and "Punctuation".

@@ -1,10 +1,14 @@
 {
   "name": "jslingua",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Language processing modules",
   "main": "jslingua.js",
+  "devDependencies": {
+    "minifier": ">=0.8.0"
+  },
   "scripts": {
-    "test": "node test/nodejs/test.js"
+    "test": "node test/nodejs/test.js",
+    "prepublish": "bash min.sh"
   },
   "repository": {
     "type": "git",
@@ -16,17 +20,22 @@
     "language"
   ],
   "files": [
-    "LICENSE",
-    "index.js",
+    "info.js",
     "lang.js",
     "trans.js",
-    "ar/ar.lang.js",
-    "ar/ar.trans.js",
-    "ja/ja.lang.js",
-    "ja/ja.trans.js"
+
+    "ara/ara.info.js",
+    "ara/ara.lang.js",
+    "ara/ara.trans.js",
+
+    "jpn/jpn.info.js",
+    "jpn/jpn.lang.js",
+    "jpn/jpn.trans.js",
+
+    "dist/"
   ],
   "author": "Abdelkrime Aries <kariminfo0@gmail.com>",
-  "license": "Apache 2",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/kariminf/JsLingua/issues"
   },

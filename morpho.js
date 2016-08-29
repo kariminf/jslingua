@@ -13,29 +13,32 @@
 
   }
 
-  Morpho.POS = {
+  var C = Object.freeze;
+
+  Morpho.POS = C({
     Noun: 0,
     Verb: 1,
-    Adjective: 2
+    Adjective: 2,
     Adverb: 3,
     Preposition: 4,
     Pronoun: 5
-  }
+  });
 
-  Morpho.Tense = {
+
+  Morpho.Tense = C({
     Past: 0,
     Present: 1,
     Future: 2
-  }
+  });
 
-  Morpho.Aspect = {
+  Morpho.Aspect = C({
     Simple: 0,
     Continuous: 1,
     Perfect: 2,
     PerfectContinuous: 3
-  }
+  });
 
-  Morpho.Mood = {
+  Morpho.Mood = C({
     Indicative: 0,
     Subjunctive: 1,
     Conditional: 2,
@@ -45,21 +48,21 @@
     Potential: 6,
     Hypothetical: 7,
     Inferential: 8
-  }
+  });
 
-  Morpho.Voice = {
+  Morpho.Voice = C({
     Active: 0,
     Passive: 1,
     Middle: 2
-  }
+  });
 
-  Morpho.Number = {
+  Morpho.Number = C({
     Singular: 0,
     Dual: 1,
     Plural: 2
-  }
+  });
 
-  Morpho.Case = {
+  Morpho.Case = C({
     Nominative: 0,
     Accusative: 1,
     Genitive: 2,
@@ -68,7 +71,7 @@
     Ablative: 5,
     Instrumental: 6,
     Vocative: 7
-  }
+  });
 
   /**
    * This function is used for verb conjugation
