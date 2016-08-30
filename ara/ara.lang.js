@@ -1,28 +1,28 @@
-(function(window){
+(function(){
 
   var Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
     module.exports = AraLang;
   } else {
-    Lang = window.Lang;
-    window.AraLang = AraLang;
+    Lang = window.JsLingua.Cls.Lang;
+    window.JsLingua.addService("Lang", "ara", AraLang);
   }
 
   function AraLang() {
     Lang.call(this, "ara");
 
     //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
-    this.addCharSet("MainArabic", 0x0600, 0x06FF);
-    this.addCharSet("ArabicSupplement", 0x0750, 0x077F);
-    this.addCharSet("ArabicExtendedA", 0x08A0, 0x08FF);
-    this.addCharSet("ArabicPresentationA", 0xFB50, 0xFDFF);
-    this.addCharSet("ArabicPresentationB", 0xFE70, 0xFEFF);
-    this.addCharSet("IndicNumeral", 0x0660, 0x0669);
-    this.addCharSet("ArabicNumeral", 0x0030, 0x0039);
+    Lang.addCharSet.call(this, "MainArabic", 0x0600, 0x06FF);
+    Lang.addCharSet.call(this, "ArabicSupplement", 0x0750, 0x077F);
+    Lang.addCharSet.call(this, "ArabicExtendedA", 0x08A0, 0x08FF);
+    Lang.addCharSet.call(this, "ArabicPresentationA", 0xFB50, 0xFDFF);
+    Lang.addCharSet.call(this, "ArabicPresentationB", 0xFE70, 0xFEFF);
+    Lang.addCharSet.call(this, "IndicNumeral", 0x0660, 0x0669);
+    Lang.addCharSet.call(this, "ArabicNumeral", 0x0030, 0x0039);
 
-    this.addTransform("indicToArabicNumeral", -0x0630, "IndicNumeral");
-    this.addTransform("arabicToIndicNumeral", 0x0630, "ArabicNumeral");
+    Lang.addTransform.call(this, "indicToArabicNumeral", -0x0630, "IndicNumeral");
+    Lang.addTransform.call(this, "arabicToIndicNumeral", 0x0630, "ArabicNumeral");
   }
 
   AraLang.prototype = new Lang("ara");
@@ -180,4 +180,4 @@
 
   }
 
-}(this));
+}());

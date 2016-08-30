@@ -5,13 +5,13 @@
     Info = require("../info.js");
     module.exports = AraInfo;
   } else {
-    Info = window.Info;
-    window.AraInfo = AraInfo;
+    Info = window.JsLingua.Cls.Info;
+    window.JsLingua.addService("Info", "ara", AraInfo);
   }
 
   function AraInfo() {
     Info.call(this, "ara");
-    this.name = "arabic";
+    this.name = "Arabic";
     this.dir = "rtl";
     this.wordOrder = "vso";
     this.family = "Afro-Asiatic";

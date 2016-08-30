@@ -1,11 +1,11 @@
-(function(window){
+(function(){
   var Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = AraTrans;
   } else {
-    Trans = window.Trans;
-    window.AraTrans = AraTrans;
+    Trans = window.JsLingua.Cls.Trans;
+    window.JsLingua.addService("Trans", "ara", AraTrans);
   }
 
   var arabic = [
@@ -300,15 +300,15 @@
   ];
 
   var otherMourseTrans = new Trans("otherMourse");
-  otherMourseTrans.newMethod("def", otherMourseBef, otherMourseAft);
+  Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
   function AraTrans() {
     Trans.call(this, "ara");
-    this.newMethod("Buckwalter", arabic, buckwalter);
-    this.newMethod("ArabTeX", arabic, arabtex);
-    this.newMethod("Morse", arabic, armorse);
-    this.addTransPrePostMethods("Morse", morsePreTrans, morsePostTrans);
-    this.addUntransPrePostMethods("Morse", morsePreUntrans, morsePostUntrans);
+    Trans.newMethod.call(this, "Buckwalter", arabic, buckwalter);
+    Trans.newMethod.call(this,"ArabTeX", arabic, arabtex);
+    Trans.newMethod.call(this,"Morse", arabic, armorse);
+    Trans.addTransPrePostMethods.call(this, "Morse", morsePreTrans, morsePostTrans);
+    Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
   }
 
   AraTrans.prototype = new Trans("ara");
@@ -365,4 +365,4 @@
     return result;
   }
 
-}(this));
+}());

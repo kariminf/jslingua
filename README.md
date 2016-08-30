@@ -3,17 +3,36 @@
 JsLingua [![Hex.pm](https://img.shields.io/badge/Project-JsLingua-yellow.svg?style=flat)](https://kariminf.github.com/JsLingua) [![Hex.pm](https://img.shields.io/badge/License-Apache_2-yellow.svg?style=flat)](https://github.com/kariminf/JsLingua/blob/master/LICENSE) [![Hex.pm](https://img.shields.io/badge/Version-0.1.2-yellow.svg?style=flat)](https://github.com/kariminf/JsLingua/releases) [![Build Status](https://travis-ci.org/kariminf/JsLingua.svg?branch=master)](https://travis-ci.org/kariminf/JsLingua)
 ===========
 Javascript library to process languages:
+* Information about the language
 * Basic language functions:
   * Detection of language's characters
-  * Transforming numbers to strings (pronounciation)
-* Translateration: different translateration methods including Morse code.
+  * Transforming numbers to strings (pronunciation)
+* Transliteration: different transliteration methods including Morse code.
 
 # Different classes
-These classes are abstract; it means each language has to extend these classes. For example: class Lang, we find: ArLang for Arabic and JaLang for Japanese
+These classes are abstract; it means each language has to extend these classes. For example: class Lang, we find: AraLang for Arabic and JpnLang for Japanese.
+
+## JsLingua
+The **JsLingua** is the main class which used to manage the other classes.
+It affords these services:
+* **serviceLanguages(serviceID)**: It returns a list of languages codes which support the service.
+serviceID is in: "Info", "Lang" and "Trans".
+* **getService(serviceID, langCode)**: Returns a class of the service you want to use.
+
+This class is obligatory to manage different services.
+In the browser, you have to call it first, before other classes so it can charge the services
 
 ## Info
 The **Info** class affords these services:
-* **availableCharSets()**:
+* **getName()**: Get the name of the language; "Arabic", "Japanese", etc.
+* **getCode()**: Get the code of the language; "ara", "jpn", etc.
+* **getFamily()**: Get the family of the language; "Afro-Asiatic", "Japonic", etc.
+* **getBranch()**: Get the branch of the language; "Semetic", etc.
+* **getDir()**: Get the direction of writing; "rtl", "ltr".
+* **getWordOrder()**: Get Words order using: subject (S), "Object" and Verb "V"; "vso", "sov", etc.
+* **getPopulation()**: Get the number of natively speakers; it is approximate.
+* **getLocations()**: Get a list of counties where the language is official
+* **getDialects()**: Get a list of dialects
 
 ## Lang
 The **Lang** class affords these services:
@@ -36,17 +55,28 @@ The **trans** class affords these services:
 # How to?
 
 ## Use in Browser
-Just import the class that you want to use and its implementations. Here the importation of all classes
-```
-<!-- Transliteration module -->
-<script type="text/javascript" src="trans.js" ></script>
-<script type="text/javascript" src="ar/ar.trans.js" ></script>
-<script type="text/javascript" src="ja/ja.trans.js" ></script>
+Just import the class that you want to use and its implementations.
+Here the importation of all classes, where:
+* <module> in: info, lang, trans
+* <lang> in: ara, jpn
 
-<!-- Language module -->
-<script type="text/javascript" src="lang.js" ></script>
-<script type="text/javascript" src="ar/ar.lang.js" ></script>
-<script type="text/javascript" src="ja/ja.lang.js" ></script>
+```
+<script type="text/javascript" src="jslingua.js" ></script>
+<script type="text/javascript" src="<module>.js" ></script>
+<script type="text/javascript" src="<lang>/<lang>.<module>.js" ></script>
+...
+```
+You can use a CDN (content-delivery network):
+```
+<script type="text/javascript" src="https://unpkg.com/jslingua@version/file" ></script>
+```
+if you want to use the last version, just replace "version" with "latest".
+For example, :
+```
+<script type="text/javascript" src="https://unpkg.com/package@latest/jslingua.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/package@latest/lang.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/package@latest/ara.lang.min.js" ></script>
+...
 ```
 
 ## Use in Node
@@ -54,65 +84,44 @@ First of all, you have to install the package in your current project
 ```
 npm install jslingua
 ```
-Then in your test file, call the module:
+Then in your test file, call the main module "jslingua".
 ```
 var JsLingua = require('jslingua');
+```
+
+## Get the services (Browser & Node)
+
+You can call them one by one, if you know the services and their implemented languages.
+```
+//Available information classes
+var ArTrans = JsLingua.getService("Info", "ara");
+var JaTrans = JsLingua.getService("Info", "jpn");
 
 //Available transliteration classes
-var ArTrans = JsLingua.ArTrans;
-var JaTrans = JsLingua.JaTrans;
+var ArTrans = JsLingua.getService("Trans", "ara");
+var JaTrans = JsLingua.getService("Trans", "jpn");
 
 //Available language classes
-var ArLang = JsLingua.ArLang;
-var JaLang = JsLingua.JaLang;
+var ArLang = JsLingua.getService("Lang", "ara");
+var JaLang = JsLingua.getService("Lang", "jpn");
 ```
-## Example
-You have now the classes, you can use the functions we enumerated earlier.
+
+Or, you can just loop over the services and test available languages.
+For example, the "Info" service:
 ```
-...
-var langList = [
-    ArLang,
-    JaLang
-];
-
-var transList = [
-    ArTrans,
-    JaTrans
-];
-
-var test = {
-  "Arabic": "أهْلاً بِكُمْ فِي هـٰـذَا الاِختِبَار",
-  "Japanese": "皆さん、こんにちは"
-};
-
-var resp = "";
-for (var i=0; i< langList.length; i++){
-    var lang = new langList[i];
-    resp += "Language " + lang.getLangName() + "\n";
-    resp += "103987 = " + lang.pronounceNumber(103987) + "\n";
-}
-
-resp += "\n";
+//Get the list of languages codes which support the Info service
+var langIDs = JsLingua.serviceLanguages("Info");
+var result = "";
 var i;
-for (i=0; i< transList.length; i++){
-    var trans = new transList[i];
-    var langName = trans.getLangName();
-    var methods = trans.availableMethods();
-    var j;
-    for (j = 0; j < methods.length; j++){
-        var method = methods[j];
-        resp += langName + ": " + method + "\n";
-        trans.setCurrentMethod(method);
-        if (langName in test){
-            var srcT = test[langName];
-            var transT = trans.transliterate(srcT);
-            resp += srcT + " ==trans==> " + transT + "\n";
-            resp += transT + " ==untrans==> " + trans.untransliterate(transT) + "\n";
-        }
-    }
+for (i = 0; i < langIDs; i++){
+  var infoClass = JsLingua.getService("Info", langIDs[i]);
+  var info = new infoClass();
+  result += i + "- " + info.getName() + "\n";
 }
-
 ```
+
+# Create a new language
+
 
 # License
 The code is released under Apache 2.0 license.

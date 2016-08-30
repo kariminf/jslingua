@@ -1,9 +1,9 @@
-(function(window){
+(function(){
 
 	if ( typeof module === "object" && module && typeof module.exports === "object" ) {
 		module.exports = Trans;
 	} else {
-		window.Trans = Trans;
+		window.JsLingua.Cls.Trans = Trans;
 	}
 
 	/**
@@ -43,7 +43,7 @@
 	 * @param  {Array[string]} langTbl    the languages characters
 	 * @param  {Array[string]} transTbl   their respective representations
 	 */
-	Trans.prototype.newMethod = function (methodName, langTbl, transTbl) {
+	Trans.newMethod = function (methodName, langTbl, transTbl) {
 		if (typeof methodName === "string" && methodName.length > 0){
 			this.methods[methodName] = {};
 			if (this.defMethod.length < 1)
@@ -58,24 +58,6 @@
 				}
 		}
 	}
-
-	/**
-	 * Sets the current method for translateration
-	 * @param {string} methodName method's name
-	 */
-	Trans.prototype.setCurrentMethod = function (methodName) {
-		if (methodName in this.methods){
-			this.currentMethod = methodName;
-		}
-	}
-
-	/**
-	 * Returns the list of available translateration methods
-	 * @return {Array[string]} [description]
-	 */
-	Trans.prototype.availableMethods = function(){
-    return Object.keys(this.methods);
-  }
 
 	/**
 	 * [setTransUntrasMethods description]
@@ -93,7 +75,7 @@
 		}
 	}
 
-	Trans.prototype.addTransPrePostMethods = function (methodName, preFunc, postFunc) {
+	Trans.addTransPrePostMethods = function (methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preTrans = preFunc;
@@ -104,7 +86,7 @@
 		}
 	}
 
-	Trans.prototype.addUntransPrePostMethods = function (methodName, preFunc, postFunc) {
+	Trans.addUntransPrePostMethods = function (methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preUntrans = preFunc;
@@ -114,6 +96,28 @@
 			}
 		}
 	}
+
+
+//=============================================
+// Prototypes
+// ============================================
+	/**
+	 * Sets the current method for translateration
+	 * @param {string} methodName method's name
+	 */
+	Trans.prototype.setCurrentMethod = function (methodName) {
+		if (methodName in this.methods){
+			this.currentMethod = methodName;
+		}
+	}
+
+	/**
+	 * Returns the list of available translateration methods
+	 * @return {Array[string]} [description]
+	 */
+	Trans.prototype.availableMethods = function(){
+    return Object.keys(this.methods);
+  }
 
 	/**
 	 * gets the language's code
@@ -163,4 +167,4 @@
 		return result;
 	}
 
-}(this));
+}());

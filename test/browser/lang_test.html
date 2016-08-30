@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Language test</title>
+  <script type="text/javascript" src="../../jslingua.js" ></script>
   <script type="text/javascript" src="../../lang.js" ></script>
   <script type="text/javascript" src="../../ara/ara.lang.js" ></script>
   <script type="text/javascript" src="../../jpn/jpn.lang.js" ></script>
@@ -13,18 +14,25 @@
 
   function setTester (){
     var e = document.getElementById("l");
-    var l = e.options[e.selectedIndex].value || 100;
-    switch(l) {
-      case "1":
-      tester = new AraLang();
-      break;
-      case "2":
-      tester = new JpnLang();
-      break;
-      default:
-      tester = new AraLang();
-    }
+    var langID = e.options[e.selectedIndex].text;
+    var LangClass = JsLingua.getService("Lang", langID);
+    tester = new LangClass();
     cs = tester.availableCharSets();
+  }
+
+  function loading(){
+    var e = document.getElementById("l");
+
+    var langIDs = JsLingua.serviceLanguages("Lang");
+    var i;
+    for (i = 0; i < langIDs.length; i++){
+      var option = document.createElement("option");
+      option.text = langIDs[i];
+      e.add(option);
+    }
+
+    update();
+
   }
 
   function update(){
@@ -115,8 +123,6 @@
 <body>
   <h2>Choose the language:</h2>
   <select id="l" onchange="update()">
-    <option value="1" >Arabic</option>
-    <option value="2">Japanese</option>
   </select>
   <br>
   <h2>Number in chars</h2>
@@ -146,7 +152,7 @@
     <input type="text" id="tdest" />
   </div>
   <script>
-  update();
+  loading();
   </script>
 </body>
 </html>

@@ -1,4 +1,10 @@
-(function(window){
+(function(){
+
+  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    module.exports = Lang;
+  } else {
+    window.JsLingua.Cls.Lang = Lang;
+  }
 
   /**
   * Returns unicode
@@ -78,15 +84,19 @@
   * @param  {number} end     integer value: end of the charSet
   * @return {null}         [description]
   */
-  Lang.prototype.addCharSet = function(setName, begin, end){
+  Lang.addCharSet = function(setName, begin, end){
     this.CS[setName] = isBetween(begin, end);
   }
 
-  Lang.prototype.addTransform = function(transName, offset, origCharSet){
+  Lang.addTransform = function(transName, offset, origCharSet){
     var charSetFunc = function(char){return false};
     if (origCharSet in this.CS) charSetFunc = this.CS[origCharSet];
     this.TR[transName] = transform(offset, charSetFunc);
   }
+
+  //=========================================
+  // Prototypes
+  // ========================================
 
   Lang.prototype.availableCharSets = function(){
     return Object.keys(this.CS);
@@ -133,10 +143,4 @@
     return num;
   }
 
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-    module.exports = Lang;
-  } else {
-    window.Lang = Lang;
-  }
-
-}(this));
+}());

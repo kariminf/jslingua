@@ -1,9 +1,11 @@
-(function(window){
+(function(){
 
   //service name: [services for languages]
   var services = {};
 
   var JsLingua = {};
+
+  JsLingua.Cls = {};
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     //In case of nodeJs, we load all available modules
@@ -21,6 +23,13 @@
         "jpn": require("./jpn/jpn.trans.js")//Japanese transliteration class
       }
     };
+
+    JsLingua.Cls = {
+      Info: require("./info.js"),
+      Lang: require("./lang.js"),
+      Trans: require("./trans.js"),
+    };
+
     module.exports = JsLingua;
 
   } else {
@@ -28,9 +37,12 @@
     window.JsLingua = JsLingua;
   }
 
-  JsLingua.addService = function(serviceID, theClass){
-
-    //if ()
+  JsLingua.addService = function(serviceID, langCode, theClass){
+    if (services[serviceID] === undefined){
+      services[serviceID] = {};
+    }
+    
+    services[serviceID][langCode] = theClass;
 
   }
 
@@ -46,4 +58,4 @@
   }
 
 
-}(this));
+}());

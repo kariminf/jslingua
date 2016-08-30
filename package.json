@@ -32,7 +32,8 @@
     "jpn/jpn.lang.js",
     "jpn/jpn.trans.js",
 
-    "dist/"
+    "dist/",
+    "test"
   ],
   "author": "Abdelkrime Aries <kariminfo0@gmail.com>",
   "license": "Apache-2.0",

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Translateration</title>
+  <script type="text/javascript" src="../../jslingua.js" ></script>
   <script type="text/javascript" src="../../trans.js" ></script>
   <script type="text/javascript" src="../../ara/ara.trans.js" ></script>
   <script type="text/javascript" src="../../jpn/jpn.trans.js" ></script>
@@ -12,8 +13,8 @@
     var lang = document.getElementById("2lang");
     var lang2 = document.getElementById("2lang2");
     var trans = document.getElementById("trans");
-    var ar = new araTrans();
-    var ja = new JpnTrans();
+    var ar =  new (JsLingua.getService("Trans", "ara"))();
+    var ja =  new (JsLingua.getService("Trans", "jpn"))();
     lang.value = ar.untransliterate(trans.value);
     lang2.value = ja.untransliterate(trans.value);
   }

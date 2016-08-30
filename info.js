@@ -1,9 +1,9 @@
-(function(window){
+(function(){
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     module.exports = Info;
   } else {
-    window.Info = Info;
+    window.JsLingua.Cls.Info = Info;
   }
 
   function Info(code) {
@@ -73,4 +73,4 @@
     return this.dialects;
   }
 
-}(this));
+}());

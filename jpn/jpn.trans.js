@@ -4,8 +4,9 @@
     Trans = require("../trans.js");
     module.exports = JpnTrans;
   } else {
-    Trans = window.Trans;
-    window.JpnTrans = JpnTrans;
+    Trans = window.JsLingua.Cls.Trans;
+    //window.JpnTrans = JpnTrans;
+    window.JsLingua.addService("Trans", "jpn", JpnTrans);
   }
 
   var hiragana = [
@@ -315,7 +316,7 @@
   ];
 
   var otherMourseTrans = new Trans("otherMourse");
-  otherMourseTrans.newMethod("def", otherMourseBef, otherMourseAft);
+  Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
 
   /**
@@ -324,21 +325,21 @@
   function JpnTrans() {
     Trans.call(this, "jpn");
 
-    this.newMethod("Hepburn", hiragana, hepburn);
-    this.addTransPrePostMethods("Hepburn", hepburnPreTrans, shikiPostTrans);
-    this.addUntransPrePostMethods("Hepburn", hepburnPreUntrans, loneCharReplace);
+    Trans.newMethod.call(this, "Hepburn", hiragana, hepburn);
+    Trans.addTransPrePostMethods.call(this, "Hepburn", hepburnPreTrans, shikiPostTrans);
+    Trans.addUntransPrePostMethods.call(this, "Hepburn", hepburnPreUntrans, loneCharReplace);
 
-    this.newMethod("NihonShiki", hiragana, hepburn);
-    this.addTransPrePostMethods("NihonShiki", nihonShikiPreTrans, shikiPostTrans);
-    this.addUntransPrePostMethods("NihonShiki", nihonShikiPreUntrans, loneCharReplace);
+    Trans.newMethod.call(this, "NihonShiki", hiragana, hepburn);
+    Trans.addTransPrePostMethods.call(this, "NihonShiki", nihonShikiPreTrans, shikiPostTrans);
+    Trans.addUntransPrePostMethods.call(this, "NihonShiki", nihonShikiPreUntrans, loneCharReplace);
 
-    this.newMethod("KunreiShiki", hiragana, hepburn);
-    this.addTransPrePostMethods("KunreiShiki", kunreiShikiPreTrans, shikiPostTrans);
-    this.addUntransPrePostMethods("KunreiShiki", kunreiShikiPreUntrans, loneCharReplace);
+    Trans.newMethod.call(this, "KunreiShiki", hiragana, hepburn);
+    Trans.addTransPrePostMethods.call(this, "KunreiShiki", kunreiShikiPreTrans, shikiPostTrans);
+    Trans.addUntransPrePostMethods.call(this, "KunreiShiki", kunreiShikiPreUntrans, loneCharReplace);
 
-    this.newMethod("Morse", hiragana, wabun);
-    this.addTransPrePostMethods("Morse", morsePreTrans, morsePostTrans);
-    this.addUntransPrePostMethods("Morse", morsePreUntrans, morsePostUntrans);
+    Trans.newMethod.call(this, "Morse", hiragana, wabun);
+    Trans.addTransPrePostMethods.call(this, "Morse", morsePreTrans, morsePostTrans);
+    Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
   }
 
   JpnTrans.prototype = new Trans("jpn");

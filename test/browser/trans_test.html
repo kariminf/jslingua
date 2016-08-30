@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Transliteration</title>
+  <script type="text/javascript" src="../../jslingua.js" ></script>
   <script type="text/javascript" src="../../trans.js" ></script>
   <script type="text/javascript" src="../../ara/ara.trans.js" ></script>
   <script type="text/javascript" src="../../jpn/jpn.trans.js" ></script>
@@ -10,20 +11,26 @@
 
   var transformer = {};
 
+  function loading(){
+    var e = document.getElementById("l");
+
+    var langIDs = JsLingua.serviceLanguages("Trans");
+    var i;
+    for (i = 0; i < langIDs.length; i++){
+      var option = document.createElement("option");
+      option.text = langIDs[i];
+      e.add(option);
+    }
+
+    update();
+
+  }
+
   function update (){
     var e = document.getElementById("l");
-    var l = e.options[e.selectedIndex].value;
-
-    switch(l) {
-      case "1":
-      transformer = new AraTrans();
-      break;
-      case "2":
-      transformer = new JpnTrans();
-      break;
-      default:
-      transformer = new AraTrans();
-    }
+    var langID = e.options[e.selectedIndex].text;
+    var TransClass = JsLingua.getService("Trans", langID);
+    transformer = new TransClass();
 
     var methods = transformer.availableMethods();
 
@@ -70,8 +77,6 @@
 <body>
   Choose the language:
   <select id="l" onchange="update()">
-    <option value="1" >Arabic</option>
-    <option value="2">Japanese</option>
   </select>
   <select id="m" onchange="setMethod()">
   </select>
@@ -84,7 +89,7 @@
   <button onclick="trans2lang()">From Transliteration</button><br>
   <input type="text" id="2lang" /><br>
   <script>
-  update();
+  loading();
   </script>
 </body>
 </html>

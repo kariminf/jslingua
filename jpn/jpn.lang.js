@@ -1,23 +1,23 @@
-(function(window){
+(function(){
   var Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
     module.exports = JpnLang;
   } else {
-    Lang = window.Lang;
-    window.JpnLang = JpnLang;
+    Lang = window.JsLingua.Cls.Lang;
+    window.JsLingua.addService("Lang", "jpn", JpnLang);
   }
 
   function JpnLang() {
     Lang.call(this, "jpn");
 
-    this.addCharSet("Hiragana", 0x3040, 0x309F);
-    this.addCharSet("Katakana", 0x30A0, 0x30FF);
-    this.addCharSet("Kanji", 0x4E00, 0x9FBF);
-    this.addCharSet("Punctuation", 0x3000, 0x303F);
+    Lang.addCharSet.call(this, "Hiragana", 0x3040, 0x309F);
+    Lang.addCharSet.call(this, "Katakana", 0x30A0, 0x30FF);
+    Lang.addCharSet.call(this, "Kanji", 0x4E00, 0x9FBF);
+    Lang.addCharSet.call(this, "Punctuation", 0x3000, 0x303F);
 
-    this.addTransform("hiraganaToKatakana", 0x0060, "Hiragana");
-    this.addTransform("katakanaToHiragana", -0x0060, "Katakana");
+    Lang.addTransform.call(this, "hiraganaToKatakana", 0x0060, "Hiragana");
+    Lang.addTransform.call(this, "katakanaToHiragana", -0x0060, "Katakana");
   }
 
   JpnLang.prototype = new Lang("jpn");
@@ -83,4 +83,4 @@ JpnLang.prototype.pronounceNumber = toJapaneseLetters;
 
   }
 
-}(this));
+}());
