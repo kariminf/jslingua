@@ -8,27 +8,38 @@
   <link rel="stylesheet" href="use/grids-responsive-min.css">
   <link rel="stylesheet" href="use/jslingua.css">
 
-  <script type="text/javascript" src="js/lang.js" ></script>
-  <script type="text/javascript" src="js/ara.lang.js" ></script>
-  <script type="text/javascript" src="js/jpn.lang.js" ></script>
+  <script type="text/javascript" src="call.js"></script>
   <script type="text/javascript">
+  addScript("jslingua.min.js");
+  addScript("lang.min.js");
+  addScript("ara.lang.min.js");
+  addScript("jpn.lang.min.js");
+  </script>
 
+  <script type="text/javascript">
   var tester;
   var cs = [];
 
+  function loading(){
+    var e = document.getElementById("l");
+
+    var langIDs = JsLingua.serviceLanguages("Lang");
+    var i;
+    for (i = 0; i < langIDs.length; i++){
+      var option = document.createElement("option");
+      option.text = langIDs[i];
+      e.add(option);
+    }
+
+    update();
+
+  }
+
   function setTester (){
     var e = document.getElementById("l");
-    var l = e.options[e.selectedIndex].value || 100;
-    switch(l) {
-      case "1":
-      tester = new AraLang();
-      break;
-      case "2":
-      tester = new JpnLang();
-      break;
-      default:
-      tester = new AraLang();
-    }
+    var langID = e.options[e.selectedIndex].text;
+    var LangClass = JsLingua.getService("Lang", langID);
+    tester = new LangClass();
     cs = tester.availableCharSets();
   }
 
@@ -135,8 +146,6 @@
           <legend>Language</legend>
           <label>Choose the language:</label>
           <select id="l" class="k-select" onchange="update()">
-            <option value="1" >Arabic</option>
-            <option value="2">Japanese</option>
           </select>
         </fieldset>
       </div>
@@ -188,7 +197,7 @@
   </div>
 
   <script>
-  update();
+  loading();
   </script>
 </body>
 </html>

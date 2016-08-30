@@ -8,27 +8,39 @@
   <link rel="stylesheet" href="use/grids-responsive-min.css">
   <link rel="stylesheet" href="use/jslingua.css">
 
-  <script type="text/javascript" src="js/tools.js" ></script>
-  <script type="text/javascript" src="js/trans.js" ></script>
-  <script type="text/javascript" src="js/ara.trans.js" ></script>
-  <script type="text/javascript" src="js/jpn.trans.js" ></script>
+  <script type="text/javascript" src="call.js"></script>
+  <script type="text/javascript">
+  addScript("jslingua.min.js");
+  addScript("trans.min.js");
+  addScript("ara.trans.min.js");
+  addScript("jpn.trans.min.js");
+  addScript("tools.min.js");
+  </script>
+
   <script type="text/javascript">
   var transformer = {};
   var code = "";
 
+  function loading(){
+    var e = document.getElementById("l");
+
+    var langIDs = JsLingua.serviceLanguages("Trans");
+    var i;
+    for (i = 0; i < langIDs.length; i++){
+      var option = document.createElement("option");
+      option.text = langIDs[i];
+      e.add(option);
+    }
+
+    update();
+
+  }
+
   function update(){
     var e = document.getElementById("l");
-    var l = e.options[e.selectedIndex].value;
-    switch(l) {
-      case "1":
-      transformer = new AraTrans();
-      break;
-      case "2":
-      transformer = new JpnTrans();
-      break;
-      default:
-      transformer = new AraTrans();
-    }
+    var langID = e.options[e.selectedIndex].text;
+    var TransClass = JsLingua.getService("Trans", langID);
+    transformer = new TransClass();
 
     transformer.setCurrentMethod("Morse");
   }
@@ -62,8 +74,6 @@
           <legend>Language</legend>
         <label>Choose the language:</label>
         <select id="l" class="k-select" onchange="update()">
-          <option value="1" >Arabic</option>
-          <option value="2">Japanese</option>
         </select>
       </fieldset>
       </div>
@@ -86,7 +96,7 @@
     </div>
   </div>
   <script>
-  update();
+  loading();
   </script>
 </body>
 </html>
