@@ -42,7 +42,7 @@
   }
 
   Info.prototype.getCode = function(){
-    return this.name;
+    return this.code;
   }
 
   Info.prototype.getFamily = function(){
