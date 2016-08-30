@@ -318,7 +318,6 @@
   var otherMourseTrans = new Trans("otherMourse");
   Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
-
   /**
   * Constructor to create a Japanese translaterator
   */
@@ -342,7 +341,8 @@
     Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
   }
 
-  JpnTrans.prototype = new Trans("jpn");
+  JpnTrans.prototype = Object.create(Trans.prototype);
+  JpnTrans.prototype.constructor = JpnTrans;
 
   function ja2morseNormalize(text){
     var result = text;
@@ -459,13 +459,15 @@
 
   function shikiPostTrans(text){
     var result = text.replace(/ix/gi, "");
+    result = littleTsuPostTrans(result);
     return result;
   }
 
-  /*function hepburnPostTrans(text){
-    var result = text.replace(/ixy/gi, "");
-    return result;
-  }*/
+  function littleTsuPostTrans(text){
+    return text.replace(/(っ+)(.)/gi, function(match, p1, p2){
+      return new Array(2 + p1.length).join(p2);
+    });
+  }
 
   function nihonShikiPreUntrans(text){
     var result = doubleReplace(text);

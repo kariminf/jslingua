@@ -54,7 +54,7 @@
 
   }
 
-  AraInfo.prototype = new Info("ara");
+  AraInfo.prototype = Object.create(Info.prototype);;
   AraInfo.prototype.constructor = AraInfo;
 
 

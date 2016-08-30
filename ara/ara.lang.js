@@ -25,7 +25,7 @@
     Lang.addTransform.call(this, "arabicToIndicNumeral", 0x0630, "ArabicNumeral");
   }
 
-  AraLang.prototype = new Lang("ara");
+  AraLang.prototype = Object.create(Lang.prototype);
   AraLang.prototype.constructor = AraLang;
 
   //https://ar.wikipedia.org/wiki/قائمة_الأعداد

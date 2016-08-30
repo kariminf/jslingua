@@ -311,7 +311,7 @@
     Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
   }
 
-  AraTrans.prototype = new Trans("ara");
+  AraTrans.prototype = Object.create(Trans.prototype);
   AraTrans.prototype.constructor = AraTrans;
 
   function ar2morseNormalize(text){

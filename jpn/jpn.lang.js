@@ -20,7 +20,7 @@
     Lang.addTransform.call(this, "katakanaToHiragana", -0x0060, "Katakana");
   }
 
-  JpnLang.prototype = new Lang("jpn");
+  JpnLang.prototype = Object.create(Lang.prototype);
   JpnLang.prototype.constructor = JpnLang;
 
 

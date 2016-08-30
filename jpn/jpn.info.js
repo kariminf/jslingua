@@ -38,7 +38,7 @@
     ];
   }
 
-  JpnInfo.prototype = new Info("jpn");
+  JpnInfo.prototype = Object.create(Info.prototype);
   JpnInfo.prototype.constructor = JpnInfo;
 
 }());
