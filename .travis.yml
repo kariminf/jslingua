@@ -1,4 +1,12 @@
 language: node_js
 node_js:
-  - "6"
-  - "0.10"
+- '6'
+- '0.10'
+deploy:
+  provider: npm
+  email: kariminfo0@gmail.com
+  api_key:
+    secure: Ce0vo64VJyKh3symEKXorzeh1CuDb8/8ZvKRdY1QogHEbzdHpPHQ5sbYsUF9EVOKMHjYsUhxGoxXPO+K/z1MUE0ug1IWIdtpIeSjlj1kKDTQVZYF1kZSKE/OQTfY2fOTcx/GTh+oTTtLOHlKXaZ+GnUxNlRwjOQtJkr5MSKCoY7rNvp9t+gAqNlBmLflZYrzBlD6oI9sl+K6Tyy6qqZv3+qHpJfnddhvmdK1OZwwGPAvMyb28/vyNHoYZv057lLacVjEPlgUIl49YevCR3Tk5mOAPDGmTntEbIaemxCfhTpsbi7dV2NrbsG+CqCpgNM/2AZdfpc8LAw6+tIa/yX+9IPjFljftCzaRqVXb5bFSEDifYeK/pQ6ud1GqzDNPf8F2jRSaUXROv9UHgfhXBdwiXx0bQwm/oiNwz5zhmdqIeGWVO5j24Y/KgHPNme2pcb+q5B1/ZUYfvuA/jd37M9TjQsGUCUq6Mh8l978RNe3EU3ndvwkMmt1+tX3xs8OBdvrt9lz66ifzYaVveMhI+GpQuCWybeXcvQbJHrz3khBPqAbVCisCaRsNGK1+6/0ugVByUuE4HeV/4FXUOpXj77SNO2PNMp72hGUzwtlMqxJHUa2GF3Mm9eYpTBsNLV04gD/yn7K0Uy2MdEFNXC25P45vMTZeiPQvV0DoesZKgK0x3A=
+  on:
+    tags: true
+    repo: kariminf/JsLingua
