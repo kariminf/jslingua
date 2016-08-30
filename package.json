@@ -15,9 +15,9 @@
     "url": "git://github.com/kariminf/JsLingua.git"
   },
   "keywords": [
-    "NLP",
-    "translateration",
-    "language"
+    "language",
+    "transliteration",
+    "NLP"
   ],
   "files": [
     "info.js",
