@@ -60,19 +60,19 @@ Here the importation of all classes, where:
 * <module> in: info, lang, trans
 * <lang> in: ara, jpn
 
-```
+```javascript
 <script type="text/javascript" src="jslingua.js" ></script>
 <script type="text/javascript" src="<module>.js" ></script>
 <script type="text/javascript" src="<lang>/<lang>.<module>.js" ></script>
 ...
 ```
 You can use a CDN (content-delivery network):
-```
+```javascript
 <script type="text/javascript" src="https://unpkg.com/jslingua@version/file" ></script>
 ```
 if you want to use the last version, just replace "version" with "latest".
 For example, :
-```
+```javascript
 <script type="text/javascript" src="https://unpkg.com/package@latest/jslingua.min.js" ></script>
 <script type="text/javascript" src="https://unpkg.com/package@latest/lang.min.js" ></script>
 <script type="text/javascript" src="https://unpkg.com/package@latest/ara.lang.min.js" ></script>
@@ -85,14 +85,14 @@ First of all, you have to install the package in your current project
 npm install jslingua
 ```
 Then in your test file, call the main module "jslingua".
-```
+```javascript
 var JsLingua = require('jslingua');
 ```
 
 ## Get the services (Browser & Node)
 
 You can call them one by one, if you know the services and their implemented languages.
-```
+```javascript
 //Available information classes
 var ArTrans = JsLingua.getService("Info", "ara");
 var JaTrans = JsLingua.getService("Info", "jpn");
@@ -108,7 +108,7 @@ var JaLang = JsLingua.getService("Lang", "jpn");
 
 Or, you can just loop over the services and test available languages.
 For example, the "Info" service:
-```
+```javascript
 //Get the list of languages codes which support the Info service
 var langIDs = JsLingua.serviceLanguages("Info");
 var result = "";
@@ -120,8 +120,8 @@ for (i = 0; i < langIDs; i++){
 }
 ```
 
-# Create a new language
-
+# Add a new language
+TODO 
 
 # License
 The code is released under Apache 2.0 license.
