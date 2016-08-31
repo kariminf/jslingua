@@ -15,7 +15,7 @@
 
   var C = Object.freeze;
 
-  Morpho.POS = C({
+  var PoS = C({
     Noun: 0,
     Verb: 1,
     Adjective: 2,
@@ -25,20 +25,20 @@
   });
 
 
-  Morpho.Tense = C({
+  var Tense = C({
     Past: 0,
     Present: 1,
     Future: 2
   });
 
-  Morpho.Aspect = C({
+  var Aspect = C({
     Simple: 0,
     Continuous: 1,
     Perfect: 2,
     PerfectContinuous: 3
   });
 
-  Morpho.Mood = C({
+  var Mood = C({
     Indicative: 0,
     Subjunctive: 1,
     Conditional: 2,
@@ -50,19 +50,19 @@
     Inferential: 8
   });
 
-  Morpho.Voice = C({
+  var Voice = C({
     Active: 0,
     Passive: 1,
     Middle: 2
   });
 
-  Morpho.Number = C({
+  var Num = C({
     Singular: 0,
     Dual: 1,
     Plural: 2
   });
 
-  Morpho.Case = C({
+  var Case = C({
     Nominative: 0,
     Accusative: 1,
     Genitive: 2,
@@ -71,6 +71,16 @@
     Ablative: 5,
     Instrumental: 6,
     Vocative: 7
+  });
+
+  var Morpho.Feature Case = C({
+    "POS": PoS,
+    "Tense": Tense,
+    "Aspect": Aspect,
+    "Mood": Mood,
+    "Voice": Voice,
+    "Number": Num,
+    "Case": Case
   });
 
   /**
