@@ -1,4 +1,4 @@
-(function(window){
+(function(){
 
   var Info = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
@@ -58,4 +58,4 @@
   AraInfo.prototype.constructor = AraInfo;
 
 
-}(this));
+}());
