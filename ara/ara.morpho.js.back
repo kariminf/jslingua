@@ -1,0 +1,357 @@
+(function(){
+
+  var Morpho = {};
+  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    Morpho = require("../morpho.js");
+    module.exports = AraMorpho;
+  } else {
+    Morpho = window.JsLingua.Cls.Morpho;
+    window.JsLingua.addService("Morpho", "ara", AraMorpho);
+  }
+
+  //Different global features
+  var F = Morpho.Feature;
+  var T = F.Tense;
+  var M = F.Mood;
+  var V = F.Voice;
+  var N = F.Number;
+  var A = F.Aspect;
+  var G = F.Gender;
+  var P = F.Person;
+
+  function AraMorpho() {
+    Morpho.call(this, "ara");
+  }
+
+  AraMorpho.prototype = Object.create(Morpho.prototype);;
+  AraMorpho.prototype.constructor = AraMorpho;
+
+  //var C = Object.freeze;
+
+  //=================
+  //Conjugation zone
+  //=================
+
+  //Override conjugate function
+  AraMorpho.prototype.conjugate = function(verb, opts){
+    //delete diacretics
+    var noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
+
+    //detect if the verb with weak begining
+    var weekBegin = /^[اأو]/.test(noDiac);
+
+    //detect if the verb has a week ending
+    var weekEnd = /[يى]$/.test(noDiac);
+
+    //detect if the verb has a week middle
+    var weekMiddle = false;
+
+    var begin = "";
+    var end = "";
+    var endDiac = "ُ";//Dhamma for present
+    var notAllowed = false;
+
+    //Future is prefix + present
+    var future = false;
+    if (opts.tense === T.Future){
+      future = true;
+      opts.tense = T.Present;
+    }
+
+    switch (opts.tense) {
+
+      case T.Present:{
+
+        switch (opts.person) {
+          case P.First:{
+            switch (opts.number) {
+              case N.Singular:{
+                begin = "أ";
+                break;
+              }
+              case N.Dual:
+              case N.Plural:{
+                begin = "ن";
+              }
+
+            }//Number
+            break;
+          }
+
+          case P.Second:{
+            begin = "ت";
+            switch (opts.number) {
+              case N.Singular:{
+                switch (opts.gender) {
+                  case G.Masculine://Present,Second,Singular
+                    break;
+                  case G.Feminine://Present,Second,Singular
+                    end = "ينَ";
+                    var endDiac = "ِ";//Kasra
+                    break;
+
+                }
+                break;
+              }
+
+              case N.Dual:{
+                end = "انِ";
+                endDiac = "َ";//Fatha
+                break;
+              }
+
+              case N.Plural:{
+                switch (opts.gender) {
+                  case G.Masculine://Present,Second,Plural
+                    end = "ونَ";
+                    break;
+                  case G.Feminine://Present,Second,Plural
+                    end = "نَ";
+                    var endDiac = "ْ";//Sukuun
+                    break;
+
+                }
+                break;
+              }
+
+            }//Number
+            break;
+          }
+
+          case P.Third:{
+            begin = "ي";
+            if (opts.gender === G.Feminine) begin = "ت";
+
+            switch (opts.number) {
+              //No ending for singular
+              case N.Dual:{
+                end = "انِ";
+                endDiac = "َ";//Fatha
+                break;
+              }
+
+              case N.Plural:{
+                switch (opts.gender) {
+                  case G.Masculine://Present,Third,Plural
+                    end = "ونَ";
+                    break;
+                  case G.Feminine://Present,Third,Plural
+                    end = "نَ";
+                    begin = "ي";
+                    var endDiac = "ْ";//Sukuun
+                    break;
+
+                }
+                break;
+              }
+
+            }//Number
+            break;
+          }
+
+        }//person
+        begin += "َ";//Add fatha
+        break;
+      }
+
+      case T.Past:{
+        endDiac = "ْ";//Sukuun for past
+        switch (opts.person) {
+          case P.First:{
+            switch (opts.number) {
+              case N.Singular:{
+                end = "تُ";
+                break;
+              }
+
+              case N.Dual:
+              case N.Plural:{
+                end = "نَا";
+                break;
+              }
+
+            }//Number
+            break;
+          }
+
+          case P.Second:{
+            switch (opts.number) {
+              case N.Singular:{
+                switch (opts.gender) {
+                  case G.Masculine://Past,Second,Singular
+                    end = "تَ";
+                    break;
+                  case G.Feminine://Past,Second,Singular
+                    end = "تِ";
+                }
+                break;
+              }
+
+              case N.Dual:{
+                end = "تُمَا";
+                break;
+              }
+
+              case N.Plural:{
+                switch (opts.gender) {
+                  case G.Masculine://Past,Second,Plural
+                    end = "تُمْ";
+                    break;
+                  case G.Feminine://Past,Second,Plural
+                    end = "تُنَّ";
+                }
+                break;
+              }
+
+            }//Number
+            break;
+          }
+
+          case P.Third:{
+            endDiac = "َ";//Fatha for past third
+            switch (opts.number) {
+              case N.Singular:{
+                switch (opts.gender) {
+                  case G.Masculine://Past,Third,Singular
+                    break;
+                  case G.Feminine://Past,Third,Singular
+                    end = "تْ";
+                }
+                break;
+              }
+
+              case N.Dual:{
+                switch (opts.gender) {
+                  case G.Masculine://Past,Third,Dual
+                    end = "ا";
+                    break;
+                  case G.Feminine://Past,Third,Dual
+                    end = "تَا";
+                }
+                break;
+              }
+
+              case N.Plural:{
+                switch (opts.gender) {
+                  case G.Masculine://Past,Third,Plural
+                    end = "وا";
+                    endDiac = "ُ";//Sukuun for past third plural feminine
+                    break;
+                  case G.Feminine://Past,Third,Plural
+                    end = "نَ";
+                    endDiac = "ْ";//Sukuun for past third plural feminine
+                    break;
+                }
+                break;
+              }
+
+            }//Number
+            break;
+          }
+
+        }//person
+        break;
+      }
+
+    }//swich(tense)
+
+
+
+    var result = verb;
+
+    result = result.replace(/[َ]?$/, endDiac);
+
+    result = begin + result + end;
+
+    if (future) result = "سَوْفَ " + result;
+
+
+    return result;
+
+  }
+
+  AraMorpho.prototype.getPronoun = function(opts){
+
+    switch (opts.person) {
+      case P.First:{
+        switch (opts.number) {
+          case N.Singular:
+            return "أَنَا";
+            break;
+          case N.Dual:
+          case N.Plural:
+            return "نَحْنُ";
+        }
+        break;
+      }//first person
+
+      case P.Second:{
+        switch (opts.number) {
+          case N.Singular:{
+            switch (opts.gender) {
+              case G.Masculine:
+                return "أَنْتَ";
+              case G.Feminine:
+                return "أَنْتِ";
+            }
+            break;
+          }
+          case N.Dual:{
+            switch (opts.gender) {
+              case G.Masculine:
+                return "أَنْتُمَا";
+              case G.Feminine:
+                return "أَنْتُمَا";
+            }
+            break;
+          }
+          case N.Plural:{
+            switch (opts.gender) {
+              case G.Masculine:
+                return "أَنْتُمْ";
+              case G.Feminine:
+                return "أَنْتُنَّ";
+            }
+          }
+        }
+        break;
+      }//second person
+
+      case P.Third:{
+        switch (opts.number) {
+          case N.Singular:{
+            switch (opts.gender) {
+              case G.Masculine:
+                return "هُوَ";
+              case G.Feminine:
+                return "هِيَ";
+            }
+            break;
+          }
+          case N.Dual:{
+            switch (opts.gender) {
+              case G.Masculine:
+                return "هُمَا";
+              case G.Feminine:
+                return "هُمَا";
+            }
+            break;
+          }
+          case N.Plural:{
+            switch (opts.gender) {
+              case G.Masculine:
+                return "هُمْ";
+              case G.Feminine:
+                return "هُنَّ";
+            }
+          }
+        }
+        break;
+      }//second person
+
+    }
+    return "";
+  }
+
+
+}());

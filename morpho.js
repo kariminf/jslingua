@@ -73,14 +73,28 @@
     Vocative: 7
   });
 
-  var Morpho.Feature Case = C({
+  var Person = C({
+    First: 0,
+    Second: 1,
+    Third: 2
+  });
+
+  var Gender = C({
+    Masculine: 0,
+    Feminine: 1,
+    Neuter: 2
+  });
+
+  Morpho.Feature = C({
     "POS": PoS,
     "Tense": Tense,
     "Aspect": Aspect,
     "Mood": Mood,
     "Voice": Voice,
     "Number": Num,
-    "Case": Case
+    "Case": Case,
+    "Person": Person,
+    "Gender": Gender
   });
 
   /**
@@ -90,7 +104,12 @@
    * @return {string}      inflected word
    */
   Morpho.prototype.conjugate = function(verb, opts){
-    return word;
+    return verb;
+  }
+
+
+  Morpho.prototype.getPronoun = function(opts){
+    return "";
   }
 
   /**
@@ -101,7 +120,7 @@
    * @return {string}      the inflected noun
    */
   Morpho.prototype.declenseNoun = function(noun, opts){
-    return word;
+    return noun;
   }
 
 

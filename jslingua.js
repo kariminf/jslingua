@@ -21,6 +21,10 @@
       "Trans": {
         "ara": require("./ara/ara.trans.js"),//Arabic transliteration class
         "jpn": require("./jpn/jpn.trans.js")//Japanese transliteration class
+      },
+      "Morpho": {
+        "ara": require("./ara/ara.morpho.js")//,//Arabic Morphology class
+        //"jpn": require("./jpn/jpn.trans.js")//Japanese Morphology class
       }
     };
 
@@ -28,6 +32,7 @@
       Info: require("./info.js"),
       Lang: require("./lang.js"),
       Trans: require("./trans.js"),
+      Morpho: require("./morpho.js")
     };
 
     module.exports = JsLingua;
@@ -41,7 +46,7 @@
     if (services[serviceID] === undefined){
       services[serviceID] = {};
     }
-    
+
     services[serviceID][langCode] = theClass;
 
   }

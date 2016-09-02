@@ -11,17 +11,18 @@
 
   var tester;
   var cs = [];
+  var $ = function(id){return document.getElementById(id)};
+  var _ = function(e){return e.options[e.selectedIndex]};
 
   function setTester (){
-    var e = document.getElementById("l");
-    var langID = e.options[e.selectedIndex].text;
+    var langID = _($("l")).text;
     var LangClass = JsLingua.getService("Lang", langID);
     tester = new LangClass();
     cs = tester.availableCharSets();
   }
 
   function loading(){
-    var e = document.getElementById("l");
+    var e = $("l");
 
     var langIDs = JsLingua.serviceLanguages("Lang");
     var i;
@@ -38,11 +39,9 @@
   function update(){
     setTester();
 
-    var lanCS = document.getElementById("lanCS");
+    affectElements($("lanCS"));
 
-    affectElements(lanCS);
-
-    var tsel = document.getElementById("tsel");
+    var tsel = $("tsel");
 
     var tr = tester.availableTransformations();
 
@@ -58,9 +57,7 @@
   }
 
   function nbrPronounce() {
-    var nbr = document.getElementById("nbr");
-    var nbrp = document.getElementById("nbrp");
-    nbrp.value = tester.pronounceNumber(nbr.value);
+    $("nbrp").value = tester.pronounceNumber($("nbr").value);
   }
 
   function affectElements(container, func, text){
@@ -82,22 +79,14 @@
   }
 
   function testLang() {
-    var ltst = document.getElementById("ltst");
-    var contCS = document.getElementById("contCS");
-    var allCS = document.getElementById("allCS");
-
-    affectElements(contCS, "containsCharSetFunction", ltst.value);
-    affectElements(allCS, "allCharSetFunction", ltst.value);
+    var txt = $("ltst").value;
+    affectElements($("contCS"), "containsCharSetFunction", txt);
+    affectElements($("allCS"), "allCharSetFunction", txt);
   }
 
   function transform(){
-    var tsel = document.getElementById("tsel");
-    var funcName = tsel.options[tsel.selectedIndex].value;
-    var tsrc = document.getElementById("tsrc");
-    var tdest = document.getElementById("tdest");
-
-    var transFunc = tester.transformationFunction(funcName);
-    tdest.value = transFunc(tsrc.value);
+    var transFunc = tester.transformationFunction(_($("tsel")).value);
+    $("tdest").value = transFunc($("tsrc").value);
   }
 
   </script>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Morphological test</title>
+  <script type="text/javascript" src="../../jslingua.js" ></script>
+  <script type="text/javascript" src="../../morpho.js" ></script>
+  <script type="text/javascript" src="../../ara/ara.morpho.js" ></script>
+  <!--script type="text/javascript" src="../../jpn/jpn.morpho.js" ></script-->
+  <script type="text/javascript">
+
+  var morpho;
+
+  function loading(){
+    var e = document.getElementById("l");
+
+    var langIDs = JsLingua.serviceLanguages("Morpho");
+    var i;
+    for (i = 0; i < langIDs.length; i++){
+      var option = document.createElement("option");
+      option.text = langIDs[i];
+      e.add(option);
+    }
+
+    update();
+
+  }
+
+  function update(){
+    var e = document.getElementById("l");
+    var langID = e.options[e.selectedIndex].text;
+    var morphoClass = JsLingua.getService("Morpho", langID);
+    morpho = new morphoClass();
+  }
+
+  function conjugate(){
+    var verb = document.getElementById("verb").value;
+    var funcName = tsel.options[tsel.selectedIndex].value;
+    var tsrc = document.getElementById("tsrc");
+    var tdest = document.getElementById("tdest");
+
+    var transFunc = tester.transformationFunction(funcName);
+    tdest.value = transFunc(tsrc.value);
+  }
+
+  </script>
+
+  <style >
+  .l {
+    display: inline-block;
+    border: 1px solid Black;
+    vertical-align: middle;
+    border-radius: 2px;
+    margin: 2px;
+    padding: 2px;
+  }
+  .t {
+    background-color: Violet;
+  }
+  .f {
+    background-color: Gray;
+  }
+  </style>
+
+</head>
+<body>
+  <h2>Choose the language:</h2>
+  <select id="l" onchange="update()"></select>
+  <br>
+  <h2>Conjugation</h2>
+  <input type="text" id="verb" />
+  <button onclick="conjugate()">Conjugate</button>
+  <div id="conj"></div>
+  <script>
+  loading();
+  </script>
+</body>
+</html>
