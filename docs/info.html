@@ -18,8 +18,11 @@
 
   <script type="text/javascript">
 
+  var $ = function(id){return document.getElementById(id)};
+  var _ = function(e){return e.options[e.selectedIndex]};
+
   function loading(){
-    var e = document.getElementById("l");
+    var e = $("l");
 
     var langIDs = JsLingua.serviceLanguages("Info");
     var i;
@@ -33,19 +36,8 @@
 
   }
 
-  function setTester (){
-    var e = document.getElementById("l");
-    var langID = e.options[e.selectedIndex].text;
-    var LangClass = JsLingua.getService("Lang", langID);
-    tester = new LangClass();
-    cs = tester.availableCharSets();
-  }
-
   function update(){
-    var e = document.getElementById("l");
-    var langID = e.options[e.selectedIndex].text;
-    var LangClass = JsLingua.getService("Info", langID);
-    var info = new LangClass();
+    var info = new (JsLingua.getService("Info", _($("l")).text))();
 
     document.getElementById("name").innerHTML = info.getName();
     document.getElementById("family").innerHTML = info.getFamily();

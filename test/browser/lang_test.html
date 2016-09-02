@@ -8,22 +8,17 @@
   <script type="text/javascript" src="../../ara/ara.lang.js" ></script>
   <script type="text/javascript" src="../../jpn/jpn.lang.js" ></script>
   <script type="text/javascript">
-
   var tester;
   var cs = [];
-  var $ = function(id){return document.getElementById(id)};
-  var _ = function(e){return e.options[e.selectedIndex]};
-
   function setTester (){
-    var langID = _($("l")).text;
+    var e = document.getElementById("l");
+    var langID = e.options[e.selectedIndex].text;
     var LangClass = JsLingua.getService("Lang", langID);
     tester = new LangClass();
     cs = tester.availableCharSets();
   }
-
   function loading(){
-    var e = $("l");
-
+    var e = document.getElementById("l");
     var langIDs = JsLingua.serviceLanguages("Lang");
     var i;
     for (i = 0; i < langIDs.length; i++){
@@ -31,64 +26,58 @@
       option.text = langIDs[i];
       e.add(option);
     }
-
     update();
-
   }
-
   function update(){
     setTester();
-
-    affectElements($("lanCS"));
-
-    var tsel = $("tsel");
-
+    var lanCS = document.getElementById("lanCS");
+    affectElements(lanCS);
+    var tsel = document.getElementById("tsel");
     var tr = tester.availableTransformations();
-
     for(var i = tsel.options.length - 1 ; i >= 0 ; i--)
-        tsel.remove(i);
-
+    tsel.remove(i);
     tr.forEach(function(element, index, array){
       var option = document.createElement("option");
       option.text = element;
       tsel.add(option);
     });
-
   }
-
   function nbrPronounce() {
-    $("nbrp").value = tester.pronounceNumber($("nbr").value);
+    var nbr = document.getElementById("nbr");
+    var nbrp = document.getElementById("nbrp");
+    nbrp.value = tester.pronounceNumber(nbr.value);
   }
-
   function affectElements(container, func, text){
     var res = "";
     cs.forEach(function(element, index, array){
       var found = true;
       if (func === undefined)
-        found = false;
+      found = false;
       else
-        found = tester[func](element)(text);
-
+      found = tester[func](element)(text);
       if (found)
-        res += '<span class="l t">' + element + "</span>";
+      res += '<span class="l t">' + element + "</span>";
       else {
         res += '<span class="l f">' + element + "</span>";
       }
     });
     container.innerHTML = res;
   }
-
   function testLang() {
-    var txt = $("ltst").value;
-    affectElements($("contCS"), "containsCharSetFunction", txt);
-    affectElements($("allCS"), "allCharSetFunction", txt);
+    var ltst = document.getElementById("ltst");
+    var contCS = document.getElementById("contCS");
+    var allCS = document.getElementById("allCS");
+    affectElements(contCS, "containsCharSetFunction", ltst.value);
+    affectElements(allCS, "allCharSetFunction", ltst.value);
   }
-
   function transform(){
-    var transFunc = tester.transformationFunction(_($("tsel")).value);
-    $("tdest").value = transFunc($("tsrc").value);
+    var tsel = document.getElementById("tsel");
+    var funcName = tsel.options[tsel.selectedIndex].value;
+    var tsrc = document.getElementById("tsrc");
+    var tdest = document.getElementById("tdest");
+    var transFunc = tester.transformationFunction(funcName);
+    tdest.value = transFunc(tsrc.value);
   }
-
   </script>
 
   <style >

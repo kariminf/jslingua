@@ -18,9 +18,11 @@
 
   <script type="text/javascript">
   var transformer = {};
+  var $ = function(id){return document.getElementById(id)};
+  var _ = function(e){return e.options[e.selectedIndex]};
 
   function loading(){
-    var e = document.getElementById("l");
+    var e = $("l");
 
     var langIDs = JsLingua.serviceLanguages("Trans");
     var i;
@@ -35,17 +37,12 @@
   }
 
   function update(){
-    var e = document.getElementById("l");
-    var langID = e.options[e.selectedIndex].text;
-    var TransClass = JsLingua.getService("Trans", langID);
-    transformer = new TransClass();
+    transformer = new (JsLingua.getService("Trans", _($("l")).text))();
 
     var methods = transformer.availableMethods();
-    var m = document.getElementById("m");
-    var i;
-    for(i = m.options.length - 1 ; i >= 0 ; i--){
-      m.remove(i);
-    }
+    var m = $("m");
+    var i = m.options.length;
+    while (i--) m.remove(i);
 
     methods.forEach(function(element, index, array){
       var option = document.createElement("option");
@@ -57,8 +54,7 @@
   }
 
   function setMethod(){
-    var m = document.getElementById("m");
-    transformer.setCurrentMethod(m.options[m.selectedIndex].value);
+    transformer.setCurrentMethod(_($("m")).value);
   }
 
   function htmlEntities(str) {
@@ -68,15 +64,11 @@
   }
 
   function lang2trans() {
-    var lang = document.getElementById("lang");
-    var trans = document.getElementById("2trans");
-    trans.innerHTML = htmlEntities(transformer.transliterate(lang.value));
+    $("2trans").innerHTML = htmlEntities(transformer.transliterate($("lang").value));
   }
 
   function trans2lang() {
-    var lang = document.getElementById("2lang");
-    var trans = document.getElementById("trans");
-    lang.innerHTML = htmlEntities(transformer.untransliterate(trans.value));
+    $("2lang").innerHTML = htmlEntities(transformer.untransliterate($("trans").value));
   }
   </script>
 

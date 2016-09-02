@@ -19,9 +19,11 @@
   <script type="text/javascript">
   var tester;
   var cs = [];
+  var $ = function(id){return document.getElementById(id)};
+  var _ = function(e){return e.options[e.selectedIndex]};
 
   function loading(){
-    var e = document.getElementById("l");
+    var e = $("l");
 
     var langIDs = JsLingua.serviceLanguages("Lang");
     var i;
@@ -36,21 +38,15 @@
   }
 
   function setTester (){
-    var e = document.getElementById("l");
-    var langID = e.options[e.selectedIndex].text;
-    var LangClass = JsLingua.getService("Lang", langID);
-    tester = new LangClass();
+    tester = new (JsLingua.getService("Lang", _($("l")).text))();
     cs = tester.availableCharSets();
   }
 
   function update(){
     setTester();
+    affectElements($("lanCS"));
 
-    var lanCS = document.getElementById("lanCS");
-
-    affectElements(lanCS);
-
-    var tsel = document.getElementById("tsel");
+    var tsel = $("tsel");
 
     var tr = tester.availableTransformations();
 
@@ -70,9 +66,7 @@
   }
 
   function nbrPronounce() {
-    var nbr = document.getElementById("nbr");
-    var nbrp = document.getElementById("nbrp");
-    nbrp.innerHTML = htmlEntities(tester.pronounceNumber(nbr.value));
+    $("nbrp").innerHTML = htmlEntities(tester.pronounceNumber($("nbr").value));
   }
 
   function affectElements(container, func, text){
@@ -94,22 +88,14 @@
   }
 
   function testLang() {
-    var ltst = document.getElementById("ltst");
-    var contCS = document.getElementById("contCS");
-    var allCS = document.getElementById("allCS");
-
-    affectElements(contCS, "containsCharSetFunction", ltst.value);
-    affectElements(allCS, "allCharSetFunction", ltst.value);
+    var val = $("ltst").value;
+    affectElements($("contCS"), "containsCharSetFunction", val);
+    affectElements($("allCS"), "allCharSetFunction", val);
   }
 
   function transform(){
-    var tsel = document.getElementById("tsel");
-    var funcName = tsel.options[tsel.selectedIndex].value;
-    var tsrc = document.getElementById("tsrc");
-    var tdest = document.getElementById("tdest");
-
-    var transFunc = tester.transformationFunction(funcName);
-    tdest.innerHTML = htmlEntities(transFunc(tsrc.value));
+    var transFunc = tester.transformationFunction(_($("tsel")).value);
+    $("tdest").innerHTML = htmlEntities(transFunc($("tsrc").value));
   }
 
   </script>

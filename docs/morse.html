@@ -21,8 +21,11 @@
   var transformer = {};
   var code = "";
 
+  var $ = function(id){return document.getElementById(id)};
+  var _ = function(e){return e.options[e.selectedIndex]};
+
   function loading(){
-    var e = document.getElementById("l");
+    var e = $("l");
 
     var langIDs = JsLingua.serviceLanguages("Trans");
     var i;
@@ -37,20 +40,14 @@
   }
 
   function update(){
-    var e = document.getElementById("l");
-    var langID = e.options[e.selectedIndex].text;
-    var TransClass = JsLingua.getService("Trans", langID);
-    transformer = new TransClass();
-
+    transformer = new (JsLingua.getService("Trans", _($("l")).text))();
     transformer.setCurrentMethod("Morse");
   }
 
 
   function lang2trans() {
-    var lang = document.getElementById("lang");
-    var trans = document.getElementById("2trans");
-    code = transformer.transliterate(lang.value);
-    trans.innerHTML = htmlEntities(code);
+    code = transformer.transliterate($("lang").value);
+    $("2trans").innerHTML = htmlEntities(code);
   }
 
   function hearIt(){

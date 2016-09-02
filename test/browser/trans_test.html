@@ -8,15 +8,9 @@
   <script type="text/javascript" src="../../ara/ara.trans.js" ></script>
   <script type="text/javascript" src="../../jpn/jpn.trans.js" ></script>
   <script type="text/javascript">
-
   var transformer = {};
-
-  var $ = function(id){return document.getElementById(id)};
-  var _ = function(e){return e.options[e.selectedIndex]};
-
   function loading(){
-    var e = $("l");
-
+    var e = document.getElementById("l");
     var langIDs = JsLingua.serviceLanguages("Trans");
     var i;
     for (i = 0; i < langIDs.length; i++){
@@ -24,43 +18,39 @@
       option.text = langIDs[i];
       e.add(option);
     }
-
     update();
-
   }
-
   function update (){
-    var TransClass = JsLingua.getService("Trans", _($("l")).text);
+    var e = document.getElementById("l");
+    var langID = e.options[e.selectedIndex].text;
+    var TransClass = JsLingua.getService("Trans", langID);
     transformer = new TransClass();
-
     var methods = transformer.availableMethods();
-
-    var m = $("m");
+    var m = document.getElementById("m");
     var i;
     for(i = m.options.length - 1 ; i >= 0 ; i--){
       m.remove(i);
     }
-
     methods.forEach(function(element, index, array){
       var option = document.createElement("option");
       option.text = element;
       m.add(option);
     });
-
     setMethod();
-
   }
-
   function setMethod(){
-    transformer.setCurrentMethod(_($("m")).value);
+    var m = document.getElementById("m");
+    transformer.setCurrentMethod(m.options[m.selectedIndex].value);
   }
-
   function lang2trans() {
-    $("2trans").value = transformer.transliterate($("lang").value);
+    var lang = document.getElementById("lang");
+    var trans = document.getElementById("2trans");
+    trans.value = transformer.transliterate(lang.value);
   }
-
   function trans2lang() {
-    $("2lang").value = transformer.untransliterate($("trans").value);
+    var lang = document.getElementById("2lang");
+    var trans = document.getElementById("trans");
+    lang.value = transformer.untransliterate(trans.value);
   }
   </script>
   <style type="text/css">
