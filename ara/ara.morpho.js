@@ -26,6 +26,28 @@
   AraMorpho.prototype = Object.create(Morpho.prototype);;
   AraMorpho.prototype.constructor = AraMorpho;
 
+
+  AraMorpho.prototype.getPronounOpts = function(){
+    return [
+        {person:P.First, number: N.Singular},
+        {person:P.First, number: N.Plural},
+
+        {person:P.Second, number: N.Singular, gender: G.Masculine},
+        {person:P.Second, number: N.Singular, gender: G.Feminine},
+        {person:P.Second, number: N.Dual, gender: G.Masculine},
+        {person:P.Second, number: N.Dual, gender: G.Feminine},
+        {person:P.Second, number: N.Plural, gender: G.Masculine},
+        {person:P.Second, number: N.Plural, gender: G.Feminine},
+
+        {person:P.Third, number: N.Singular, gender: G.Masculine},
+        {person:P.Third, number: N.Singular, gender: G.Feminine},
+        {person:P.Third, number: N.Dual, gender: G.Masculine},
+        {person:P.Third, number: N.Dual, gender: G.Feminine},
+        {person:P.Third, number: N.Plural, gender: G.Masculine},
+        {person:P.Third, number: N.Plural, gender: G.Feminine}
+    ];
+  }
+
   //var C = Object.freeze;
 
   //=================
@@ -248,7 +270,7 @@
     var result = word;
     return result;
   }
-  
-  
+
+
 
 }());

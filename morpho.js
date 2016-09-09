@@ -97,6 +97,29 @@
     "Gender": Gender
   });
 
+
+  /**
+   * This function is used to get personal pronouns characteristics
+   * @return {Array of objects} Array of different objects; each object contains the properties
+   * of pronouns. For example: {person: Morpho.Feature.Person.First, number: Morpho.Feature.Number.Singular}
+   * which refers to the personal pronoun "I"
+   */
+  Morpho.prototype.getPronounOpts = function(){
+    return [];
+  }
+
+  /**
+   * This function returns an array of available tenses
+   * @return {Array of Tense} Array of tenses available for the language
+   */
+  Morpho.prototype.getTenses = function(){
+    //Past and Present are defaults
+    return [
+      Tense.Past,
+      Tense.Present
+    ];
+  }
+
   /**
    * This function is used for verb conjugation
    * @param  {string} verb the word to be conjugated

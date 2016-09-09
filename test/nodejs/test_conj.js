@@ -4,27 +4,9 @@ var JsLingua = require('../../jslingua.js');
 var Cls = JsLingua.getService("Morpho", "ara");
 var f = JsLingua.Cls.Morpho.Feature;
 var morpho = new Cls();
-var opts = [
-    {"person":f.Person.First, "number": f.Number.Singular},
-    {"person":f.Person.First, "number": f.Number.Plural},
-    
-    {"person":f.Person.Second, "number": f.Number.Singular, "gender": f.Gender.Masculine},
-    {"person":f.Person.Second, "number": f.Number.Singular, "gender": f.Gender.Feminine},
-    {"person":f.Person.Second, "number": f.Number.Dual, "gender": f.Gender.Masculine},
-    {"person":f.Person.Second, "number": f.Number.Dual, "gender": f.Gender.Feminine},
-    {"person":f.Person.Second, "number": f.Number.Plural, "gender": f.Gender.Masculine},
-    {"person":f.Person.Second, "number": f.Number.Plural, "gender": f.Gender.Feminine},
-    
-    {"person":f.Person.Third, "number": f.Number.Singular, "gender": f.Gender.Masculine},
-    {"person":f.Person.Third, "number": f.Number.Singular, "gender": f.Gender.Feminine},
-    {"person":f.Person.Third, "number": f.Number.Dual, "gender": f.Gender.Masculine},
-    {"person":f.Person.Third, "number": f.Number.Dual, "gender": f.Gender.Feminine},
-    {"person":f.Person.Third, "number": f.Number.Plural, "gender": f.Gender.Masculine},
-    {"person":f.Person.Third, "number": f.Number.Plural, "gender": f.Gender.Feminine},
-    
-];
+var opts = morpho.getPronounOpts();
 
-var tenses = [f.Tense.Past, f.Tense.Present, f.Tense.Future];
+var tenses = morpho.getTenses();
 var verb = "ذَهَبَ";
 
 var i;
