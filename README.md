@@ -126,8 +126,11 @@ for (i = 0; i < langIDs; i++){
 }
 ```
 
-## Add a new language
-TODO
+## Changlog and credits
+
+For Changlog, check [CHANGELOG.md](./CHANGELOG.md)
+
+For Credits, check [CREDITS.md](./CREDITS.md)
 
 ## License
 The code is released under Apache 2.0 license.
