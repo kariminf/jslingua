@@ -1,7 +1,9 @@
 language: node_js
 node_js:
-- '6'
-- '0.10'
+  - '6'
+  - '0.10'
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: npm
   email: kariminfo0@gmail.com
@@ -10,5 +12,4 @@ deploy:
   on:
     tags: true
     repo: kariminf/JsLingua
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+
