@@ -10,3 +10,5 @@ deploy:
   on:
     tags: true
     repo: kariminf/JsLingua
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
