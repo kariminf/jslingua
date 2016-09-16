@@ -44,3 +44,6 @@ jspm_packages
 dist
 
 .directory
+
+#yuido out folder
+out

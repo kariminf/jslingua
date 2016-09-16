@@ -6,7 +6,7 @@
 [![Travis](https://img.shields.io/travis/kariminf/JsLingua.svg)](https://travis-ci.org/kariminf/JsLingua)
 [![npm](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![npm](https://img.shields.io/npm/dt/jslingua.svg)](https://www.npmjs.com/package/jslingua)
-[![codecov](https://codecov.io/gh/kariminf/JsLingua/branch/master/graph/badge.svg)](https://codecov.io/gh/kariminf/JsLingua)
+
 
 Javascript library to process languages:
 * Information about the language
