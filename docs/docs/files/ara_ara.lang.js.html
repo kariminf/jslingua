@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ara/ara.lang.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/AraInfo.html">AraInfo</a></li>
+                                <li><a href="../classes/AraLang.html">AraLang</a></li>
+                                <li><a href="../classes/AraTrans.html">AraTrans</a></li>
+                                <li><a href="../classes/Info.html">Info</a></li>
+                                <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
+                                <li><a href="../classes/JpnLang.html">JpnLang</a></li>
+                                <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
+                                <li><a href="../classes/JsLingua.html">JsLingua</a></li>
+                                <li><a href="../classes/Lang.html">Lang</a></li>
+                                <li><a href="../classes/Morpho.html">Morpho</a></li>
+                                <li><a href="../classes/Tools.html">Tools</a></li>
+                                <li><a href="../classes/Trans.html">Trans</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/JsLingua.html">JsLingua</a></li>
+                                <li><a href="../modules/Tools.html">Tools</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: ara/ara.lang.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+(function(){
+
+  var Lang = {};
+  if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
+    Lang = require(&quot;../lang.js&quot;);
+    module.exports = AraLang;
+  } else {
+    Lang = window.JsLingua.Cls.Lang;
+    window.JsLingua.addService(&quot;Lang&quot;, &quot;ara&quot;, AraLang);
+  }
+
+  /**
+   * Contains Arabic charsets and transformations
+   * @class AraLang
+   * @extends Lang
+   * @constructor
+   */
+  function AraLang() {
+    Lang.call(this, &quot;ara&quot;);
+
+    //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
+    Lang.addCharSet.call(this, &quot;MainArabic&quot;, 0x0600, 0x06FF);
+    Lang.addCharSet.call(this, &quot;ArabicSupplement&quot;, 0x0750, 0x077F);
+    Lang.addCharSet.call(this, &quot;ArabicExtendedA&quot;, 0x08A0, 0x08FF);
+    Lang.addCharSet.call(this, &quot;ArabicPresentationA&quot;, 0xFB50, 0xFDFF);
+    Lang.addCharSet.call(this, &quot;ArabicPresentationB&quot;, 0xFE70, 0xFEFF);
+    Lang.addCharSet.call(this, &quot;IndicNumeral&quot;, 0x0660, 0x0669);
+    Lang.addCharSet.call(this, &quot;ArabicNumeral&quot;, 0x0030, 0x0039);
+
+    Lang.addTransform.call(this, &quot;indicToArabicNumeral&quot;, -0x0630, &quot;IndicNumeral&quot;);
+    Lang.addTransform.call(this, &quot;arabicToIndicNumeral&quot;, 0x0630, &quot;ArabicNumeral&quot;);
+  }
+
+  AraLang.prototype = Object.create(Lang.prototype);
+  AraLang.prototype.constructor = AraLang;
+
+  //https://ar.wikipedia.org/wiki/قائمة_الأعداد
+  var lookup = {
+      0: &quot;صفر&quot;, 1:&quot;واحد&quot;, 2:&quot;اثنان&quot;, 3:&quot;ثلاث&quot;, 4:&quot;أربع&quot;, 5:&quot;خمس&quot;,
+      6:&quot;ست&quot;, 7:&quot;سبع&quot;, 8:&quot;ثمان&quot;, 9:&quot;تسع&quot;, 10:&quot;عشر&quot;,
+      100:&quot;مائة&quot;, 1000:&quot;ألف&quot;, 1000000:&quot;مليون&quot;, 1000000000:&quot;مليار&quot;
+  }
+
+  var bigNbr = [
+      100, 1000, 1000000, 1000000000
+      //1000000000, 1000000, 1000, 100, 10
+  ]
+
+  var lookup2 = {
+     100: &quot;مائتان&quot;,
+     1000: &quot;ألفان&quot;,
+     1000000: &quot;مليونان&quot;,
+     1000000000: &quot;ملياران&quot;
+      //1000000000, 1000000, 1000, 100, 10
+  }
+
+  var lookupPl = {
+     100: &quot;مائة&quot;,
+     1000: &quot;آلاف&quot;,
+     1000000: &quot;ملايين&quot;,
+     1000000000: &quot;ملايير&quot;
+      //1000000000, 1000000, 1000, 100, 10
+  }
+
+  /**
+   * Write the Arabic number into Arabic letters
+   * @override
+   */
+ AraLang.prototype.pronounceNumber = toArabicLetters;
+
+  /**
+  * Transform from Arabic numbers to Arabic letters
+  * @method toArabicLetters
+  * @private
+  * @param {Number} nbr the integer number
+  * @return {String} Arabic writing of numbers
+  */
+  function toArabicLetters (num) {
+
+      if (isNaN(num))
+          return &quot;&quot;;
+
+      if(num &lt; 0)
+          return &quot;ناقص &quot; + toArabicLetters(-num);
+
+      if (num == 0)
+          return lookup[num];
+
+      if (num == 8)
+          return lookup[num] + &quot;ية&quot;;
+
+      if (num &lt; 3)
+          return lookup[num];
+
+      if (num &lt; 10)
+          return lookup[num] + &quot;ة&quot;;
+
+      if (num &lt; 100 ){
+          var div = ~~(num/10);
+          var rem = ~~(num % 10);
+
+          if (div == 1){
+              if (rem == 0)
+                  return lookup[10] + &quot;ة&quot;;
+              if (rem == 1)
+                  return &quot;أحد &quot; + lookup[10];
+              if (rem == 2)
+                  return &quot;إثنا &quot; + lookup[10];
+              return toArabicLetters(rem) + &quot; &quot; + lookup[10];
+          }
+
+          var tenth = lookup[div] + &quot;ون&quot;;
+          if (div == 2)
+              tenth = lookup[10] + &quot;ون&quot;;
+
+          if (rem == 0)
+                  return tenth;
+
+          var suff = &quot; و&quot;;
+
+          return toArabicLetters(rem) + suff + tenth;
+
+      }
+
+      for (var i = 1; i &lt; bigNbr.length; i++) {
+          var big = bigNbr[i];
+          var lessBig = bigNbr[i-1];
+          if (num &lt; big ){
+              var div = ~~(num/lessBig);
+              var rem = ~~(num % lessBig);
+
+              var pron = lookup[lessBig];
+              var pref = &quot;&quot;;
+              var suff = &quot;&quot;;
+
+              if (div &lt; 3){
+                  if (div == 2)
+                  pron = lookup2[lessBig];
+              } else if (div &lt; 10 ){
+                  pref = lookup[div];
+                  if (lessBig != 100)
+                      pref += &quot;ة &quot;;
+                  pron = lookupPl[lessBig];
+              } else {
+                  pref = toArabicLetters(div) + &quot; &quot;;
+                  var rem100 = ~~(div % 100);
+                  if (rem100 &lt; 11){ // for example 103000
+                    pron = lookupPl[lessBig];
+                  }
+
+              }
+
+              if (div == 2){
+                  pron = lookup2[lessBig];
+                  pref = &quot;&quot;;
+              }
+
+
+              if (rem &gt; 0)
+                  suff = &quot; و&quot; + toArabicLetters(rem);
+
+          return pref + pron + suff;
+
+          }
+      }
+
+      var lessBig = bigNbr[bigNbr.length-1];
+
+      var div = ~~(num/lessBig);
+      var rem = ~~(num % lessBig);
+
+      var pron = lookup[lessBig];
+      var pref = &quot;&quot;;
+      var suff = &quot;&quot;;
+
+      if (div &lt; 3){
+          if (div == 2)
+          pron = lookup2[lessBig];
+      } else if (div &lt; 10 ){
+          pref = lookup[div];
+          if (lessBig != 100)
+              pref += &quot;ة &quot;;
+          pron = lookupPl[lessBig];
+      } else {
+          pref = toArabicLetters(div) + &quot; &quot;;
+      }
+
+      if (rem &gt; 0)
+          suff = &quot; و&quot; + toArabicLetters(rem);
+
+      return pref + pron + suff;
+
+  }
+
+}());
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
