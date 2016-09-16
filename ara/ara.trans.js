@@ -302,6 +302,12 @@
   var otherMourseTrans = new Trans("otherMourse");
   Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
+  /**
+   * Arabic transliteration
+   * @class AraTrans
+   * @extends Trans
+   * @constructor
+   */
   function AraTrans() {
     Trans.call(this, "ara");
     Trans.newMethod.call(this, "Buckwalter", arabic, buckwalter);
@@ -314,6 +320,13 @@
   AraTrans.prototype = Object.create(Trans.prototype);
   AraTrans.prototype.constructor = AraTrans;
 
+  /**
+   * Arabic to morse normalization
+   * @method ar2morseNormalize
+   * @private
+   * @param  {string} text Arabic text
+   * @return {string}      normalized text
+   */
   function ar2morseNormalize(text){
     var result = text;
     result = result.replace(/[أإئؤ]/gi, "ء");
@@ -322,6 +335,13 @@
     return result;
   }
 
+  /**
+   * pre-transliteration for morse: cleaning non supported codes
+   * @method morsePreTrans
+   * @private
+   * @param  {string} text Arabic text
+   * @return {string}      processed text for morse transliteration
+   */
   function morsePreTrans(text){
     var result = text;
     //cleaning non supported codes
@@ -333,6 +353,13 @@
     return result;
   }
 
+  /**
+   * post-transliteration for morse: clean non morse characters
+   * @method morsePostTrans
+   * @private
+   * @param  {string} text morse code
+   * @return {string}      filtered morse code
+   */
   function morsePostTrans(text){
     var result = text;
     result = otherMourseTrans.transliterate(result);
@@ -345,6 +372,13 @@
     return result;
   }
 
+  /**
+   * pre-untransliteration for morse: clean non morse characters
+   * @method morsePreUntrans
+   * @private
+   * @param  {string} text morse code
+   * @return {string}      processed morse code for untransliteration
+   */
   function morsePreUntrans(text){
     var result = text;
     //clean non morse characters
@@ -356,6 +390,13 @@
     return result;
   }
 
+  /**
+   * post-untransliteration for morse
+   * @method morsePostUntrans
+   * @private
+   * @param  {string} text Arabic text
+   * @return {string}      filtered Arabic text
+   */
   function morsePostUntrans(text){
     var result = text;
     result = otherMourseTrans.untransliterate(result);

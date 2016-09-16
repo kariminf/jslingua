@@ -1,4 +1,5 @@
 (function(){
+
   var Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
@@ -8,6 +9,12 @@
     window.JsLingua.addService("Lang", "jpn", JpnLang);
   }
 
+  /**
+   * Contains Japanese charsets and transformations
+   * @class JpnLang
+   * @extends Lang
+   * @constructor
+   */
   function JpnLang() {
     Lang.call(this, "jpn");
 
@@ -36,10 +43,16 @@
       10000, 1000, 100, 10
   ]
 
+/**
+ * Write the Arabic number in Japanese Kanjis
+ * @method pronounceNumber
+ * @override
+ */
 JpnLang.prototype.pronounceNumber = toJapaneseLetters;
   /**
   * Transform from Arabic numbers to Japanese letters
   * @method toJapaneseLetters
+  * @private
   * @param {Number} num the integer number
   * @return {String} Japanese writing of numbers
   */

@@ -9,6 +9,12 @@
     window.JsLingua.addService("Lang", "ara", AraLang);
   }
 
+  /**
+   * Contains Arabic charsets and transformations
+   * @class AraLang
+   * @extends Lang
+   * @constructor
+   */
   function AraLang() {
     Lang.call(this, "ara");
 
@@ -56,10 +62,16 @@
       //1000000000, 1000000, 1000, 100, 10
   }
 
+  /**
+   * Write the Arabic number into Arabic letters
+   * @override
+   */
  AraLang.prototype.pronounceNumber = toArabicLetters;
+
   /**
   * Transform from Arabic numbers to Arabic letters
   * @method toArabicLetters
+  * @private
   * @param {Number} nbr the integer number
   * @return {String} Arabic writing of numbers
   */

@@ -1,6 +1,18 @@
 /**
+ * The tools module
+ * @module Tools
+ */
+
+ /**
+  * The tools class
+  * @class Tools
+  * @static
+  */
+
+/**
  * Read morse code and output as sound <br>
  * Example: readMorse("..-. .--   ..-.");
+ * @method readMorse
  * @param  {string} morse morse code written using ".", "-" and blacks " ".
  */
 function readMorse(morse){
@@ -45,6 +57,7 @@ function readMorse(morse){
 /**
  * Transform HTML reserved characters to their equivalent codes in HTML.<br>
  * for example: "<" is transformed to "&lt;".
+ * @method htmlEntities
  * @param  {string} str normal string
  * @return {string}     skip string
  */

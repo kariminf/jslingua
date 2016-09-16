@@ -37,9 +37,6 @@ The **Info** class affords these services:
 * **getBranch()**: Get the branch of the language; "Semetic", etc.
 * **getDir()**: Get the direction of writing; "rtl", "ltr".
 * **getWordOrder()**: Get Words order using: subject (S), "Object" and Verb "V"; "vso", "sov", etc.
-* **getPopulation()**: Get the number of natively speakers; it is approximate.
-* **getLocations()**: Get a list of counties where the language is official
-* **getDialects()**: Get a list of dialects
 
 ### Lang
 The **Lang** class affords these services:

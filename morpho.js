@@ -205,8 +205,9 @@
 
 
   /**
-   * This function is used to get personal pronouns characteristics
-   * @return {Array of objects} Array of different objects; each object contains the properties
+   * This method is used to get personal pronouns characteristics
+   * @method getPronounOpts
+   * @return {array}  Array of different objects; each object contains the properties
    * of pronouns. For example: {person: Morpho.Feature.Person.First, number: Morpho.Feature.Number.Singular}
    * which refers to the personal pronoun "I"
    */
@@ -216,7 +217,8 @@
 
   /**
    * This function returns an array of available tenses
-   * @return {Array of Tense} Array of tenses available for the language
+   * @method getTenses
+   * @return {array}  Array of tenses available for the language
    */
   Morpho.prototype.getTenses = function(){
     //Past and Present are defaults
@@ -228,6 +230,7 @@
 
   /**
    * This function is used for verb conjugation
+   * @method conjugate
    * @param  {string} verb the word to be conjugated
    * @param  {object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
    * @return {string}      inflected word
@@ -237,9 +240,17 @@
   }
 
   /**
-   * [getPronoun description]
-   * @param  {[type]} opts [description]
-   * @return {[type]}      [description]
+   * Get the personal pronoun using options like: person, gender, etc.<br>
+   * for example, the parameters for the personal pronoun "I": <br>
+   * ```
+   *    {
+   *      person: Morpho.Feature.Person.First,
+   *      number: Morpho.Feature.Number.Singular
+   *    }
+   * ```
+   * @method getPronoun
+   * @param  {object} opts An object containing parameters: person, gender, number.
+   * @return {string}      the pronoun
    */
   Morpho.prototype.getPronoun = function(opts){
     return "";
@@ -248,6 +259,7 @@
   /**
    * This function is used for noun inflexion<br>
    * For example: noun to plural nouns
+   * @method declenseNoun
    * @param  {string} noun the noun to be inflected
    * @param  {object} opts  the options: number for example
    * @return {string}      the inflected noun
@@ -256,15 +268,22 @@
     return noun;
   }
 
-
-  Morpho.prototype.derivate = function(word, srcPOS, dstPOS){
-    return word;
-  }
-
+  /**
+   * Stem a word: delete prefixes, suffixes and infixes
+   * @method stem
+   * @param  {string} word the word to be stemmed
+   * @return {string}      stemmed word
+   */
   Morpho.prototype.stem = function(word){
     return word;
   }
 
+  /**
+   * lemmatize a word: return it to its origin
+   * @method lemmatize
+   * @param  {string} word the word to be lemmatized
+   * @return {string}      lemmatized word
+   */
   Morpho.prototype.lemmatize = function(word){
     return word;
   }

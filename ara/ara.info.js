@@ -9,13 +9,22 @@
     window.JsLingua.addService("Info", "ara", AraInfo);
   }
 
+  /**
+   * Contains information about Arabic language
+   * @class AraInfo
+   * @extends Info
+   * @constructor
+   */
   function AraInfo() {
+
     Info.call(this, "ara");
     this.name = "Arabic";
     this.dir = "rtl";
     this.wordOrder = "vso";
     this.family = "Afro-Asiatic";
     this.branch = "Semitic";
+
+    //All the remaining attributes are deprecated
     this.population = 420000000;
     this.locations = [
       "Algeria",
