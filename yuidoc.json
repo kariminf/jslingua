@@ -6,6 +6,8 @@
   "options": {
     "linkNatives": "true",
     "ignorePaths": [ "docs", "out", "test", ".git" ],
-    "outdir": "./docs/docs"
+    "outdir": "./docs/docs",
+    "themedir": "node_modules/yuidoc-lucid-theme",
+    "helpers": ["node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
   }
 }

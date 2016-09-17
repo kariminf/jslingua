@@ -62,7 +62,7 @@
       //1000000000, 1000000, 1000, 100, 10
   }
 
-  /**
+  /*
    * Write the Arabic number into Arabic letters
    * @override
    */

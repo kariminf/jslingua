@@ -1,5 +1,10 @@
 {
-    "project": {},
+    "project": {
+        "name": "JsLingua API",
+        "description": "Language processing API",
+        "version": "0.3.0",
+        "url": "http://kariminf.github.io/JsLingua/"
+    },
     "files": {
         "ara/ara.info.js": {
             "name": "ara/ara.info.js",
@@ -367,13 +372,6 @@
     "classitems": [
         {
             "file": "ara/ara.lang.js",
-            "line": 65,
-            "description": "Write the Arabic number into Arabic letters",
-            "override": "",
-            "class": "AraLang"
-        },
-        {
-            "file": "ara/ara.lang.js",
             "line": 71,
             "description": "Transform from Arabic numbers to Arabic letters",
             "itemtype": "method",
@@ -497,15 +495,6 @@
                 "type": "String"
             },
             "class": "AraTrans"
-        },
-        {
-            "file": "jpn/jpn.lang.js",
-            "line": 46,
-            "description": "Write the Arabic number in Japanese Kanjis",
-            "itemtype": "method",
-            "name": "pronounceNumber",
-            "override": "",
-            "class": "JpnLang"
         },
         {
             "file": "jpn/jpn.lang.js",
@@ -1602,14 +1591,6 @@
     ],
     "warnings": [
         {
-            "message": "unknown tag: override",
-            "line": " ara/ara.lang.js:65"
-        },
-        {
-            "message": "unknown tag: override",
-            "line": " jpn/jpn.lang.js:46"
-        },
-        {
             "message": "unknown tag: access",
             "line": " morpho.js:25"
         },
@@ -1648,10 +1629,6 @@
         {
             "message": "unknown tag: access",
             "line": " morpho.js:170"
-        },
-        {
-            "message": "Missing item type\nWrite the Arabic number into Arabic letters",
-            "line": " ara/ara.lang.js:65"
         }
     ]
 }
