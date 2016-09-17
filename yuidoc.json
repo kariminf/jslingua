@@ -1,0 +1,11 @@
+{
+  "name": "JsLingua API",
+  "description": "Language processing API",
+  "version": "0.3.0",
+  "url": "http://kariminf.github.io/JsLingua/",
+  "options": {
+    "linkNatives": "true",
+    "ignorePaths": [ "docs", "out", "test", ".git" ],
+    "outdir": "./docs/docs"
+  }
+}
