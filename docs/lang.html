@@ -128,26 +128,26 @@
     <div class="content pure-g">
 
       <div class="pure-u-1">
-        <fieldset class="k-fieldset">
-          <legend>Language</legend>
+        <div class="kfs">
+          <h1><span>Language</span></h1>
           <label>Choose the language:</label>
           <select id="l" class="k-select" onchange="update()">
           </select>
-        </fieldset>
+        </div>
       </div>
 
       <div class="pure-u-1">
-        <fieldset class="k-fieldset">
-          <legend>Number in letters</legend>
+        <div class="kfs">
+          <h1><span>Number in letters</span></h1>
           <input type="text" id="nbr" class="k-input" /><br>
           <button onclick="nbrPronounce()" class="pure-button-secondary pure-button">In letters</button><br>
           <div id="nbrp" class="k-input"></div>
-        </fieldset>
+        </div>
       </div>
 
       <div class="pure-u-1">
-        <fieldset class="k-fieldset">
-          <legend>Language charSets</legend>
+        <div class="kfs">
+          <h1><span>Language charSets</span></h1>
           <div id="lanCS" class="pure-u-1"></div>
           <div class="pure-u-1">
             <input type="text" id="ltst" class="k-input"/><br>
@@ -158,19 +158,19 @@
           <div id="contCS"></div>
           <h3>All chars are in: </h3>
           <div id="allCS"></div>
-        </fieldset>
+        </div>
       </div>
 
       <div class="pure-u-1">
-        <fieldset class="k-fieldset">
-          <legend>Transformation</legend>
+        <div class="kfs">
+          <h1><span>Transformation</span></h1>
           <label>Choose the language:</label>
           <select id="tsel" class="k-select">
           </select>
           <input type="text" id="tsrc" class="k-input"/><br>
           <button onclick="transform()" class="pure-button-secondary pure-button">transform</button><br>
           <div id="tdest" class="k-input"></div>
-        </fieldset>
+        </div>
       </div>
 
     </div>

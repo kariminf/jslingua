@@ -83,32 +83,32 @@
     <div class="content pure-g">
 
       <div class="pure-u-1">
-        <fieldset class="k-fieldset" >
-          <legend>Language</legend>
+        <div class="kfs" >
+          <h1><span>Language</span></h1>
         <label>Choose the language:</label>
         <select id="l" class="k-select" onchange="update()">
         </select>
         <select id="m" class="k-select" onchange="setMethod()">
         </select>
-      </fieldset>
+      </div>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-        <fieldset class="k-fieldset">
-          <legend>Transliteration</legend>
+        <div class="kfs">
+          <h1><span>Transliteration</span></h1>
         <input type="text" id="lang" class="k-input" /><br>
         <button onclick="lang2trans()" class="pure-button-secondary pure-button">To Transliteration</button><br>
         <div id="2trans" class="k-input pure-input-1"></div>
-        </fieldset>
+        </div>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-        <fieldset class="k-fieldset">
-          <legend>Untranslateration</legend>
+        <div class="kfs">
+          <h1><span>Untranslateration</span></h1>
         <input type="text" id="trans" class="k-input"/><br>
         <button onclick="trans2lang()" class="pure-button-secondary pure-button">From Transliteration</button><br>
         <div id="2lang" class="k-input pure-input-1"></div>
-      </fieldset>
+      </div>
       </div>
 
     </div>
