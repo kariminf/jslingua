@@ -35,12 +35,31 @@
 
   function conjugate(){
     var verb = document.getElementById("verb").value;
-    var funcName = tsel.options[tsel.selectedIndex].value;
-    var tsrc = document.getElementById("tsrc");
-    var tdest = document.getElementById("tdest");
+    var result = "<table>";
 
-    var transFunc = tester.transformationFunction(funcName);
-    tdest.value = transFunc(tsrc.value);
+    var conj = document.getElementById("conj");
+
+    //console.log(morpho.getPronounOpts());
+
+    var tenses = morpho.getTenses();
+    result += "<tr><th></th>";
+    tenses.forEach(function(element, index, array){
+      result += "<th>" + morpho.getTenseName(element) + "</th>";
+    });
+    result += "</tr>";
+
+    morpho.getPronounOpts().forEach(function(pOpt, pIdx, pTab){
+      result += "<tr>";
+      result += "<th>" + morpho.getPronounName(pOpt) + "</th>";
+      tenses.forEach(function(tOpt, tIdx, tTab){
+        result += "<td>" + morpho.getTenseName(element) + "</td>";
+      });
+      result += "</tr>";
+    });
+
+    result += "</table>"
+
+    conj.innerHTML = result;
   }
 
   </script>
@@ -70,6 +89,7 @@
   <h2>Conjugation</h2>
   <input type="text" id="verb" />
   <button onclick="conjugate()">Conjugate</button>
+  <br>
   <div id="conj"></div>
   <script>
   loading();

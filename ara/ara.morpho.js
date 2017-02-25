@@ -23,9 +23,21 @@
     Morpho.call(this, "ara");
   }
 
-  AraMorpho.prototype = Object.create(Morpho.prototype);;
+  AraMorpho.prototype = Object.create(Morpho.prototype);
   AraMorpho.prototype.constructor = AraMorpho;
 
+  AraMorpho.prototype.getTenseName = function(tense){
+    switch (tense) {
+      case T.Past:
+        return "الماضي";
+      case T.Present:
+        return "المضارع";
+      case T.Future:
+        return "المستقبل";
+    }
+
+    return "";
+  }
 
   AraMorpho.prototype.getPronounOpts = function(){
     return [
@@ -224,7 +236,7 @@
 
   }
 
-  AraMorpho.prototype.getPronoun = function(opts){
+  AraMorpho.prototype.getPronounName = function(opts){
 
     switch (opts.person) {
       case P.First:
