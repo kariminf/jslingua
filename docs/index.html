@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="use/jslingua.index.css">
   <link rel="stylesheet" href="use/animate.min.css">
 
-
   <style type="text/css">
 
   .splash h1 {
@@ -24,6 +23,9 @@
   }
 
   </style>
+
+  <script src="w3data.js"></script>
+
 </head>
 <body>
 
@@ -128,7 +130,11 @@
       </div>
     </div>
 
-    <!--#include file="footer.html"-->
+    <div w3-include-html="footer.html"></div> 
+
+    <script>
+      w3IncludeHTML();
+    </script>
 
 </body>
 </html>
