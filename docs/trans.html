@@ -85,40 +85,42 @@
       <div class="pure-u-1">
         <div class="kfs" >
           <h1><span>Language</span></h1>
-        <label>Choose the language:</label>
-        <select id="l" class="k-select" onchange="update()">
-        </select>
-        <select id="m" class="k-select" onchange="setMethod()">
-        </select>
-      </div>
+          <label>Choose the language:</label>
+          <select id="l" class="k-select" onchange="update()">
+          </select>
+          <select id="m" class="k-select" onchange="setMethod()">
+          </select>
+        </div>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
         <div class="kfs">
           <h1><span>Transliteration</span></h1>
-        <input type="text" id="lang" class="k-input" /><br>
-        <button onclick="lang2trans()" class="pure-button-secondary pure-button">To Transliteration</button><br>
-        <div id="2trans" class="k-input pure-input-1"></div>
+          <input type="text" id="lang" class="k-input" /><br>
+          <button onclick="lang2trans()" class="pure-button-secondary pure-button">To Transliteration</button><br>
+          <div id="2trans" class="k-input pure-input-1"></div>
         </div>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
         <div class="kfs">
           <h1><span>Untranslateration</span></h1>
-        <input type="text" id="trans" class="k-input"/><br>
-        <button onclick="trans2lang()" class="pure-button-secondary pure-button">From Transliteration</button><br>
-        <div id="2lang" class="k-input pure-input-1"></div>
-      </div>
+          <input type="text" id="trans" class="k-input"/><br>
+          <button onclick="trans2lang()" class="pure-button-secondary pure-button">From Transliteration</button><br>
+          <div id="2lang" class="k-input pure-input-1"></div>
+        </div>
       </div>
 
     </div>
 
     <div w3-include-html="footer.html"></div>
-
-    <script>
-      w3IncludeHTML();
-      loading();
-    </script>
     
+  </div>
+
+  <script>
+  w3IncludeHTML();
+  loading();
+  </script>
+
 </body>
 </html>
