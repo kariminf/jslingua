@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="use/grids-responsive-min.css">
   <link rel="stylesheet" href="use/jslingua.css">
 
+  <script src="w3data.js"></script>
   <script type="text/javascript" src="call.js"></script>
   <script type="text/javascript">
   addScript("jslingua.min.js");
@@ -74,9 +75,8 @@
 
 </head>
 <body>
-  <div class="pure-menu pure-menu-horizontal pure-menu-fixed">
-    <a class="pure-menu-heading" href="index.html">home</a>
-  </div>
+
+  <div w3-include-html="menu.html"></div>
 
   <div class="content-wrapper">
 
@@ -112,14 +112,13 @@
       </div>
 
     </div>
-    <div class="footer">
-      <div class="footer-vcenter">
-        Copyright 2016 Abdelkrime Aries.
-      </div>
-    </div>
-  </div>
-  <script>
-  loading();
-  </script>
+
+    <div w3-include-html="footer.html"></div>
+
+    <script>
+      w3IncludeHTML();
+      loading();
+    </script>
+    
 </body>
 </html>
