@@ -51,8 +51,12 @@
     morpho.getPronounOpts().forEach(function(pOpt, pIdx, pTab){
       result += "<tr>";
       result += "<th>" + morpho.getPronounName(pOpt) + "</th>";
+      //create a new clone
+      var allOpts = Object.assign({}, pOpt);
       tenses.forEach(function(tOpt, tIdx, tTab){
-        result += "<td>" + morpho.getTenseName(element) + "</td>";
+        allOpts.tense = tOpt;
+        //console.log(tOpt);
+        result += "<td>" + morpho.conjugate(verb, allOpts) + "</td>";
       });
       result += "</tr>";
     });
