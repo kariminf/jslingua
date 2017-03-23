@@ -1,12 +1,11 @@
 
 # JsLingua
 
-[![JsLingua](https://img.shields.io/badge/Project-JsLingua-yellow.svg)](https://kariminf.github.com/JsLingua)
-[![Hex.pm](https://img.shields.io/badge/License-Apache--2.0-yellow.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/JsLingua)
+[![Version](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
+[![License](https://img.shields.io/badge/License-Apache--2.0-FDEE00.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Travis](https://img.shields.io/travis/kariminf/JsLingua.svg)](https://travis-ci.org/kariminf/JsLingua)
-[![npm](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![npm](https://img.shields.io/npm/dt/jslingua.svg)](https://www.npmjs.com/package/jslingua)
-
 
 Javascript library to process languages:
 * Information about the language
@@ -16,10 +15,13 @@ Javascript library to process languages:
 * Transliteration: different transliteration methods including Morse code.
 
 You can test it on [https://kariminf.github.com/JsLingua](https://kariminf.github.com/JsLingua)
+
 ## Different classes
+
 These classes are abstract; it means each language has to extend these classes. For example: class Lang, we find: AraLang for Arabic and JpnLang for Japanese.
 
 ### JsLingua
+
 The **JsLingua** is the main class which used to manage the other classes.
 It affords these services:
 * **serviceLanguages(serviceID)**: It returns a list of languages codes which support the service.
@@ -30,6 +32,7 @@ This class is obligatory to manage different services.
 In the browser, you have to call it first, before other classes so it can charge the services
 
 ### Info
+
 The **Info** class affords these services:
 * **getName()**: Get the name of the language; "Arabic", "Japanese", etc.
 * **getCode()**: Get the code of the language; "ara", "jpn", etc.
@@ -39,6 +42,7 @@ The **Info** class affords these services:
 * **getWordOrder()**: Get Words order using: subject (S), "Object" and Verb "V"; "vso", "sov", etc.
 
 ### Lang
+
 The **Lang** class affords these services:
 * **availableCharSets()**: it returns a list of available charsets names. For Japanese as example, it returns: "Hiragana", "Katakana", "Kanji" and "Punctuation".
 * **availableTransformations()**: it returns a list of available transformations between charSets; For example: "hiraganaToKatakana".
@@ -49,6 +53,7 @@ The **Lang** class affords these services:
 * **pronounceNumber(nbr)**: it takes a number with Arabic digits, for example 1254, an then it returns a string with the number in letters, for example: "one thousand two hundreds and fifty four" in the class's language.
 
 ### Trans
+
 The **trans** class affords these services:
 * **availableMethods()**: it returns a list of translateration methods names. For example, in Arabic it returns: "Buckwalter", "ArabTeX" and "Morse". The implementations for each language can add more translaterations.
 * **setCurrentMethod(methodName)**: it takes the name of the method, say "Buckwalter", and use it as current method for transliteration and untransliteration.
@@ -59,6 +64,7 @@ The **trans** class affords these services:
 ## How to use?
 
 ### Use in Browser
+
 Just import the class that you want to use and its implementations.
 Here the importation of all classes, where:
 * <module> in: info, lang, trans
@@ -84,6 +90,7 @@ For example, :
 ```
 
 ### Use in Node
+
 First of all, you have to install the package in your current project
 ```
 npm install jslingua
@@ -131,5 +138,17 @@ For Changlog, check [CHANGELOG.md](./CHANGELOG.md)
 For Credits, check [CREDITS.md](./CREDITS.md)
 
 ## License
-The code is released under Apache 2.0 license.
-For more details about this license, check [LICENSE](./LICENSE) file
+
+Copyright (C) 2016-2017 Abdelkrime Aries
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
