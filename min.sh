@@ -5,7 +5,7 @@
 # < use bash, because sh won't work >
 #
 # --------------------------------------------------------------------
-#  Copyright 2016 Abdelkrime ARIES
+#  Copyright 2016-2017 Abdelkrime ARIES
 # --------------------------------------------------------------------
 # Licensed under the Apache License, Version 2.0 (the "License");
 # may not use this file except in compliance with the License. You may
@@ -37,7 +37,9 @@ done
 # Minify all js files in dist folder
 cd dist
 for s in *.js; do
-  minify $s
+  ext="${s##*.}"
+  file="${s%.*}"
+  minify $s > $file.min.$ext
   rm $s
 done
 cd ..

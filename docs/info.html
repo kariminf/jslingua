@@ -48,9 +48,6 @@
     (info.getDir() === "rtl")? "Right to Left": "Left to Right";
     document.getElementById("wo").innerHTML =
     info.getWordOrder().replace("s", "Subject ").replace("o", "Object ").replace("v", "Verb ");
-    document.getElementById("pop").innerHTML = info.getPopulation() + " persons";
-    document.getElementById("loc").innerHTML = info.getLocations().join(", ");
-    document.getElementById("dia").innerHTML = info.getDialects(). join(", ");
 
   }
 
@@ -109,27 +106,6 @@
         <div class="kfs">
           <h1><span>Words order</span></h1>
           <div id="wo"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-        <div class="kfs">
-          <h1><span>Native speakers approx.</span></h1>
-          <div id="pop"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-        <div class="kfs">
-          <h1><span>Official in</span></h1>
-          <div id="loc"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-        <div class="kfs">
-          <h1><span>Dialects</span></h1>
-          <div id="dia"></div>
         </div>
       </div>
 

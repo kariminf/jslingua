@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
@@ -23,14 +23,17 @@
     "info.js",
     "lang.js",
     "trans.js",
+    "morpho.js",
 
     "ara/ara.info.js",
     "ara/ara.lang.js",
     "ara/ara.trans.js",
+    "ara/ara.morpho.js",
 
     "jpn/jpn.info.js",
     "jpn/jpn.lang.js",
     "jpn/jpn.trans.js",
+    "jpn/jpn.morpho.js",
 
     "dist/",
     "test"

@@ -5,6 +5,9 @@
 
 (function(){
 
+
+  var version = "0.3.0";
+
   //service name: [services for languages]
   var services = {};
 
@@ -97,6 +100,10 @@
     if (services[serviceID] === undefined) return null;
     if (! langCode in services[serviceID]) return null;
     return services[serviceID][langCode];
+  }
+
+  JsLingua.getVersion = function(){
+    return version;
   }
 
 

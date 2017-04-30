@@ -13,6 +13,9 @@ Javascript library to process languages:
   * Detection of language's characters
   * Transforming numbers to strings (pronunciation)
 * Transliteration: different transliteration methods including Morse code.
+* Morphology: different morphological functions
+  * Verb Conjugation
+  * Stemming
 
 You can test it on [https://kariminf.github.com/JsLingua](https://kariminf.github.com/JsLingua)
 
