@@ -203,12 +203,18 @@
     "Gender": Gender
   });
 
+
+  //===================================================
+  // Functions
+  //===================================================
+  var Me = Morpho.prototype;
+
   /**
    * This method is used to recover the name of the tense
    * @param  {Tense} tense the tense which we want to get the name
    * @return {String}       the name of the tense in the selected language
    */
-  Morpho.prototype.getTenseName = function(tense){
+  Me.getTenseName = function(tense){
     var T = Tense;
     switch (tense) {
       case T.Past:
@@ -229,7 +235,7 @@
    * of pronouns. For example: {person: Morpho.Feature.Person.First, number: Morpho.Feature.Number.Singular}
    * which refers to the personal pronoun "I"
    */
-  Morpho.prototype.getPronounOpts = function(){
+  Me.getPronounOpts = function(){
     return [];
   }
 
@@ -238,7 +244,7 @@
    * @method getTenses
    * @return {array}  Array of tenses available for the language
    */
-  Morpho.prototype.getTenses = function(){
+  Me.getTenses = function(){
     //Past and Present are defaults
     return [
       Tense.Past,
@@ -253,7 +259,7 @@
    * @param  {object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
    * @return {string}      inflected word
    */
-  Morpho.prototype.conjugate = function(verb, opts){
+  Me.conjugate = function(verb, opts){
     return verb;
   }
 
@@ -270,7 +276,7 @@
    * @param  {object} opts An object containing parameters: person, gender, number.
    * @return {string}      the pronoun
    */
-  Morpho.prototype.getPronounName = function(opts){
+  Me.getPronounName = function(opts){
     return "";
   }
 
@@ -282,7 +288,7 @@
    * @param  {object} opts  the options: number for example
    * @return {string}      the inflected noun
    */
-  Morpho.prototype.declenseNoun = function(noun, opts){
+  Me.declenseNoun = function(noun, opts){
     return noun;
   }
 
@@ -292,7 +298,7 @@
    * @param  {string} word the word to be stemmed
    * @return {string}      stemmed word
    */
-  Morpho.prototype.stem = function(word){
+  Me.stem = function(word){
     return word;
   }
 
@@ -302,7 +308,7 @@
    * @param  {string} word the word to be lemmatized
    * @return {string}      lemmatized word
    */
-  Morpho.prototype.lemmatize = function(word){
+  Me.lemmatize = function(word){
     return word;
   }
 

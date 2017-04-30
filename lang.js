@@ -128,13 +128,14 @@
   //=========================================
   // Prototypes
   // ========================================
+  var Me = Lang.prototype;
 
   /**
    * Returns the available charsets for the current language
    * @method availableCharSets
    * @return {array} a set of strings containing the names of charsets
    */
-  Lang.prototype.availableCharSets = function(){
+  Me.availableCharSets = function(){
     return Object.keys(this.CS);
   }
 
@@ -143,7 +144,7 @@
    * @method availableTransformations
    * @return {array} a set of strings containing the names of transformation functions
    */
-  Lang.prototype.availableTransformations = function(){
+  Me.availableTransformations = function(){
     return Object.keys(this.TR);
   }
 
@@ -153,7 +154,7 @@
    * @param  {string} transName transformation name (function name), for example: hiragana2Katakana
    * @return {function}  a function which takes a string and transforme it to another string with different charset
    */
-  Lang.prototype.transformationFunction = function(transName){
+  Me.transformationFunction = function(transName){
     if (typeof transName !== "string"){
       return function(text){return text}
     }
@@ -167,7 +168,7 @@
    * @param  {string} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
    * @return {function}  A function which takes a char and returns true if it belongs to the charset
    */
-  Lang.prototype.verifyCharSetFunction = function(setName){
+  Me.verifyCharSetFunction = function(setName){
     if (typeof setName !== "string"){
       return function(char){return false}
     }
@@ -181,7 +182,7 @@
    * @param  {string} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
    * @return {function}  A function which takes a string and returns true if one of its characters belongs to the charset
    */
-  Lang.prototype.containsCharSetFunction = function(setName){
+  Me.containsCharSetFunction = function(setName){
     return contains(this.CS[setName]);
   }
 
@@ -191,7 +192,7 @@
    * @param  {string} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
    * @return {function}  A function which takes a string and returns true if all of its characters belong to the charset
    */
-  Lang.prototype.allCharSetFunction = function(setName){
+  Me.allCharSetFunction = function(setName){
     return all(this.CS[setName]);
   }
 
@@ -200,7 +201,7 @@
    * @method getCode
    * @return {string}  The language ISO639-2 code: "ara", "jpn", "eng", etc.
    */
-  Lang.prototype.getCode = function(){
+  Me.getCode = function(){
     return this.code;
   }
 
@@ -211,7 +212,7 @@
   * @param  {number} num A number to be transformed into letters
   * @return {string}  the pronounciation
   */
-  Lang.prototype.pronounceNumber = function(num){
+  Me.pronounceNumber = function(num){
     return num;
   }
 
