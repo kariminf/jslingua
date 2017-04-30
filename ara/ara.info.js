@@ -63,8 +63,7 @@
 
   }
 
-  AraInfo.prototype = Object.create(Info.prototype);;
+  AraInfo.prototype = Object.create(Info.prototype);
   AraInfo.prototype.constructor = AraInfo;
-
 
 }());

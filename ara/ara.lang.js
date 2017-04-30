@@ -10,11 +10,11 @@
   }
 
   /**
-   * Contains Arabic charsets and transformations
-   * @class AraLang
-   * @extends Lang
-   * @constructor
-   */
+  * Contains Arabic charsets and transformations
+  * @class AraLang
+  * @extends Lang
+  * @constructor
+  */
   function AraLang() {
     Lang.call(this, "ara");
 
@@ -32,41 +32,42 @@
   }
 
   AraLang.prototype = Object.create(Lang.prototype);
-  AraLang.prototype.constructor = AraLang;
+  var Me = AraLang.prototype;
+  Me.constructor = AraLang;
 
   //https://ar.wikipedia.org/wiki/قائمة_الأعداد
   var lookup = {
-      0: "صفر", 1:"واحد", 2:"اثنان", 3:"ثلاث", 4:"أربع", 5:"خمس",
-      6:"ست", 7:"سبع", 8:"ثمان", 9:"تسع", 10:"عشر",
-      100:"مائة", 1000:"ألف", 1000000:"مليون", 1000000000:"مليار"
+    0: "صفر", 1:"واحد", 2:"اثنان", 3:"ثلاث", 4:"أربع", 5:"خمس",
+    6:"ست", 7:"سبع", 8:"ثمان", 9:"تسع", 10:"عشر",
+    100:"مائة", 1000:"ألف", 1000000:"مليون", 1000000000:"مليار"
   }
 
   var bigNbr = [
-      100, 1000, 1000000, 1000000000
-      //1000000000, 1000000, 1000, 100, 10
+    100, 1000, 1000000, 1000000000
+    //1000000000, 1000000, 1000, 100, 10
   ]
 
   var lookup2 = {
-     100: "مائتان",
-     1000: "ألفان",
-     1000000: "مليونان",
-     1000000000: "ملياران"
-      //1000000000, 1000000, 1000, 100, 10
+    100: "مائتان",
+    1000: "ألفان",
+    1000000: "مليونان",
+    1000000000: "ملياران"
+    //1000000000, 1000000, 1000, 100, 10
   }
 
   var lookupPl = {
-     100: "مائة",
-     1000: "آلاف",
-     1000000: "ملايين",
-     1000000000: "ملايير"
-      //1000000000, 1000000, 1000, 100, 10
+    100: "مائة",
+    1000: "آلاف",
+    1000000: "ملايين",
+    1000000000: "ملايير"
+    //1000000000, 1000000, 1000, 100, 10
   }
 
   /*
-   * Write the Arabic number into Arabic letters
-   * @override
-   */
- AraLang.prototype.pronounceNumber = toArabicLetters;
+  * Write the Arabic number into Arabic letters
+  * @override
+  */
+  Me.pronounceNumber = toArabicLetters;
 
   /**
   * Transform from Arabic numbers to Arabic letters
@@ -77,118 +78,118 @@
   */
   function toArabicLetters (num) {
 
-      if (isNaN(num))
-          return "";
+    if (isNaN(num))
+    return "";
 
-      if(num < 0)
-          return "ناقص " + toArabicLetters(-num);
+    if(num < 0)
+    return "ناقص " + toArabicLetters(-num);
 
-      if (num == 0)
-          return lookup[num];
+    if (num == 0)
+    return lookup[num];
 
-      if (num == 8)
-          return lookup[num] + "ية";
+    if (num == 8)
+    return lookup[num] + "ية";
 
-      if (num < 3)
-          return lookup[num];
+    if (num < 3)
+    return lookup[num];
 
-      if (num < 10)
-          return lookup[num] + "ة";
+    if (num < 10)
+    return lookup[num] + "ة";
 
-      if (num < 100 ){
-          var div = ~~(num/10);
-          var rem = ~~(num % 10);
+    if (num < 100 ){
+      var div = ~~(num/10);
+      var rem = ~~(num % 10);
 
-          if (div == 1){
-              if (rem == 0)
-                  return lookup[10] + "ة";
-              if (rem == 1)
-                  return "أحد " + lookup[10];
-              if (rem == 2)
-                  return "إثنا " + lookup[10];
-              return toArabicLetters(rem) + " " + lookup[10];
-          }
-
-          var tenth = lookup[div] + "ون";
-          if (div == 2)
-              tenth = lookup[10] + "ون";
-
-          if (rem == 0)
-                  return tenth;
-
-          var suff = " و";
-
-          return toArabicLetters(rem) + suff + tenth;
-
+      if (div == 1){
+        if (rem == 0)
+        return lookup[10] + "ة";
+        if (rem == 1)
+        return "أحد " + lookup[10];
+        if (rem == 2)
+        return "إثنا " + lookup[10];
+        return toArabicLetters(rem) + " " + lookup[10];
       }
 
-      for (var i = 1; i < bigNbr.length; i++) {
-          var big = bigNbr[i];
-          var lessBig = bigNbr[i-1];
-          if (num < big ){
-              var div = ~~(num/lessBig);
-              var rem = ~~(num % lessBig);
+      var tenth = lookup[div] + "ون";
+      if (div == 2)
+      tenth = lookup[10] + "ون";
 
-              var pron = lookup[lessBig];
-              var pref = "";
-              var suff = "";
+      if (rem == 0)
+      return tenth;
 
-              if (div < 3){
-                  if (div == 2)
-                  pron = lookup2[lessBig];
-              } else if (div < 10 ){
-                  pref = lookup[div];
-                  if (lessBig != 100)
-                      pref += "ة ";
-                  pron = lookupPl[lessBig];
-              } else {
-                  pref = toArabicLetters(div) + " ";
-                  var rem100 = ~~(div % 100);
-                  if (rem100 < 11){ // for example 103000
-                    pron = lookupPl[lessBig];
-                  }
+      var suff = " و";
 
-              }
+      return toArabicLetters(rem) + suff + tenth;
 
-              if (div == 2){
-                  pron = lookup2[lessBig];
-                  pref = "";
-              }
+    }
 
+    for (var i = 1; i < bigNbr.length; i++) {
+      var big = bigNbr[i];
+      var lessBig = bigNbr[i-1];
+      if (num < big ){
+        var div = ~~(num/lessBig);
+        var rem = ~~(num % lessBig);
 
-              if (rem > 0)
-                  suff = " و" + toArabicLetters(rem);
+        var pron = lookup[lessBig];
+        var pref = "";
+        var suff = "";
 
-          return pref + pron + suff;
-
-          }
-      }
-
-      var lessBig = bigNbr[bigNbr.length-1];
-
-      var div = ~~(num/lessBig);
-      var rem = ~~(num % lessBig);
-
-      var pron = lookup[lessBig];
-      var pref = "";
-      var suff = "";
-
-      if (div < 3){
+        if (div < 3){
           if (div == 2)
           pron = lookup2[lessBig];
-      } else if (div < 10 ){
+        } else if (div < 10 ){
           pref = lookup[div];
           if (lessBig != 100)
-              pref += "ة ";
+          pref += "ة ";
           pron = lookupPl[lessBig];
-      } else {
+        } else {
           pref = toArabicLetters(div) + " ";
+          var rem100 = ~~(div % 100);
+          if (rem100 < 11){ // for example 103000
+            pron = lookupPl[lessBig];
+          }
+
+        }
+
+        if (div == 2){
+          pron = lookup2[lessBig];
+          pref = "";
+        }
+
+
+        if (rem > 0)
+        suff = " و" + toArabicLetters(rem);
+
+        return pref + pron + suff;
+
       }
+    }
 
-      if (rem > 0)
-          suff = " و" + toArabicLetters(rem);
+    var lessBig = bigNbr[bigNbr.length-1];
 
-      return pref + pron + suff;
+    var div = ~~(num/lessBig);
+    var rem = ~~(num % lessBig);
+
+    var pron = lookup[lessBig];
+    var pref = "";
+    var suff = "";
+
+    if (div < 3){
+      if (div == 2)
+      pron = lookup2[lessBig];
+    } else if (div < 10 ){
+      pref = lookup[div];
+      if (lessBig != 100)
+      pref += "ة ";
+      pron = lookupPl[lessBig];
+    } else {
+      pref = toArabicLetters(div) + " ";
+    }
+
+    if (rem > 0)
+    suff = " و" + toArabicLetters(rem);
+
+    return pref + pron + suff;
 
   }
 

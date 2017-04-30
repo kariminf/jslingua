@@ -10,11 +10,11 @@
   }
 
   /**
-   * Contains Japanese charsets and transformations
-   * @class JpnLang
-   * @extends Lang
-   * @constructor
-   */
+  * Contains Japanese charsets and transformations
+  * @class JpnLang
+  * @extends Lang
+  * @constructor
+  */
   function JpnLang() {
     Lang.call(this, "jpn");
 
@@ -28,27 +28,28 @@
   }
 
   JpnLang.prototype = Object.create(Lang.prototype);
-  JpnLang.prototype.constructor = JpnLang;
+  var Me = JpnLang.prototype;
+  Me.constructor = JpnLang;
 
 
   var lookup = {
-      0: "零", 1:"一", 2:"二", 3:"三", 4:"四", 5:"五",
-      6:"六", 7:"七", 8:"八", 9:"九", 10:"十",
-      100:"百", 1000:"千", 10000:"万",
-      100000000:"億", 1000000000000:"兆"
+    0: "零", 1:"一", 2:"二", 3:"三", 4:"四", 5:"五",
+    6:"六", 7:"七", 8:"八", 9:"九", 10:"十",
+    100:"百", 1000:"千", 10000:"万",
+    100000000:"億", 1000000000000:"兆"
   }
 
   var bigNbr = [
-      1000000000000, 100000000,
-      10000, 1000, 100, 10
+    1000000000000, 100000000,
+    10000, 1000, 100, 10
   ]
-
-/*
- * Write the Arabic number in Japanese Kanjis
- * @method pronounceNumber
- * @override
- */
-JpnLang.prototype.pronounceNumber = toJapaneseLetters;
+  
+  /*
+  * Write the Arabic number in Japanese Kanjis
+  * @method pronounceNumber
+  * @override
+  */
+  Me.pronounceNumber = toJapaneseLetters;
   /**
   * Transform from Arabic numbers to Japanese letters
   * @method toJapaneseLetters
@@ -58,41 +59,41 @@ JpnLang.prototype.pronounceNumber = toJapaneseLetters;
   */
   function toJapaneseLetters (num) {
 
-      if (isNaN(num))
-          return "";
+    if (isNaN(num))
+    return "";
 
-      var neg = false;
-      if(num < 0){
-          neg = true;
-          num = - num;
-      }
+    var neg = false;
+    if(num < 0){
+      neg = true;
+      num = - num;
+    }
 
-      if (num < 10)
-          return lookup[num];
+    if (num < 10)
+    return lookup[num];
 
-      //search for the max index
-      var i = 0;
-      var max = 1;
-      var div;
-      for (i = 0; i < bigNbr.length; i++){
-          max = bigNbr[i]
-          div = ~~(num/max);
-          if (div > 0)
-              break;
-      }
-      var rem = ~~(num % max);
-      var result = "";
+    //search for the max index
+    var i = 0;
+    var max = 1;
+    var div;
+    for (i = 0; i < bigNbr.length; i++){
+      max = bigNbr[i]
+      div = ~~(num/max);
       if (div > 0)
-          if (div > 1 || max > 1000)
-              result += toJapaneseLetters(div);
-      result += lookup[max];
-      if(rem > 0)
-          result += toJapaneseLetters(rem);
+      break;
+    }
+    var rem = ~~(num % max);
+    var result = "";
+    if (div > 0)
+    if (div > 1 || max > 1000)
+    result += toJapaneseLetters(div);
+    result += lookup[max];
+    if(rem > 0)
+    result += toJapaneseLetters(rem);
 
-      if(neg)
-          result = "マイナス" + result;
+    if(neg)
+    result = "マイナス" + result;
 
-      return result;
+    return result;
 
   }
 

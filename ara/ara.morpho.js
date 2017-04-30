@@ -24,9 +24,11 @@
   }
 
   AraMorpho.prototype = Object.create(Morpho.prototype);
-  AraMorpho.prototype.constructor = AraMorpho;
+  var Me = AraMorpho.prototype;
 
-  AraMorpho.prototype.getTenseName = function(tense){
+  Me.constructor = AraMorpho;
+
+  Me.getTenseName = function(tense){
     switch (tense) {
       case T.Past:
         return "الماضي";
@@ -39,7 +41,7 @@
     return "";
   }
 
-  AraMorpho.prototype.getPronounOpts = function(){
+  Me.getPronounOpts = function(){
     return [
         {person:P.First, number: N.Singular},
         {person:P.First, number: N.Plural},
@@ -67,7 +69,7 @@
   //=================
 
   //Override conjugate function
-  AraMorpho.prototype.conjugate = function(verb, opts){
+  Me.conjugate = function(verb, opts){
     //delete diacretics
     var noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
 
@@ -236,7 +238,7 @@
 
   }
 
-  AraMorpho.prototype.getPronounName = function(opts){
+  Me.getPronounName = function(opts){
 
     switch (opts.person) {
       case P.First:
@@ -277,7 +279,7 @@
     return "";
   }
 
-  AraMorpho.prototype.stem = function(word){
+  Me.stem = function(word){
 
     var result = word;
     return result;

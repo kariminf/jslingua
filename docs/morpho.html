@@ -12,20 +12,20 @@
   <script type="text/javascript" src="call.js"></script>
   <script type="text/javascript">
   addScript("jslingua.min.js");
-  addScript("trans.min.js");
-  addScript("ara.trans.min.js");
-  addScript("jpn.trans.min.js");
+  addScript("morpho.min.js");
+  addScript("ara.morpho.min.js");
+  //addScript("jpn.trans.min.js");
   </script>
 
   <script type="text/javascript">
-  var transformer = {};
+  var morpho = {};
   var $ = function(id){return document.getElementById(id)};
   var _ = function(e){return e.options[e.selectedIndex]};
 
   function loading(){
     var e = $("l");
 
-    var langIDs = JsLingua.serviceLanguages("Trans");
+    var langIDs = JsLingua.serviceLanguages("Morpho");
     var i;
     for (i = 0; i < langIDs.length; i++){
       var option = document.createElement("option");
@@ -38,24 +38,10 @@
   }
 
   function update(){
-    transformer = new (JsLingua.getService("Trans", _($("l")).text))();
-
-    var methods = transformer.availableMethods();
-    var m = $("m");
-    var i = m.options.length;
-    while (i--) m.remove(i);
-
-    methods.forEach(function(element, index, array){
-      var option = document.createElement("option");
-      option.text = element;
-      m.add(option);
-    });
-
-    setMethod();
-  }
-
-  function setMethod(){
-    transformer.setCurrentMethod(_($("m")).value);
+    var lang = _($("l")).text;
+    morpho = new (JsLingua.getService("Morpho", lang))();
+    $("verb").dir = JsLingua.getDir(lang);
+    $("conj").dir = JsLingua.getDir(lang);
   }
 
   function htmlEntities(str) {
@@ -64,13 +50,37 @@
     return result;
   }
 
-  function lang2trans() {
-    $("2trans").innerHTML = htmlEntities(transformer.transliterate($("lang").value));
+  function conjugate() {
+    var verb = document.getElementById("verb").value;
+    var result = "<table>";
+
+    //console.log(morpho.getPronounOpts());
+
+    var tenses = morpho.getTenses();
+    result += "<tr><th></th>";
+    tenses.forEach(function(element, index, array){
+      result += "<th>" + morpho.getTenseName(element) + "</th>";
+    });
+    result += "</tr>";
+
+    morpho.getPronounOpts().forEach(function(pOpt, pIdx, pTab){
+      result += "<tr>";
+      result += "<th>" + morpho.getPronounName(pOpt) + "</th>";
+      //create a new clone
+      var allOpts = Object.assign({}, pOpt);
+      tenses.forEach(function(tOpt, tIdx, tTab){
+        allOpts.tense = tOpt;
+        //console.log(tOpt);
+        result += "<td>" + morpho.conjugate(verb, allOpts) + "</td>";
+      });
+      result += "</tr>";
+    });
+
+    result += "</table>"
+
+    $("conj").innerHTML = result;
   }
 
-  function trans2lang() {
-    $("2lang").innerHTML = htmlEntities(transformer.untransliterate($("trans").value));
-  }
   </script>
 
 </head>
@@ -88,33 +98,23 @@
           <label>Choose the language:</label>
           <select id="l" class="k-select" onchange="update()">
           </select>
-          <select id="m" class="k-select" onchange="setMethod()">
-          </select>
         </div>
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-        <div class="kfs">
-          <h1><span>Transliteration</span></h1>
-          <input type="text" id="lang" class="k-input" /><br>
-          <button onclick="lang2trans()" class="pure-button-secondary pure-button">To Transliteration</button><br>
-          <div id="2trans" class="k-input pure-input-1"></div>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
-        <div class="kfs">
-          <h1><span>Untranslateration</span></h1>
-          <input type="text" id="trans" class="k-input"/><br>
-          <button onclick="trans2lang()" class="pure-button-secondary pure-button">From Transliteration</button><br>
-          <div id="2lang" class="k-input pure-input-1"></div>
+      <div class="pure-u-1">
+        <div class="kfs" >
+          <h1><span>Verb Conjugation</span></h1>
+          <label>The verb</label>
+          <input type="text" id="verb" />
+          <button onclick="conjugate()" class="pure-button-secondary pure-button">Conjugate</button><br>
+          <div id="conj" class="k-input pure-input-1" ></div>
         </div>
       </div>
 
     </div>
 
     <div w3-include-html="footer.html"></div>
-    
+
   </div>
 
   <script>
