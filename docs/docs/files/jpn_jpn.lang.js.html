@@ -99,11 +99,11 @@
   }
 
   /**
-   * Contains Japanese charsets and transformations
-   * @class JpnLang
-   * @extends Lang
-   * @constructor
-   */
+  * Contains Japanese charsets and transformations
+  * @class JpnLang
+  * @extends Lang
+  * @constructor
+  */
   function JpnLang() {
     Lang.call(this, &quot;jpn&quot;);
 
@@ -117,27 +117,28 @@
   }
 
   JpnLang.prototype = Object.create(Lang.prototype);
-  JpnLang.prototype.constructor = JpnLang;
+  var Me = JpnLang.prototype;
+  Me.constructor = JpnLang;
 
 
   var lookup = {
-      0: &quot;零&quot;, 1:&quot;一&quot;, 2:&quot;二&quot;, 3:&quot;三&quot;, 4:&quot;四&quot;, 5:&quot;五&quot;,
-      6:&quot;六&quot;, 7:&quot;七&quot;, 8:&quot;八&quot;, 9:&quot;九&quot;, 10:&quot;十&quot;,
-      100:&quot;百&quot;, 1000:&quot;千&quot;, 10000:&quot;万&quot;,
-      100000000:&quot;億&quot;, 1000000000000:&quot;兆&quot;
+    0: &quot;零&quot;, 1:&quot;一&quot;, 2:&quot;二&quot;, 3:&quot;三&quot;, 4:&quot;四&quot;, 5:&quot;五&quot;,
+    6:&quot;六&quot;, 7:&quot;七&quot;, 8:&quot;八&quot;, 9:&quot;九&quot;, 10:&quot;十&quot;,
+    100:&quot;百&quot;, 1000:&quot;千&quot;, 10000:&quot;万&quot;,
+    100000000:&quot;億&quot;, 1000000000000:&quot;兆&quot;
   }
 
   var bigNbr = [
-      1000000000000, 100000000,
-      10000, 1000, 100, 10
+    1000000000000, 100000000,
+    10000, 1000, 100, 10
   ]
-
-/*
- * Write the Arabic number in Japanese Kanjis
- * @method pronounceNumber
- * @override
- */
-JpnLang.prototype.pronounceNumber = toJapaneseLetters;
+  
+  /*
+  * Write the Arabic number in Japanese Kanjis
+  * @method pronounceNumber
+  * @override
+  */
+  Me.pronounceNumber = toJapaneseLetters;
   /**
   * Transform from Arabic numbers to Japanese letters
   * @method toJapaneseLetters
@@ -147,41 +148,41 @@ JpnLang.prototype.pronounceNumber = toJapaneseLetters;
   */
   function toJapaneseLetters (num) {
 
-      if (isNaN(num))
-          return &quot;&quot;;
+    if (isNaN(num))
+    return &quot;&quot;;
 
-      var neg = false;
-      if(num &lt; 0){
-          neg = true;
-          num = - num;
-      }
+    var neg = false;
+    if(num &lt; 0){
+      neg = true;
+      num = - num;
+    }
 
-      if (num &lt; 10)
-          return lookup[num];
+    if (num &lt; 10)
+    return lookup[num];
 
-      //search for the max index
-      var i = 0;
-      var max = 1;
-      var div;
-      for (i = 0; i &lt; bigNbr.length; i++){
-          max = bigNbr[i]
-          div = ~~(num/max);
-          if (div &gt; 0)
-              break;
-      }
-      var rem = ~~(num % max);
-      var result = &quot;&quot;;
+    //search for the max index
+    var i = 0;
+    var max = 1;
+    var div;
+    for (i = 0; i &lt; bigNbr.length; i++){
+      max = bigNbr[i]
+      div = ~~(num/max);
       if (div &gt; 0)
-          if (div &gt; 1 || max &gt; 1000)
-              result += toJapaneseLetters(div);
-      result += lookup[max];
-      if(rem &gt; 0)
-          result += toJapaneseLetters(rem);
+      break;
+    }
+    var rem = ~~(num % max);
+    var result = &quot;&quot;;
+    if (div &gt; 0)
+    if (div &gt; 1 || max &gt; 1000)
+    result += toJapaneseLetters(div);
+    result += lookup[max];
+    if(rem &gt; 0)
+    result += toJapaneseLetters(rem);
 
-      if(neg)
-          result = &quot;マイナス&quot; + result;
+    if(neg)
+    result = &quot;マイナス&quot; + result;
 
-      return result;
+    return result;
 
   }
 

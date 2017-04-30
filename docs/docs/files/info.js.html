@@ -137,12 +137,17 @@
   }
 
 
+  //===========================
+  //functions
+  //===========================
+  var Me = Info.prototype;
+
   /**
    * Get the name of the language
    * @method getName
    * @return {string}  the language name: arabic, english, japanese, etc.
    */
-  Info.prototype.getName = function(){
+  Me.getName = function(){
     return this.name;
   }
 
@@ -151,7 +156,7 @@
    * @method getCode
    * @return {string}  The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
    */
-  Info.prototype.getCode = function(){
+  Me.getCode = function(){
     return this.code;
   }
 
@@ -160,7 +165,7 @@
    * @method getFamily
    * @return {string}  The language family: Afro-asiatic, Japonic, etc.
    */
-  Info.prototype.getFamily = function(){
+  Me.getFamily = function(){
     return this.family;
   }
 
@@ -169,7 +174,7 @@
    * @method getBranch
    * @return {string}  The language branch: semitic, etc.
    */
-  Info.prototype.getBranch = function(){
+  Me.getBranch = function(){
     return this.branch;
   }
 
@@ -178,7 +183,7 @@
    * @method getDir
    * @return {string}  The language direction: left to right (ltr) or right to left (rtl)
    */
-  Info.prototype.getDir = function(){
+  Me.getDir = function(){
     return this.dir;
   }
 
@@ -193,7 +198,7 @@
    * @method getWordOrder
    * @return {string}  The words order in the language
    */
-  Info.prototype.getWordOrder = function(){
+  Me.getWordOrder = function(){
     return this.wordOrder;
   }
 
@@ -203,7 +208,7 @@
    * @deprecated
    * @return {number} number of population
    */
-  Info.prototype.getPopulation = function(){
+  Me.getPopulation = function(){
     return this.population;
   }
 
@@ -213,7 +218,7 @@
    * @deprecated
    * @return {array}  Array of strings with contries names
    */
-  Info.prototype.getLocations = function(){
+  Me.getLocations = function(){
     return this.locations;
   }
 
@@ -223,7 +228,7 @@
    * @deprecated
    * @return {array}  Array of strings with dialects
    */
-  Info.prototype.getDialects = function(){
+  Me.getDialects = function(){
     return this.dialects;
   }
 

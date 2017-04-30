@@ -97,6 +97,8 @@
 
   var version = &quot;0.3.0&quot;;
 
+  var rtls = [&quot;ara&quot;, &quot;heb&quot;];
+
   //service name: [services for languages]
   var services = {};
 
@@ -193,6 +195,14 @@
 
   JsLingua.getVersion = function(){
     return version;
+  }
+
+  JsLingua.getDir = function(langCode){
+
+    if (rtls.indexOf(langCode) &lt; 0) return &quot;ltr&quot;;
+
+    return &quot;rtl&quot;;
+
   }
 
 

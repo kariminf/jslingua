@@ -290,7 +290,7 @@
             "module": "JsLingua",
             "namespace": "",
             "file": "jslingua.js",
-            "line": 14,
+            "line": 16,
             "description": "The main class"
         },
         "Lang": {
@@ -379,7 +379,7 @@
     "classitems": [
         {
             "file": "ara/ara.lang.js",
-            "line": 71,
+            "line": 72,
             "description": "Transform from Arabic numbers to Arabic letters",
             "itemtype": "method",
             "name": "toArabicLetters",
@@ -511,7 +511,7 @@
         },
         {
             "file": "jpn/jpn.lang.js",
-            "line": 52,
+            "line": 53,
             "description": "Transform from Arabic numbers to Japanese letters",
             "itemtype": "method",
             "name": "toJapaneseLetters",
@@ -637,7 +637,7 @@
         },
         {
             "file": "info.js",
-            "line": 51,
+            "line": 56,
             "description": "Get the name of the language",
             "itemtype": "method",
             "name": "getName",
@@ -649,7 +649,7 @@
         },
         {
             "file": "info.js",
-            "line": 60,
+            "line": 65,
             "description": "Get the code of the language",
             "itemtype": "method",
             "name": "getCode",
@@ -661,7 +661,7 @@
         },
         {
             "file": "info.js",
-            "line": 69,
+            "line": 74,
             "description": "Get the family of the language",
             "itemtype": "method",
             "name": "getFamily",
@@ -673,7 +673,7 @@
         },
         {
             "file": "info.js",
-            "line": 78,
+            "line": 83,
             "description": "Get the branch of the language, if any",
             "itemtype": "method",
             "name": "getBranch",
@@ -685,7 +685,7 @@
         },
         {
             "file": "info.js",
-            "line": 87,
+            "line": 92,
             "description": "Get the direction of writing of the language: ltr or rtl",
             "itemtype": "method",
             "name": "getDir",
@@ -697,7 +697,7 @@
         },
         {
             "file": "info.js",
-            "line": 96,
+            "line": 101,
             "description": "Get the words order:\n<ul>\n<li>s: Subject</li>\n<li>v: Verb</li>\n<li>o: Object</li>\n</ul>\nFor example, English is \"svo\"",
             "itemtype": "method",
             "name": "getWordOrder",
@@ -709,7 +709,7 @@
         },
         {
             "file": "info.js",
-            "line": 111,
+            "line": 116,
             "description": "The number of population speaking the language",
             "itemtype": "method",
             "name": "getPopulation",
@@ -722,7 +722,7 @@
         },
         {
             "file": "info.js",
-            "line": 121,
+            "line": 126,
             "description": "Contries where this language is official",
             "itemtype": "method",
             "name": "getLocations",
@@ -735,7 +735,7 @@
         },
         {
             "file": "info.js",
-            "line": 131,
+            "line": 136,
             "description": "Get the Dialects",
             "itemtype": "method",
             "name": "getDialects",
@@ -748,7 +748,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 43,
+            "line": 45,
             "description": "Contains the super-classes: Info, Lang, Trans, Morpho. <br>\nfor example, JsLingua.Cls.Info returns Info class",
             "itemtype": "attribute",
             "name": "Cls",
@@ -759,7 +759,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 64,
+            "line": 66,
             "description": "Add a service for a specific language",
             "itemtype": "method",
             "name": "addService",
@@ -785,7 +785,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 80,
+            "line": 82,
             "description": "Get the codes of available languages of a given service",
             "itemtype": "method",
             "name": "serviceLanguages",
@@ -805,7 +805,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 91,
+            "line": 93,
             "description": "Get the service class for a given language and service name.<br>\nFor example: JsLingua.getService(\"Info\", \"ara\") Gives a class AraInfo",
             "itemtype": "method",
             "name": "getService",
@@ -937,7 +937,7 @@
         },
         {
             "file": "lang.js",
-            "line": 132,
+            "line": 133,
             "description": "Returns the available charsets for the current language",
             "itemtype": "method",
             "name": "availableCharSets",
@@ -950,7 +950,7 @@
         },
         {
             "file": "lang.js",
-            "line": 141,
+            "line": 142,
             "description": "Returns the available transformations for the current language",
             "itemtype": "method",
             "name": "availableTransformations",
@@ -963,7 +963,7 @@
         },
         {
             "file": "lang.js",
-            "line": 150,
+            "line": 151,
             "description": "Returns the transformation function",
             "itemtype": "method",
             "name": "transformationFunction",
@@ -983,7 +983,7 @@
         },
         {
             "file": "lang.js",
-            "line": 164,
+            "line": 165,
             "description": "Returns a function which verifies if a char belongs to a charset or not",
             "itemtype": "method",
             "name": "verifyCharSetFunction",
@@ -1003,7 +1003,7 @@
         },
         {
             "file": "lang.js",
-            "line": 178,
+            "line": 179,
             "description": "Returns a function which verifies if a string contains at least one character which belongs to a charset",
             "itemtype": "method",
             "name": "containsCharSetFunction",
@@ -1023,7 +1023,7 @@
         },
         {
             "file": "lang.js",
-            "line": 188,
+            "line": 189,
             "description": "Returns a function which verifies if all string's characters belong to a charset",
             "itemtype": "method",
             "name": "allCharSetFunction",
@@ -1043,7 +1043,7 @@
         },
         {
             "file": "lang.js",
-            "line": 198,
+            "line": 199,
             "description": "Returns the code of the language",
             "itemtype": "method",
             "name": "getCode",
@@ -1056,7 +1056,7 @@
         },
         {
             "file": "lang.js",
-            "line": 207,
+            "line": 208,
             "description": "A function which returns the pronounciation of a number in the destination\nlanguage (this must be overriden)",
             "itemtype": "method",
             "name": "pronounceNumber",
@@ -1206,7 +1206,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 206,
+            "line": 212,
             "description": "This method is used to recover the name of the tense",
             "params": [
                 {
@@ -1224,7 +1224,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 225,
+            "line": 231,
             "description": "This method is used to get personal pronouns characteristics",
             "itemtype": "method",
             "name": "getPronounOpts",
@@ -1237,7 +1237,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 236,
+            "line": 242,
             "description": "This function returns an array of available tenses",
             "itemtype": "method",
             "name": "getTenses",
@@ -1250,7 +1250,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 249,
+            "line": 255,
             "description": "This function is used for verb conjugation",
             "itemtype": "method",
             "name": "conjugate",
@@ -1275,7 +1275,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 260,
+            "line": 266,
             "description": "Get the personal pronoun using options like: person, gender, etc.<br>\nfor example, the parameters for the personal pronoun \"I\": <br>\n```\n   {\n     person: Morpho.Feature.Person.First,\n     number: Morpho.Feature.Number.Singular\n   }\n```",
             "itemtype": "method",
             "name": "getPronounName",
@@ -1295,7 +1295,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 277,
+            "line": 283,
             "description": "This function is used for noun inflexion<br>\nFor example: noun to plural nouns",
             "itemtype": "method",
             "name": "declenseNoun",
@@ -1320,7 +1320,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 289,
+            "line": 295,
             "description": "Stem a word: delete prefixes, suffixes and infixes",
             "itemtype": "method",
             "name": "stem",
@@ -1340,7 +1340,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 299,
+            "line": 305,
             "description": "lemmatize a word: return it to its origin",
             "itemtype": "method",
             "name": "lemmatize",
@@ -1539,7 +1539,7 @@
         },
         {
             "file": "trans.js",
-            "line": 143,
+            "line": 146,
             "description": "Sets the current method to be used for [un]transliteration",
             "itemtype": "method",
             "name": "setCurrentMethod",
@@ -1555,7 +1555,7 @@
         },
         {
             "file": "trans.js",
-            "line": 154,
+            "line": 157,
             "description": "Returns the list of available transliteration methods",
             "itemtype": "method",
             "name": "availableMethods",
@@ -1568,7 +1568,7 @@
         },
         {
             "file": "trans.js",
-            "line": 163,
+            "line": 166,
             "description": "gets the language's code",
             "itemtype": "method",
             "name": "getCode",
@@ -1581,7 +1581,7 @@
         },
         {
             "file": "trans.js",
-            "line": 172,
+            "line": 175,
             "description": "transliterate the text using the current method",
             "itemtype": "method",
             "name": "transliterate",
@@ -1601,7 +1601,7 @@
         },
         {
             "file": "trans.js",
-            "line": 193,
+            "line": 196,
             "description": "untransliterate the text using the current method",
             "itemtype": "method",
             "name": "untransliterate",
@@ -1667,7 +1667,7 @@
         },
         {
             "message": "Missing item type\nThis method is used to recover the name of the tense",
-            "line": " morpho.js:206"
+            "line": " morpho.js:212"
         }
     ]
 }
