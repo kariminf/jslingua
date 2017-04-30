@@ -33,6 +33,13 @@
             "fors": {},
             "namespaces": {}
         },
+        "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js": {
+            "name": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "jpn/jpn.info.js": {
             "name": "jpn/jpn.info.js",
             "modules": {},
@@ -283,7 +290,7 @@
             "module": "JsLingua",
             "namespace": "",
             "file": "jslingua.js",
-            "line": 11,
+            "line": 14,
             "description": "The main class"
         },
         "Lang": {
@@ -495,6 +502,12 @@
                 "type": "String"
             },
             "class": "AraTrans"
+        },
+        {
+            "file": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
+            "line": 1,
+            "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "class": "JpnInfo"
         },
         {
             "file": "jpn/jpn.lang.js",
@@ -735,7 +748,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 40,
+            "line": 43,
             "description": "Contains the super-classes: Info, Lang, Trans, Morpho. <br>\nfor example, JsLingua.Cls.Info returns Info class",
             "itemtype": "attribute",
             "name": "Cls",
@@ -746,7 +759,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 61,
+            "line": 64,
             "description": "Add a service for a specific language",
             "itemtype": "method",
             "name": "addService",
@@ -772,7 +785,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 77,
+            "line": 80,
             "description": "Get the codes of available languages of a given service",
             "itemtype": "method",
             "name": "serviceLanguages",
@@ -792,7 +805,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 88,
+            "line": 91,
             "description": "Get the service class for a given language and service name.<br>\nFor example: JsLingua.getService(\"Info\", \"ara\") Gives a class AraInfo",
             "itemtype": "method",
             "name": "getService",
@@ -1193,7 +1206,25 @@
         },
         {
             "file": "morpho.js",
-            "line": 207,
+            "line": 206,
+            "description": "This method is used to recover the name of the tense",
+            "params": [
+                {
+                    "name": "tense",
+                    "description": "the tense which we want to get the name",
+                    "type": "Tense"
+                }
+            ],
+            "return": {
+                "description": "the name of the tense in the selected language",
+                "type": "String"
+            },
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 225,
             "description": "This method is used to get personal pronouns characteristics",
             "itemtype": "method",
             "name": "getPronounOpts",
@@ -1206,7 +1237,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 218,
+            "line": 236,
             "description": "This function returns an array of available tenses",
             "itemtype": "method",
             "name": "getTenses",
@@ -1219,7 +1250,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 231,
+            "line": 249,
             "description": "This function is used for verb conjugation",
             "itemtype": "method",
             "name": "conjugate",
@@ -1244,10 +1275,10 @@
         },
         {
             "file": "morpho.js",
-            "line": 242,
+            "line": 260,
             "description": "Get the personal pronoun using options like: person, gender, etc.<br>\nfor example, the parameters for the personal pronoun \"I\": <br>\n```\n   {\n     person: Morpho.Feature.Person.First,\n     number: Morpho.Feature.Number.Singular\n   }\n```",
             "itemtype": "method",
-            "name": "getPronoun",
+            "name": "getPronounName",
             "params": [
                 {
                     "name": "opts",
@@ -1264,7 +1295,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 259,
+            "line": 277,
             "description": "This function is used for noun inflexion<br>\nFor example: noun to plural nouns",
             "itemtype": "method",
             "name": "declenseNoun",
@@ -1289,7 +1320,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 271,
+            "line": 289,
             "description": "Stem a word: delete prefixes, suffixes and infixes",
             "itemtype": "method",
             "name": "stem",
@@ -1309,7 +1340,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 281,
+            "line": 299,
             "description": "lemmatize a word: return it to its origin",
             "itemtype": "method",
             "name": "lemmatize",
@@ -1629,6 +1660,14 @@
         {
             "message": "unknown tag: access",
             "line": " morpho.js:170"
+        },
+        {
+            "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "line": " docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js:1"
+        },
+        {
+            "message": "Missing item type\nThis method is used to recover the name of the tense",
+            "line": " morpho.js:206"
         }
     ]
 }

@@ -292,6 +292,24 @@
     &quot;Gender&quot;: Gender
   });
 
+  /**
+   * This method is used to recover the name of the tense
+   * @param  {Tense} tense the tense which we want to get the name
+   * @return {String}       the name of the tense in the selected language
+   */
+  Morpho.prototype.getTenseName = function(tense){
+    var T = Tense;
+    switch (tense) {
+      case T.Past:
+        return &quot;past&quot;;
+      case T.Present:
+        return &quot;present&quot;;
+      case T.Future:
+        return &quot;future&quot;;
+    }
+
+    return &quot;&quot;;
+  }
 
   /**
    * This method is used to get personal pronouns characteristics
@@ -337,11 +355,11 @@
    *      number: Morpho.Feature.Number.Singular
    *    }
    * &#x60;&#x60;&#x60;
-   * @method getPronoun
+   * @method getPronounName
    * @param  {object} opts An object containing parameters: person, gender, number.
    * @return {string}      the pronoun
    */
-  Morpho.prototype.getPronoun = function(opts){
+  Morpho.prototype.getPronounName = function(opts){
     return &quot;&quot;;
   }
 
