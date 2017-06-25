@@ -1,11 +1,11 @@
 language: node_js
 node_js:
-- '6'
-- '0.10'
+- '7'
 jobs:
   include:
   - stage: npm release
-    node_js: '6'
+    node_js: '7'
+    install: npm install uglify-js -g
     script: echo "Deploying to npm ..."
     deploy:
       provider: npm
