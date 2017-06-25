@@ -40,6 +40,7 @@ cd dist
 for s in *.js; do
   ext="${s##*.}"
   file="${s%.*}"
+  echo "minifying $s"
   uglifyjs $s -o $file.min.$ext -c -m
   rm $s
 done

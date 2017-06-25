@@ -5,8 +5,7 @@ jobs:
   include:
   - stage: npm release
     node_js: '7'
-    install: npm install uglify-js -g
-    script: echo "Deploying to npm ..."
+    script: npm install uglify-js -g
     deploy:
       provider: npm
       email: kariminfo0@gmail.com
