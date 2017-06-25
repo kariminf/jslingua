@@ -1,13 +1,14 @@
 {
   "name": "jslingua",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
-    "minifier": ">=0.8.0"
+    "uglify-js": ">=3.0.20"
   },
   "scripts": {
-    "test": "node test/nodejs/test.js"
+    "test": "node test/nodejs/test.js",
+    "prepublish": "bash min.sh"
   },
   "repository": {
     "type": "git",

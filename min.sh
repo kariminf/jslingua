@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # This script is used to minify the Javascript files
+# It uses https://www.npmjs.com/package/uglify-js
 #
 # < use bash, because sh won't work >
 #
@@ -39,7 +40,7 @@ cd dist
 for s in *.js; do
   ext="${s##*.}"
   file="${s%.*}"
-  minify $s > $file.min.$ext
+  uglifyjs $s -o $file.min.$ext -c -m
   rm $s
 done
 cd ..
