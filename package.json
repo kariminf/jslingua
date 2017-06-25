@@ -7,8 +7,7 @@
     "minifier": ">=0.8.0"
   },
   "scripts": {
-    "test": "node test/nodejs/test.js",
-    
+    "test": "node test/nodejs/test.js"
   },
   "repository": {
     "type": "git",
