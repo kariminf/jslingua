@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ara/ara.trans.js - JsLingua API</title>
+    <title>eng/eng.trans.js - JsLingua API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,7 +85,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>ara/ara.trans.js <small>File</small></h1>
+    <h1>eng/eng.trans.js <small>File</small></h1>
 </div>
 
 <div class="file">
@@ -94,235 +94,69 @@
   var Trans = {};
   if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
     Trans = require(&quot;../trans.js&quot;);
-    module.exports = AraTrans;
+    module.exports = EngTrans;
   } else {
     Trans = window.JsLingua.Cls.Trans;
-    window.JsLingua.addService(&quot;Trans&quot;, &quot;ara&quot;, AraTrans);
+    window.JsLingua.addService(&quot;Trans&quot;, &quot;eng&quot;, EngTrans);
   }
 
-  var arabic = [
-    &quot;ث&quot;, // tha
-    &quot;ح&quot;, // Ḥa
-    &quot;خ&quot;, // kha
-    &quot;ذ&quot;, // dhal
-    &quot;ش&quot;, // shin
-    &quot;ص&quot;, // ṣad
-    &quot;ض&quot;, // Ḍad
-    &quot;ط&quot;, // Ṭa
-    &quot;ظ&quot;, // Ẓa
-    &quot;غ&quot;, // ghayn
-
-    &quot;ب&quot;, // ba
-    &quot;ت&quot;, // ta
-    &quot;ج&quot;, // jim
-    &quot;د&quot;, // dal
-    &quot;ر&quot;, // ra
-    &quot;ز&quot;, // zin
-    &quot;س&quot;, // sin
-    &quot;ع&quot;, // &#x27;Ayn
-    &quot;ف&quot;, // fa
-    &quot;ق&quot;, // qaf
-    &quot;ك&quot;, // kaf
-    &quot;ل&quot;, // lam
-    &quot;م&quot;, // mim
-    &quot;ن&quot;, // nun
-    &quot;ه&quot;, // ha
-    &quot;و&quot;, // waw
-    &quot;ي&quot;, // ya
-
-    &quot;أ&quot;, // hamza on alif
-    &quot;إ&quot;, // hamza below alif
-    &quot;ؤ&quot;, // hamza on waw
-    &quot;ئ&quot;, // hamza on ya
-
-    &quot;آ&quot;, // madda on alif
-    &quot;\u0671&quot;, // alif alwasla
-    &quot;\u0670&quot;, // dagger alif
-    &quot;ى&quot;, // alif maqsura
-
-    &quot;\u064B&quot;, // fathatayn
-    &quot;\u064C&quot;, // dammatayn
-    &quot;\u064D&quot;, // kasratayn
-    &quot;\u064E&quot;, // fatha
-    &quot;\u064F&quot;, // Damma
-    &quot;\u0650&quot;, // kasra
-    &quot;\u0651&quot;, // shadda
-    &quot;\u0640&quot;, // tatwil
-
-    &quot;ة&quot;, // ta marbuta
-    &quot;\u0652&quot;, // sukun
-
-    &quot;ء&quot;, // lone hamza
-    &quot;ا&quot; // alif
-  ];
-
-  var buckwalter = [
-    &quot;v&quot;, // tha
-    &quot;H&quot;, // Ḥa
-    &quot;x&quot;, // kha
-    &quot;*&quot;, // dhal
-    &quot;$&quot;, // shin
-    &quot;S&quot;, // ṣad
-    &quot;D&quot;, // Ḍad
-    &quot;T&quot;, // Ṭa
-    &quot;Z&quot;, // Ẓa
-    &quot;g&quot;, // ghayn
-
-    &quot;b&quot;, // ba
-    &quot;t&quot;, // ta
-    &quot;j&quot;, // jim
-    &quot;d&quot;, // dal
-    &quot;r&quot;, // ra
-    &quot;z&quot;, // zin
-    &quot;s&quot;, // sin
-    &quot;E&quot;, // &#x27;Ayn
-    &quot;f&quot;, // fa
-    &quot;q&quot;, // qaf
-    &quot;k&quot;, // kaf
-    &quot;l&quot;, // lam
-    &quot;m&quot;, // mim
-    &quot;n&quot;, // nun
-    &quot;h&quot;, // ha
-    &quot;w&quot;, // waw
-    &quot;y&quot;, // ya
-
-    &quot;&gt;&quot;, // hamza on alif
-    &quot;&lt;&quot;, // hamza below alif
-    &quot;&amp;&quot;, // hamza on waw
-    &quot;}&quot;, // hamza on ya
-
-    &quot;|&quot;, // madda on alif
-    &quot;{&quot;, // alif alwasla
-    &quot;&#x60;&quot;, // dagger alif
-    &quot;Y&quot;, // alif maqsura
-
-    &quot;F&quot;, // fathatayn
-    &quot;N&quot;, // dammatayn
-    &quot;K&quot;, // kasratayn
-    &quot;a&quot;, // fatha
-    &quot;u&quot;, // Damma
-    &quot;i&quot;, // kasra
-    &quot;~&quot;, // shadda
-    &quot;_&quot;, // tatwil
-
-    &quot;p&quot;, // ta marbuta
-    &quot;o&quot;, // sukun
-
-    &quot;&#x27;&quot;, // lone hamza
-    &quot;A&quot; // alif
-  ];
-
-  var arabtex = [
-    &quot;_t&quot;, // tha
-    &quot;.h&quot;, // Ḥa
-    &quot;_h&quot;, // kha
-    &quot;_d&quot;, // dhal
-    &quot;^s&quot;, // shin
-    &quot;.s&quot;, // ṣad
-    &quot;.d&quot;, // Ḍad
-    &quot;.t&quot;, // Ṭa
-    &quot;.z&quot;, // Ẓa
-    &quot;.g&quot;, // ghayn
-
-    &quot;b&quot;, // ba
-    &quot;t&quot;, // ta
-    &quot;j&quot;, // jim
-    &quot;d&quot;, // dal
-    &quot;r&quot;, // ra
-    &quot;z&quot;, // zin
-    &quot;s&quot;, // sin
-    &quot;&#x60;&quot;, // &#x27;Ayn
-    &quot;f&quot;, // fa
-    &quot;q&quot;, // qaf
-    &quot;k&quot;, // kaf
-    &quot;l&quot;, // lam
-    &quot;m&quot;, // mim
-    &quot;n&quot;, // nun
-    &quot;h&quot;, // ha
-    &quot;w&quot;, // waw or &quot;U&quot;
-    &quot;y&quot;, // ya or &quot;I&quot;
-
-    &quot;a&#x27;&quot;, // hamza on alif
-    &quot;i&#x27;&quot;, // hamza below alif
-    &quot;U&#x27;&quot;, // hamza on waw
-    &quot;&#x27;y&quot;, // hamza on ya
-
-    &quot;&#x27;A&quot;, // madda on alif
-    &quot;|&quot;, // alif alwasla &lt;&lt;&lt;&lt;&lt;&lt;
-    &quot;_a&quot;, // dagger alif &lt;&lt;&lt;&lt;&lt;&lt;
-    &quot;_A&quot;, // alif maqsura
-
-    &quot;aN&quot;, // fathatayn
-    &quot;uN&quot;, // dammatayn
-    &quot;iN&quot;, // kasratayn
-    &quot;a&quot;, // fatha
-    &quot;u&quot;, // Damma
-    &quot;i&quot;, // kasra
-    &quot;xx&quot;, // shadda
-    &quot;--&quot;, // tatwil
-
-    &quot;T&quot;, // ta marbuta
-    &quot;\&quot;&quot;, // sukun
-
-    &quot;&#x27;&quot;, // lone hamza
-    &quot;A&quot; // alif
-  ];
+  var english = [
+    &quot;A&quot;,
+    &quot;B&quot;,
+    &quot;C&quot;,
+    &quot;D&quot;,
+    &quot;E&quot;,
+    &quot;F&quot;,
+    &quot;G&quot;,
+    &quot;H&quot;,
+    &quot;I&quot;,
+    &quot;J&quot;,
+    &quot;K&quot;,
+    &quot;L&quot;,
+    &quot;M&quot;,
+    &quot;N&quot;,
+    &quot;O&quot;,
+    &quot;P&quot;,
+    &quot;Q&quot;,
+    &quot;R&quot;,
+    &quot;S&quot;,
+    &quot;T&quot;,
+    &quot;U&quot;,
+    &quot;V&quot;,
+    &quot;W&quot;,
+    &quot;X&quot;,
+    &quot;Y&quot;,
+    &quot;Z&quot;
+  ]
 
   //https://en.wikipedia.org/wiki/Morse_code_for_non-Latin_alphabets
-  var armorse = [
-    &quot; -.-. &quot;, // tha
-    &quot; .... &quot;, // Ḥa
-    &quot; --- &quot;, // kha
-    &quot; --.. &quot;, // dhal
-    &quot; ---- &quot;, // shin
-    &quot; -..- &quot;, // ṣad
-    &quot; ...- &quot;, // Ḍad
-    &quot; ..- &quot;, // Ṭa
-    &quot; -.-- &quot;, // Ẓa
-    &quot; --. &quot;, // ghayn
-
-    &quot; -... &quot;, // ba
-    &quot; - &quot;, // ta
-    &quot; .--- &quot;, // jim
-    &quot; -.. &quot;, // dal
-    &quot; .-. &quot;, // ra
-    &quot; ---. &quot;, // zin
-    &quot; ... &quot;, // sin
-    &quot; .-.- &quot;, // &#x27;Ayn
-    &quot; ..-. &quot;, // fa
-    &quot; --.- &quot;, // qaf
-    &quot; -.- &quot;, // kaf
-    &quot; .-.. &quot;, // lam
-    &quot; -- &quot;, // mim
-    &quot; -. &quot;, // nun
-    &quot; ..-.. &quot;, // ha
-    &quot; .-- &quot;, // waw
-    &quot; .. &quot;, // ya
-
-    &quot;*&quot;, // hamza on alif
-    &quot;*&quot;, // hamza below alif
-    &quot;*&quot;, // hamza on waw
-    &quot;*&quot;, // hamza on ya
-
-    &quot;*&quot;, // madda on alif
-    &quot;*&quot;, // alif alwasla
-    &quot;*&quot;, // dagger alif
-    &quot;*&quot;, // alif maqsura
-
-    &quot;*&quot;, // fathatayn
-    &quot;*&quot;, // dammatayn
-    &quot;*&quot;, // kasratayn
-    &quot;*&quot;, // fatha
-    &quot;*&quot;, // Damma
-    &quot;*&quot;, // kasra
-    &quot;*&quot;, // shadda
-    &quot;*&quot;, // tatwil
-
-    &quot;*&quot;, // ta marbuta
-    &quot;*&quot;, // sukun
-
-    &quot; . &quot;, // lone hamza
-    &quot; .- &quot; // alif
+  var enmorse = [
+    &quot; .- &quot;, // A
+    &quot; -... &quot;, // B
+    &quot; -.-. &quot;, // C
+    &quot; -.. &quot;, // D
+    &quot; . &quot;, // E
+    &quot; ..-. &quot;, // F
+    &quot; --. &quot;, // G
+    &quot; .... &quot;, // H
+    &quot; .. &quot;, // I
+    &quot; .--- &quot;, // J
+    &quot; -.- &quot;, // K
+    &quot; .-.. &quot;, // L
+    &quot; -- &quot;, // M
+    &quot; -. &quot;, // N
+    &quot; --- &quot;, // O
+    &quot; .--. &quot;, // P
+    &quot; --.- &quot;, // Q
+    &quot; .-. &quot;, // R
+    &quot; ... &quot;, // S
+    &quot; - &quot;, // T
+    &quot; ..- &quot;, // U
+    &quot; ...- &quot;, // V
+    &quot; .-- &quot;, // W
+    &quot; -..- &quot;, // X
+    &quot; -.-- &quot;, // Y
+    &quot; --.. &quot; // Z
   ];
 
   var otherMourseBef = [
@@ -395,37 +229,20 @@
   Trans.newMethod.call(otherMourseTrans, &quot;def&quot;, otherMourseBef, otherMourseAft);
 
   /**
-   * Arabic transliteration
-   * @class AraTrans
+   * English transliteration
+   * @class EngTrans
    * @extends Trans
    * @constructor
    */
-  function AraTrans() {
-    Trans.call(this, &quot;ara&quot;);
-    Trans.newMethod.call(this, &quot;Buckwalter&quot;, arabic, buckwalter);
-    Trans.newMethod.call(this,&quot;ArabTeX&quot;, arabic, arabtex);
-    Trans.newMethod.call(this,&quot;Morse&quot;, arabic, armorse);
+  function EngTrans() {
+    Trans.call(this, &quot;eng&quot;);
+    Trans.newMethod.call(this,&quot;Morse&quot;, english, enmorse);
     Trans.addTransPrePostMethods.call(this, &quot;Morse&quot;, morsePreTrans, morsePostTrans);
     Trans.addUntransPrePostMethods.call(this, &quot;Morse&quot;, morsePreUntrans, morsePostUntrans);
   }
 
-  AraTrans.prototype = Object.create(Trans.prototype);
-  AraTrans.prototype.constructor = AraTrans;
-
-  /**
-   * Arabic to morse normalization
-   * @method ar2morseNormalize
-   * @private
-   * @param  {string} text Arabic text
-   * @return {string}      normalized text
-   */
-  function ar2morseNormalize(text){
-    var result = text;
-    result = result.replace(/[أإئؤ]/gi, &quot;ء&quot;);
-    result = result.replace(/[ىآ]/gi, &quot;ا&quot;);
-    result = result.replace(/[ة]/gi, &quot;ه&quot;);
-    return result;
-  }
+  EngTrans.prototype = Object.create(Trans.prototype);
+  EngTrans.prototype.constructor = EngTrans;
 
   /**
    * pre-transliteration for morse: cleaning non supported codes
@@ -440,9 +257,7 @@
     result = result.replace(/[\^\#]/gi, &quot;&quot;);
     result = result.replace(/\./gi, &quot;#&quot;).replace(/\-/gi, &quot;^&quot;);
     result = result.replace(/[ ]+/gi, &quot;\t&quot;);
-    //result = result.replace(/([^\t])([^\t])/gi, &quot;$1 $2&quot;);
-    result = ar2morseNormalize(result);
-    return result;
+    return result.toUpperCase();
   }
 
   /**

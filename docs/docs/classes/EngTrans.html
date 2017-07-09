@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Trans - JsLingua API</title>
+    <title>EngTrans - JsLingua API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,10 +85,15 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>Trans</h1>
+    <h1>EngTrans</h1>
 </div>
 
 
+	<div class="well well-small">
+        <div class="extends">
+            Extends <a href="../classes/Trans.html" class="crosslink">Trans</a>
+        </div>
+    </div>
 
 	<div class="well well-small">
             Module: <a href="../modules/JsLingua.html">JsLingua</a>
@@ -97,7 +102,7 @@
 
 
 <div class="yuidoc-class-description">
-<p>translateration of the language words</p>
+<p>English transliteration</p>
 
 </div>
 
@@ -112,6 +117,10 @@
 				<li><a href="#method-availableMethods"><span class="im">availableMethods</span>()</a></li>
 				<li><a href="#method-getCode"><span class="im">getCode</span>()</a></li>
 				<li><a href="#method-getTransliterator"><span class="im">getTransliterator</span>(<span class="ia">srcTbl</span><span class="ia">dstTbl</span>)</a></li>
+				<li><a href="#method-morsePostTrans"><span class="im">morsePostTrans</span>(<span class="ia">text</span>)</a></li>
+				<li><a href="#method-morsePostUntrans"><span class="im">morsePostUntrans</span>(<span class="ia">text</span>)</a></li>
+				<li><a href="#method-morsePreTrans"><span class="im">morsePreTrans</span>(<span class="ia">text</span>)</a></li>
+				<li><a href="#method-morsePreUntrans"><span class="im">morsePreUntrans</span>(<span class="ia">text</span>)</a></li>
 				<li><a href="#method-setCurrentMethod"><span class="im">setCurrentMethod</span>(<span class="ia">methodName</span>)</a></li>
 				<li><a href="#method-transliterate"><span class="im">transliterate</span>(<span class="ia">text</span>)</a></li>
 				<li><a href="#method-untransliterate"><span class="im">untransliterate</span>(<span class="ia">text</span>)</a></li>
@@ -120,15 +129,6 @@
 
 
 
-		<li>
-			<strong>Static Methods</strong>
-			<ul>
-				<li><a href="#method-addTransPrePostMethods"><span class="im">Trans.addTransPrePostMethods</span>(<span class="ia">methodName</span><span class="ia">preFunc</span><span class="ia">postFunc</span>)</a></li>
-				<li><a href="#method-addUntransPrePostMethods"><span class="im">Trans.addUntransPrePostMethods</span>(<span class="ia">methodName</span><span class="ia">preFunc</span><span class="ia">postFunc</span>)</a></li>
-				<li><a href="#method-newMethod"><span class="im">Trans.newMethod</span>(<span class="ia">methodName</span><span class="ia">langTbl</span><span class="ia">transTbl</span>)</a></li>
-				<li><a href="#method-setTransUntrasMethods"><span class="im">Trans.setTransUntrasMethods</span>(<span class="ia">methodName</span><span class="ia">trans</span><span class="ia">untrans</span>)</a></li>
-			</ul>
-		</li>
 	</ul>
 </div>
 
@@ -137,17 +137,11 @@
     <div class="constructor yuidoc-class-constructor page-section">
         <h2>Constructor</h2>
         <div class="item-list">
-<div id="method-Trans" class="method item">
+<div id="method-EngTrans" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>Trans</code></span>
+	<span class="name"><code>EngTrans</code></span>
 
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>langCode</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
+		<span class="paren">()</span>
 	</div>
 
 
@@ -158,7 +152,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/trans.js.html#l30"><code>trans.js:30</code></a>
+		<a href="../files/eng_eng.trans.js.html#l139"><code>eng&#x2F;eng.trans.js:139</code></a>
 		</p>
 
 
@@ -166,21 +160,6 @@
 	</div>
 
 
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">langCode</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-					<div class="param-description"><p>the code of the language: ara, jpn, etc.</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
 
 
 </div>
@@ -190,7 +169,7 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-availableMethods" class="method item">
+<div id="method-availableMethods" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>availableMethods</code></span>
 
@@ -206,8 +185,8 @@
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/Trans.html#method_availableMethods">Trans</a>:
 		<a href="../files/trans.js.html#l157"><code>trans.js:157</code></a>
 		</p>
 
@@ -215,8 +194,7 @@
 
 	</div>
 
-	<div class="description"><p>Returns the list of available transliteration methods</p>
-</div>
+	<div class="description">Returns the list of available transliteration methods</div>
 
 
 		<div class="returns">
@@ -224,13 +202,12 @@
 
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
-					<p>Array of Strings containing methods names</p>
-
+					Array of Strings containing methods names
 			</div>
 		</div>
 
 </div>
-<div id="method-getCode" class="method item">
+<div id="method-getCode" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>getCode</code></span>
 
@@ -246,8 +223,8 @@
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/Trans.html#method_getCode">Trans</a>:
 		<a href="../files/trans.js.html#l166"><code>trans.js:166</code></a>
 		</p>
 
@@ -255,8 +232,7 @@
 
 	</div>
 
-	<div class="description"><p>gets the language's code</p>
-</div>
+	<div class="description">gets the language's code</div>
 
 
 		<div class="returns">
@@ -264,13 +240,12 @@
 
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					<p>the language's code</p>
-
+					the language's code
 			</div>
 		</div>
 
 </div>
-<div id="method-getTransliterator" class="method item private">
+<div id="method-getTransliterator" class="method item private inherited">
 	<div class="method-signature">
 	<span class="name"><code>getTransliterator</code></span>
 
@@ -296,9 +271,8 @@
 
 
 	<div class="meta">
-					<p>Provided by the <a href="../modules/Tools.html">Tools</a> module.</p>
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/Trans.html#method_getTransliterator">Trans</a>:
 		<a href="../files/trans.js.html#l9"><code>trans.js:9</code></a>
 		</p>
 
@@ -306,8 +280,7 @@
 
 	</div>
 
-	<div class="description"><p>This function returns another function which do the transformation</p>
-</div>
+	<div class="description">This function returns another function which do the transformation</div>
 
 		<div class="params">
 			<h4>Parameters:</h4>
@@ -318,8 +291,7 @@
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
 
-					<div class="param-description"><p>array which contains the source strings</p>
-</div>
+					<div class="param-description">array which contains the source strings</div>
 
 				</li>
 				<li class="param">
@@ -327,8 +299,7 @@
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
 
-					<div class="param-description"><p>array which contains the destination strings</p>
-</div>
+					<div class="param-description">array which contains the destination strings</div>
 
 				</li>
 			</ul>
@@ -339,14 +310,261 @@
 
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
-					<p>a function which takes a string and transforme it using
-srcTbl and dstTbl</p>
+					a function which takes a string and transforme it using
+srcTbl and dstTbl
+			</div>
+		</div>
+
+</div>
+<div id="method-morsePostTrans" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>morsePostTrans</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>text</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/eng_eng.trans.js.html#l171"><code>eng&#x2F;eng.trans.js:171</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>post-transliteration for morse: clean non morse characters</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">text</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>morse code</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+					<p>filtered morse code</p>
 
 			</div>
 		</div>
 
 </div>
-<div id="method-setCurrentMethod" class="method item">
+<div id="method-morsePostUntrans" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>morsePostUntrans</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>text</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/eng_eng.trans.js.html#l208"><code>eng&#x2F;eng.trans.js:208</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>post-untransliteration for morse</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">text</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>Arabic text</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+					<p>filtered Arabic text</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-morsePreTrans" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>morsePreTrans</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>text</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/eng_eng.trans.js.html#l155"><code>eng&#x2F;eng.trans.js:155</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>pre-transliteration for morse: cleaning non supported codes</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">text</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>Arabic text</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+					<p>processed text for morse transliteration</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-morsePreUntrans" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>morsePreUntrans</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>text</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/eng_eng.trans.js.html#l190"><code>eng&#x2F;eng.trans.js:190</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>pre-untransliteration for morse: clean non morse characters</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">text</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>morse code</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+					<p>processed morse code for untransliteration</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-setCurrentMethod" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>setCurrentMethod</code></span>
 
@@ -365,8 +583,8 @@ srcTbl and dstTbl</p>
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/Trans.html#method_setCurrentMethod">Trans</a>:
 		<a href="../files/trans.js.html#l146"><code>trans.js:146</code></a>
 		</p>
 
@@ -374,8 +592,7 @@ srcTbl and dstTbl</p>
 
 	</div>
 
-	<div class="description"><p>Sets the current method to be used for [un]transliteration</p>
-</div>
+	<div class="description">Sets the current method to be used for [un]transliteration</div>
 
 		<div class="params">
 			<h4>Parameters:</h4>
@@ -386,8 +603,7 @@ srcTbl and dstTbl</p>
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
-					<div class="param-description"><p>method's name</p>
-</div>
+					<div class="param-description">method's name</div>
 
 				</li>
 			</ul>
@@ -395,7 +611,7 @@ srcTbl and dstTbl</p>
 
 
 </div>
-<div id="method-transliterate" class="method item">
+<div id="method-transliterate" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>transliterate</code></span>
 
@@ -417,8 +633,8 @@ srcTbl and dstTbl</p>
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/Trans.html#method_transliterate">Trans</a>:
 		<a href="../files/trans.js.html#l175"><code>trans.js:175</code></a>
 		</p>
 
@@ -426,8 +642,7 @@ srcTbl and dstTbl</p>
 
 	</div>
 
-	<div class="description"><p>transliterate the text using the current method</p>
-</div>
+	<div class="description">transliterate the text using the current method</div>
 
 		<div class="params">
 			<h4>Parameters:</h4>
@@ -438,8 +653,7 @@ srcTbl and dstTbl</p>
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
-					<div class="param-description"><p>the untransliterated text (original)</p>
-</div>
+					<div class="param-description">the untransliterated text (original)</div>
 
 				</li>
 			</ul>
@@ -450,13 +664,12 @@ srcTbl and dstTbl</p>
 
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					<p>the transliterated text</p>
-
+					the transliterated text
 			</div>
 		</div>
 
 </div>
-<div id="method-untransliterate" class="method item">
+<div id="method-untransliterate" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>untransliterate</code></span>
 
@@ -478,8 +691,8 @@ srcTbl and dstTbl</p>
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/Trans.html#method_untransliterate">Trans</a>:
 		<a href="../files/trans.js.html#l196"><code>trans.js:196</code></a>
 		</p>
 
@@ -487,8 +700,7 @@ srcTbl and dstTbl</p>
 
 	</div>
 
-	<div class="description"><p>untransliterate the text using the current method</p>
-</div>
+	<div class="description">untransliterate the text using the current method</div>
 
 		<div class="params">
 			<h4>Parameters:</h4>
@@ -499,8 +711,7 @@ srcTbl and dstTbl</p>
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
-					<div class="param-description"><p>translaterated text</p>
-</div>
+					<div class="param-description">translaterated text</div>
 
 				</li>
 			</ul>
@@ -511,8 +722,7 @@ srcTbl and dstTbl</p>
 
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					<p>untranslaterated text (original text)</p>
-
+					untranslaterated text (original text)
 			</div>
 		</div>
 
@@ -523,311 +733,6 @@ srcTbl and dstTbl</p>
 
 
 
-    <div id="static-methods" class="page-section">
-        <h2 class="off-left">Static Methods</h2>
-        <div class="item-list">
-<div id="method-addTransPrePostMethods" class="method item protected">
-	<div class="method-signature">
-	<span class="name"><code>Trans.addTransPrePostMethods</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>methodName</code>
-				</li>
-				<li class="arg">
-						<code>preFunc</code>
-				</li>
-				<li class="arg">
-						<code>postFunc</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-	</div>
-
-
-		<span class="flag protected">protected</span>
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/trans.js.html#l95"><code>trans.js:95</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>add pre- and post-transliteration functions to a method</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">methodName</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-					<div class="param-description"><p>the name of the method</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">preFunc</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-					<div class="param-description"><p>function that executes before transliteration;
-It takes a string and returns a string</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">postFunc</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-					<div class="param-description"><p>function that executes after transliteration;
-It takes a string and returns a string</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-
-</div>
-<div id="method-addUntransPrePostMethods" class="method item protected">
-	<div class="method-signature">
-	<span class="name"><code>Trans.addUntransPrePostMethods</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>methodName</code>
-				</li>
-				<li class="arg">
-						<code>preFunc</code>
-				</li>
-				<li class="arg">
-						<code>postFunc</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-	</div>
-
-
-		<span class="flag protected">protected</span>
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/trans.js.html#l117"><code>trans.js:117</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>add pre- and post-untransliteration functions to a method</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">methodName</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-					<div class="param-description"><p>the name of the method</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">preFunc</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-					<div class="param-description"><p>function that executes before untransliteration;
-It takes a string and returns a string</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">postFunc</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-					<div class="param-description"><p>function that executes after untransliteration;
-It takes a string and returns a string</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-
-</div>
-<div id="method-newMethod" class="method item protected">
-	<div class="method-signature">
-	<span class="name"><code>Trans.newMethod</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>methodName</code>
-				</li>
-				<li class="arg">
-						<code>langTbl</code>
-				</li>
-				<li class="arg">
-						<code>transTbl</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-	</div>
-
-
-		<span class="flag protected">protected</span>
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/trans.js.html#l50"><code>trans.js:50</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Add new transliteration method using two parallele tables</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">methodName</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-					<div class="param-description"><p>the name of the method</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">langTbl</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-
-					<div class="param-description"><p>array of strigs, the languages characters</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">transTbl</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-
-					<div class="param-description"><p>array of strigs, their respective representations</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-
-</div>
-<div id="method-setTransUntrasMethods" class="method item protected">
-	<div class="method-signature">
-	<span class="name"><code>Trans.setTransUntrasMethods</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>methodName</code>
-				</li>
-				<li class="arg">
-						<code>trans</code>
-				</li>
-				<li class="arg">
-						<code>untrans</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-	</div>
-
-
-		<span class="flag protected">protected</span>
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/trans.js.html#l75"><code>trans.js:75</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Set transliteration methods directly</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">methodName</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-					<div class="param-description"><p>the name of the method</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">trans</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-					<div class="param-description"><p>function of transliteration</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">untrans</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-					<div class="param-description"><p>function of untransliteration</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-
-</div>
-        </div>
-    </div>
                     </div>
                 </div>
             </div>

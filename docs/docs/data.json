@@ -2,7 +2,7 @@
     "project": {
         "name": "JsLingua API",
         "description": "Language processing API",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "url": "http://kariminf.github.io/JsLingua/"
     },
     "files": {
@@ -37,6 +37,33 @@
             "name": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
             "modules": {},
             "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "eng/eng.info.js": {
+            "name": "eng/eng.info.js",
+            "modules": {},
+            "classes": {
+                "EngInfo": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "eng/eng.lang.js": {
+            "name": "eng/eng.lang.js",
+            "modules": {},
+            "classes": {
+                "EngLang": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "eng/eng.trans.js": {
+            "name": "eng/eng.trans.js",
+            "modules": {},
+            "classes": {
+                "EngTrans": 1
+            },
             "fors": {},
             "namespaces": {}
         },
@@ -138,6 +165,9 @@
                 "AraInfo": 1,
                 "AraLang": 1,
                 "AraTrans": 1,
+                "EngInfo": 1,
+                "EngLang": 1,
+                "EngTrans": 1,
                 "JpnInfo": 1,
                 "JpnLang": 1,
                 "JpnTrans": 1,
@@ -211,6 +241,51 @@
             "file": "ara/ara.trans.js",
             "line": 305,
             "description": "Arabic transliteration",
+            "extends": "Trans",
+            "is_constructor": 1
+        },
+        "EngInfo": {
+            "name": "EngInfo",
+            "shortname": "EngInfo",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "JsLingua",
+            "file": "eng/eng.info.js",
+            "line": 12,
+            "description": "Contains information about English language",
+            "extends": "Info",
+            "is_constructor": 1
+        },
+        "EngLang": {
+            "name": "EngLang",
+            "shortname": "EngLang",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "JsLingua",
+            "file": "eng/eng.lang.js",
+            "line": 12,
+            "description": "Contains English charsets and transformations",
+            "extends": "Lang",
+            "is_constructor": 1
+        },
+        "EngTrans": {
+            "name": "EngTrans",
+            "shortname": "EngTrans",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "JsLingua",
+            "file": "eng/eng.trans.js",
+            "line": 139,
+            "description": "English transliteration",
             "extends": "Trans",
             "is_constructor": 1
         },
@@ -507,7 +582,138 @@
             "file": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
             "line": 1,
             "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
-            "class": "JpnInfo"
+            "class": "EngInfo"
+        },
+        {
+            "file": "eng/eng.lang.js",
+            "line": 60,
+            "description": "Transform from Arabic numbers to English letters",
+            "itemtype": "method",
+            "name": "toEnglishLetters",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "nbr",
+                    "description": "the integer number",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "English writing of numbers",
+                "type": "String"
+            },
+            "class": "EngLang"
+        },
+        {
+            "file": "eng/eng.lang.js",
+            "line": 71,
+            "description": "Transform from Arabic numbers to English letters",
+            "itemtype": "method",
+            "name": "toEnglishLetters2",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "nbr",
+                    "description": "the integer number",
+                    "type": "Number"
+                },
+                {
+                    "name": "comma",
+                    "description": "put a comma or not",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "English writing of numbers",
+                "type": "String"
+            },
+            "class": "EngLang"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 155,
+            "description": "pre-transliteration for morse: cleaning non supported codes",
+            "itemtype": "method",
+            "name": "morsePreTrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "Arabic text",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "processed text for morse transliteration",
+                "type": "String"
+            },
+            "class": "EngTrans"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 171,
+            "description": "post-transliteration for morse: clean non morse characters",
+            "itemtype": "method",
+            "name": "morsePostTrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "morse code",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "filtered morse code",
+                "type": "String"
+            },
+            "class": "EngTrans"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 190,
+            "description": "pre-untransliteration for morse: clean non morse characters",
+            "itemtype": "method",
+            "name": "morsePreUntrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "morse code",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "processed morse code for untransliteration",
+                "type": "String"
+            },
+            "class": "EngTrans"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 208,
+            "description": "post-untransliteration for morse",
+            "itemtype": "method",
+            "name": "morsePostUntrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "Arabic text",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "filtered Arabic text",
+                "type": "String"
+            },
+            "class": "EngTrans"
         },
         {
             "file": "jpn/jpn.lang.js",
@@ -937,7 +1143,7 @@
         },
         {
             "file": "lang.js",
-            "line": 133,
+            "line": 139,
             "description": "Returns the available charsets for the current language",
             "itemtype": "method",
             "name": "availableCharSets",
@@ -950,7 +1156,7 @@
         },
         {
             "file": "lang.js",
-            "line": 142,
+            "line": 148,
             "description": "Returns the available transformations for the current language",
             "itemtype": "method",
             "name": "availableTransformations",
@@ -963,7 +1169,7 @@
         },
         {
             "file": "lang.js",
-            "line": 151,
+            "line": 157,
             "description": "Returns the transformation function",
             "itemtype": "method",
             "name": "transformationFunction",
@@ -983,7 +1189,7 @@
         },
         {
             "file": "lang.js",
-            "line": 165,
+            "line": 171,
             "description": "Returns a function which verifies if a char belongs to a charset or not",
             "itemtype": "method",
             "name": "verifyCharSetFunction",
@@ -1003,7 +1209,7 @@
         },
         {
             "file": "lang.js",
-            "line": 179,
+            "line": 185,
             "description": "Returns a function which verifies if a string contains at least one character which belongs to a charset",
             "itemtype": "method",
             "name": "containsCharSetFunction",
@@ -1023,7 +1229,7 @@
         },
         {
             "file": "lang.js",
-            "line": 189,
+            "line": 195,
             "description": "Returns a function which verifies if all string's characters belong to a charset",
             "itemtype": "method",
             "name": "allCharSetFunction",
@@ -1043,7 +1249,7 @@
         },
         {
             "file": "lang.js",
-            "line": 199,
+            "line": 205,
             "description": "Returns the code of the language",
             "itemtype": "method",
             "name": "getCode",
@@ -1056,7 +1262,7 @@
         },
         {
             "file": "lang.js",
-            "line": 208,
+            "line": 214,
             "description": "A function which returns the pronounciation of a number in the destination\nlanguage (this must be overriden)",
             "itemtype": "method",
             "name": "pronounceNumber",

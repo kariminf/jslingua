@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>tools.js - JsLingua API</title>
+    <title>eng/eng.info.js - JsLingua API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,79 +85,40 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>tools.js <small>File</small></h1>
+    <h1>eng/eng.info.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-/**
- * The tools module
- * @module Tools
- */
+(function(){
 
- /**
-  * The tools class
-  * @class Tools
-  * @static
-  */
-
-/**
- * Read morse code and output as sound &lt;br&gt;
- * Example: readMorse(&quot;..-. .--   ..-.&quot;);
- * @method readMorse
- * @param  {string} morse morse code written using &quot;.&quot;, &quot;-&quot; and blacks &quot; &quot;.
- */
-function readMorse(morse){
-  var dotLength = 0.07;
-  var AudioContext = window.AudioContext || window.webkitAudioContext;
-  var context = new AudioContext();
-  var gain = context.createGain();
-  gain.gain.value = 0;
-  var osc = context.createOscillator();
-  osc.frequency.value = 600;
-  osc.connect(gain);
-  gain.connect(context.destination);
-  osc.start(0);
-  var i;
-  var time0 = context.currentTime;
-  var time = time0;
-  for (i =0; i&lt; morse.length; i++){
-    var char = morse.charAt(i);
-    switch (char) {
-      case &quot;.&quot;:
-        gain.gain.setValueAtTime(1.0, time);
-        time += dotLength;
-        gain.gain.setValueAtTime(0.0, time);
-        time += dotLength;
-        break;
-      case &quot;-&quot;:
-        gain.gain.setValueAtTime(1.0, time);
-        time += 3 * dotLength;
-        gain.gain.setValueAtTime(0.0, time);
-        time += dotLength;
-        break;
-      case &quot; &quot;:
-      gain.gain.setValueAtTime(0.0, time);
-      time += 3 * dotLength;
-      default:
-    }
+  var Info = {};
+  if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
+    Info = require(&quot;../info.js&quot;);
+    module.exports = EngInfo;
+  } else {
+    Info = window.JsLingua.Cls.Info;
+    window.JsLingua.addService(&quot;Info&quot;, &quot;eng&quot;, EngInfo);
   }
 
-  osc.stop(time-time0);
-}
+  /**
+   * Contains information about English language
+   * @class EngInfo
+   * @extends Info
+   * @constructor
+   */
+  function EngInfo() {
 
-/**
- * Transform HTML reserved characters to their equivalent codes in HTML.&lt;br&gt;
- * for example: &quot;&lt;&quot; is transformed to &quot;&amp;lt;&quot;.
- * @method htmlEntities
- * @param  {string} str normal string
- * @return {string}     skip string
- */
-function htmlEntities(str) {
-  var result = String(str).replace(/&amp;/g, &#x27;&amp;amp;&#x27;).replace(/&lt;/g, &#x27;&amp;lt;&#x27;);
-  result = result.replace(/&gt;/g, &#x27;&amp;gt;&#x27;).replace(/&quot;/g, &#x27;&amp;quot;&#x27;).replace(/ /gi, &quot;&amp;nbsp;&quot;);
-  return result;
-}
+    Info.call(this, &quot;eng&quot;);
+    this.name = &quot;English&quot;;
+    this.family = &quot;Indo-European&quot;;
+    this.branch = &quot;Germanic&quot;;
+  }
+
+  EngInfo.prototype = Object.create(Info.prototype);
+  EngInfo.prototype.constructor = EngInfo;
+
+}());
 
     </pre>
 </div>

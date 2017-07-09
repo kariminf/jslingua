@@ -14,7 +14,8 @@
   addScript("jslingua.min.js");
   addScript("morpho.min.js");
   addScript("ara.morpho.min.js");
-  //addScript("jpn.trans.min.js");
+  //addScript("jpn.morpho.min.js");
+  addScript("eng.morpho.min.js");
   </script>
 
   <script type="text/javascript">
@@ -52,7 +53,7 @@
 
   function conjugate() {
     var verb = document.getElementById("verb").value;
-    var result = "<table>";
+    var result = "<table border=\"1\">";
 
     //console.log(morpho.getPronounOpts());
 

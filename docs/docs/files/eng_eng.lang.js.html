@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ara/ara.lang.js - JsLingua API</title>
+    <title>eng/eng.lang.js - JsLingua API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,7 +85,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>ara/ara.lang.js <small>File</small></h1>
+    <h1>eng/eng.lang.js <small>File</small></h1>
 </div>
 
 <div class="file">
@@ -95,43 +95,46 @@
   var Lang = {};
   if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
     Lang = require(&quot;../lang.js&quot;);
-    module.exports = AraLang;
+    module.exports = EngLang;
   } else {
     Lang = window.JsLingua.Cls.Lang;
-    window.JsLingua.addService(&quot;Lang&quot;, &quot;ara&quot;, AraLang);
+    window.JsLingua.addService(&quot;Lang&quot;, &quot;eng&quot;, EngLang);
   }
 
   /**
-  * Contains Arabic charsets and transformations
-  * @class AraLang
+  * Contains English charsets and transformations
+  * @class EngLang
   * @extends Lang
   * @constructor
   */
-  function AraLang() {
-    Lang.call(this, &quot;ara&quot;);
+  function EngLang() {
+    Lang.call(this, &quot;eng&quot;);
 
-    //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
-    Lang.addCharSet.call(this, &quot;MainArabic&quot;, 0x0600, 0x06FF);
-    Lang.addCharSet.call(this, &quot;ArabicSupplement&quot;, 0x0750, 0x077F);
-    Lang.addCharSet.call(this, &quot;ArabicExtendedA&quot;, 0x08A0, 0x08FF);
-    Lang.addCharSet.call(this, &quot;ArabicPresentationA&quot;, 0xFB50, 0xFDFF);
-    Lang.addCharSet.call(this, &quot;ArabicPresentationB&quot;, 0xFE70, 0xFEFF);
-    Lang.addCharSet.call(this, &quot;IndicNumeral&quot;, 0x0660, 0x0669);
-    Lang.addCharSet.call(this, &quot;ArabicNumeral&quot;, 0x0030, 0x0039);
+    //
+    Lang.addCharSet.call(this, &quot;BasicLatin&quot;, 0x0000, 0x007F);
 
-    Lang.addTransform.call(this, &quot;indicToArabicNumeral&quot;, -0x0630, &quot;IndicNumeral&quot;);
-    Lang.addTransform.call(this, &quot;arabicToIndicNumeral&quot;, 0x0630, &quot;ArabicNumeral&quot;);
+    Lang.addTransform.call(this, &quot;minusculeToMajuscule&quot;, -0x0020, &quot;BasicLatin&quot;, 0x0061, 0x007A);
+    Lang.addTransform.call(this, &quot;majusculeToMinuscule&quot;, 0x0020, &quot;BasicLatin&quot;, 0x0041, 0x005A);
   }
 
-  AraLang.prototype = Object.create(Lang.prototype);
-  var Me = AraLang.prototype;
-  Me.constructor = AraLang;
+  EngLang.prototype = Object.create(Lang.prototype);
+  var Me = EngLang.prototype;
+  Me.constructor = EngLang;
 
-  //https://ar.wikipedia.org/wiki/قائمة_الأعداد
+  //https://en.wikipedia.org/wiki/List_of_numbers
   var lookup = {
-    0: &quot;صفر&quot;, 1:&quot;واحد&quot;, 2:&quot;اثنان&quot;, 3:&quot;ثلاث&quot;, 4:&quot;أربع&quot;, 5:&quot;خمس&quot;,
-    6:&quot;ست&quot;, 7:&quot;سبع&quot;, 8:&quot;ثمان&quot;, 9:&quot;تسع&quot;, 10:&quot;عشر&quot;,
-    100:&quot;مائة&quot;, 1000:&quot;ألف&quot;, 1000000:&quot;مليون&quot;, 1000000000:&quot;مليار&quot;
+    0: &quot;zero&quot;, 1: &quot;one&quot;, 2: &quot;two&quot;, 3:&quot;three&quot;, 4: &quot;four&quot;,
+    5: &quot;five&quot;, 6: &quot;six&quot;, 7: &quot;seven&quot;, 8: &quot;eight&quot;, 9: &quot;nine&quot;,
+
+    10: &quot;ten&quot;, 11: &quot;eleven&quot;, 12: &quot;twelve&quot;, 13: &quot;thirteen&quot;,
+    14: &quot;fourteen&quot;, 15: &quot;fifteen&quot;,
+
+    20: &quot;twenty&quot;, 30: &quot;thirty&quot;, 40: &quot;forty&quot;, 50: &quot;fifty&quot;,
+
+    100: &quot;hundred&quot;,
+    1000: &quot;thousand&quot;,
+    1000000: &quot;million&quot;,
+    1000000000: &quot;billion&quot;
   }
 
   var bigNbr = [
@@ -139,149 +142,78 @@
     //1000000000, 1000000, 1000, 100, 10
   ]
 
-  var lookup2 = {
-    100: &quot;مائتان&quot;,
-    1000: &quot;ألفان&quot;,
-    1000000: &quot;مليونان&quot;,
-    1000000000: &quot;ملياران&quot;
-    //1000000000, 1000000, 1000, 100, 10
-  }
-
-  var lookupPl = {
-    100: &quot;مائة&quot;,
-    1000: &quot;آلاف&quot;,
-    1000000: &quot;ملايين&quot;,
-    1000000000: &quot;ملايير&quot;
-    //1000000000, 1000000, 1000, 100, 10
-  }
-
   /*
-  * Write the Arabic number into Arabic letters
+  * Write the Arabic number into English letters
   * @override
   */
-  Me.pronounceNumber = toArabicLetters;
+  Me.pronounceNumber = toEnglishLetters;
+
 
   /**
-  * Transform from Arabic numbers to Arabic letters
-  * @method toArabicLetters
+  * Transform from Arabic numbers to English letters
+  * @method toEnglishLetters
   * @private
   * @param {Number} nbr the integer number
-  * @return {String} Arabic writing of numbers
+  * @return {String} English writing of numbers
   */
-  function toArabicLetters (num) {
+  function toEnglishLetters (num) {
+    return toEnglishLetters2(num, true);
+  }
 
-    if (isNaN(num))
-    return &quot;&quot;;
+  /**
+  * Transform from Arabic numbers to English letters
+  * @method toEnglishLetters2
+  * @private
+  * @param {Number} nbr the integer number
+  * @param {boolean} comma put a comma or not
+  * @return {String} English writing of numbers
+  */
+  function toEnglishLetters2 (num, comma) {
 
-    if(num &lt; 0)
-    return &quot;ناقص &quot; + toArabicLetters(-num);
+    if (isNaN(num)) return &quot;&quot;;
 
-    if (num == 0)
-    return lookup[num];
+    if(num &lt; 0) return &quot;minus &quot; + toEnglishLetters2(-num, true);
 
-    if (num == 8)
-    return lookup[num] + &quot;ية&quot;;
-
-    if (num &lt; 3)
-    return lookup[num];
-
-    if (num &lt; 10)
-    return lookup[num] + &quot;ة&quot;;
+    if (num &lt; 10) return lookup[num];
 
     if (num &lt; 100 ){
       var div = ~~(num/10);
       var rem = ~~(num % 10);
 
       if (div == 1){
-        if (rem == 0)
-        return lookup[10] + &quot;ة&quot;;
-        if (rem == 1)
-        return &quot;أحد &quot; + lookup[10];
-        if (rem == 2)
-        return &quot;إثنا &quot; + lookup[10];
-        return toArabicLetters(rem) + &quot; &quot; + lookup[10];
+        if (rem &lt; 6) return lookup[num];
+        return lookup[rem] + &quot;teen&quot;;
       }
 
-      var tenth = lookup[div] + &quot;ون&quot;;
-      if (div == 2)
-      tenth = lookup[10] + &quot;ون&quot;;
+      var tenth = &quot;&quot;;
 
-      if (rem == 0)
-      return tenth;
+      if (div == 8) tenth = &quot;eighty&quot;;
+      else if (div &lt; 6) tenth = lookup[div * 10];
+      else tenth = lookup[div] + &quot;ty&quot;;
 
-      var suff = &quot; و&quot;;
+      if (rem == 0) return tenth;
 
-      return toArabicLetters(rem) + suff + tenth;
+      return tenth + &quot;-&quot; + lookup[rem];
 
     }
 
-    for (var i = 1; i &lt; bigNbr.length; i++) {
-      var big = bigNbr[i];
-      var lessBig = bigNbr[i-1];
-      if (num &lt; big ){
-        var div = ~~(num/lessBig);
-        var rem = ~~(num % lessBig);
 
-        var pron = lookup[lessBig];
-        var pref = &quot;&quot;;
-        var suff = &quot;&quot;;
+    var bigIdx = bigNbr.length -1;
+    while (bigIdx &gt;= 0 &amp;&amp; num &lt; bigNbr[bigIdx]) bigIdx--;
 
-        if (div &lt; 3){
-          if (div == 2)
-          pron = lookup2[lessBig];
-        } else if (div &lt; 10 ){
-          pref = lookup[div];
-          if (lessBig != 100)
-          pref += &quot;ة &quot;;
-          pron = lookupPl[lessBig];
-        } else {
-          pref = toArabicLetters(div) + &quot; &quot;;
-          var rem100 = ~~(div % 100);
-          if (rem100 &lt; 11){ // for example 103000
-            pron = lookupPl[lessBig];
-          }
+    var div = ~~(num/bigNbr[bigIdx]);
+    var rem = ~~(num % bigNbr[bigIdx]);
 
-        }
+    var pronounce = toEnglishLetters2(div, false) + &quot; &quot; + lookup[bigNbr[bigIdx]];
 
-        if (div == 2){
-          pron = lookup2[lessBig];
-          pref = &quot;&quot;;
-        }
+    //if (div &gt; 1) pronounce += &quot;s&quot;; //plural
 
-
-        if (rem &gt; 0)
-        suff = &quot; و&quot; + toArabicLetters(rem);
-
-        return pref + pron + suff;
-
-      }
+    if (rem &gt; 0){
+      if (comma) pronounce += &quot;, &quot; + toEnglishLetters2(rem, comma);
+      else pronounce += &quot; &quot; + toEnglishLetters2(rem, comma);
     }
 
-    var lessBig = bigNbr[bigNbr.length-1];
-
-    var div = ~~(num/lessBig);
-    var rem = ~~(num % lessBig);
-
-    var pron = lookup[lessBig];
-    var pref = &quot;&quot;;
-    var suff = &quot;&quot;;
-
-    if (div &lt; 3){
-      if (div == 2)
-      pron = lookup2[lessBig];
-    } else if (div &lt; 10 ){
-      pref = lookup[div];
-      if (lessBig != 100)
-      pref += &quot;ة &quot;;
-      pron = lookupPl[lessBig];
-    } else {
-      pref = toArabicLetters(div) + &quot; &quot;;
-    }
-
-    if (rem &gt; 0)
-    suff = &quot; و&quot; + toArabicLetters(rem);
-
-    return pref + pron + suff;
+    return pronounce;
 
   }
 
