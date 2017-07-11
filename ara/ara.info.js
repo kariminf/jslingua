@@ -24,43 +24,6 @@
     this.family = "Afro-Asiatic";
     this.branch = "Semitic";
 
-    //All the remaining attributes are deprecated
-    this.population = 420000000;
-    this.locations = [
-      "Algeria",
-      "Bahrain",
-      "Chad",
-      "Comoros",
-      "Djibouti",
-      "Egypt",
-      "Eritrea",
-      "Iraq",
-      "Jordan",
-      "Kuwait",
-      "Lebanon",
-      "Libya",
-      "Mauritania",
-      "Morocco",
-      "Oman",
-      "Palestine",
-      "Qatar",
-      "Saudi Arabia",
-      "Somalia",
-      "Sudan",
-      "Syria",
-      "Tunisia",
-      "United Arab Emirates",
-      "Western Sahara",
-      "Yemen"
-    ];
-
-    this.dialects = [
-      "Western",
-      "Central",
-      "Northern",
-      "Peninsular"
-    ];
-
   }
 
   AraInfo.prototype = Object.create(Info.prototype);

@@ -30,21 +30,6 @@
 
     //language branch:
     this.branch = "";
-
-
-    //---------Deprecated--------------------
-    //---------------------------------------
-    //number of native speakers
-    //@deprecated
-    this.population = 0;
-
-    //Locations where it is the first language
-    //@deprecated
-    this.locations = [];
-
-    //Dialects
-    //@deprecated
-    this.dialects = [];
   }
 
 
@@ -111,36 +96,6 @@
    */
   Me.getWordOrder = function(){
     return this.wordOrder;
-  }
-
-  /**
-   * The number of population speaking the language
-   * @method getPopulation
-   * @deprecated
-   * @return {number} number of population
-   */
-  Me.getPopulation = function(){
-    return this.population;
-  }
-
-  /**
-   * Contries where this language is official
-   * @method getLocations
-   * @deprecated
-   * @return {array}  Array of strings with contries names
-   */
-  Me.getLocations = function(){
-    return this.locations;
-  }
-
-  /**
-   * Get the Dialects
-   * @method getDialects
-   * @deprecated
-   * @return {array}  Array of strings with dialects
-   */
-  Me.getDialects = function(){
-    return this.dialects;
   }
 
 }());

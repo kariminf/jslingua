@@ -1,5 +1,6 @@
 (function () {
 
+  //TODO see https://en.wikipedia.org/wiki/English_irregular_verbs#List
   var Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
@@ -60,6 +61,12 @@
   //=================
   //Conjugation zone
   //=================
+
+
+  function isIrregular (verb) {
+
+    return verb;
+  }
 
   //Override conjugate function
   Me.conjugate = function(verb, opts){
