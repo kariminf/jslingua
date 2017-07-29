@@ -2,9 +2,10 @@
 # JsLingua
 
 [![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/jslingua)
-[![Version](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![License](https://img.shields.io/badge/License-Apache--2.0-FDEE00.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Version](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.org/kariminf/jslingua)
+[![codecov](https://img.shields.io/codecov/c/github/kariminf/jslingua.svg)](https://codecov.io/gh/kariminf/jslingua)
 [![npm](https://img.shields.io/npm/dt/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 
 Javascript library to process languages:
