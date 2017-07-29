@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
@@ -12,7 +12,8 @@
     "uglify-js": "^3.0.20"
   },
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
+    "prepublish": "bash min.sh"
   },
   "publishConfig": {
     "access": "public"

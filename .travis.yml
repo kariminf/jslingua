@@ -7,7 +7,6 @@ after_success:
 - codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
 before_deploy:
 - npm install uglify-js -g
-- bash min.sh
 deploy:
   provider: npm
   email: kariminfo0@gmail.com
