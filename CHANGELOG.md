@@ -13,6 +13,9 @@ This will break the projects developed on precedent versions.
 
 ## Current
 
+* NEW: English Language
+* IMPROVE: Add unit tests and coverage reports
+
 ## Version 0.3.0 (2016-08-30)
 
 * FIX: Japanese little "tsu" transliteration.

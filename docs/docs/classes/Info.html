@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.0</b>
+                    API Docs for Version: <b>0.4.0</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AraInfo", "classes/AraLang", "classes/AraTrans", "classes/Info", "classes/JpnInfo", "classes/JpnLang", "classes/JpnTrans", "classes/JsLingua", "classes/Lang", "classes/Morpho", "classes/Tools", "classes/Trans", "modules/JsLingua", "modules/Tools"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AraInfo", "classes/AraLang", "classes/AraTrans", "classes/EngInfo", "classes/EngLang", "classes/EngTrans", "classes/Info", "classes/JpnInfo", "classes/JpnLang", "classes/JpnTrans", "classes/JsLingua", "classes/Lang", "classes/Morpho", "classes/Tools", "classes/Trans", "modules/JsLingua", "modules/Tools"]'>
         </form>
     </div>
 </div>
@@ -40,6 +40,9 @@
                 <li><a href="../classes/AraInfo.html">AraInfo</a></li>
                 <li><a href="../classes/AraLang.html">AraLang</a></li>
                 <li><a href="../classes/AraTrans.html">AraTrans</a></li>
+                <li><a href="../classes/EngInfo.html">EngInfo</a></li>
+                <li><a href="../classes/EngLang.html">EngLang</a></li>
+                <li><a href="../classes/EngTrans.html">EngTrans</a></li>
                 <li><a href="../classes/Info.html">Info</a></li>
                 <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
                 <li><a href="../classes/JpnLang.html">JpnLang</a></li>
@@ -108,12 +111,9 @@
 			<ul>
 				<li><a href="#method-getBranch"><span class="im">getBranch</span>()</a></li>
 				<li><a href="#method-getCode"><span class="im">getCode</span>()</a></li>
-				<li><a href="#method-getDialects"><span class="im">getDialects</span>()</a></li>
 				<li><a href="#method-getDir"><span class="im">getDir</span>()</a></li>
 				<li><a href="#method-getFamily"><span class="im">getFamily</span>()</a></li>
-				<li><a href="#method-getLocations"><span class="im">getLocations</span>()</a></li>
 				<li><a href="#method-getName"><span class="im">getName</span>()</a></li>
-				<li><a href="#method-getPopulation"><span class="im">getPopulation</span>()</a></li>
 				<li><a href="#method-getWordOrder"><span class="im">getWordOrder</span>()</a></li>
 			</ul>
 		</li>
@@ -147,7 +147,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/info.js.html#l83"><code>info.js:83</code></a>
+		<a href="../files/info.js.html#l68"><code>info.js:68</code></a>
 		</p>
 
 
@@ -187,7 +187,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/info.js.html#l65"><code>info.js:65</code></a>
+		<a href="../files/info.js.html#l50"><code>info.js:50</code></a>
 		</p>
 
 
@@ -204,47 +204,6 @@
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
 					<p>The language ISO639-2 code: "ara", "jpn", "eng", etc.</p>
-
-			</div>
-		</div>
-
-</div>
-<div id="method-getDialects" class="method item deprecated">
-	<div class="method-signature">
-	<span class="name"><code>getDialects</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-		</span>
-	</div>
-
-		<span class="flag deprecated">deprecated</span>
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/info.js.html#l136"><code>info.js:136</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Get the Dialects</p>
-</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
-					<p>Array of strings with dialects</p>
 
 			</div>
 		</div>
@@ -268,7 +227,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/info.js.html#l92"><code>info.js:92</code></a>
+		<a href="../files/info.js.html#l77"><code>info.js:77</code></a>
 		</p>
 
 
@@ -308,7 +267,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/info.js.html#l74"><code>info.js:74</code></a>
+		<a href="../files/info.js.html#l59"><code>info.js:59</code></a>
 		</p>
 
 
@@ -325,47 +284,6 @@
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
 					<p>The language family: Afro-asiatic, Japonic, etc.</p>
-
-			</div>
-		</div>
-
-</div>
-<div id="method-getLocations" class="method item deprecated">
-	<div class="method-signature">
-	<span class="name"><code>getLocations</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-		</span>
-	</div>
-
-		<span class="flag deprecated">deprecated</span>
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/info.js.html#l126"><code>info.js:126</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Contries where this language is official</p>
-</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
-					<p>Array of strings with contries names</p>
 
 			</div>
 		</div>
@@ -389,7 +307,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/info.js.html#l56"><code>info.js:56</code></a>
+		<a href="../files/info.js.html#l41"><code>info.js:41</code></a>
 		</p>
 
 
@@ -406,47 +324,6 @@
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
 					<p>the language name: arabic, english, japanese, etc.</p>
-
-			</div>
-		</div>
-
-</div>
-<div id="method-getPopulation" class="method item deprecated">
-	<div class="method-signature">
-	<span class="name"><code>getPopulation</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-		</span>
-	</div>
-
-		<span class="flag deprecated">deprecated</span>
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/info.js.html#l116"><code>info.js:116</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>The number of population speaking the language</p>
-</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
-					<p>number of population</p>
 
 			</div>
 		</div>
@@ -470,7 +347,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/info.js.html#l101"><code>info.js:101</code></a>
+		<a href="../files/info.js.html#l86"><code>info.js:86</code></a>
 		</p>
 
 

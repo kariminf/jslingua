@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.0</b>
+                    API Docs for Version: <b>0.4.0</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AraInfo", "classes/AraLang", "classes/AraTrans", "classes/Info", "classes/JpnInfo", "classes/JpnLang", "classes/JpnTrans", "classes/JsLingua", "classes/Lang", "classes/Morpho", "classes/Tools", "classes/Trans", "modules/JsLingua", "modules/Tools"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AraInfo", "classes/AraLang", "classes/AraTrans", "classes/EngInfo", "classes/EngLang", "classes/EngTrans", "classes/Info", "classes/JpnInfo", "classes/JpnLang", "classes/JpnTrans", "classes/JsLingua", "classes/Lang", "classes/Morpho", "classes/Tools", "classes/Trans", "modules/JsLingua", "modules/Tools"]'>
         </form>
     </div>
 </div>
@@ -40,6 +40,9 @@
                 <li><a href="../classes/AraInfo.html">AraInfo</a></li>
                 <li><a href="../classes/AraLang.html">AraLang</a></li>
                 <li><a href="../classes/AraTrans.html">AraTrans</a></li>
+                <li><a href="../classes/EngInfo.html">EngInfo</a></li>
+                <li><a href="../classes/EngLang.html">EngLang</a></li>
+                <li><a href="../classes/EngTrans.html">EngTrans</a></li>
                 <li><a href="../classes/Info.html">Info</a></li>
                 <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
                 <li><a href="../classes/JpnLang.html">JpnLang</a></li>
@@ -119,21 +122,6 @@
 
     //language branch:
     this.branch = &quot;&quot;;
-
-
-    //---------Deprecated--------------------
-    //---------------------------------------
-    //number of native speakers
-    //@deprecated
-    this.population = 0;
-
-    //Locations where it is the first language
-    //@deprecated
-    this.locations = [];
-
-    //Dialects
-    //@deprecated
-    this.dialects = [];
   }
 
 
@@ -200,36 +188,6 @@
    */
   Me.getWordOrder = function(){
     return this.wordOrder;
-  }
-
-  /**
-   * The number of population speaking the language
-   * @method getPopulation
-   * @deprecated
-   * @return {number} number of population
-   */
-  Me.getPopulation = function(){
-    return this.population;
-  }
-
-  /**
-   * Contries where this language is official
-   * @method getLocations
-   * @deprecated
-   * @return {array}  Array of strings with contries names
-   */
-  Me.getLocations = function(){
-    return this.locations;
-  }
-
-  /**
-   * Get the Dialects
-   * @method getDialects
-   * @deprecated
-   * @return {array}  Array of strings with dialects
-   */
-  Me.getDialects = function(){
-    return this.dialects;
   }
 
 }());

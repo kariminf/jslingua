@@ -2,7 +2,7 @@
     "project": {
         "name": "JsLingua API",
         "description": "Language processing API",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "url": "http://kariminf.github.io/JsLingua/"
     },
     "files": {
@@ -33,10 +33,30 @@
             "fors": {},
             "namespaces": {}
         },
-        "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js": {
-            "name": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
+        "eng/eng.info.js": {
+            "name": "eng/eng.info.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "EngInfo": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "eng/eng.lang.js": {
+            "name": "eng/eng.lang.js",
+            "modules": {},
+            "classes": {
+                "EngLang": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "eng/eng.trans.js": {
+            "name": "eng/eng.trans.js",
+            "modules": {},
+            "classes": {
+                "EngTrans": 1
+            },
             "fors": {},
             "namespaces": {}
         },
@@ -55,6 +75,13 @@
             "classes": {
                 "JpnLang": 1
             },
+            "fors": {},
+            "namespaces": {}
+        },
+        "jpn/jpn.morpho.js": {
+            "name": "jpn/jpn.morpho.js",
+            "modules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {}
         },
@@ -138,6 +165,9 @@
                 "AraInfo": 1,
                 "AraLang": 1,
                 "AraTrans": 1,
+                "EngInfo": 1,
+                "EngLang": 1,
+                "EngTrans": 1,
                 "JpnInfo": 1,
                 "JpnLang": 1,
                 "JpnTrans": 1,
@@ -211,6 +241,51 @@
             "file": "ara/ara.trans.js",
             "line": 305,
             "description": "Arabic transliteration",
+            "extends": "Trans",
+            "is_constructor": 1
+        },
+        "EngInfo": {
+            "name": "EngInfo",
+            "shortname": "EngInfo",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "JsLingua",
+            "file": "eng/eng.info.js",
+            "line": 12,
+            "description": "Contains information about English language",
+            "extends": "Info",
+            "is_constructor": 1
+        },
+        "EngLang": {
+            "name": "EngLang",
+            "shortname": "EngLang",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "JsLingua",
+            "file": "eng/eng.lang.js",
+            "line": 12,
+            "description": "Contains English charsets and transformations",
+            "extends": "Lang",
+            "is_constructor": 1
+        },
+        "EngTrans": {
+            "name": "EngTrans",
+            "shortname": "EngTrans",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "JsLingua",
+            "file": "eng/eng.trans.js",
+            "line": 139,
+            "description": "English transliteration",
             "extends": "Trans",
             "is_constructor": 1
         },
@@ -504,10 +579,135 @@
             "class": "AraTrans"
         },
         {
-            "file": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
-            "line": 1,
-            "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
-            "class": "JpnInfo"
+            "file": "eng/eng.lang.js",
+            "line": 60,
+            "description": "Transform from Arabic numbers to English letters",
+            "itemtype": "method",
+            "name": "toEnglishLetters",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "nbr",
+                    "description": "the integer number",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "English writing of numbers",
+                "type": "String"
+            },
+            "class": "EngLang"
+        },
+        {
+            "file": "eng/eng.lang.js",
+            "line": 71,
+            "description": "Transform from Arabic numbers to English letters",
+            "itemtype": "method",
+            "name": "toEnglishLetters2",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "nbr",
+                    "description": "the integer number",
+                    "type": "Number"
+                },
+                {
+                    "name": "comma",
+                    "description": "put a comma or not",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "English writing of numbers",
+                "type": "String"
+            },
+            "class": "EngLang"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 155,
+            "description": "pre-transliteration for morse: cleaning non supported codes",
+            "itemtype": "method",
+            "name": "morsePreTrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "Arabic text",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "processed text for morse transliteration",
+                "type": "String"
+            },
+            "class": "EngTrans"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 171,
+            "description": "post-transliteration for morse: clean non morse characters",
+            "itemtype": "method",
+            "name": "morsePostTrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "morse code",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "filtered morse code",
+                "type": "String"
+            },
+            "class": "EngTrans"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 190,
+            "description": "pre-untransliteration for morse: clean non morse characters",
+            "itemtype": "method",
+            "name": "morsePreUntrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "morse code",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "processed morse code for untransliteration",
+                "type": "String"
+            },
+            "class": "EngTrans"
+        },
+        {
+            "file": "eng/eng.trans.js",
+            "line": 208,
+            "description": "post-untransliteration for morse",
+            "itemtype": "method",
+            "name": "morsePostUntrans",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "Arabic text",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "filtered Arabic text",
+                "type": "String"
+            },
+            "class": "EngTrans"
         },
         {
             "file": "jpn/jpn.lang.js",
@@ -529,6 +729,23 @@
                 "type": "String"
             },
             "class": "JpnLang"
+        },
+        {
+            "file": "jpn/jpn.morpho.js",
+            "line": 83,
+            "override": "[getPronounName description]",
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "[description]",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "[description]",
+                "type": "[type]"
+            },
+            "class": "JpnTrans"
         },
         {
             "file": "jpn/jpn.trans.js",
@@ -637,7 +854,7 @@
         },
         {
             "file": "info.js",
-            "line": 56,
+            "line": 41,
             "description": "Get the name of the language",
             "itemtype": "method",
             "name": "getName",
@@ -649,7 +866,7 @@
         },
         {
             "file": "info.js",
-            "line": 65,
+            "line": 50,
             "description": "Get the code of the language",
             "itemtype": "method",
             "name": "getCode",
@@ -661,7 +878,7 @@
         },
         {
             "file": "info.js",
-            "line": 74,
+            "line": 59,
             "description": "Get the family of the language",
             "itemtype": "method",
             "name": "getFamily",
@@ -673,7 +890,7 @@
         },
         {
             "file": "info.js",
-            "line": 83,
+            "line": 68,
             "description": "Get the branch of the language, if any",
             "itemtype": "method",
             "name": "getBranch",
@@ -685,7 +902,7 @@
         },
         {
             "file": "info.js",
-            "line": 92,
+            "line": 77,
             "description": "Get the direction of writing of the language: ltr or rtl",
             "itemtype": "method",
             "name": "getDir",
@@ -697,7 +914,7 @@
         },
         {
             "file": "info.js",
-            "line": 101,
+            "line": 86,
             "description": "Get the words order:\n<ul>\n<li>s: Subject</li>\n<li>v: Verb</li>\n<li>o: Object</li>\n</ul>\nFor example, English is \"svo\"",
             "itemtype": "method",
             "name": "getWordOrder",
@@ -708,47 +925,8 @@
             "class": "Info"
         },
         {
-            "file": "info.js",
-            "line": 116,
-            "description": "The number of population speaking the language",
-            "itemtype": "method",
-            "name": "getPopulation",
-            "deprecated": true,
-            "return": {
-                "description": "number of population",
-                "type": "Number"
-            },
-            "class": "Info"
-        },
-        {
-            "file": "info.js",
-            "line": 126,
-            "description": "Contries where this language is official",
-            "itemtype": "method",
-            "name": "getLocations",
-            "deprecated": true,
-            "return": {
-                "description": "Array of strings with contries names",
-                "type": "Array"
-            },
-            "class": "Info"
-        },
-        {
-            "file": "info.js",
-            "line": 136,
-            "description": "Get the Dialects",
-            "itemtype": "method",
-            "name": "getDialects",
-            "deprecated": true,
-            "return": {
-                "description": "Array of strings with dialects",
-                "type": "Array"
-            },
-            "class": "Info"
-        },
-        {
             "file": "jslingua.js",
-            "line": 45,
+            "line": 49,
             "description": "Contains the super-classes: Info, Lang, Trans, Morpho. <br>\nfor example, JsLingua.Cls.Info returns Info class",
             "itemtype": "attribute",
             "name": "Cls",
@@ -759,7 +937,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 66,
+            "line": 70,
             "description": "Add a service for a specific language",
             "itemtype": "method",
             "name": "addService",
@@ -785,7 +963,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 82,
+            "line": 86,
             "description": "Get the codes of available languages of a given service",
             "itemtype": "method",
             "name": "serviceLanguages",
@@ -805,7 +983,7 @@
         },
         {
             "file": "jslingua.js",
-            "line": 93,
+            "line": 97,
             "description": "Get the service class for a given language and service name.<br>\nFor example: JsLingua.getService(\"Info\", \"ara\") Gives a class AraInfo",
             "itemtype": "method",
             "name": "getService",
@@ -824,6 +1002,24 @@
             "return": {
                 "description": "The class that affords the service",
                 "type": "Object"
+            },
+            "class": "JsLingua",
+            "module": "JsLingua"
+        },
+        {
+            "file": "jslingua.js",
+            "line": 115,
+            "description": "To recover the direction of writing for the given language <br>\nThis can be done using the info.js instance of the target language.\nBut, the direction is used a lot for presentation, so a centralized\nversion is to be afforded, so we don't import the js file for each\nlanguage in each webpage.",
+            "params": [
+                {
+                    "name": "langCode",
+                    "description": "The language ISO639-2 code: \"ara\", \"jpn\", \"eng\", etc.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "either \"rtl\" or \"ltr\"",
+                "type": "String"
             },
             "class": "JsLingua",
             "module": "JsLingua"
@@ -937,7 +1133,7 @@
         },
         {
             "file": "lang.js",
-            "line": 133,
+            "line": 139,
             "description": "Returns the available charsets for the current language",
             "itemtype": "method",
             "name": "availableCharSets",
@@ -950,7 +1146,7 @@
         },
         {
             "file": "lang.js",
-            "line": 142,
+            "line": 148,
             "description": "Returns the available transformations for the current language",
             "itemtype": "method",
             "name": "availableTransformations",
@@ -963,7 +1159,7 @@
         },
         {
             "file": "lang.js",
-            "line": 151,
+            "line": 157,
             "description": "Returns the transformation function",
             "itemtype": "method",
             "name": "transformationFunction",
@@ -983,7 +1179,7 @@
         },
         {
             "file": "lang.js",
-            "line": 165,
+            "line": 171,
             "description": "Returns a function which verifies if a char belongs to a charset or not",
             "itemtype": "method",
             "name": "verifyCharSetFunction",
@@ -1003,7 +1199,7 @@
         },
         {
             "file": "lang.js",
-            "line": 179,
+            "line": 185,
             "description": "Returns a function which verifies if a string contains at least one character which belongs to a charset",
             "itemtype": "method",
             "name": "containsCharSetFunction",
@@ -1023,7 +1219,7 @@
         },
         {
             "file": "lang.js",
-            "line": 189,
+            "line": 195,
             "description": "Returns a function which verifies if all string's characters belong to a charset",
             "itemtype": "method",
             "name": "allCharSetFunction",
@@ -1043,7 +1239,7 @@
         },
         {
             "file": "lang.js",
-            "line": 199,
+            "line": 205,
             "description": "Returns the code of the language",
             "itemtype": "method",
             "name": "getCode",
@@ -1056,7 +1252,7 @@
         },
         {
             "file": "lang.js",
-            "line": 208,
+            "line": 214,
             "description": "A function which returns the pronounciation of a number in the destination\nlanguage (this must be overriden)",
             "itemtype": "method",
             "name": "pronounceNumber",
@@ -1622,6 +1818,10 @@
     ],
     "warnings": [
         {
+            "message": "unknown tag: override",
+            "line": " jpn/jpn.morpho.js:83"
+        },
+        {
             "message": "unknown tag: access",
             "line": " morpho.js:25"
         },
@@ -1662,8 +1862,12 @@
             "line": " morpho.js:170"
         },
         {
-            "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
-            "line": " docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js:1"
+            "message": "Missing item type",
+            "line": " jpn/jpn.morpho.js:83"
+        },
+        {
+            "message": "Missing item type\nTo recover the direction of writing for the given language <br>\nThis can be done using the info.js instance of the target language.\nBut, the direction is used a lot for presentation, so a centralized\nversion is to be afforded, so we don't import the js file for each\nlanguage in each webpage.",
+            "line": " jslingua.js:115"
         },
         {
             "message": "Missing item type\nThis method is used to recover the name of the tense",

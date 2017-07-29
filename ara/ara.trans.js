@@ -369,7 +369,7 @@
     result = result.replace(/\t/gi, "   ");
     //clean non morse characters
     result = result.replace(/[^ \.\-]/gi, "");
-    return result;
+    return result.trim();
   }
 
   /**

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>eng/eng.lang.js - JsLingua API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            JsLingua API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.4.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AraInfo", "classes/AraLang", "classes/AraTrans", "classes/EngInfo", "classes/EngLang", "classes/EngTrans", "classes/Info", "classes/JpnInfo", "classes/JpnLang", "classes/JpnTrans", "classes/JsLingua", "classes/Lang", "classes/Morpho", "classes/Tools", "classes/Trans", "modules/JsLingua", "modules/Tools"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/AraInfo.html">AraInfo</a></li>
+                <li><a href="../classes/AraLang.html">AraLang</a></li>
+                <li><a href="../classes/AraTrans.html">AraTrans</a></li>
+                <li><a href="../classes/EngInfo.html">EngInfo</a></li>
+                <li><a href="../classes/EngLang.html">EngLang</a></li>
+                <li><a href="../classes/EngTrans.html">EngTrans</a></li>
+                <li><a href="../classes/Info.html">Info</a></li>
+                <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
+                <li><a href="../classes/JpnLang.html">JpnLang</a></li>
+                <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
+                <li><a href="../classes/JsLingua.html">JsLingua</a></li>
+                <li><a href="../classes/Lang.html">Lang</a></li>
+                <li><a href="../classes/Morpho.html">Morpho</a></li>
+                <li><a href="../classes/Tools.html">Tools</a></li>
+                <li><a href="../classes/Trans.html">Trans</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>eng/eng.lang.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+(function(){
+
+  var Lang = {};
+  if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
+    Lang = require(&quot;../lang.js&quot;);
+    module.exports = EngLang;
+  } else {
+    Lang = window.JsLingua.Cls.Lang;
+    window.JsLingua.addService(&quot;Lang&quot;, &quot;eng&quot;, EngLang);
+  }
+
+  /**
+  * Contains English charsets and transformations
+  * @class EngLang
+  * @extends Lang
+  * @constructor
+  */
+  function EngLang() {
+    Lang.call(this, &quot;eng&quot;);
+
+    //
+    Lang.addCharSet.call(this, &quot;BasicLatin&quot;, 0x0000, 0x007F);
+
+    Lang.addTransform.call(this, &quot;minusculeToMajuscule&quot;, -0x0020, &quot;BasicLatin&quot;, 0x0061, 0x007A);
+    Lang.addTransform.call(this, &quot;majusculeToMinuscule&quot;, 0x0020, &quot;BasicLatin&quot;, 0x0041, 0x005A);
+  }
+
+  EngLang.prototype = Object.create(Lang.prototype);
+  var Me = EngLang.prototype;
+  Me.constructor = EngLang;
+
+  //https://en.wikipedia.org/wiki/List_of_numbers
+  var lookup = {
+    0: &quot;zero&quot;, 1: &quot;one&quot;, 2: &quot;two&quot;, 3:&quot;three&quot;, 4: &quot;four&quot;,
+    5: &quot;five&quot;, 6: &quot;six&quot;, 7: &quot;seven&quot;, 8: &quot;eight&quot;, 9: &quot;nine&quot;,
+
+    10: &quot;ten&quot;, 11: &quot;eleven&quot;, 12: &quot;twelve&quot;, 13: &quot;thirteen&quot;,
+    14: &quot;fourteen&quot;, 15: &quot;fifteen&quot;,
+
+    20: &quot;twenty&quot;, 30: &quot;thirty&quot;, 40: &quot;forty&quot;, 50: &quot;fifty&quot;,
+
+    100: &quot;hundred&quot;,
+    1000: &quot;thousand&quot;,
+    1000000: &quot;million&quot;,
+    1000000000: &quot;billion&quot;
+  }
+
+  var bigNbr = [
+    100, 1000, 1000000, 1000000000
+    //1000000000, 1000000, 1000, 100, 10
+  ]
+
+  /*
+  * Write the Arabic number into English letters
+  * @override
+  */
+  Me.pronounceNumber = toEnglishLetters;
+
+
+  /**
+  * Transform from Arabic numbers to English letters
+  * @method toEnglishLetters
+  * @private
+  * @param {Number} nbr the integer number
+  * @return {String} English writing of numbers
+  */
+  function toEnglishLetters (num) {
+    return toEnglishLetters2(num, true);
+  }
+
+  /**
+  * Transform from Arabic numbers to English letters
+  * @method toEnglishLetters2
+  * @private
+  * @param {Number} nbr the integer number
+  * @param {boolean} comma put a comma or not
+  * @return {String} English writing of numbers
+  */
+  function toEnglishLetters2 (num, comma) {
+
+    if (isNaN(num)) return &quot;&quot;;
+
+    if(num &lt; 0) return &quot;minus &quot; + toEnglishLetters2(-num, true);
+
+    if (num &lt; 10) return lookup[num];
+
+    if (num &lt; 100 ){
+      var div = ~~(num/10);
+      var rem = ~~(num % 10);
+
+      if (div == 1){
+        if (rem &lt; 6) return lookup[num];
+        return lookup[rem] + &quot;teen&quot;;
+      }
+
+      var tenth = &quot;&quot;;
+
+      if (div == 8) tenth = &quot;eighty&quot;;
+      else if (div &lt; 6) tenth = lookup[div * 10];
+      else tenth = lookup[div] + &quot;ty&quot;;
+
+      if (rem == 0) return tenth;
+
+      return tenth + &quot;-&quot; + lookup[rem];
+
+    }
+
+
+    var bigIdx = bigNbr.length -1;
+    while (bigIdx &gt;= 0 &amp;&amp; num &lt; bigNbr[bigIdx]) bigIdx--;
+
+    var div = ~~(num/bigNbr[bigIdx]);
+    var rem = ~~(num % bigNbr[bigIdx]);
+
+    var pronounce = toEnglishLetters2(div, false) + &quot; &quot; + lookup[bigNbr[bigIdx]];
+
+    //if (div &gt; 1) pronounce += &quot;s&quot;; //plural
+
+    if (rem &gt; 0){
+      if (comma) pronounce += &quot;, &quot; + toEnglishLetters2(rem, comma);
+      else pronounce += &quot; &quot; + toEnglishLetters2(rem, comma);
+    }
+
+    return pronounce;
+
+  }
+
+}());
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

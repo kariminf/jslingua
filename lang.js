@@ -119,9 +119,15 @@
    * @param {number} offset      the number we add to the char's unicodes to get the new character
    * @param {string} origCharSet The name of the charset
    */
-  Lang.addTransform = function(transName, offset, origCharSet){
+  Lang.addTransform = function(transName, offset, origCharSet, begin, end){
     var charSetFunc = function(char){return false};
-    if (origCharSet in this.CS) charSetFunc = this.CS[origCharSet];
+
+    if ((typeof begin != 'undefined') &&  (typeof begin != 'undefined')){
+        charSetFunc = isBetween(begin, end);
+    }
+    else
+      if (origCharSet in this.CS) charSetFunc = this.CS[origCharSet];
+
     this.TR[transName] = transform(offset, charSetFunc);
   }
 

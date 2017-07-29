@@ -24,9 +24,6 @@ for (var i=0; i< langs.length; i++){
   console.log("Branch: " + info.getBranch());
   console.log("Writing direction: " + info.getDir());
   console.log("Words order: " + info.getWordOrder());
-  console.log("Native speakers: " + info.getPopulation());
-  console.log("Official in: " + info.getLocations().join());
-  console.log("Dialects: " + info.getDialects().join());
 }
 
 console.log("");

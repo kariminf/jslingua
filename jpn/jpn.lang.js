@@ -43,7 +43,7 @@
     1000000000000, 100000000,
     10000, 1000, 100, 10
   ]
-  
+
   /*
   * Write the Arabic number in Japanese Kanjis
   * @method pronounceNumber
