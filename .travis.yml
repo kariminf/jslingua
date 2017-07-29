@@ -1,19 +1,15 @@
 language: node_js
 node_js:
-  - '7'
-
+- '7'
 before_install:
-  - npm install codecov -g
-
+- npm install codecov -g
 after_success:
-  - codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
+- codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
 before_deploy:
-  - npm install uglify-js -g
-  - bash min.sh
+- npm install uglify-js -g
+- bash min.sh
 deploy:
   provider: npm
   email: kariminfo0@gmail.com
   api_key:
-    secure: UsrmnA255I3v7lm70rKI064OTKqbDR37l+h3BgSztcQshmHJdsEA1sTbNDApl3h8CKo6QMLo2iu2IRc/uzpqsAWrQHGDpzUdL1WldadrMBvqKFFxMc3Kc+hNRtwnwtJMvCqO5m9By/4xt3eeFqFcdzArDqwxlKLCbQlcEHjtDqS3BESuSQBnu1K3ZEOUPg/+a1syOoWVjsLSrdv8xYgeZJotaLH00H1K2y9NfMjNlhHxmajtOKIkSe8m31TuQooFO395T86K64Cu7n8xA4Sab3NUf+5we59Rt9IR7caAxp1Oa+r/9iF1jpH/yBisFTca4eYwWdBoT0O6t6zE9I5WwBEknRKF81H933P3h+1R1v5EXHaGb99HhT3QbcIX7UKNUDjgMcHvXEd26UiMLTTdwkIXyiS+QlueJa5URmdun7eCOXgfn5u8jgsmdYXyXPTZEUNRINTortnuxQtczezEluES/Pyz+fdW9lcxdx7TyBhHh+EJY7RS9JgbDXVlIxxCgDj2LeZaZwXxw79byvRi+jpf+Yp1r/bkuMRU6uzslOiWAGkEsrfr5ftkfsOXG2s+LFzpPE89ljyqWlrCv/Da2NLZ3kcfNor+2TCtjyEdO4M8DH7IRW7lxYKm5wEzjRzK+w+XCYnN+W0JUTSrLmqFoyXIt/t1/0EkiQN7SCwoBxY=
-    on:
-      branch: master
+    secure: DrqJoaX/2c/dvcB4qLCrpvpC2zfWUfvBSjf8Y+2fsSQ0hsSvLmtlet5bsvOL8UkEKS6sIhhp5mem6g04lLlNLIl80EEWDblYm8lvhUwOg1qrV/smVYz0ymKdilKpDkyf6lSSykgj5sGRUMmFHGNL2yBN73VhSmDHIamsY4IuuFsOwuHugw3q+P1oTrXd2O9cnlJNbIrlKQ6/au61hKZL7hHCylcEmq33blTWiKcBL05lmzApeCZDLRODwRiiOLQyeJAv+YjLcljIWOHbUjnLd44tEHMH4ByNIQwo7NoTxDJnhgt1mDcHDFUVcIojLp/W+LnQyF+xDE1v5UO3ouRUdMO9d+uAWknN1dU3VD+a3BLIH3n5mAFHEQ2NJKnqtCFzt9HOkc5cUXMODqNDLybA0E3vXCCMvcYeOBMDk3QaY3nju9VIjU3io8oA93JsiDIWE8+DXU1OZ5BmtQeeLhJTlLv8/wQgRiJWCSiqQVnQKbisYCOisBdnQm9GigTBPUue4ZLvVNvqXYF1cgFqimjcZXC9syH/tvlJV/3mETZFRlJAWE1bfVig5ojgvqqssm0D3G6NPu671DC/Pl4qe33mF4bQwUq/X4NhdTzPzYBWP6/txBQb8+VDkOJ92sdhAXTjUtJgwL2/+SjHcRsJ+YfRSybrYMyTb65B5jTlT+lPBiE=
