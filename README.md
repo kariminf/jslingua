@@ -1,10 +1,10 @@
 
 # JsLingua
 
-[![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/JsLingua)
+[![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/jslingua)
 [![Version](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![License](https://img.shields.io/badge/License-Apache--2.0-FDEE00.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Travis](https://img.shields.io/travis/kariminf/JsLingua.svg)](https://travis-ci.org/kariminf/JsLingua)
+[![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.org/kariminf/jslingua)
 [![npm](https://img.shields.io/npm/dt/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 
 Javascript library to process languages:
@@ -17,13 +17,13 @@ Javascript library to process languages:
   * Verb Conjugation
   * Stemming
 
-You can test it on [https://kariminf.github.com/JsLingua](https://kariminf.github.com/JsLingua)
+You can test it on [https://kariminf.github.com/jslingua](https://kariminf.github.com/jslingua)
 
 ## Functionalities
 
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 
-YuiDoc generated API is located in [https://kariminf.github.com/JsLingua/docs/](https://kariminf.github.com/JsLingua/docs/)
+YuiDoc generated API is located in [https://kariminf.github.com/jslingua/docs/](https://kariminf.github.com/JsLingua/docs/)
 
 ## How to use?
 

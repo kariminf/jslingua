@@ -36,9 +36,6 @@ for (var i=0; i< langs.length; i++){
   resp += "Branch: " + info.getBranch() + "<br>\n";
   resp += "Writing direction: " + info.getDir() + "<br>\n";
   resp += "Words order: " + info.getWordOrder() + "<br>\n";
-  resp += "Native speakers: " + info.getPopulation() + "<br>\n";
-  resp += "Official in: " + info.getLocations().join() + "<br>\n";
-  resp += "Dialects: " + info.getDialects().join() + "<br>\n";
 }
 
 resp += "<br>\n";

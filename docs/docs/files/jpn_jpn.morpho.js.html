@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>info.js - JsLingua API</title>
+    <title>jpn/jpn.morpho.js - JsLingua API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,110 +85,122 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>info.js <small>File</small></h1>
+    <h1>jpn/jpn.morpho.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-(function(){
+(function () {
 
+  var Morpho = {};
   if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
-    module.exports = Info;
+    Morpho = require(&quot;../morpho.js&quot;);
+    module.exports = JpnMorpho;
   } else {
-    window.JsLingua.Cls.Info = Info;
+    Morpho = window.JsLingua.Cls.Morpho;
+    window.JsLingua.addService(&quot;Morpho&quot;, &quot;jpn&quot;, JpnMorpho);
+  }
+
+  //Different global features
+  var F = Morpho.Feature;
+  var T = F.Tense;
+  var M = F.Mood;
+  var V = F.Voice;
+  var N = F.Number;
+  var A = F.Aspect;
+  var G = F.Gender;
+  var P = F.Person;
+  var Formality = Object.freeze({
+    plain: 0,
+    polite: 1,
+    formal: 2
+  });
+
+
+  function JpnMorpho() {
+    Morpho.call(this, &quot;jpn&quot;);
+  }
+
+  JpnMorpho.prototype = Object.create(Morpho.prototype);
+  var Me = JpnMorpho.prototype;
+
+  Me.constructor = JpnMorpho;
+
+  Me.getTenseName = function(tense){
+    switch (tense) {
+      case T.Past:
+        return &quot;past&quot;;
+      case T.Present:
+        return &quot;present&quot;;
+      case T.Future:
+        return &quot;future&quot;;
+    }
+
+    return &quot;&quot;;
+  }
+
+  //https://en.wikipedia.org/wiki/Japanese_pronouns
+  //TODO pronouns problem in Japanese
+  Me.getPronounOpts = function(){
+    return [
+        {person:P.First, number: N.Singular}, //私
+    ];
+  }
+
+  //var C = Object.freeze;
+
+  //=================
+  //Conjugation zone
+  //=================
+
+  //https://en.wikipedia.org/wiki/Japanese_verb_conjugation
+  //Override conjugate function
+  Me.conjugate = function(verb, opts){
+
+    var begin = &quot;&quot;;
+    var end = &quot;&quot;;
+
+    if (opts.tense == T.Past){
+
+    } else {
+
+    }
+
+    var result = begin + verb + end;
+
+    return result;
+
   }
 
   /**
-   * Contains information about the specified language
-   * @class Info
-   * @param {string} langCode The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
+   * @Override
+   * [getPronounName description]
+   * @param  {[type]} opts [description]
+   * @return {[type]}      [description]
    */
-  function Info(langCode) {
+  Me.getPronounName = function(opts){
 
-    //ISO639-2/5 code: ara, eng, jpn, etc.
-    this.code = langCode;
+    switch (opts.person) {
+      case P.First:
+      return &quot;&quot;;
 
-    //arabic, english, japanese
-    this.name = &quot;&quot;;
+      case P.Second:
+      return &quot;&quot;;
 
-    //writing direction: ltr (left to right)
-    this.dir = &quot;ltr&quot;; //most are ltr
+      case P.Third:
+      return &quot;&quot;;
 
-    //Words order (Subject, Object, Verb): svo, sov, vso, osv, ovs, vos
-    this.wordOrder = &quot;svo&quot;;//most are svo
+    }
+    return &quot;&quot;;
+  }
 
-    //language family:
-    this.family = &quot;&quot;;
+  Me.stem = function(word){
 
-    //language branch:
-    this.branch = &quot;&quot;;
+    var result = word;
+    return result;
   }
 
 
-  //===========================
-  //functions
-  //===========================
-  var Me = Info.prototype;
-
-  /**
-   * Get the name of the language
-   * @method getName
-   * @return {string}  the language name: arabic, english, japanese, etc.
-   */
-  Me.getName = function(){
-    return this.name;
-  }
-
-  /**
-   * Get the code of the language
-   * @method getCode
-   * @return {string}  The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
-   */
-  Me.getCode = function(){
-    return this.code;
-  }
-
-  /**
-   * Get the family of the language
-   * @method getFamily
-   * @return {string}  The language family: Afro-asiatic, Japonic, etc.
-   */
-  Me.getFamily = function(){
-    return this.family;
-  }
-
-  /**
-   * Get the branch of the language, if any
-   * @method getBranch
-   * @return {string}  The language branch: semitic, etc.
-   */
-  Me.getBranch = function(){
-    return this.branch;
-  }
-
-  /**
-   * Get the direction of writing of the language: ltr or rtl
-   * @method getDir
-   * @return {string}  The language direction: left to right (ltr) or right to left (rtl)
-   */
-  Me.getDir = function(){
-    return this.dir;
-  }
-
-  /**
-   * Get the words order:
-   * &lt;ul&gt;
-   * &lt;li&gt;s: Subject&lt;/li&gt;
-   * &lt;li&gt;v: Verb&lt;/li&gt;
-   * &lt;li&gt;o: Object&lt;/li&gt;
-   * &lt;/ul&gt;
-   * For example, English is &quot;svo&quot;
-   * @method getWordOrder
-   * @return {string}  The words order in the language
-   */
-  Me.getWordOrder = function(){
-    return this.wordOrder;
-  }
 
 }());
 

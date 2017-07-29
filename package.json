@@ -4,10 +4,14 @@
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
-    "uglify-js": ">=3.0.20"
+    "uglify-js": "^3.0.20",
+    "expect.js": "^0.3.1",
+    "istanbul": "^0.4.5",
+    "jshint": "^2.9.3",
+    "mocha": "^3.0.2"
   },
   "scripts": {
-    "test": "node test/nodejs/test.js",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
     "prepublish": "bash min.sh"
   },
   "repository": {
@@ -24,17 +28,9 @@
     "lang.js",
     "trans.js",
     "morpho.js",
-
-    "ara/ara.info.js",
-    "ara/ara.lang.js",
-    "ara/ara.trans.js",
-    "ara/ara.morpho.js",
-
-    "jpn/jpn.info.js",
-    "jpn/jpn.lang.js",
-    "jpn/jpn.trans.js",
-    "jpn/jpn.morpho.js",
-
+    "ara/",
+    "jpn/",
+    "eng/",
     "dist/",
     "test"
   ],

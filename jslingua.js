@@ -6,7 +6,7 @@
 (function(){
 
 
-  var version = "0.4.1";
+  var version = "0.4.0";
 
   var rtls = ["ara", "heb"];
 
@@ -26,19 +26,23 @@
     services = {
       "Info": {
         "ara": require("./ara/ara.info.js"),//Arabic information class
-        "jpn": require("./jpn/jpn.info.js")//Japanese information class
+        "jpn": require("./jpn/jpn.info.js"),//Japanese information class
+        "eng": require("./eng/eng.info.js")//English information class
       },
       "Lang": {
         "ara": require("./ara/ara.lang.js"),//Arabic language class
-        "jpn": require("./jpn/jpn.lang.js")//Japanese language class
+        "jpn": require("./jpn/jpn.lang.js"),//Japanese language class
+        "eng": require("./eng/eng.lang.js")//English language class
       },
       "Trans": {
         "ara": require("./ara/ara.trans.js"),//Arabic transliteration class
-        "jpn": require("./jpn/jpn.trans.js")//Japanese transliteration class
+        "jpn": require("./jpn/jpn.trans.js"),//Japanese transliteration class
+        "eng": require("./eng/eng.trans.js")//English transliteration class
       },
       "Morpho": {
         "ara": require("./ara/ara.morpho.js")//,//Arabic Morphology class
-        //"jpn": require("./jpn/jpn.trans.js")//Japanese Morphology class
+        "jpn": require("./jpn/jpn.morpho.js"),//Japanese Morphology class
+        "eng": require("./eng/eng.morpho.js")//English Morphology class
       }
     };
 
@@ -118,7 +122,7 @@
    * @return {String}     either "rtl" or "ltr"
    */
   JsLingua.getDir = function(langCode){
-    
+
     if (rtls.indexOf(langCode) < 0) return "ltr";
 
     return "rtl";

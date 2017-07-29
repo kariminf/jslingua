@@ -461,7 +461,7 @@
     result = result.replace(/\t/gi, &quot;   &quot;);
     //clean non morse characters
     result = result.replace(/[^ \.\-]/gi, &quot;&quot;);
-    return result;
+    return result.trim();
   }
 
   /**

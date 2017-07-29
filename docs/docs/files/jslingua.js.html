@@ -91,14 +91,14 @@
 <div class="file">
     <pre class="prettyprint linenums">
 /**
- * The main module
- * @module JsLingua
- */
+* The main module
+* @module JsLingua
+*/
 
 (function(){
 
 
-  var version = &quot;0.3.0&quot;;
+  var version = &quot;0.4.0&quot;;
 
   var rtls = [&quot;ara&quot;, &quot;heb&quot;];
 
@@ -106,9 +106,9 @@
   var services = {};
 
   /**
-   * The main class
-   * @class JsLingua
-   */
+  * The main class
+  * @class JsLingua
+  */
   var JsLingua = {};
 
   JsLingua.Cls = {};
@@ -118,29 +118,33 @@
     services = {
       &quot;Info&quot;: {
         &quot;ara&quot;: require(&quot;./ara/ara.info.js&quot;),//Arabic information class
-        &quot;jpn&quot;: require(&quot;./jpn/jpn.info.js&quot;)//Japanese information class
+        &quot;jpn&quot;: require(&quot;./jpn/jpn.info.js&quot;),//Japanese information class
+        &quot;eng&quot;: require(&quot;./eng/eng.info.js&quot;)//English information class
       },
       &quot;Lang&quot;: {
         &quot;ara&quot;: require(&quot;./ara/ara.lang.js&quot;),//Arabic language class
-        &quot;jpn&quot;: require(&quot;./jpn/jpn.lang.js&quot;)//Japanese language class
+        &quot;jpn&quot;: require(&quot;./jpn/jpn.lang.js&quot;),//Japanese language class
+        &quot;eng&quot;: require(&quot;./eng/eng.lang.js&quot;)//English language class
       },
       &quot;Trans&quot;: {
         &quot;ara&quot;: require(&quot;./ara/ara.trans.js&quot;),//Arabic transliteration class
-        &quot;jpn&quot;: require(&quot;./jpn/jpn.trans.js&quot;)//Japanese transliteration class
+        &quot;jpn&quot;: require(&quot;./jpn/jpn.trans.js&quot;),//Japanese transliteration class
+        &quot;eng&quot;: require(&quot;./eng/eng.trans.js&quot;)//English transliteration class
       },
       &quot;Morpho&quot;: {
         &quot;ara&quot;: require(&quot;./ara/ara.morpho.js&quot;)//,//Arabic Morphology class
-        //&quot;jpn&quot;: require(&quot;./jpn/jpn.trans.js&quot;)//Japanese Morphology class
+        &quot;jpn&quot;: require(&quot;./jpn/jpn.morpho.js&quot;),//Japanese Morphology class
+        &quot;eng&quot;: require(&quot;./eng/eng.morpho.js&quot;)//English Morphology class
       }
     };
 
     /**
-     * Contains the super-classes: Info, Lang, Trans, Morpho. &lt;br&gt;
-     * for example, JsLingua.Cls.Info returns Info class
-     * @attribute Cls
-     * @static
-     * @type {Object}
-     */
+    * Contains the super-classes: Info, Lang, Trans, Morpho. &lt;br&gt;
+    * for example, JsLingua.Cls.Info returns Info class
+    * @attribute Cls
+    * @static
+    * @type {Object}
+    */
     JsLingua.Cls = {
       Info: require(&quot;./info.js&quot;),
       Lang: require(&quot;./lang.js&quot;),
@@ -156,12 +160,12 @@
   }
 
   /**
-   * Add a service for a specific language
-   * @method addService
-   * @param {string} serviceID The services name: &quot;Info&quot;, &quot;Lang&quot;, etc.
-   * @param {string} langCode  The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
-   * @param {object} theClass  The class that affords the service
-   */
+  * Add a service for a specific language
+  * @method addService
+  * @param {string} serviceID The services name: &quot;Info&quot;, &quot;Lang&quot;, etc.
+  * @param {string} langCode  The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
+  * @param {object} theClass  The class that affords the service
+  */
   JsLingua.addService = function(serviceID, langCode, theClass){
     if (services[serviceID] === undefined){
       services[serviceID] = {};
@@ -172,24 +176,24 @@
   }
 
   /**
-   * Get the codes of available languages of a given service
-   * @method serviceLanguages
-   * @param  {string} serviceID The name of the service (the super-classe): &quot;Info&quot;, &quot;Lang&quot;, etc.
-   * @return {array}   array of strings, with ISO639-2 codes
-   */
+  * Get the codes of available languages of a given service
+  * @method serviceLanguages
+  * @param  {string} serviceID The name of the service (the super-classe): &quot;Info&quot;, &quot;Lang&quot;, etc.
+  * @return {array}   array of strings, with ISO639-2 codes
+  */
   JsLingua.serviceLanguages = function(serviceID){
     if (services[serviceID] === undefined) return [];
     return Object.keys(services[serviceID]);
   }
 
   /**
-   * Get the service class for a given language and service name.&lt;br&gt;
-   * For example: JsLingua.getService(&quot;Info&quot;, &quot;ara&quot;) Gives a class AraInfo
-   * @method getService
-   * @param  {string} serviceID The name of the service (the super-classe): &quot;Info&quot;, &quot;Lang&quot;, etc.
-   * @param  {string} langCode  The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
-   * @return {object}   The class that affords the service
-   */
+  * Get the service class for a given language and service name.&lt;br&gt;
+  * For example: JsLingua.getService(&quot;Info&quot;, &quot;ara&quot;) Gives a class AraInfo
+  * @method getService
+  * @param  {string} serviceID The name of the service (the super-classe): &quot;Info&quot;, &quot;Lang&quot;, etc.
+  * @param  {string} langCode  The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
+  * @return {object}   The class that affords the service
+  */
   JsLingua.getService = function(serviceID, langCode){
     if (services[serviceID] === undefined) return null;
     if (! langCode in services[serviceID]) return null;
@@ -200,6 +204,15 @@
     return version;
   }
 
+  /**
+   * To recover the direction of writing for the given language &lt;br&gt;
+   * This can be done using the info.js instance of the target language.
+   * But, the direction is used a lot for presentation, so a centralized
+   * version is to be afforded, so we don&#x27;t import the js file for each
+   * language in each webpage.
+   * @param  {string} langCode The language ISO639-2 code: &quot;ara&quot;, &quot;jpn&quot;, &quot;eng&quot;, etc.
+   * @return {String}     either &quot;rtl&quot; or &quot;ltr&quot;
+   */
   JsLingua.getDir = function(langCode){
 
     if (rtls.indexOf(langCode) &lt; 0) return &quot;ltr&quot;;
