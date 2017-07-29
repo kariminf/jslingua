@@ -40,7 +40,7 @@
         "eng": require("./eng/eng.trans.js")//English transliteration class
       },
       "Morpho": {
-        "ara": require("./ara/ara.morpho.js")//,//Arabic Morphology class
+        "ara": require("./ara/ara.morpho.js"),//Arabic Morphology class
         "jpn": require("./jpn/jpn.morpho.js"),//Japanese Morphology class
         "eng": require("./eng/eng.morpho.js")//English Morphology class
       }
