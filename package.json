@@ -4,15 +4,15 @@
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
-    "uglify-js": "^3.0.20",
+    "codecov": "^2.2.0",
     "expect.js": "^0.3.1",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.3",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "uglify-js": "^3.0.20"
   },
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
-    "prepublish": "bash min.sh"
   },
   "repository": {
     "type": "git",

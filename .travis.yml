@@ -1,14 +1,19 @@
 language: node_js
 node_js:
-- '7'
-script: npm install uglify-js -g
+  - '7'
+
+before_install:
+  - npm install codecov -g
+  
+after_success:
+  - codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
+
 deploy:
+  - npm install uglify-js -g
+  - bash min.sh
   provider: npm
   email: kariminfo0@gmail.com
   api_key:
     secure: UsrmnA255I3v7lm70rKI064OTKqbDR37l+h3BgSztcQshmHJdsEA1sTbNDApl3h8CKo6QMLo2iu2IRc/uzpqsAWrQHGDpzUdL1WldadrMBvqKFFxMc3Kc+hNRtwnwtJMvCqO5m9By/4xt3eeFqFcdzArDqwxlKLCbQlcEHjtDqS3BESuSQBnu1K3ZEOUPg/+a1syOoWVjsLSrdv8xYgeZJotaLH00H1K2y9NfMjNlhHxmajtOKIkSe8m31TuQooFO395T86K64Cu7n8xA4Sab3NUf+5we59Rt9IR7caAxp1Oa+r/9iF1jpH/yBisFTca4eYwWdBoT0O6t6zE9I5WwBEknRKF81H933P3h+1R1v5EXHaGb99HhT3QbcIX7UKNUDjgMcHvXEd26UiMLTTdwkIXyiS+QlueJa5URmdun7eCOXgfn5u8jgsmdYXyXPTZEUNRINTortnuxQtczezEluES/Pyz+fdW9lcxdx7TyBhHh+EJY7RS9JgbDXVlIxxCgDj2LeZaZwXxw79byvRi+jpf+Yp1r/bkuMRU6uzslOiWAGkEsrfr5ftkfsOXG2s+LFzpPE89ljyqWlrCv/Da2NLZ3kcfNor+2TCtjyEdO4M8DH7IRW7lxYKm5wEzjRzK+w+XCYnN+W0JUTSrLmqFoyXIt/t1/0EkiQN7SCwoBxY=
     on:
       branch: master
-
-after_success:
-  - ./bin/codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
