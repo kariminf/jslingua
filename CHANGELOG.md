@@ -11,7 +11,7 @@ This will break the projects developed on precedent versions.
 * FIX: Fixing bugs
 * DEL: Delete or deprecate some functions
 
-## Version 0.4.3 (2017-07-31)
+## Version 0.4.4 (2017-07-31)
 
 * ADD: Porter Stemmer for English Morpho
 
