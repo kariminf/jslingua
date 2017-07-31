@@ -13,6 +13,9 @@ This will break the projects developed on precedent versions.
 
 ## Current
 
+* ADD: Porter Stemmer for English Morpho
+
+## Version 0.4.0 (2017-07-30)
 * NEW: English Language
 * IMPROVE: Add unit tests and coverage reports
 

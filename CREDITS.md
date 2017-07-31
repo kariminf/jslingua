@@ -2,4 +2,7 @@
 # Contributors
 
 ## [Abdelkrime Aries](https://github.com/kariminf)
-Main contributor (<kariminfo0@gmail.com>)
+* Email: kariminfo0@gmail.com
+
+## [Lakhdar Benzahia](https://github.com/LBenzahia)
+* Email: lakhdar.benzahia@gmail.com
