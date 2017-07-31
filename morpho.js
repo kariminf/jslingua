@@ -16,8 +16,28 @@
   function Morpho(langCode) {
 
     this.code = langCode;
-    //Contains name of service and the function
+    //Contains stemmers
+    this.stemmers = {};
+    this.currentStemmer = "";
+    this.g = {
+      debugFunction: dummyDebug
+    };
+  }
 
+  /**
+   * A debugging function which do nothing
+   * @method dummyDebug
+   * @private
+   */
+  function dummyDebug() {}
+
+  /**
+   * A debugging function which pushes the arguments to the cosoles log
+   * @method realDebug
+   * @private
+   */
+  function realDebug(){
+    console.log(Array.prototype.slice.call(arguments).join(' '));
   }
 
   var C = Object.freeze;
@@ -204,10 +224,67 @@
   });
 
 
+  //=========================================
+	// Protected Static methods
+	// ========================================
+
+	/**
+	* Add new stemmer method
+	* @method newStemmer
+	* @protected
+	* @static
+	* @param  {string} stemmerName the name of the stemmer
+	* @param  {string} stemmerDesc   the description of the stemmer
+	* @param  {function} stemmerFct   the function stem(word)
+	*/
+	Morpho.newStemmer = function (stemmerName, stemmerDesc, stemmerFct) {
+		if (typeof stemmerName === "string" && stemmerName.length > 0){
+			this.stemmers[stemmerName] = {};
+			this.stemmers[stemmerName].desc = stemmerDesc;
+      this.stemmers[stemmerName].fct = stemmerFct;
+		}
+	}
+
   //===================================================
-  // Functions
+  // Prototypes
   //===================================================
   var Me = Morpho.prototype;
+
+  /**
+   * Enables the debugging messages
+   * @method enableDebug
+   */
+  Me.enableDebug = function(){
+    this.g.debugFunction = realDebug;
+  }
+
+  /**
+   * disables the debugging messages
+   * @method disableDebug
+   */
+  Me.disableDebug = function(){
+    this.g.debugFunction = dummyDebug;
+  }
+
+  /**
+	* Sets the current stemmer
+	* @method setCurrentStemmer
+	* @param {string} StemmerName stemmer method's name
+	*/
+	Me.setCurrentStemmer = function (StemmerName) {
+		if (StemmerName in this.stemmers){
+			this.currentStemmer = StemmerName;
+		}
+	}
+
+  /**
+	* Returns the list of available stemming methods
+	* @method availableStemmers
+	* @return {array}  Array of Strings containing stemmers names
+	*/
+	Me.availableStemmers = function(){
+		return Object.keys(this.stemmers);
+	}
 
   /**
    * This method is used to recover the name of the tense
@@ -299,7 +376,10 @@
    * @return {string}      stemmed word
    */
   Me.stem = function(word){
-    return word;
+    var stemmer = this.stemmers[this.currentStemmer];
+    if (typeof stemmer !== "object") return word;
+    if (typeof stemmer.fct !== "function") return word;
+    return stemmer.fct(word);
   }
 
   /**
