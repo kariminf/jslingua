@@ -19,8 +19,11 @@
   var G = F.Gender;
   var P = F.Person;
 
+  var g;
   function AraMorpho() {
     Morpho.call(this, "ara");
+    Morpho.newStemmer.call(this, "dummyStemmer", "Arabic Dummy stemmer", function(word){return word;});
+    g = this.g;
   }
 
   AraMorpho.prototype = Object.create(Morpho.prototype);

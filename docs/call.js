@@ -1,4 +1,4 @@
-//ar path = "../dist/";
+//var path = "../dist/";
 var path = "https://unpkg.com/jslingua@latest/dist/";
 
 function addScript(name){

@@ -43,6 +43,26 @@
     morpho = new (JsLingua.getService("Morpho", lang))();
     $("verb").dir = JsLingua.getDir(lang);
     $("conj").dir = JsLingua.getDir(lang);
+    $("stemI").dir = JsLingua.getDir(lang);
+    $("stemO").dir = JsLingua.getDir(lang);
+
+    var stemmers = morpho.availableStemmers();
+    var m = $("stemM");
+    var i = m.options.length;
+    while (i--) m.remove(i);
+
+    stemmers.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      m.add(option);
+    });
+
+    setMethod();
+  }
+
+  function setMethod(){
+    var sn = _($("stemM")).value;
+    if (sn) morpho.setCurrentStemmer(sn);
   }
 
   function htmlEntities(str) {
@@ -52,7 +72,7 @@
   }
 
   function conjugate() {
-    var verb = document.getElementById("verb").value;
+    var verb = $("verb").value;
     var result = "<table border=\"1\">";
 
     //console.log(morpho.getPronounOpts());
@@ -82,6 +102,10 @@
     $("conj").innerHTML = result;
   }
 
+  function stem(){
+    $("stemO").innerHTML = morpho.stem($("stemI").value);
+  }
+
   </script>
 
 </head>
@@ -99,6 +123,18 @@
           <label>Choose the language:</label>
           <select id="l" class="k-select" onchange="update()">
           </select>
+        </div>
+      </div>
+
+      <div class="pure-u-1">
+        <div class="kfs" >
+          <h1><span>Stemming</span></h1>
+          <label>Method</label>
+          <select id="stemM" class="k-select" onchange="setMethod()">
+          </select>
+          <input type="text" id="stemI" />
+          <button onclick="stem()" class="pure-button-secondary pure-button">Conjugate</button><br>
+          <div id="stemO" class="k-input pure-input-1" ></div>
         </div>
       </div>
 
