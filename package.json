@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
