@@ -96,11 +96,14 @@ for (i = 0; i < langIDs; i++){
 }
 ```
 
-## Changlog and credits
+## Community
 
-For Changlog, check [CHANGELOG.md](./CHANGELOG.md)
+All the C's are here:
 
-For Credits, check [CREDITS.md](./CREDITS.md)
+* [CODE_OF_CONDUCT](./CONTRIBUTING.md) : How to contribute to this project
+* [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) : Some recommendations must be followed for a healthy development environment.
+* Changlog: [CHANGELOG.md](./CHANGELOG.md) : Changes in every version
+* Credits: [CREDITS.md](./CREDITS.md) : List of contributors 
 
 ## License
 
