@@ -28,19 +28,8 @@ If you want to fix something yourself, you are welcome to join us.
 * First, [FORK](https://github.com/kariminf/jslingua/fork) this repository
 * Clone the fork
 * cd jslingua
-* nmp install 
+* nmp install
 
-If you want to test the web-site located in docs/
-* Install a local web server
-* Configure it to point on projects folder (lets say: 127.0.0.3)
-* In the file: docs/call.js, comment the 2nd line and uncomment the first
-```
-var path = "../dist/";
-//var path = "https://unpkg.com/jslingua@latest/dist/";
-```
-* Test the web-site on 127.0.0.3/docs
-* Before pushing the code, comment the first line and uncomment the second
-
-If the functionality added to the web-site is not yet ready to be released in npm;
-use "next" branch instead of "master".
-Otherwise, this will break the test web-site
+If you want to test the web-site:
+* ./server
+* then in your browser http://127.0.0.1:8086/
