@@ -307,6 +307,7 @@
 
   /**
    * This method is used to get personal pronouns characteristics
+   * @public
    * @method getPronounOpts
    * @return {array}  Array of different objects; each object contains the properties
    * of pronouns. For example: {person: Morpho.Feature.Person.First, number: Morpho.Feature.Number.Singular}
@@ -318,6 +319,7 @@
 
   /**
    * This function returns an array of available tenses
+   * @public
    * @method getTenses
    * @return {array}  Array of tenses available for the language
    */

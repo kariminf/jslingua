@@ -27,7 +27,8 @@ If you want to fix something yourself, you are welcome to join us.
 * Install Git, Npm
 * First, [FORK](https://github.com/kariminf/jslingua/fork) this repository
 * Clone the fork
-* Configure the server to point on this project (let's say 127.0.0.3)
+* cd jslingua
+* nmp install 
 
 If you want to test the web-site located in docs/
 * Install a local web server

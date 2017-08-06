@@ -3,25 +3,34 @@
 <head>
     <meta charset="utf-8">
     <title>trans.js - JsLingua API</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="stylesheet" href="../assets/css/custom.css">
-    <link rel="stylesheet" href="../assets/css/lucid.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../assets/css/marviq.css">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
-        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-            JsLingua API
-        </h1>
-	<div class="nav">
+    	<div class="nav">
+            <!-- <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+
+        JsLingua API
+        </h1 -->
+            <li>
+                <img alt="JsLingua API" src="../assets/img/logo.png" style="margin-top: 7px; margin-left: 25px; max-height: 30px" title="JsLingua API" />
+            </li>
+            <li class="divider-vertical"></li>
+            <li>
+                <h1 class="projectName">JsLingua API</h1>
+            </li>
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.4.0</b>
+                    API Docs for Version: <b>0.4.4</b>
                 </p>
             </li>
         </div>
@@ -33,283 +42,319 @@
 <div class="container">
     <div class="row">
         <div class="span3">
-<div>
-    <div id="sidebar">
-    <div id="classes">
-        <ul id="api-classes" class="nav nav-list">
-                <li><a href="../classes/AraInfo.html">AraInfo</a></li>
-                <li><a href="../classes/AraLang.html">AraLang</a></li>
-                <li><a href="../classes/AraTrans.html">AraTrans</a></li>
-                <li><a href="../classes/EngInfo.html">EngInfo</a></li>
-                <li><a href="../classes/EngLang.html">EngLang</a></li>
-                <li><a href="../classes/EngTrans.html">EngTrans</a></li>
-                <li><a href="../classes/Info.html">Info</a></li>
-                <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
-                <li><a href="../classes/JpnLang.html">JpnLang</a></li>
-                <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
-                <li><a href="../classes/JsLingua.html">JsLingua</a></li>
-                <li><a href="../classes/Lang.html">Lang</a></li>
-                <li><a href="../classes/Morpho.html">Morpho</a></li>
-                <li><a href="../classes/Tools.html">Tools</a></li>
-                <li><a href="../classes/Trans.html">Trans</a></li>
-        </ul>
-    </div>
-    </div>
-</div>
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#collections" data-toggle="tab">Collections</a></li>
+	                <li><a href="#models" data-toggle="tab">Models</a></li>
+	                <li><a href="#views" data-toggle="tab">Views</a></li>
+	                <li><a href="#services" data-toggle="tab">Services</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AraInfo.html">AraInfo</a></li>
+	                            <li><a href="../classes/AraLang.html">AraLang</a></li>
+	                            <li><a href="../classes/AraTrans.html">AraTrans</a></li>
+	                            <li><a href="../classes/EngInfo.html">EngInfo</a></li>
+	                            <li><a href="../classes/EngLang.html">EngLang</a></li>
+	                            <li><a href="../classes/EngTrans.html">EngTrans</a></li>
+	                            <li><a href="../classes/Info.html">Info</a></li>
+	                            <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
+	                            <li><a href="../classes/JpnLang.html">JpnLang</a></li>
+	                            <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
+	                            <li><a href="../classes/JsLingua.html">JsLingua</a></li>
+	                            <li><a href="../classes/Lang.html">Lang</a></li>
+	                            <li><a href="../classes/Morpho.html">Morpho</a></li>
+	                            <li><a href="../classes/Tools.html">Tools</a></li>
+	                            <li><a href="../classes/Trans.html">Trans</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="collections">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="models">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="views">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="services">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	            </div>
+	        </div>
+	    </div>
         </div>
         <div class="span9">
-    <form id="options-form" class="form-inline pull-right">
-        Show:
-        <label for="api-show-inherited" class="checkbox">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected" class="checkbox">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private" class="checkbox">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated" class="checkbox">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </form>
-
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<div class="page-header">
-    <h1>trans.js <small>File</small></h1>
-</div>
-
-<div class="file">
-    <pre class="prettyprint linenums">
-(function(){
-
-	if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
-		module.exports = Trans;
-	} else {
-		window.JsLingua.Cls.Trans = Trans;
-	}
-
-	/**
-	* This function returns another function which do the transformation
-	* @method getTransliterator
-	* @private
-	* @param  {array} srcTbl array which contains the source strings
-	* @param  {array} dstTbl array which contains the destination strings
-	* @return {function}        a function which takes a string and transforme it using
-	* srcTbl and dstTbl
-	*/
-	function getTransliterator(srcTbl, dstTbl) {
-		return function(text) {
-			var result = text;
-			var i;
-			for (i=0; i&lt; srcTbl.length; i++){
-				var keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|\[\]\/\\])/g, &quot;\\$1&quot;);
-				result = result.replace(new RegExp(keyEscaped, &#x27;g&#x27;), dstTbl[i]);
-			}
-			return result;
-		}
-	}
-
-	/**
-	* translateration of the language words
-	* @class Trans
-	* @module JsLingua
-	* @constructor
-	* @param {string} langCode the code of the language: ara, jpn, etc.
-	*/
-	function Trans(langCode) {
-		this.code = langCode;
-		this.methods = {};
-		//default method (here we will take the first added one)
-		this.defMethod = &quot;&quot;;
-
-		this.currentMethod = &quot;&quot;;
-	}
-
-	//=========================================
-	// Protected Static methods
-	// ========================================
-
-	/**
-	* Add new transliteration method using two parallele tables
-	* @method newMethod
-	* @protected
-	* @static
-	* @param  {string} methodName the name of the method
-	* @param  {array} langTbl    array of strigs, the languages characters
-	* @param  {array} transTbl   array of strigs, their respective representations
-	*/
-	Trans.newMethod = function (methodName, langTbl, transTbl) {
-		if (typeof methodName === &quot;string&quot; &amp;&amp; methodName.length &gt; 0){
-			this.methods[methodName] = {};
-			if (this.defMethod.length &lt; 1)
-			this.currentMethod = this.defMethod = methodName;
-			this.methods[methodName].trans = this.methods[methodName].untrans = function(text){
-				return text;
-			};
-			if (Array.isArray(langTbl)  &amp;&amp; Array.isArray(transTbl))
-			if (langTbl.length  === transTbl.length){
-				this.methods[methodName].trans = getTransliterator(langTbl, transTbl);
-				this.methods[methodName].untrans = getTransliterator(transTbl, langTbl);
-			}
-		}
-	}
-
-	/**
-	* Set transliteration methods directly
-	* @method setTransUntrasMethods
-	* @protected
-	* @static
-	* @param {string} methodName the name of the method
-	* @param {function} trans      function of transliteration
-	* @param {function} untrans    function of untransliteration
-	*/
-	Trans.setTransUntrasMethods = function (methodName, trans, untrans) {
-		if (methodName in this.methods){
-			if (typeof trans === &quot;function&quot;){
-				this.methods[methodName].trans = trans;
-			}
-			if (typeof untrans === &quot;function&quot;){
-				this.methods[methodName].untrans = untrans;
-			}
-		}
-	}
-
-	/**
-	* add pre- and post-transliteration functions to a method
-	* @method addTransPrePostMethods
-	* @protected
-	* @static
-	* @param {string} methodName the name of the method
-	* @param {function} preFunc    function that executes before transliteration;
-	* It takes a string and returns a string
-	* @param {function} postFunc   function that executes after transliteration;
-	* It takes a string and returns a string
-	*/
-	Trans.addTransPrePostMethods = function (methodName, preFunc, postFunc) {
-		if (methodName in this.methods){
-			if (typeof preFunc === &quot;function&quot;){
-				this.methods[methodName].preTrans = preFunc;
-			}
-			if (typeof postFunc === &quot;function&quot;){
-				this.methods[methodName].postTrans = postFunc;
-			}
-		}
-	}
-
-	/**
-	* add pre- and post-untransliteration functions to a method
-	* @method addUntransPrePostMethods
-	* @protected
-	* @static
-	* @param {string} methodName the name of the method
-	* @param {function} preFunc    function that executes before untransliteration;
-	* It takes a string and returns a string
-	* @param {function} postFunc   function that executes after untransliteration;
-	* It takes a string and returns a string
-	*/
-	Trans.addUntransPrePostMethods = function (methodName, preFunc, postFunc) {
-		if (methodName in this.methods){
-			if (typeof preFunc === &quot;function&quot;){
-				this.methods[methodName].preUntrans = preFunc;
-			}
-			if (typeof postFunc === &quot;function&quot;){
-				this.methods[methodName].postUntrans = postFunc;
-			}
-		}
-	}
-
-
-	//=============================================
-	// Prototypes
-	// ============================================
-	var Me = Trans.prototype;
-
-
-	/**
-	* Sets the current method to be used for [un]transliteration
-	* @method setCurrentMethod
-	* @param {string} methodName method&#x27;s name
-	*/
-	Me.setCurrentMethod = function (methodName) {
-		if (methodName in this.methods){
-			this.currentMethod = methodName;
-		}
-	}
-
-	/**
-	* Returns the list of available transliteration methods
-	* @method availableMethods
-	* @return {array}  Array of Strings containing methods names
-	*/
-	Me.availableMethods = function(){
-		return Object.keys(this.methods);
-	}
-
-	/**
-	* gets the language&#x27;s code
-	* @method getCode
-	* @return {string}  the language&#x27;s code
-	*/
-	Me.getCode = function(){
-		return this.code;
-	}
-
-	/**
-	* transliterate the text using the current method
-	* @method transliterate
-	* @param  {string} text the untransliterated text (original)
-	* @return {string}      the transliterated text
-	*/
-	Me.transliterate = function(text){
-		var result = text;
-
-		if (typeof this.methods[this.currentMethod].preTrans === &quot;function&quot;){
-			result = this.methods[this.currentMethod].preTrans(result);
-		}
-
-		result = this.methods[this.currentMethod].trans(result);
-
-		if (typeof this.methods[this.currentMethod].postTrans === &quot;function&quot;){
-			result = this.methods[this.currentMethod].postTrans(result);
-		}
-		return result;
-	}
-
-	/**
-	* untransliterate the text using the current method
-	* @method untransliterate
-	* @param  {string} text translaterated text
-	* @return {string}      untranslaterated text (original text)
-	*/
-	Me.untransliterate = function(text){
-		var result = text;
-
-		if (typeof this.methods[this.currentMethod].preUntrans === &quot;function&quot;){
-			result = this.methods[this.currentMethod].preUntrans(result);
-		}
-
-		result = this.methods[this.currentMethod].untrans(result);
-
-		if (typeof this.methods[this.currentMethod].postUntrans === &quot;function&quot;){
-			result = this.methods[this.currentMethod].postUntrans(result);
-		}
-		return result;
-	}
-
-}());
-
-    </pre>
-</div>
+                        <div class="page-header">
+                            <h1>trans.js <small>File</small></h1>
+                        </div>
+                        
+                        <div class="file">
+                            <pre class="prettyprint linenums">
+                        (function(){
+                        
+                        	if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
+                        		module.exports = Trans;
+                        	} else {
+                        		window.JsLingua.Cls.Trans = Trans;
+                        	}
+                        
+                        	/**
+                        	* This function returns another function which do the transformation
+                        	* @method getTransliterator
+                        	* @private
+                        	* @param  {array} srcTbl array which contains the source strings
+                        	* @param  {array} dstTbl array which contains the destination strings
+                        	* @return {function}        a function which takes a string and transforme it using
+                        	* srcTbl and dstTbl
+                        	*/
+                        	function getTransliterator(srcTbl, dstTbl) {
+                        		return function(text) {
+                        			var result = text;
+                        			var i;
+                        			for (i=0; i&lt; srcTbl.length; i++){
+                        				var keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|\[\]\/\\])/g, &quot;\\$1&quot;);
+                        				result = result.replace(new RegExp(keyEscaped, &#x27;g&#x27;), dstTbl[i]);
+                        			}
+                        			return result;
+                        		}
+                        	}
+                        
+                        	/**
+                        	* translateration of the language words
+                        	* @class Trans
+                        	* @module JsLingua
+                        	* @constructor
+                        	* @param {string} langCode the code of the language: ara, jpn, etc.
+                        	*/
+                        	function Trans(langCode) {
+                        		this.code = langCode;
+                        		this.methods = {};
+                        		//default method (here we will take the first added one)
+                        		this.defMethod = &quot;&quot;;
+                        
+                        		this.currentMethod = &quot;&quot;;
+                        	}
+                        
+                        	//=========================================
+                        	// Protected Static methods
+                        	// ========================================
+                        
+                        	/**
+                        	* Add new transliteration method using two parallele tables
+                        	* @method newMethod
+                        	* @protected
+                        	* @static
+                        	* @param  {string} methodName the name of the method
+                        	* @param  {array} langTbl    array of strigs, the languages characters
+                        	* @param  {array} transTbl   array of strigs, their respective representations
+                        	*/
+                        	Trans.newMethod = function (methodName, langTbl, transTbl) {
+                        		if (typeof methodName === &quot;string&quot; &amp;&amp; methodName.length &gt; 0){
+                        			this.methods[methodName] = {};
+                        			if (this.defMethod.length &lt; 1)
+                        			this.currentMethod = this.defMethod = methodName;
+                        			this.methods[methodName].trans = this.methods[methodName].untrans = function(text){
+                        				return text;
+                        			};
+                        			if (Array.isArray(langTbl)  &amp;&amp; Array.isArray(transTbl))
+                        			if (langTbl.length  === transTbl.length){
+                        				this.methods[methodName].trans = getTransliterator(langTbl, transTbl);
+                        				this.methods[methodName].untrans = getTransliterator(transTbl, langTbl);
+                        			}
+                        		}
+                        	}
+                        
+                        	/**
+                        	* Set transliteration methods directly
+                        	* @method setTransUntrasMethods
+                        	* @protected
+                        	* @static
+                        	* @param {string} methodName the name of the method
+                        	* @param {function} trans      function of transliteration
+                        	* @param {function} untrans    function of untransliteration
+                        	*/
+                        	Trans.setTransUntrasMethods = function (methodName, trans, untrans) {
+                        		if (methodName in this.methods){
+                        			if (typeof trans === &quot;function&quot;){
+                        				this.methods[methodName].trans = trans;
+                        			}
+                        			if (typeof untrans === &quot;function&quot;){
+                        				this.methods[methodName].untrans = untrans;
+                        			}
+                        		}
+                        	}
+                        
+                        	/**
+                        	* add pre- and post-transliteration functions to a method
+                        	* @method addTransPrePostMethods
+                        	* @protected
+                        	* @static
+                        	* @param {string} methodName the name of the method
+                        	* @param {function} preFunc    function that executes before transliteration;
+                        	* It takes a string and returns a string
+                        	* @param {function} postFunc   function that executes after transliteration;
+                        	* It takes a string and returns a string
+                        	*/
+                        	Trans.addTransPrePostMethods = function (methodName, preFunc, postFunc) {
+                        		if (methodName in this.methods){
+                        			if (typeof preFunc === &quot;function&quot;){
+                        				this.methods[methodName].preTrans = preFunc;
+                        			}
+                        			if (typeof postFunc === &quot;function&quot;){
+                        				this.methods[methodName].postTrans = postFunc;
+                        			}
+                        		}
+                        	}
+                        
+                        	/**
+                        	* add pre- and post-untransliteration functions to a method
+                        	* @method addUntransPrePostMethods
+                        	* @protected
+                        	* @static
+                        	* @param {string} methodName the name of the method
+                        	* @param {function} preFunc    function that executes before untransliteration;
+                        	* It takes a string and returns a string
+                        	* @param {function} postFunc   function that executes after untransliteration;
+                        	* It takes a string and returns a string
+                        	*/
+                        	Trans.addUntransPrePostMethods = function (methodName, preFunc, postFunc) {
+                        		if (methodName in this.methods){
+                        			if (typeof preFunc === &quot;function&quot;){
+                        				this.methods[methodName].preUntrans = preFunc;
+                        			}
+                        			if (typeof postFunc === &quot;function&quot;){
+                        				this.methods[methodName].postUntrans = postFunc;
+                        			}
+                        		}
+                        	}
+                        
+                        
+                        	//=============================================
+                        	// Prototypes
+                        	// ============================================
+                        	var Me = Trans.prototype;
+                        
+                        
+                        	/**
+                        	* Sets the current method to be used for [un]transliteration
+                        	* @method setCurrentMethod
+                        	* @param {string} methodName method&#x27;s name
+                        	*/
+                        	Me.setCurrentMethod = function (methodName) {
+                        		if (methodName in this.methods){
+                        			this.currentMethod = methodName;
+                        		}
+                        	}
+                        
+                        	/**
+                        	* Returns the list of available transliteration methods
+                        	* @method availableMethods
+                        	* @return {array}  Array of Strings containing methods names
+                        	*/
+                        	Me.availableMethods = function(){
+                        		return Object.keys(this.methods);
+                        	}
+                        
+                        	/**
+                        	* gets the language&#x27;s code
+                        	* @method getCode
+                        	* @return {string}  the language&#x27;s code
+                        	*/
+                        	Me.getCode = function(){
+                        		return this.code;
+                        	}
+                        
+                        	/**
+                        	* transliterate the text using the current method
+                        	* @method transliterate
+                        	* @param  {string} text the untransliterated text (original)
+                        	* @return {string}      the transliterated text
+                        	*/
+                        	Me.transliterate = function(text){
+                        		var result = text;
+                        
+                        		if (typeof this.methods[this.currentMethod].preTrans === &quot;function&quot;){
+                        			result = this.methods[this.currentMethod].preTrans(result);
+                        		}
+                        
+                        		result = this.methods[this.currentMethod].trans(result);
+                        
+                        		if (typeof this.methods[this.currentMethod].postTrans === &quot;function&quot;){
+                        			result = this.methods[this.currentMethod].postTrans(result);
+                        		}
+                        		return result;
+                        	}
+                        
+                        	/**
+                        	* untransliterate the text using the current method
+                        	* @method untransliterate
+                        	* @param  {string} text translaterated text
+                        	* @return {string}      untranslaterated text (original text)
+                        	*/
+                        	Me.untransliterate = function(text){
+                        		var result = text;
+                        
+                        		if (typeof this.methods[this.currentMethod].preUntrans === &quot;function&quot;){
+                        			result = this.methods[this.currentMethod].preUntrans(result);
+                        		}
+                        
+                        		result = this.methods[this.currentMethod].untrans(result);
+                        
+                        		if (typeof this.methods[this.currentMethod].postUntrans === &quot;function&quot;){
+                        			result = this.methods[this.currentMethod].postUntrans(result);
+                        		}
+                        		return result;
+                        	}
+                        
+                        }());
+                        
+                            </pre>
+                        </div>
                     </div>
                 </div>
             </div>

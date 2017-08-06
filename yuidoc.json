@@ -1,13 +1,13 @@
 {
   "name": "JsLingua API",
   "description": "Language processing API",
-  "version": "0.4.0",
-  "url": "http://kariminf.github.io/JsLingua/",
+  "version": "0.4.4",
+  "url": "http://kariminf.github.io/jslingua/",
   "options": {
     "linkNatives": "true",
-    "ignorePaths": [ "docs", "out", "test", ".git" ],
+    "ignorePaths": [ "docs", "out", "test", ".git", "dist" ],
     "outdir": "./docs/docs",
-    "themedir": "node_modules/yuidoc-lucid-theme",
-    "helpers": ["node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
+    "themedir": "node_modules/yuidoc-marviq-theme",
+    "helpers": ["node_modules/yuidoc-marviq-theme/helpers/helpers.js"]
   }
 }

@@ -1,0 +1,47 @@
+h1, h2, h3, h4, h5 {
+    color: #322885;
+}
+
+.navbar .nav .projectName {
+    color: #474747;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.navbar .nav .navbar-text {
+    margin-top: 2px;
+}
+
+.classHeader {
+    color: #474747;
+    margin-bottom: 5px;
+}
+
+.classHeader .className {
+    /*color: #d14;*/
+    color:  #322885;
+}
+
+.classHeader .extends {
+    color:  #322885;
+}
+
+.page-header .version {
+    float: right;
+}
+
+.page-header .authors {
+    margin-bottom: 5px;
+}
+
+.classDescription span {
+    font-weight: bold;
+}
+.classDescription p {
+    display: inline-block;
+}
+
+.element-key {
+    font-weight:bold;
+    margin-right: 5px;
+}

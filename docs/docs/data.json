@@ -2,8 +2,8 @@
     "project": {
         "name": "JsLingua API",
         "description": "Language processing API",
-        "version": "0.4.0",
-        "url": "http://kariminf.github.io/JsLingua/"
+        "version": "0.4.4",
+        "url": "http://kariminf.github.io/jslingua/"
     },
     "files": {
         "ara/ara.info.js": {
@@ -30,6 +30,13 @@
             "classes": {
                 "AraTrans": 1
             },
+            "fors": {},
+            "namespaces": {}
+        },
+        "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js": {
+            "name": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
+            "modules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {}
         },
@@ -577,6 +584,12 @@
                 "type": "String"
             },
             "class": "AraTrans"
+        },
+        {
+            "file": "docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js",
+            "line": 1,
+            "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "class": "EngInfo"
         },
         {
             "file": "eng/eng.lang.js",
@@ -1272,7 +1285,29 @@
         },
         {
             "file": "morpho.js",
-            "line": 25,
+            "line": 27,
+            "description": "A debugging function which do nothing",
+            "itemtype": "method",
+            "name": "dummyDebug",
+            "access": "private",
+            "tagname": "",
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 34,
+            "description": "A debugging function which pushes the arguments to the cosoles log",
+            "itemtype": "method",
+            "name": "realDebug",
+            "access": "private",
+            "tagname": "",
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 45,
             "description": "The part of speech: Noun, Verb, Adjective,\nAdverb, Preposition, Pronoun",
             "access": "Morpho.Feature.POS",
             "itemtype": "attribute",
@@ -1285,7 +1320,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 43,
+            "line": 63,
             "description": "The tense: Past, Present, Future",
             "access": "Morpho.Feature.Tense",
             "itemtype": "attribute",
@@ -1298,7 +1333,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 57,
+            "line": 77,
             "description": "The aspect: Simple, Continuous, Perfect, PerfectContinuous",
             "access": "Morpho.Feature.Aspect",
             "itemtype": "attribute",
@@ -1311,7 +1346,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 72,
+            "line": 92,
             "description": "The mood: Indicative, Subjunctive, Conditional,\nOptative, Imperative, Jussive, Potential,\nHypothetical, Inferential",
             "access": "Morpho.Feature.Mood",
             "itemtype": "attribute",
@@ -1324,7 +1359,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 94,
+            "line": 114,
             "description": "The voice: Active,Passive, Middle",
             "access": "Morpho.Feature.Voice",
             "itemtype": "attribute",
@@ -1337,7 +1372,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 108,
+            "line": 128,
             "description": "The number: Singular, Dual, Plural",
             "access": "Morpho.Feature.Number",
             "itemtype": "attribute",
@@ -1350,7 +1385,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 122,
+            "line": 142,
             "description": "The case: Nominative, Accusative, Genitive, Dative,\nPrepositional, Ablative, Instrumental, Vocative",
             "access": "Morpho.Feature.Case",
             "itemtype": "attribute",
@@ -1363,7 +1398,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 142,
+            "line": 162,
             "description": "The person: First, Second, Third.",
             "access": "Morpho.Feature.Person",
             "itemtype": "attribute",
@@ -1376,7 +1411,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 156,
+            "line": 176,
             "description": "The gender: Masculine, Feminine, Neuter.",
             "access": "Morpho.Feature.Gender",
             "itemtype": "attribute",
@@ -1389,7 +1424,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 170,
+            "line": 190,
             "description": "This is a map to different morphology features:\n<ul>\n<li>POS</li>\n<li>Tense</li>\n<li>Aspect</li>\n<li>Mood</li>\n<li>Voice</li>\n<li>Number: It returns <a href=\"#attr_Num\">Num</a></li>\n<li>Case: It returns <a href=\"#attr_Case\">Case</a></li>\n<li>Person: It returns <a href=\"#attr_Person\">Person</a></li>\n<li>Gender: It returns <a href=\"#attr_Gender\">Gender</a></li>\n</ul>\nWe can access these features either by:<br>\nMorpho.Feature.feature_name <br>\nOr: <br>\nMorpho.Feature[\"feature_name\"]",
             "itemtype": "attribute",
             "name": "Feature",
@@ -1402,7 +1437,83 @@
         },
         {
             "file": "morpho.js",
-            "line": 212,
+            "line": 231,
+            "description": "Add new stemmer method",
+            "itemtype": "method",
+            "name": "newStemmer",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "params": [
+                {
+                    "name": "stemmerName",
+                    "description": "the name of the stemmer",
+                    "type": "String"
+                },
+                {
+                    "name": "stemmerDesc",
+                    "description": "the description of the stemmer",
+                    "type": "String"
+                },
+                {
+                    "name": "stemmerFct",
+                    "description": "the function stem(word)",
+                    "type": "Function"
+                }
+            ],
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 253,
+            "description": "Enables the debugging messages",
+            "itemtype": "method",
+            "name": "enableDebug",
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 261,
+            "description": "disables the debugging messages",
+            "itemtype": "method",
+            "name": "disableDebug",
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 269,
+            "description": "Sets the current stemmer",
+            "itemtype": "method",
+            "name": "setCurrentStemmer",
+            "params": [
+                {
+                    "name": "StemmerName",
+                    "description": "stemmer method's name",
+                    "type": "String"
+                }
+            ],
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 280,
+            "description": "Returns the list of available stemming methods",
+            "itemtype": "method",
+            "name": "availableStemmers",
+            "return": {
+                "description": "Array of Strings containing stemmers names",
+                "type": "Array"
+            },
+            "class": "Morpho",
+            "module": "JsLingua"
+        },
+        {
+            "file": "morpho.js",
+            "line": 289,
             "description": "This method is used to recover the name of the tense",
             "params": [
                 {
@@ -1420,8 +1531,10 @@
         },
         {
             "file": "morpho.js",
-            "line": 231,
+            "line": 308,
             "description": "This method is used to get personal pronouns characteristics",
+            "access": "public",
+            "tagname": "",
             "itemtype": "method",
             "name": "getPronounOpts",
             "return": {
@@ -1433,8 +1546,10 @@
         },
         {
             "file": "morpho.js",
-            "line": 242,
+            "line": 320,
             "description": "This function returns an array of available tenses",
+            "access": "public",
+            "tagname": "",
             "itemtype": "method",
             "name": "getTenses",
             "return": {
@@ -1446,7 +1561,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 255,
+            "line": 334,
             "description": "This function is used for verb conjugation",
             "itemtype": "method",
             "name": "conjugate",
@@ -1471,7 +1586,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 266,
+            "line": 345,
             "description": "Get the personal pronoun using options like: person, gender, etc.<br>\nfor example, the parameters for the personal pronoun \"I\": <br>\n```\n   {\n     person: Morpho.Feature.Person.First,\n     number: Morpho.Feature.Number.Singular\n   }\n```",
             "itemtype": "method",
             "name": "getPronounName",
@@ -1491,7 +1606,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 283,
+            "line": 362,
             "description": "This function is used for noun inflexion<br>\nFor example: noun to plural nouns",
             "itemtype": "method",
             "name": "declenseNoun",
@@ -1516,7 +1631,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 295,
+            "line": 374,
             "description": "Stem a word: delete prefixes, suffixes and infixes",
             "itemtype": "method",
             "name": "stem",
@@ -1536,7 +1651,7 @@
         },
         {
             "file": "morpho.js",
-            "line": 305,
+            "line": 387,
             "description": "lemmatize a word: return it to its origin",
             "itemtype": "method",
             "name": "lemmatize",
@@ -1823,31 +1938,27 @@
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:25"
+            "line": " morpho.js:45"
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:43"
+            "line": " morpho.js:63"
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:57"
+            "line": " morpho.js:77"
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:72"
+            "line": " morpho.js:92"
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:94"
+            "line": " morpho.js:114"
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:108"
-        },
-        {
-            "message": "unknown tag: access",
-            "line": " morpho.js:122"
+            "line": " morpho.js:128"
         },
         {
             "message": "unknown tag: access",
@@ -1855,11 +1966,19 @@
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:156"
+            "line": " morpho.js:162"
         },
         {
             "message": "unknown tag: access",
-            "line": " morpho.js:170"
+            "line": " morpho.js:176"
+        },
+        {
+            "message": "unknown tag: access",
+            "line": " morpho.js:190"
+        },
+        {
+            "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "line": " docs/docs/assets/vendor/bootstrap/js/bootstrap.min.js:1"
         },
         {
             "message": "Missing item type",
@@ -1871,7 +1990,7 @@
         },
         {
             "message": "Missing item type\nThis method is used to recover the name of the tense",
-            "line": " morpho.js:212"
+            "line": " morpho.js:289"
         }
     ]
 }

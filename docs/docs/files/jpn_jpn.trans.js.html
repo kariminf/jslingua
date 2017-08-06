@@ -3,25 +3,34 @@
 <head>
     <meta charset="utf-8">
     <title>jpn/jpn.trans.js - JsLingua API</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="stylesheet" href="../assets/css/custom.css">
-    <link rel="stylesheet" href="../assets/css/lucid.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../assets/css/marviq.css">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
-        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-            JsLingua API
-        </h1>
-	<div class="nav">
+    	<div class="nav">
+            <!-- <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+
+        JsLingua API
+        </h1 -->
+            <li>
+                <img alt="JsLingua API" src="../assets/img/logo.png" style="margin-top: 7px; margin-left: 25px; max-height: 30px" title="JsLingua API" />
+            </li>
+            <li class="divider-vertical"></li>
+            <li>
+                <h1 class="projectName">JsLingua API</h1>
+            </li>
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.4.0</b>
+                    API Docs for Version: <b>0.4.4</b>
                 </p>
             </li>
         </div>
@@ -33,667 +42,703 @@
 <div class="container">
     <div class="row">
         <div class="span3">
-<div>
-    <div id="sidebar">
-    <div id="classes">
-        <ul id="api-classes" class="nav nav-list">
-                <li><a href="../classes/AraInfo.html">AraInfo</a></li>
-                <li><a href="../classes/AraLang.html">AraLang</a></li>
-                <li><a href="../classes/AraTrans.html">AraTrans</a></li>
-                <li><a href="../classes/EngInfo.html">EngInfo</a></li>
-                <li><a href="../classes/EngLang.html">EngLang</a></li>
-                <li><a href="../classes/EngTrans.html">EngTrans</a></li>
-                <li><a href="../classes/Info.html">Info</a></li>
-                <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
-                <li><a href="../classes/JpnLang.html">JpnLang</a></li>
-                <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
-                <li><a href="../classes/JsLingua.html">JsLingua</a></li>
-                <li><a href="../classes/Lang.html">Lang</a></li>
-                <li><a href="../classes/Morpho.html">Morpho</a></li>
-                <li><a href="../classes/Tools.html">Tools</a></li>
-                <li><a href="../classes/Trans.html">Trans</a></li>
-        </ul>
-    </div>
-    </div>
-</div>
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#collections" data-toggle="tab">Collections</a></li>
+	                <li><a href="#models" data-toggle="tab">Models</a></li>
+	                <li><a href="#views" data-toggle="tab">Views</a></li>
+	                <li><a href="#services" data-toggle="tab">Services</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AraInfo.html">AraInfo</a></li>
+	                            <li><a href="../classes/AraLang.html">AraLang</a></li>
+	                            <li><a href="../classes/AraTrans.html">AraTrans</a></li>
+	                            <li><a href="../classes/EngInfo.html">EngInfo</a></li>
+	                            <li><a href="../classes/EngLang.html">EngLang</a></li>
+	                            <li><a href="../classes/EngTrans.html">EngTrans</a></li>
+	                            <li><a href="../classes/Info.html">Info</a></li>
+	                            <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
+	                            <li><a href="../classes/JpnLang.html">JpnLang</a></li>
+	                            <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
+	                            <li><a href="../classes/JsLingua.html">JsLingua</a></li>
+	                            <li><a href="../classes/Lang.html">Lang</a></li>
+	                            <li><a href="../classes/Morpho.html">Morpho</a></li>
+	                            <li><a href="../classes/Tools.html">Tools</a></li>
+	                            <li><a href="../classes/Trans.html">Trans</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="collections">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="models">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="views">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="services">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	            </div>
+	        </div>
+	    </div>
         </div>
         <div class="span9">
-    <form id="options-form" class="form-inline pull-right">
-        Show:
-        <label for="api-show-inherited" class="checkbox">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected" class="checkbox">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private" class="checkbox">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated" class="checkbox">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </form>
-
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<div class="page-header">
-    <h1>jpn/jpn.trans.js <small>File</small></h1>
-</div>
-
-<div class="file">
-    <pre class="prettyprint linenums">
-(function(){
-  var Trans = {};
-  if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
-    Trans = require(&quot;../trans.js&quot;);
-    module.exports = JpnTrans;
-  } else {
-    Trans = window.JsLingua.Cls.Trans;
-    //window.JpnTrans = JpnTrans;
-    window.JsLingua.addService(&quot;Trans&quot;, &quot;jpn&quot;, JpnTrans);
-  }
-
-  var hiragana = [
-    &quot;が&quot;,
-    &quot;ぎ&quot;,
-    &quot;ぐ&quot;,
-    &quot;げ&quot;,
-    &quot;ご&quot;,
-    &quot;ざ&quot;,
-    &quot;じ&quot;,
-    &quot;じ&quot;,
-    &quot;ず&quot;,
-    &quot;ぜ&quot;,
-    &quot;ぞ&quot;,
-    &quot;だ&quot;,
-    &quot;ぢ&quot;,
-    &quot;ぢ&quot;,
-    &quot;づ&quot;,
-    &quot;で&quot;,
-    &quot;ど&quot;,
-    &quot;ば&quot;,
-    &quot;び&quot;,
-    &quot;ぶ&quot;,
-    &quot;べ&quot;,
-    &quot;ぼ&quot;,
-    &quot;ぱ&quot;,
-    &quot;ぴ&quot;,
-    &quot;ぷ&quot;,
-    &quot;ぺ&quot;,
-    &quot;ぽ&quot;,
-    &quot;ふぁ&quot;,
-    &quot;ふぉ&quot;,
-    &quot;ふぃ&quot;,
-    &quot;か&quot;,
-    &quot;き&quot;,
-    &quot;く&quot;,
-    &quot;け&quot;,
-    &quot;こ&quot;,
-    &quot;た&quot;,
-    &quot;ち&quot;,
-    &quot;つ&quot;,
-    &quot;て&quot;,
-    &quot;と&quot;,
-    &quot;さ&quot;,
-    &quot;し&quot;,
-    &quot;し&quot;,
-    &quot;す&quot;,
-    &quot;せ&quot;,
-    &quot;そ&quot;,
-    &quot;な&quot;,
-    &quot;に&quot;,
-    &quot;ぬ&quot;,
-    &quot;ね&quot;,
-    &quot;の&quot;,
-    &quot;は&quot;,
-    &quot;ひ&quot;,
-    &quot;ふ&quot;,
-    &quot;へ&quot;,
-    &quot;ほ&quot;,
-    &quot;ま&quot;,
-    &quot;み&quot;,
-    &quot;む&quot;,
-    &quot;め&quot;,
-    &quot;も&quot;,
-    &quot;や&quot;,
-    &quot;ゆ&quot;,
-    &quot;よ&quot;,
-    &quot;ら&quot;,
-    &quot;り&quot;,
-    &quot;る&quot;,
-    &quot;れ&quot;,
-    &quot;ろ&quot;,
-    &quot;わ&quot;,
-    &quot;を&quot;,
-    &quot;あ&quot;,
-    &quot;い&quot;,
-    &quot;う&quot;,
-    &quot;え&quot;,
-    &quot;お&quot;,
-    &quot;ん&quot;,
-    &quot;ゃ&quot;,
-    &quot;ぇ&quot;,
-    &quot;ゅ&quot;,
-    &quot;ぃ&quot;,
-    &quot;ょ&quot;
-  ];
-
-  //https://en.wikipedia.org/wiki/Hepburn_romanization
-  var hepburn = [
-    &quot;ga&quot;,
-    &quot;gi&quot;,
-    &quot;gu&quot;,
-    &quot;ge&quot;,
-    &quot;go&quot;,
-    &quot;za&quot;,
-    &quot;ji&quot;,
-    &quot;zi&quot;,
-    &quot;zu&quot;,
-    &quot;ze&quot;,
-    &quot;zo&quot;,
-    &quot;da&quot;,
-    &quot;ji&quot;,
-    &quot;di&quot;,
-    &quot;zu&quot;,
-    &quot;de&quot;,
-    &quot;do&quot;,
-    &quot;ba&quot;,
-    &quot;bi&quot;,
-    &quot;bu&quot;,
-    &quot;be&quot;,
-    &quot;bo&quot;,
-    &quot;pa&quot;,
-    &quot;pi&quot;,
-    &quot;pu&quot;,
-    &quot;pe&quot;,
-    &quot;po&quot;,
-    &quot;fa&quot;,
-    &quot;fo&quot;,
-    &quot;fi&quot;,
-    &quot;ka&quot;,
-    &quot;ki&quot;,
-    &quot;ku&quot;,
-    &quot;ke&quot;,
-    &quot;ko&quot;,
-    &quot;ta&quot;,
-    &quot;chi&quot;,
-    &quot;tsu&quot;,
-    &quot;te&quot;,
-    &quot;to&quot;,
-    &quot;sa&quot;,
-    &quot;shi&quot;,
-    &quot;si&quot;,
-    &quot;su&quot;,
-    &quot;se&quot;,
-    &quot;so&quot;,
-    &quot;na&quot;,
-    &quot;ni&quot;,
-    &quot;nu&quot;,
-    &quot;ne&quot;,
-    &quot;no&quot;,
-    &quot;ha&quot;,
-    &quot;hi&quot;,
-    &quot;fu&quot;,
-    &quot;he&quot;,
-    &quot;ho&quot;,
-    &quot;ma&quot;,
-    &quot;mi&quot;,
-    &quot;mu&quot;,
-    &quot;me&quot;,
-    &quot;mo&quot;,
-    &quot;ya&quot;,
-    &quot;yu&quot;,
-    &quot;yo&quot;,
-    &quot;ra&quot;,
-    &quot;ri&quot;,
-    &quot;ru&quot;,
-    &quot;re&quot;,
-    &quot;ro&quot;,
-    &quot;wa&quot;,
-    &quot;wo&quot;,
-    &quot;a&quot;,
-    &quot;i&quot;,
-    &quot;u&quot;,
-    &quot;e&quot;,
-    &quot;o&quot;,
-    &quot;n&quot;,
-    &quot;xya&quot;,
-    &quot;xye&quot;,
-    &quot;xyu&quot;,
-    &quot;xyi&quot;,
-    &quot;xyo&quot;
-  ];
-
-  var loneUnTrans = {
-    &quot;ku&quot;: &quot;く&quot;,
-    &quot;su&quot;: &quot;す&quot;,
-    &quot;nu&quot;: &quot;ぬ&quot;,
-    &quot;fu&quot;: &quot;ふ&quot;,
-    &quot;hu&quot;: &quot;ふ&quot;,
-    &quot;mu&quot;: &quot;む&quot;,
-    &quot;yu&quot;: &quot;ゆ&quot;,
-    &quot;ru&quot;: &quot;る&quot;,
-    &quot;gu&quot;: &quot;ぐ&quot;,
-    &quot;zu&quot;: &quot;ず&quot;,
-    &quot;du&quot;: &quot;づ&quot;,
-    &quot;bu&quot;: &quot;ぶ&quot;,
-    &quot;pu&quot;: &quot;ぷ&quot;
-  };
-
-  var wabun = [
-    &quot; .-..  .. &quot;,//ga
-    &quot; -.-..  .. &quot;,//gi
-    &quot; ..-  .. &quot;,//gu
-    &quot; -.--  .. &quot;,//ge
-    &quot; ----  .. &quot;,//go
-    &quot; -.-.-  .. &quot;,//za
-    &quot; --.-.  .. &quot;,//ji
-    &quot; --.-.  .. &quot;,//ji
-    &quot; ---.-  .. &quot;,//zu
-    &quot; .---.  .. &quot;,//ze
-    &quot; ---.  .. &quot;,//zo
-    &quot; -.  .. &quot;,//da
-    &quot; ..-.  .. &quot;,//dzi
-    &quot; ..-.  .. &quot;,//dzi
-    &quot; .--.  .. &quot;,//dzu
-    &quot; .-.--  .. &quot;,//de
-    &quot; ..-..  .. &quot;,//do
-    &quot; -...  .. &quot;,//ba
-    &quot; --..-  .. &quot;,//bi
-    &quot; --..  .. &quot;,//bu
-    &quot; .  .. &quot;,//be
-    &quot; -..  .. &quot;,//bo
-    &quot; -...  .. &quot;,//pa
-    &quot; --..-  ..--. &quot;,//pi
-    &quot; --..  ..--. &quot;,//pu
-    &quot; .  ..--. &quot;,//pe
-    &quot; -..  ..--. &quot;,//po
-    &quot;*&quot;, //fa
-    &quot;*&quot;, //fo
-    &quot;*&quot;, //fi
-    &quot; .-.. &quot;,//ka
-    &quot; -.-.. &quot;,//ki
-    &quot; ...- &quot;,//ku
-    &quot; -.-- &quot;,//ke
-    &quot; ---- &quot;,//ko
-    &quot; -. &quot;,//ta
-    &quot; ..-. &quot;,//chi
-    &quot; .--. &quot;,//tsu
-    &quot; .-.-- &quot;,//te
-    &quot; ..-.. &quot;,//to
-    &quot; -.-.- &quot;,//sa
-    &quot; --.-. &quot;,//shi
-    &quot; --.-. &quot;,//shi
-    &quot; ---.- &quot;,//su
-    &quot; .---. &quot;,//se
-    &quot; ---. &quot;,//so
-    &quot; .-. &quot;,//na
-    &quot; -.-. &quot;,//ni
-    &quot; .... &quot;,//nu
-    &quot; --.- &quot;,//ne
-    &quot; ..-- &quot;,//no
-    &quot; -... &quot;,//ha
-    &quot; --..- &quot;,//hi
-    &quot; --.. &quot;,//fu
-    &quot; . &quot;,//he
-    &quot; -.. &quot;,//ho
-    &quot; -..- &quot;,//ma
-    &quot; ..-.- &quot;,//mi
-    &quot; - &quot;,//mu
-    &quot; -...- &quot;,//me
-    &quot; -..-. &quot;,//mo
-    &quot; .-- &quot;,//ya
-    &quot; -..-- &quot;,//yu
-    &quot; -- &quot;,//yo
-    &quot; ... &quot;,//ra
-    &quot; --. &quot;,//ri
-    &quot; -.--. &quot;,//ru
-    &quot; --- &quot;,//re
-    &quot; .-.- &quot;,//ro
-    &quot; -.- &quot;,//wa
-    &quot; .--- &quot;,//wo
-    &quot; --.-- &quot;,//a
-    &quot; .- &quot;,//i
-    &quot; ..- &quot;,//u
-    &quot; -.--- &quot;,//e
-    &quot; .-... &quot;,//o
-    &quot; .-.-. &quot;,//n
-    &quot; .-- &quot;,//xya
-    &quot; -.--- &quot;,//xe
-    &quot; -..-- &quot;,//xyu
-    &quot; .- &quot;,//xi
-    &quot; -- &quot;//xyo
-  ];
-
-  var otherMourseBef = [
-    //numbers,
-    &quot;0&quot;,
-    &quot;1&quot;,
-    &quot;2&quot;,
-    &quot;3&quot;,
-    &quot;4&quot;,
-    &quot;5&quot;,
-    &quot;6&quot;,
-    &quot;7&quot;,
-    &quot;8&quot;,
-    &quot;9&quot;,
-    //punctuation,
-    &quot;。&quot;, //actually it is a dot, this is to prevent conflect
-    &quot;、&quot;
-  ];
-
-  var otherMourseAft = [
-    //numbers
-    &quot; ----- &quot;,
-    &quot; .---- &quot;,
-    &quot; ..--- &quot;,
-    &quot; ...-- &quot;,
-    &quot; ....- &quot;,
-    &quot; ..... &quot;,
-    &quot; -.... &quot;,
-    &quot; --... &quot;,
-    &quot; ---.. &quot;,
-    &quot; ----. &quot;,
-    //punctuation
-    &quot; .-.-.- &quot;,
-    &quot; --..-- &quot;
-  ];
-
-  var otherMourseTrans = new Trans(&quot;otherMourse&quot;);
-  Trans.newMethod.call(otherMourseTrans, &quot;def&quot;, otherMourseBef, otherMourseAft);
-
-  /**
-   * Japanese transliteration
-   * @class JpnTrans
-   * @extends Trans
-   * @constructor
-   */
-  function JpnTrans() {
-    Trans.call(this, &quot;jpn&quot;);
-
-    Trans.newMethod.call(this, &quot;Hepburn&quot;, hiragana, hepburn);
-    Trans.addTransPrePostMethods.call(this, &quot;Hepburn&quot;, hepburnPreTrans, shikiPostTrans);
-    Trans.addUntransPrePostMethods.call(this, &quot;Hepburn&quot;, hepburnPreUntrans, loneCharReplace);
-
-    Trans.newMethod.call(this, &quot;NihonShiki&quot;, hiragana, hepburn);
-    Trans.addTransPrePostMethods.call(this, &quot;NihonShiki&quot;, nihonShikiPreTrans, shikiPostTrans);
-    Trans.addUntransPrePostMethods.call(this, &quot;NihonShiki&quot;, nihonShikiPreUntrans, loneCharReplace);
-
-    Trans.newMethod.call(this, &quot;KunreiShiki&quot;, hiragana, hepburn);
-    Trans.addTransPrePostMethods.call(this, &quot;KunreiShiki&quot;, kunreiShikiPreTrans, shikiPostTrans);
-    Trans.addUntransPrePostMethods.call(this, &quot;KunreiShiki&quot;, kunreiShikiPreUntrans, loneCharReplace);
-
-    Trans.newMethod.call(this, &quot;Morse&quot;, hiragana, wabun);
-    Trans.addTransPrePostMethods.call(this, &quot;Morse&quot;, morsePreTrans, morsePostTrans);
-    Trans.addUntransPrePostMethods.call(this, &quot;Morse&quot;, morsePreUntrans, morsePostUntrans);
-  }
-
-  JpnTrans.prototype = Object.create(Trans.prototype);
-  JpnTrans.prototype.constructor = JpnTrans;
-
-  function ja2morseNormalize(text){
-    var result = text;
-    result = result.replace(/[っ]/gi, &quot;つ&quot;);
-    //Japanese space
-    result = result.replace(/　/gi, &quot;\t&quot;);
-    return result;
-  }
-
-  function morsePreTrans(text){
-    var result = text;
-    //cleaning non supported codes
-    result = result.replace(/[\.\-]/gi, &quot;&quot;);
-    result = result.replace(/[ ]+/gi, &quot;\t&quot;);
-    //result = result.replace(/([^\t])([^\t])/gi, &quot;$1 $2&quot;);
-    result = ja2morseNormalize(result);
-    return result;
-  }
-
-  function morsePostTrans(text){
-    var result = text;
-    result = otherMourseTrans.transliterate(result);
-    result = result.replace(/ +/gi, &quot; &quot;);
-    result = result.replace(/\t/gi, &quot;   &quot;);
-    //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, &quot;&quot;);
-
-    //Add DO and SN prosigns
-    result = &quot;-..---&quot; + result + &quot;...-.&quot;;
-    return result;
-  }
-
-  function morsePreUntrans(text){
-    var result = text;
-    //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, &quot;&quot;);
-    result = result.replace(/[ ]{3,}/gi, &quot; \t &quot;);
-    result = result.replace(/ +/gi, &quot;  &quot;);
-    result = result.replace(/^/gi, &quot; &quot;);
-    result = result.replace(/$/gi, &quot; &quot;);
-
-    //delete DO and SN prosigns used to specify the beginning and end of wabun
-    result = result.replace(/ \-\.\.\-\-\- /gi, &quot; &quot;);
-    result = result.replace(/ \.\.\.\-\. /gi, &quot; &quot;);
-
-    return result;
-  }
-
-  function morsePostUntrans(text){
-    var result = text;
-    result = otherMourseTrans.untransliterate(result);
-    result = result.replace(/ +/gi, &quot;&quot;);
-    result = result.replace(/\t/gi, &quot;　&quot;);
-    return result;
-  }
-
-
-
-  function shikiPreTrans(text){
-    var result = text.replace(/し/gi, &quot;si&quot;);
-    result = result.replace(/ち/gi, &quot;ti&quot;);
-    result = result.replace(/つ/gi, &quot;tu&quot;);
-    result = result.replace(/ふ/gi, &quot;hu&quot;);
-    result = result.replace(/じ/gi, &quot;zi&quot;);
-    result = result.replace(/uぉ/gi, &quot;o&quot;);
-    result = result.replace(/uぁ/gi, &quot;a&quot;);
-    result = result.replace(/uぃ/gi, &quot;i&quot;);
-    result = result.replace(/uぇ/gi, &quot;e&quot;);
-    return result;
-  }
-
-  function shikiPreUntrans(text){
-    var result = text;
-    //result = result.replace(/([tzs])y/gi, &quot;$1iy&quot;);
-    result = result.replace(/si/gi, &quot;し&quot;);
-    result = result.replace(/ti/gi, &quot;ち&quot;);
-    result = result.replace(/tu/gi, &quot;つ&quot;);
-    result = result.replace(/hu/gi, &quot;ふ&quot;);
-    result = result.replace(/zi/gi, &quot;じ&quot;);
-
-    /*result = result.replace(/uぉ/gi, &quot;o&quot;);
-    result = result.replace(/uぁ/gi, &quot;a&quot;);
-    result = result.replace(/uぃ/gi, &quot;i&quot;);
-    result = result.replace(/uぇ/gi, &quot;e&quot;);*/
-    return result;
-  }
-
-
-  function hepburnPreTrans(text){
-    return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){
-      var result = hepburn[hiragana.indexOf(p1)];
-      result = result + hepburn[hiragana.indexOf(p2)];
-      return result.replace(&quot;ixy&quot;, &quot;&quot;);
-    });
-  }
-
-  function hepburnPreUntrans(text){
-    var result = doubleReplace(text);
-    result = result.replace(/(sh|ch|j)([aeuo])/gi, function(match, p1, p2){
-      var key = p1 + &quot;i&quot;;
-      if (hepburn.indexOf(key) &gt; -1){
-        var result =  hiragana[hepburn.indexOf(key)];
-        key = &quot;xy&quot; + p2;
-        if (hepburn.indexOf(key) &gt; -1){
-          result += hiragana[hepburn.indexOf(key)];
-        }
-        return result;
-      }
-      return match;
-    });
-
-    return xya2Jap(result);
-  }
-
-  function shikiPostTrans(text){
-    var result = text.replace(/ix/gi, &quot;&quot;);
-    result = littleTsuPostTrans(result);
-    return result;
-  }
-
-  function littleTsuPostTrans(text){
-    return text.replace(/(っ+)(.)/gi, function(match, p1, p2){
-      return new Array(2 + p1.length).join(p2);
-    });
-  }
-
-  function nihonShikiPreUntrans(text){
-    var result = doubleReplace(text);
-    result = shikiPreUntrans(result);
-    result = result.replace(/di/gi, &quot;ぢ&quot;);
-    result = result.replace(/du/gi, &quot;づ&quot;);
-    return xya2Jap(result);
-  }
-
-  function nihonShikiPreTrans(text){
-    var result = shikiPreTrans(text);
-    result = result.replace(/ぢ/gi, &quot;di&quot;);
-    result = result.replace(/づ/gi, &quot;du&quot;);
-    return result;
-  }
-
-  /**
-   * kunreiShiki pre-transliteration function
-   * @method kunreiShikiPreTrans
-   * @private
-   * @param  {string} text Japanese text
-   * @return {string}      Pre-tranliterated text
-   */
-  function kunreiShikiPreTrans(text){
-    var result = shikiPreTrans(text);
-    result = result.replace(/ぢ/gi, &quot;zi&quot;);
-    //result = result.replace(/づ/gi, &quot;zu&quot;); //already on hepburn
-    return result;
-  }
-
-  /**
-   * kunreiShiki pre-untransliteration function
-   * @method kunreiShikiPreUntrans
-   * @private
-   * @param  {string} text Romanized text
-   * @return {string}      Pre-untranliterated text
-   */
-  function kunreiShikiPreUntrans(text){
-    var result = doubleReplace(text);
-    result = shikiPreUntrans(result);
-    result = result.replace(/zi/gi, &quot;ぢ&quot;);
-    return xya2Jap(result);
-  }
-
-
-  /**
-  * Replace the doubled characters with a little &quot;tsu&quot; if different from &quot;n&quot;
-  * @method doubleReplace
-  * @private
-  * @param  {String} text The text to be replaced
-  * @return {String} The same string but the repeated characters are replaced
-  */
-  function doubleReplace(text){
-    return text.replace(/(sh|ch|.)\1+/gi, function(match, p1){
-      //vowels are ignored
-      if (&quot;aeuio&quot;.indexOf(p1)&gt;-1)
-        return match;
-
-      var repChar = &quot;っ&quot;;
-
-      if (p1 === &quot;n&quot;)
-        repChar = &quot;ん&quot;;
-      var repNbr = match.length/p1.length; //Math.floor() match is always a multiple of p1
-      var rep = new Array(repNbr).join(repChar);
-
-      return rep + p1;
-    });
-  }
-
-
-  /**
-   * Transform xya to Japanese little &#x27;tsu&#x27; followed by ya
-   * @method xya2Jap
-   * @private
-   * @param  {string} text Romanized text
-   * @return {string}      text with xya transformed to Japanese
-   */
-  function xya2Jap(text){
-    //var result = text.replace(&quot;sh&quot;, &quot;し&quot;).replace(&quot;ch&quot;, &quot;ち&quot;);
-    return text.replace(/(sh|ch|.)y([aeuio])/gi, function(match, p1, p2){
-      var key = p1 + &quot;i&quot;;
-      if (hepburn.indexOf(key) &gt; -1){
-        var result =  hiragana[hepburn.indexOf(key)];
-        key = &quot;xy&quot; + p2;
-        if (hepburn.indexOf(key) &gt; -1){
-          result += hiragana[hepburn.indexOf(key)];
-        }
-        return result;
-      }
-
-      return match;
-
-    });
-  }
-
-
-  /**
-  * Replace the lone characters with their equivalent + &quot;u&quot;
-  * @method loneCharReplace
-  * @private
-  * @param  {string} text the text to be replaced
-  * @return {string}      The resulted text
-  */
-  function loneCharReplace(text){
-    return text.replace(/[a-z][う]?/gi, function(x){
-      var key = x;
-      if (x.length &gt; 1){
-        if (x === &quot;tう&quot;){
-          return &quot;つ&quot;;
-        }
-        key = x[0];
-      }
-
-      key += &quot;u&quot;;
-      var result = &quot;&quot;;
-      if (key in loneUnTrans){
-        result = loneUnTrans[key];
-      }
-
-      if (x.length &gt; 1){
-        result += &quot;う&quot;;
-      }
-
-      return result;
-    });
-  }
-
-}());
-
-    </pre>
-</div>
+                        <div class="page-header">
+                            <h1>jpn/jpn.trans.js <small>File</small></h1>
+                        </div>
+                        
+                        <div class="file">
+                            <pre class="prettyprint linenums">
+                        (function(){
+                          var Trans = {};
+                          if ( typeof module === &quot;object&quot; &amp;&amp; module &amp;&amp; typeof module.exports === &quot;object&quot; ) {
+                            Trans = require(&quot;../trans.js&quot;);
+                            module.exports = JpnTrans;
+                          } else {
+                            Trans = window.JsLingua.Cls.Trans;
+                            //window.JpnTrans = JpnTrans;
+                            window.JsLingua.addService(&quot;Trans&quot;, &quot;jpn&quot;, JpnTrans);
+                          }
+                        
+                          var hiragana = [
+                            &quot;が&quot;,
+                            &quot;ぎ&quot;,
+                            &quot;ぐ&quot;,
+                            &quot;げ&quot;,
+                            &quot;ご&quot;,
+                            &quot;ざ&quot;,
+                            &quot;じ&quot;,
+                            &quot;じ&quot;,
+                            &quot;ず&quot;,
+                            &quot;ぜ&quot;,
+                            &quot;ぞ&quot;,
+                            &quot;だ&quot;,
+                            &quot;ぢ&quot;,
+                            &quot;ぢ&quot;,
+                            &quot;づ&quot;,
+                            &quot;で&quot;,
+                            &quot;ど&quot;,
+                            &quot;ば&quot;,
+                            &quot;び&quot;,
+                            &quot;ぶ&quot;,
+                            &quot;べ&quot;,
+                            &quot;ぼ&quot;,
+                            &quot;ぱ&quot;,
+                            &quot;ぴ&quot;,
+                            &quot;ぷ&quot;,
+                            &quot;ぺ&quot;,
+                            &quot;ぽ&quot;,
+                            &quot;ふぁ&quot;,
+                            &quot;ふぉ&quot;,
+                            &quot;ふぃ&quot;,
+                            &quot;か&quot;,
+                            &quot;き&quot;,
+                            &quot;く&quot;,
+                            &quot;け&quot;,
+                            &quot;こ&quot;,
+                            &quot;た&quot;,
+                            &quot;ち&quot;,
+                            &quot;つ&quot;,
+                            &quot;て&quot;,
+                            &quot;と&quot;,
+                            &quot;さ&quot;,
+                            &quot;し&quot;,
+                            &quot;し&quot;,
+                            &quot;す&quot;,
+                            &quot;せ&quot;,
+                            &quot;そ&quot;,
+                            &quot;な&quot;,
+                            &quot;に&quot;,
+                            &quot;ぬ&quot;,
+                            &quot;ね&quot;,
+                            &quot;の&quot;,
+                            &quot;は&quot;,
+                            &quot;ひ&quot;,
+                            &quot;ふ&quot;,
+                            &quot;へ&quot;,
+                            &quot;ほ&quot;,
+                            &quot;ま&quot;,
+                            &quot;み&quot;,
+                            &quot;む&quot;,
+                            &quot;め&quot;,
+                            &quot;も&quot;,
+                            &quot;や&quot;,
+                            &quot;ゆ&quot;,
+                            &quot;よ&quot;,
+                            &quot;ら&quot;,
+                            &quot;り&quot;,
+                            &quot;る&quot;,
+                            &quot;れ&quot;,
+                            &quot;ろ&quot;,
+                            &quot;わ&quot;,
+                            &quot;を&quot;,
+                            &quot;あ&quot;,
+                            &quot;い&quot;,
+                            &quot;う&quot;,
+                            &quot;え&quot;,
+                            &quot;お&quot;,
+                            &quot;ん&quot;,
+                            &quot;ゃ&quot;,
+                            &quot;ぇ&quot;,
+                            &quot;ゅ&quot;,
+                            &quot;ぃ&quot;,
+                            &quot;ょ&quot;
+                          ];
+                        
+                          //https://en.wikipedia.org/wiki/Hepburn_romanization
+                          var hepburn = [
+                            &quot;ga&quot;,
+                            &quot;gi&quot;,
+                            &quot;gu&quot;,
+                            &quot;ge&quot;,
+                            &quot;go&quot;,
+                            &quot;za&quot;,
+                            &quot;ji&quot;,
+                            &quot;zi&quot;,
+                            &quot;zu&quot;,
+                            &quot;ze&quot;,
+                            &quot;zo&quot;,
+                            &quot;da&quot;,
+                            &quot;ji&quot;,
+                            &quot;di&quot;,
+                            &quot;zu&quot;,
+                            &quot;de&quot;,
+                            &quot;do&quot;,
+                            &quot;ba&quot;,
+                            &quot;bi&quot;,
+                            &quot;bu&quot;,
+                            &quot;be&quot;,
+                            &quot;bo&quot;,
+                            &quot;pa&quot;,
+                            &quot;pi&quot;,
+                            &quot;pu&quot;,
+                            &quot;pe&quot;,
+                            &quot;po&quot;,
+                            &quot;fa&quot;,
+                            &quot;fo&quot;,
+                            &quot;fi&quot;,
+                            &quot;ka&quot;,
+                            &quot;ki&quot;,
+                            &quot;ku&quot;,
+                            &quot;ke&quot;,
+                            &quot;ko&quot;,
+                            &quot;ta&quot;,
+                            &quot;chi&quot;,
+                            &quot;tsu&quot;,
+                            &quot;te&quot;,
+                            &quot;to&quot;,
+                            &quot;sa&quot;,
+                            &quot;shi&quot;,
+                            &quot;si&quot;,
+                            &quot;su&quot;,
+                            &quot;se&quot;,
+                            &quot;so&quot;,
+                            &quot;na&quot;,
+                            &quot;ni&quot;,
+                            &quot;nu&quot;,
+                            &quot;ne&quot;,
+                            &quot;no&quot;,
+                            &quot;ha&quot;,
+                            &quot;hi&quot;,
+                            &quot;fu&quot;,
+                            &quot;he&quot;,
+                            &quot;ho&quot;,
+                            &quot;ma&quot;,
+                            &quot;mi&quot;,
+                            &quot;mu&quot;,
+                            &quot;me&quot;,
+                            &quot;mo&quot;,
+                            &quot;ya&quot;,
+                            &quot;yu&quot;,
+                            &quot;yo&quot;,
+                            &quot;ra&quot;,
+                            &quot;ri&quot;,
+                            &quot;ru&quot;,
+                            &quot;re&quot;,
+                            &quot;ro&quot;,
+                            &quot;wa&quot;,
+                            &quot;wo&quot;,
+                            &quot;a&quot;,
+                            &quot;i&quot;,
+                            &quot;u&quot;,
+                            &quot;e&quot;,
+                            &quot;o&quot;,
+                            &quot;n&quot;,
+                            &quot;xya&quot;,
+                            &quot;xye&quot;,
+                            &quot;xyu&quot;,
+                            &quot;xyi&quot;,
+                            &quot;xyo&quot;
+                          ];
+                        
+                          var loneUnTrans = {
+                            &quot;ku&quot;: &quot;く&quot;,
+                            &quot;su&quot;: &quot;す&quot;,
+                            &quot;nu&quot;: &quot;ぬ&quot;,
+                            &quot;fu&quot;: &quot;ふ&quot;,
+                            &quot;hu&quot;: &quot;ふ&quot;,
+                            &quot;mu&quot;: &quot;む&quot;,
+                            &quot;yu&quot;: &quot;ゆ&quot;,
+                            &quot;ru&quot;: &quot;る&quot;,
+                            &quot;gu&quot;: &quot;ぐ&quot;,
+                            &quot;zu&quot;: &quot;ず&quot;,
+                            &quot;du&quot;: &quot;づ&quot;,
+                            &quot;bu&quot;: &quot;ぶ&quot;,
+                            &quot;pu&quot;: &quot;ぷ&quot;
+                          };
+                        
+                          var wabun = [
+                            &quot; .-..  .. &quot;,//ga
+                            &quot; -.-..  .. &quot;,//gi
+                            &quot; ..-  .. &quot;,//gu
+                            &quot; -.--  .. &quot;,//ge
+                            &quot; ----  .. &quot;,//go
+                            &quot; -.-.-  .. &quot;,//za
+                            &quot; --.-.  .. &quot;,//ji
+                            &quot; --.-.  .. &quot;,//ji
+                            &quot; ---.-  .. &quot;,//zu
+                            &quot; .---.  .. &quot;,//ze
+                            &quot; ---.  .. &quot;,//zo
+                            &quot; -.  .. &quot;,//da
+                            &quot; ..-.  .. &quot;,//dzi
+                            &quot; ..-.  .. &quot;,//dzi
+                            &quot; .--.  .. &quot;,//dzu
+                            &quot; .-.--  .. &quot;,//de
+                            &quot; ..-..  .. &quot;,//do
+                            &quot; -...  .. &quot;,//ba
+                            &quot; --..-  .. &quot;,//bi
+                            &quot; --..  .. &quot;,//bu
+                            &quot; .  .. &quot;,//be
+                            &quot; -..  .. &quot;,//bo
+                            &quot; -...  .. &quot;,//pa
+                            &quot; --..-  ..--. &quot;,//pi
+                            &quot; --..  ..--. &quot;,//pu
+                            &quot; .  ..--. &quot;,//pe
+                            &quot; -..  ..--. &quot;,//po
+                            &quot;*&quot;, //fa
+                            &quot;*&quot;, //fo
+                            &quot;*&quot;, //fi
+                            &quot; .-.. &quot;,//ka
+                            &quot; -.-.. &quot;,//ki
+                            &quot; ...- &quot;,//ku
+                            &quot; -.-- &quot;,//ke
+                            &quot; ---- &quot;,//ko
+                            &quot; -. &quot;,//ta
+                            &quot; ..-. &quot;,//chi
+                            &quot; .--. &quot;,//tsu
+                            &quot; .-.-- &quot;,//te
+                            &quot; ..-.. &quot;,//to
+                            &quot; -.-.- &quot;,//sa
+                            &quot; --.-. &quot;,//shi
+                            &quot; --.-. &quot;,//shi
+                            &quot; ---.- &quot;,//su
+                            &quot; .---. &quot;,//se
+                            &quot; ---. &quot;,//so
+                            &quot; .-. &quot;,//na
+                            &quot; -.-. &quot;,//ni
+                            &quot; .... &quot;,//nu
+                            &quot; --.- &quot;,//ne
+                            &quot; ..-- &quot;,//no
+                            &quot; -... &quot;,//ha
+                            &quot; --..- &quot;,//hi
+                            &quot; --.. &quot;,//fu
+                            &quot; . &quot;,//he
+                            &quot; -.. &quot;,//ho
+                            &quot; -..- &quot;,//ma
+                            &quot; ..-.- &quot;,//mi
+                            &quot; - &quot;,//mu
+                            &quot; -...- &quot;,//me
+                            &quot; -..-. &quot;,//mo
+                            &quot; .-- &quot;,//ya
+                            &quot; -..-- &quot;,//yu
+                            &quot; -- &quot;,//yo
+                            &quot; ... &quot;,//ra
+                            &quot; --. &quot;,//ri
+                            &quot; -.--. &quot;,//ru
+                            &quot; --- &quot;,//re
+                            &quot; .-.- &quot;,//ro
+                            &quot; -.- &quot;,//wa
+                            &quot; .--- &quot;,//wo
+                            &quot; --.-- &quot;,//a
+                            &quot; .- &quot;,//i
+                            &quot; ..- &quot;,//u
+                            &quot; -.--- &quot;,//e
+                            &quot; .-... &quot;,//o
+                            &quot; .-.-. &quot;,//n
+                            &quot; .-- &quot;,//xya
+                            &quot; -.--- &quot;,//xe
+                            &quot; -..-- &quot;,//xyu
+                            &quot; .- &quot;,//xi
+                            &quot; -- &quot;//xyo
+                          ];
+                        
+                          var otherMourseBef = [
+                            //numbers,
+                            &quot;0&quot;,
+                            &quot;1&quot;,
+                            &quot;2&quot;,
+                            &quot;3&quot;,
+                            &quot;4&quot;,
+                            &quot;5&quot;,
+                            &quot;6&quot;,
+                            &quot;7&quot;,
+                            &quot;8&quot;,
+                            &quot;9&quot;,
+                            //punctuation,
+                            &quot;。&quot;, //actually it is a dot, this is to prevent conflect
+                            &quot;、&quot;
+                          ];
+                        
+                          var otherMourseAft = [
+                            //numbers
+                            &quot; ----- &quot;,
+                            &quot; .---- &quot;,
+                            &quot; ..--- &quot;,
+                            &quot; ...-- &quot;,
+                            &quot; ....- &quot;,
+                            &quot; ..... &quot;,
+                            &quot; -.... &quot;,
+                            &quot; --... &quot;,
+                            &quot; ---.. &quot;,
+                            &quot; ----. &quot;,
+                            //punctuation
+                            &quot; .-.-.- &quot;,
+                            &quot; --..-- &quot;
+                          ];
+                        
+                          var otherMourseTrans = new Trans(&quot;otherMourse&quot;);
+                          Trans.newMethod.call(otherMourseTrans, &quot;def&quot;, otherMourseBef, otherMourseAft);
+                        
+                          /**
+                           * Japanese transliteration
+                           * @class JpnTrans
+                           * @extends Trans
+                           * @constructor
+                           */
+                          function JpnTrans() {
+                            Trans.call(this, &quot;jpn&quot;);
+                        
+                            Trans.newMethod.call(this, &quot;Hepburn&quot;, hiragana, hepburn);
+                            Trans.addTransPrePostMethods.call(this, &quot;Hepburn&quot;, hepburnPreTrans, shikiPostTrans);
+                            Trans.addUntransPrePostMethods.call(this, &quot;Hepburn&quot;, hepburnPreUntrans, loneCharReplace);
+                        
+                            Trans.newMethod.call(this, &quot;NihonShiki&quot;, hiragana, hepburn);
+                            Trans.addTransPrePostMethods.call(this, &quot;NihonShiki&quot;, nihonShikiPreTrans, shikiPostTrans);
+                            Trans.addUntransPrePostMethods.call(this, &quot;NihonShiki&quot;, nihonShikiPreUntrans, loneCharReplace);
+                        
+                            Trans.newMethod.call(this, &quot;KunreiShiki&quot;, hiragana, hepburn);
+                            Trans.addTransPrePostMethods.call(this, &quot;KunreiShiki&quot;, kunreiShikiPreTrans, shikiPostTrans);
+                            Trans.addUntransPrePostMethods.call(this, &quot;KunreiShiki&quot;, kunreiShikiPreUntrans, loneCharReplace);
+                        
+                            Trans.newMethod.call(this, &quot;Morse&quot;, hiragana, wabun);
+                            Trans.addTransPrePostMethods.call(this, &quot;Morse&quot;, morsePreTrans, morsePostTrans);
+                            Trans.addUntransPrePostMethods.call(this, &quot;Morse&quot;, morsePreUntrans, morsePostUntrans);
+                          }
+                        
+                          JpnTrans.prototype = Object.create(Trans.prototype);
+                          JpnTrans.prototype.constructor = JpnTrans;
+                        
+                          function ja2morseNormalize(text){
+                            var result = text;
+                            result = result.replace(/[っ]/gi, &quot;つ&quot;);
+                            //Japanese space
+                            result = result.replace(/　/gi, &quot;\t&quot;);
+                            return result;
+                          }
+                        
+                          function morsePreTrans(text){
+                            var result = text;
+                            //cleaning non supported codes
+                            result = result.replace(/[\.\-]/gi, &quot;&quot;);
+                            result = result.replace(/[ ]+/gi, &quot;\t&quot;);
+                            //result = result.replace(/([^\t])([^\t])/gi, &quot;$1 $2&quot;);
+                            result = ja2morseNormalize(result);
+                            return result;
+                          }
+                        
+                          function morsePostTrans(text){
+                            var result = text;
+                            result = otherMourseTrans.transliterate(result);
+                            result = result.replace(/ +/gi, &quot; &quot;);
+                            result = result.replace(/\t/gi, &quot;   &quot;);
+                            //clean non morse characters
+                            result = result.replace(/[^ \.\-]/gi, &quot;&quot;);
+                        
+                            //Add DO and SN prosigns
+                            result = &quot;-..---&quot; + result + &quot;...-.&quot;;
+                            return result;
+                          }
+                        
+                          function morsePreUntrans(text){
+                            var result = text;
+                            //clean non morse characters
+                            result = result.replace(/[^ \.\-]/gi, &quot;&quot;);
+                            result = result.replace(/[ ]{3,}/gi, &quot; \t &quot;);
+                            result = result.replace(/ +/gi, &quot;  &quot;);
+                            result = result.replace(/^/gi, &quot; &quot;);
+                            result = result.replace(/$/gi, &quot; &quot;);
+                        
+                            //delete DO and SN prosigns used to specify the beginning and end of wabun
+                            result = result.replace(/ \-\.\.\-\-\- /gi, &quot; &quot;);
+                            result = result.replace(/ \.\.\.\-\. /gi, &quot; &quot;);
+                        
+                            return result;
+                          }
+                        
+                          function morsePostUntrans(text){
+                            var result = text;
+                            result = otherMourseTrans.untransliterate(result);
+                            result = result.replace(/ +/gi, &quot;&quot;);
+                            result = result.replace(/\t/gi, &quot;　&quot;);
+                            return result;
+                          }
+                        
+                        
+                        
+                          function shikiPreTrans(text){
+                            var result = text.replace(/し/gi, &quot;si&quot;);
+                            result = result.replace(/ち/gi, &quot;ti&quot;);
+                            result = result.replace(/つ/gi, &quot;tu&quot;);
+                            result = result.replace(/ふ/gi, &quot;hu&quot;);
+                            result = result.replace(/じ/gi, &quot;zi&quot;);
+                            result = result.replace(/uぉ/gi, &quot;o&quot;);
+                            result = result.replace(/uぁ/gi, &quot;a&quot;);
+                            result = result.replace(/uぃ/gi, &quot;i&quot;);
+                            result = result.replace(/uぇ/gi, &quot;e&quot;);
+                            return result;
+                          }
+                        
+                          function shikiPreUntrans(text){
+                            var result = text;
+                            //result = result.replace(/([tzs])y/gi, &quot;$1iy&quot;);
+                            result = result.replace(/si/gi, &quot;し&quot;);
+                            result = result.replace(/ti/gi, &quot;ち&quot;);
+                            result = result.replace(/tu/gi, &quot;つ&quot;);
+                            result = result.replace(/hu/gi, &quot;ふ&quot;);
+                            result = result.replace(/zi/gi, &quot;じ&quot;);
+                        
+                            /*result = result.replace(/uぉ/gi, &quot;o&quot;);
+                            result = result.replace(/uぁ/gi, &quot;a&quot;);
+                            result = result.replace(/uぃ/gi, &quot;i&quot;);
+                            result = result.replace(/uぇ/gi, &quot;e&quot;);*/
+                            return result;
+                          }
+                        
+                        
+                          function hepburnPreTrans(text){
+                            return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){
+                              var result = hepburn[hiragana.indexOf(p1)];
+                              result = result + hepburn[hiragana.indexOf(p2)];
+                              return result.replace(&quot;ixy&quot;, &quot;&quot;);
+                            });
+                          }
+                        
+                          function hepburnPreUntrans(text){
+                            var result = doubleReplace(text);
+                            result = result.replace(/(sh|ch|j)([aeuo])/gi, function(match, p1, p2){
+                              var key = p1 + &quot;i&quot;;
+                              if (hepburn.indexOf(key) &gt; -1){
+                                var result =  hiragana[hepburn.indexOf(key)];
+                                key = &quot;xy&quot; + p2;
+                                if (hepburn.indexOf(key) &gt; -1){
+                                  result += hiragana[hepburn.indexOf(key)];
+                                }
+                                return result;
+                              }
+                              return match;
+                            });
+                        
+                            return xya2Jap(result);
+                          }
+                        
+                          function shikiPostTrans(text){
+                            var result = text.replace(/ix/gi, &quot;&quot;);
+                            result = littleTsuPostTrans(result);
+                            return result;
+                          }
+                        
+                          function littleTsuPostTrans(text){
+                            return text.replace(/(っ+)(.)/gi, function(match, p1, p2){
+                              return new Array(2 + p1.length).join(p2);
+                            });
+                          }
+                        
+                          function nihonShikiPreUntrans(text){
+                            var result = doubleReplace(text);
+                            result = shikiPreUntrans(result);
+                            result = result.replace(/di/gi, &quot;ぢ&quot;);
+                            result = result.replace(/du/gi, &quot;づ&quot;);
+                            return xya2Jap(result);
+                          }
+                        
+                          function nihonShikiPreTrans(text){
+                            var result = shikiPreTrans(text);
+                            result = result.replace(/ぢ/gi, &quot;di&quot;);
+                            result = result.replace(/づ/gi, &quot;du&quot;);
+                            return result;
+                          }
+                        
+                          /**
+                           * kunreiShiki pre-transliteration function
+                           * @method kunreiShikiPreTrans
+                           * @private
+                           * @param  {string} text Japanese text
+                           * @return {string}      Pre-tranliterated text
+                           */
+                          function kunreiShikiPreTrans(text){
+                            var result = shikiPreTrans(text);
+                            result = result.replace(/ぢ/gi, &quot;zi&quot;);
+                            //result = result.replace(/づ/gi, &quot;zu&quot;); //already on hepburn
+                            return result;
+                          }
+                        
+                          /**
+                           * kunreiShiki pre-untransliteration function
+                           * @method kunreiShikiPreUntrans
+                           * @private
+                           * @param  {string} text Romanized text
+                           * @return {string}      Pre-untranliterated text
+                           */
+                          function kunreiShikiPreUntrans(text){
+                            var result = doubleReplace(text);
+                            result = shikiPreUntrans(result);
+                            result = result.replace(/zi/gi, &quot;ぢ&quot;);
+                            return xya2Jap(result);
+                          }
+                        
+                        
+                          /**
+                          * Replace the doubled characters with a little &quot;tsu&quot; if different from &quot;n&quot;
+                          * @method doubleReplace
+                          * @private
+                          * @param  {String} text The text to be replaced
+                          * @return {String} The same string but the repeated characters are replaced
+                          */
+                          function doubleReplace(text){
+                            return text.replace(/(sh|ch|.)\1+/gi, function(match, p1){
+                              //vowels are ignored
+                              if (&quot;aeuio&quot;.indexOf(p1)&gt;-1)
+                                return match;
+                        
+                              var repChar = &quot;っ&quot;;
+                        
+                              if (p1 === &quot;n&quot;)
+                                repChar = &quot;ん&quot;;
+                              var repNbr = match.length/p1.length; //Math.floor() match is always a multiple of p1
+                              var rep = new Array(repNbr).join(repChar);
+                        
+                              return rep + p1;
+                            });
+                          }
+                        
+                        
+                          /**
+                           * Transform xya to Japanese little &#x27;tsu&#x27; followed by ya
+                           * @method xya2Jap
+                           * @private
+                           * @param  {string} text Romanized text
+                           * @return {string}      text with xya transformed to Japanese
+                           */
+                          function xya2Jap(text){
+                            //var result = text.replace(&quot;sh&quot;, &quot;し&quot;).replace(&quot;ch&quot;, &quot;ち&quot;);
+                            return text.replace(/(sh|ch|.)y([aeuio])/gi, function(match, p1, p2){
+                              var key = p1 + &quot;i&quot;;
+                              if (hepburn.indexOf(key) &gt; -1){
+                                var result =  hiragana[hepburn.indexOf(key)];
+                                key = &quot;xy&quot; + p2;
+                                if (hepburn.indexOf(key) &gt; -1){
+                                  result += hiragana[hepburn.indexOf(key)];
+                                }
+                                return result;
+                              }
+                        
+                              return match;
+                        
+                            });
+                          }
+                        
+                        
+                          /**
+                          * Replace the lone characters with their equivalent + &quot;u&quot;
+                          * @method loneCharReplace
+                          * @private
+                          * @param  {string} text the text to be replaced
+                          * @return {string}      The resulted text
+                          */
+                          function loneCharReplace(text){
+                            return text.replace(/[a-z][う]?/gi, function(x){
+                              var key = x;
+                              if (x.length &gt; 1){
+                                if (x === &quot;tう&quot;){
+                                  return &quot;つ&quot;;
+                                }
+                                key = x[0];
+                              }
+                        
+                              key += &quot;u&quot;;
+                              var result = &quot;&quot;;
+                              if (key in loneUnTrans){
+                                result = loneUnTrans[key];
+                              }
+                        
+                              if (x.length &gt; 1){
+                                result += &quot;う&quot;;
+                              }
+                        
+                              return result;
+                            });
+                          }
+                        
+                        }());
+                        
+                            </pre>
+                        </div>
                     </div>
                 </div>
             </div>

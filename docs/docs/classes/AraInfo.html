@@ -3,25 +3,34 @@
 <head>
     <meta charset="utf-8">
     <title>AraInfo - JsLingua API</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="stylesheet" href="../assets/css/custom.css">
-    <link rel="stylesheet" href="../assets/css/lucid.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../assets/css/marviq.css">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
-        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-            JsLingua API
-        </h1>
-	<div class="nav">
+    	<div class="nav">
+            <!-- <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+
+        JsLingua API
+        </h1 -->
+            <li>
+                <img alt="JsLingua API" src="../assets/img/logo.png" style="margin-top: 7px; margin-left: 25px; max-height: 30px" title="JsLingua API" />
+            </li>
+            <li class="divider-vertical"></li>
+            <li>
+                <h1 class="projectName">JsLingua API</h1>
+            </li>
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.4.0</b>
+                    API Docs for Version: <b>0.4.4</b>
                 </p>
             </li>
         </div>
@@ -33,378 +42,436 @@
 <div class="container">
     <div class="row">
         <div class="span3">
-<div>
-    <div id="sidebar">
-    <div id="classes">
-        <ul id="api-classes" class="nav nav-list">
-                <li><a href="../classes/AraInfo.html">AraInfo</a></li>
-                <li><a href="../classes/AraLang.html">AraLang</a></li>
-                <li><a href="../classes/AraTrans.html">AraTrans</a></li>
-                <li><a href="../classes/EngInfo.html">EngInfo</a></li>
-                <li><a href="../classes/EngLang.html">EngLang</a></li>
-                <li><a href="../classes/EngTrans.html">EngTrans</a></li>
-                <li><a href="../classes/Info.html">Info</a></li>
-                <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
-                <li><a href="../classes/JpnLang.html">JpnLang</a></li>
-                <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
-                <li><a href="../classes/JsLingua.html">JsLingua</a></li>
-                <li><a href="../classes/Lang.html">Lang</a></li>
-                <li><a href="../classes/Morpho.html">Morpho</a></li>
-                <li><a href="../classes/Tools.html">Tools</a></li>
-                <li><a href="../classes/Trans.html">Trans</a></li>
-        </ul>
-    </div>
-    </div>
-</div>
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#collections" data-toggle="tab">Collections</a></li>
+	                <li><a href="#models" data-toggle="tab">Models</a></li>
+	                <li><a href="#views" data-toggle="tab">Views</a></li>
+	                <li><a href="#services" data-toggle="tab">Services</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AraInfo.html">AraInfo</a></li>
+	                            <li><a href="../classes/AraLang.html">AraLang</a></li>
+	                            <li><a href="../classes/AraTrans.html">AraTrans</a></li>
+	                            <li><a href="../classes/EngInfo.html">EngInfo</a></li>
+	                            <li><a href="../classes/EngLang.html">EngLang</a></li>
+	                            <li><a href="../classes/EngTrans.html">EngTrans</a></li>
+	                            <li><a href="../classes/Info.html">Info</a></li>
+	                            <li><a href="../classes/JpnInfo.html">JpnInfo</a></li>
+	                            <li><a href="../classes/JpnLang.html">JpnLang</a></li>
+	                            <li><a href="../classes/JpnTrans.html">JpnTrans</a></li>
+	                            <li><a href="../classes/JsLingua.html">JsLingua</a></li>
+	                            <li><a href="../classes/Lang.html">Lang</a></li>
+	                            <li><a href="../classes/Morpho.html">Morpho</a></li>
+	                            <li><a href="../classes/Tools.html">Tools</a></li>
+	                            <li><a href="../classes/Trans.html">Trans</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="collections">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="models">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="views">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane active" id="services">
+	                    <ul id="api-classes" class="nav nav-list">
+	                    </ul>
+	                </div>
+	    
+	            </div>
+	        </div>
+	    </div>
         </div>
         <div class="span9">
-    <form id="options-form" class="form-inline pull-right">
-        Show:
-        <label for="api-show-inherited" class="checkbox">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected" class="checkbox">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private" class="checkbox">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated" class="checkbox">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </form>
-
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<div class="page-header">
-    <h1>AraInfo</h1>
-</div>
-
-
-	<div class="well well-small">
-        <div class="extends">
-            Extends <a href="../classes/Info.html" class="crosslink">Info</a>
-        </div>
-    </div>
-
-	<div class="well well-small">
-            Module: <a href="../modules/JsLingua.html">JsLingua</a>
-    </div>
-
-
-
-<div class="yuidoc-class-description">
-<p>Contains information about Arabic language</p>
-
-</div>
-
-<!-- table of contents -->
-
-<div id="class-toc" class="page-section">
-	<h2>Table of Contents</h2>
-    <ul>
-		<li>
-			<strong>Methods</strong>
-			<ul>
-				<li><a href="#method-getBranch"><span class="im">getBranch</span>()</a></li>
-				<li><a href="#method-getCode"><span class="im">getCode</span>()</a></li>
-				<li><a href="#method-getDir"><span class="im">getDir</span>()</a></li>
-				<li><a href="#method-getFamily"><span class="im">getFamily</span>()</a></li>
-				<li><a href="#method-getName"><span class="im">getName</span>()</a></li>
-				<li><a href="#method-getWordOrder"><span class="im">getWordOrder</span>()</a></li>
-			</ul>
-		</li>
-
-
-
-	</ul>
-</div>
-
-<!-- details -->
-
-    <div class="constructor yuidoc-class-constructor page-section">
-        <h2>Constructor</h2>
-        <div class="item-list">
-<div id="method-AraInfo" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>AraInfo</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/ara_ara.info.js.html#l12"><code>ara&#x2F;ara.info.js:12</code></a>
-		</p>
-
-
-
-	</div>
-
-
-
-
-</div>
-        </div>
-    </div>
-
-    <div id="methods" class="page-section">
-        <h2 class="off-left">Methods</h2>
-        <div class="item-list">
-<div id="method-getBranch" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>getBranch</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/Info.html#method_getBranch">Info</a>:
-		<a href="../files/info.js.html#l68"><code>info.js:68</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description">Get the branch of the language, if any</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					The language branch: semitic, etc.
-			</div>
-		</div>
-
-</div>
-<div id="method-getCode" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>getCode</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/Info.html#method_getCode">Info</a>:
-		<a href="../files/info.js.html#l50"><code>info.js:50</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description">Get the code of the language</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					The language ISO639-2 code: "ara", "jpn", "eng", etc.
-			</div>
-		</div>
-
-</div>
-<div id="method-getDir" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>getDir</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/Info.html#method_getDir">Info</a>:
-		<a href="../files/info.js.html#l77"><code>info.js:77</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description">Get the direction of writing of the language: ltr or rtl</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					The language direction: left to right (ltr) or right to left (rtl)
-			</div>
-		</div>
-
-</div>
-<div id="method-getFamily" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>getFamily</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/Info.html#method_getFamily">Info</a>:
-		<a href="../files/info.js.html#l59"><code>info.js:59</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description">Get the family of the language</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					The language family: Afro-asiatic, Japonic, etc.
-			</div>
-		</div>
-
-</div>
-<div id="method-getName" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>getName</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/Info.html#method_getName">Info</a>:
-		<a href="../files/info.js.html#l41"><code>info.js:41</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description">Get the name of the language</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					the language name: arabic, english, japanese, etc.
-			</div>
-		</div>
-
-</div>
-<div id="method-getWordOrder" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>getWordOrder</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/Info.html#method_getWordOrder">Info</a>:
-		<a href="../files/info.js.html#l86"><code>info.js:86</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description">Get the words order:
-<ul>
-<li>s: Subject</li>
-<li>v: Verb</li>
-<li>o: Object</li>
-</ul>
-For example, English is "svo"</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-					The words order in the language
-			</div>
-		</div>
-
-</div>
-        </div>
-    </div>
-
-
-
-
+                        <div class="page-header">
+                            <h3 class="classHeader">Class <span class="className">AraInfo</span>  extends <span class="extends">Info</span> </h3>
+                               <a href="../files/ara_ara.info.js.html#l12"><code>ara&#x2F;ara.info.js:12</code></a>
+                        </div>
+                        
+                        
+                        <div class="well well-small">
+                            <strong>Description:</strong><p>Contains information about Arabic language</p>
+                        
+                        </div>
+                        
+                            <div class="constructor">
+                                <h4>Constructor</h4>
+                                <div id="method_AraInfo" class="method item">
+                                    <h3 class="name"><code>AraInfo</code></h3>
+                                
+                                        <span class="paren">()</span>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                    <div class="meta">
+                                                <p>
+                                                Defined in
+                                        <a href="../files/ara_ara.info.js.html#l12"><code>ara&#x2F;ara.info.js:12</code></a>
+                                        </p>
+                                
+                                
+                                
+                                    </div>
+                                
+                                    <div class="description">
+                                        
+                                    </div>
+                                
+                                
+                                
+                                </div>
+                            </div>
+                        
+                        <div>
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
+                        
+                                    <li><a data-toggle="tab" href="#methods">Methods</a></li>
+                            </ul>
+                        
+                            <div class="tab-content">
+                                <div id="index" class="tab-pane active">
+                                        <div class="index-section methods">
+                                            <h4>Methods</h4>
+                        
+                                            <ul class="index-list methods extends">
+                                                    <li class="index-item method inherited">
+                                                        <a href="#" data-tabid="#methods" data-anchor="#method_getBranch" data-tablink="getBranch">getBranch</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method inherited">
+                                                        <a href="#" data-tabid="#methods" data-anchor="#method_getCode" data-tablink="getCode">getCode</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method inherited">
+                                                        <a href="#" data-tabid="#methods" data-anchor="#method_getDir" data-tablink="getDir">getDir</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method inherited">
+                                                        <a href="#" data-tabid="#methods" data-anchor="#method_getFamily" data-tablink="getFamily">getFamily</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method inherited">
+                                                        <a href="#" data-tabid="#methods" data-anchor="#method_getName" data-tablink="getName">getName</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method inherited">
+                                                        <a href="#" data-tabid="#methods" data-anchor="#method_getWordOrder" data-tablink="getWordOrder">getWordOrder</a>
+                        
+                                                    </li>
+                                            </ul>
+                                        </div>
+                        
+                        
+                        
+                                </div>
+                        
+                                    <div id="methods" class="tab-pane">
+                                        <h2 class="off-left">Methods</h2>
+                        
+                                            <div id="method_getBranch" class="method item inherited">
+                                                <h3 class="name"><code>getBranch</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>Inherited from
+                                                            <a href="../classes/Info.html#method_getBranch">Info</a>:
+                                                    <a href="../files/info.js.html#l68"><code>info.js:68</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    Get the branch of the language, if any
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                                                                The language branch: semitic, etc.
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_getCode" class="method item inherited">
+                                                <h3 class="name"><code>getCode</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>Inherited from
+                                                            <a href="../classes/Info.html#method_getCode">Info</a>:
+                                                    <a href="../files/info.js.html#l50"><code>info.js:50</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    Get the code of the language
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                                                                The language ISO639-2 code: "ara", "jpn", "eng", etc.
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_getDir" class="method item inherited">
+                                                <h3 class="name"><code>getDir</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>Inherited from
+                                                            <a href="../classes/Info.html#method_getDir">Info</a>:
+                                                    <a href="../files/info.js.html#l77"><code>info.js:77</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    Get the direction of writing of the language: ltr or rtl
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                                                                The language direction: left to right (ltr) or right to left (rtl)
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_getFamily" class="method item inherited">
+                                                <h3 class="name"><code>getFamily</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>Inherited from
+                                                            <a href="../classes/Info.html#method_getFamily">Info</a>:
+                                                    <a href="../files/info.js.html#l59"><code>info.js:59</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    Get the family of the language
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                                                                The language family: Afro-asiatic, Japonic, etc.
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_getName" class="method item inherited">
+                                                <h3 class="name"><code>getName</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>Inherited from
+                                                            <a href="../classes/Info.html#method_getName">Info</a>:
+                                                    <a href="../files/info.js.html#l41"><code>info.js:41</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    Get the name of the language
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                                                                the language name: arabic, english, japanese, etc.
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                            <div id="method_getWordOrder" class="method item inherited">
+                                                <h3 class="name"><code>getWordOrder</code></h3>
+                                            
+                                                    <span class="paren">()</span>
+                                            
+                                                    <span class="returns-inline">
+                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                    </span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>Inherited from
+                                                            <a href="../classes/Info.html#method_getWordOrder">Info</a>:
+                                                    <a href="../files/info.js.html#l86"><code>info.js:86</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    Get the words order:
+                                            <ul>
+                                            <li>s: Subject</li>
+                                            <li>v: Verb</li>
+                                            <li>o: Object</li>
+                                            </ul>
+                                            For example, English is "svo"
+                                                </div>
+                                            
+                                            
+                                                    <div class="returns">
+                                                        <h4>Returns:</h4>
+                                            
+                                                        <div class="returns-description">
+                                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                                                                The words order in the language
+                                                        </div>
+                                                    </div>
+                                            
+                                            </div>
+                                    </div>
+                        
+                        
+                        
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
