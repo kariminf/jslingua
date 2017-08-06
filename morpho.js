@@ -394,4 +394,16 @@
     return word;
   }
 
+  /**
+   * Normalization method, used to delete non used chars or to replace some with others, etc.
+   * @method normalize
+   * @param  {string} word the word to be normalized
+   * @param  {string} opts some options (optional) where each language defines its own
+   * normalization options
+   * @return {string}      normalized word
+   */
+  Me.normalize = function(word, opts){
+    return word;
+  }
+
 }());

@@ -30,7 +30,7 @@ for s in *.js; do
 done
 
 # copy the languages implementations to dist
-for s in !(dist|docs|test)/*.js; do
+for s in !(dist|web|test)/*.js; do
   cp $s dist/
   # minify --output "dist/{{filename}}.min.{{ext}}" $s
 done

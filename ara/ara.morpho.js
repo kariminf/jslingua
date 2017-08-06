@@ -22,7 +22,7 @@
   var g;
   function AraMorpho() {
     Morpho.call(this, "ara");
-    Morpho.newStemmer.call(this, "dummyStemmer", "Arabic Dummy stemmer", function(word){return word;});
+    Morpho.newStemmer.call(this, "arabicDummyStemmer", "Arabic Dummy stemmer", arabicDummyStemmer);
     g = this.g;
   }
 
@@ -282,12 +282,74 @@
     return "";
   }
 
-  Me.stem = function(word){
+  /**
+   * Normalization method for Arabic: it helps delete vocalization
+   * * voc: delete vocalization
+   * * alef: Replace all alef variants with the simple alef
+   * * yeh: Relace the alif maqsorah with yeh
+   * * teh: Replace teh marbuta with heh
+   * * _: Delete tatweel
+   * @method normalize
+   * @param  {string} word the word to be normalized
+   * @param  {string} opts some options (optional) where each language defines its own
+   * normalization options
+   * @return {string}      normalized word
+   **/
+  Me.normalize = function(word, opts){
+    var norm = word.trim();
 
-    var result = word;
-    return result;
+    //If no options are afforded, do all
+    if (! opts || opts.length < 1){
+      var opts = "voc,alef,yeh,teh,_";
+    }
+
+    //Delete vocals: fathah, kasrah, etc.
+    if(opts.includes("voc")){
+      norm = norm.replace(/[َ ً ُ ٍ ْ ِ ٌ]/g, "");
+    }
+
+    //Replace all alef variants with the simple alef
+    if(opts.includes("alef")){
+      norm = norm.replace(/[أإآ]/g, "ا");
+    }
+
+    //Relace the alif maqsorah with yeh
+    if(opts.includes("yeh")){
+      norm = norm.replace(/[ى]/g, "ي");
+    }
+
+    //Replace teh marbuta with heh
+    if(opts.includes("teh")){
+      norm = norm.replace(/[ة]/g, "ه");
+    }
+
+    //Delete tatweel
+    if(opts.includes("_")){
+      norm = norm.replace(/[ـ]+/g, "");
+    }
+
+    return norm;
+
   }
 
+  //=========================================================
+  //                 STEMMERS
+  //=========================================================
+
+  /**
+   * A dummy method to Stem Arabic words
+   * @private
+   * @static
+   * @method karimArDummyStemmer
+   * @param  {[type]}          word [description]
+   * @return {[type]}               [description]
+   */
+  function arabicDummyStemmer(word){
+    var stem = word;
+
+
+    return stem;
+  }
 
 
 }());
