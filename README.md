@@ -2,11 +2,37 @@
 # JsLingua
 
 [![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/jslingua)
-[![License](https://img.shields.io/badge/License-Apache--2.0-FDEE00.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![License](https://img.shields.io/github/license/kariminf/jslingua.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Version](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.org/kariminf/jslingua)
 [![codecov](https://img.shields.io/codecov/c/github/kariminf/jslingua.svg)](https://codecov.io/gh/kariminf/jslingua)
-[![npm](https://img.shields.io/npm/dt/jslingua.svg)](https://www.npmjs.com/package/jslingua)
+[![npm](https://img.shields.io/npm/dm/jslingua.svg)](https://www.npmjs.com/package/jslingua)
+
+
+This project aims to afford some of the tasks related to languages, such as;: detecting language, some transformations (majuscule to minuscule), verb conjugation, etc.
+There are a lot of projects like this such as: [NLTK](https://github.com/nltk/nltk) (python), [OpenNLP](https://github.com/apache/opennlp) (Java), etc.
+But, mostly, they are server side and needs some configurations before being put in action.
+
+A lot of tasks doesn't need many resources such as stemming, tokenization, transliteration, etc.
+When we use these toolkits in a web application, the server will do all of these tasks.
+Why not exploit the users machines to do such tasks, and gain some benefits:
+* The server will be relieved to do some other serious tasks.
+* The number of communications will drop, resulting in a faster respond time which leads to a better user experience.
+* The amount of exchanged data may drop; this case is applicable when we want to send a big text, then we tokenize it, stem it and remove stop words. This will decrease the size of data to be sent.
+* Easy to configure and to integrate into your web pages.
+
+Also, it can be used in server side using [node.js](https://github.com/nodejs/node).
+
+The project's ambitions are:
+* To deliver the maximum language-related tasks with a minimum of resources pushed down to the client.
+* To benefit from oriented object programming (OOP) concepts so the code will be minimal and readable.
+* To give the web-master the ability to choose witch tasks they want to use by using many modules instead of using one giant program.
+* To afford good resources for those who want to learn javascript programming.
+* **TO HAVE FUN**: programming is fun, spend time for useful things, happiness is when your work is helpful to others, more obstacles give more experience.
+
+You can test it on [https://kariminf.github.com/jslingua/docs](https://kariminf.github.com/jslingua/docs)
+
+## Functionalities
 
 Javascript library to process languages:
 * Information about the language
@@ -18,22 +44,19 @@ Javascript library to process languages:
   * Verb Conjugation
   * Stemming
 
-You can test it on [https://kariminf.github.com/jslingua](https://kariminf.github.com/jslingua)
-
-## Functionalities
-
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 
-YuiDoc generated API is located in [https://kariminf.github.com/jslingua/docs/](https://kariminf.github.com/JsLingua/docs/)
+YuiDoc generated API is located in [https://kariminf.github.com/jslingua/docs/docs/](https://kariminf.github.com/JsLingua/docs/docs/)
 
 ## How to use?
 
 ### Use in Browser
 
 Just import the class that you want to use and its implementations.
+You, always, have to import "jaslingua" first, then the module class, then its implementations.
 Here the importation of all classes, where:
-* <module> in: info, lang, trans
-* <lang> in: ara, jpn
+* < module > : info, lang, trans, morpho
+* < lang > : ara, jpn, eng
 
 ```javascript
 <script type="text/javascript" src="jslingua.js" ></script>
@@ -69,17 +92,17 @@ var JsLingua = require('jslingua');
 
 You can call them one by one, if you know the services and their implemented languages.
 ```javascript
-//Available information classes
-var ArTrans = JsLingua.getService("Info", "ara");
-var JaTrans = JsLingua.getService("Info", "jpn");
+//Get Arabic Info class
+var ArInfo = JsLingua.getService("Info", "ara");
 
-//Available transliteration classes
-var ArTrans = JsLingua.getService("Trans", "ara");
+//Get Japanese Trans class
 var JaTrans = JsLingua.getService("Trans", "jpn");
 
-//Available language classes
-var ArLang = JsLingua.getService("Lang", "ara");
-var JaLang = JsLingua.getService("Lang", "jpn");
+//Get English Lang class
+var EnLang = JsLingua.getService("Lang", "eng");
+
+//Get Arabic Morpho class
+var ArMorpho = JsLingua.getService("Morpho", "ara");
 ```
 
 Or, you can just loop over the services and test available languages.
@@ -100,10 +123,10 @@ for (i = 0; i < langIDs; i++){
 
 All the C's are here:
 
-* [CODE_OF_CONDUCT](./CONTRIBUTING.md) : How to contribute to this project
-* [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) : Some recommendations must be followed for a healthy development environment.
-* Changlog: [CHANGELOG.md](./CHANGELOG.md) : Changes in every version
-* Credits: [CREDITS.md](./CREDITS.md) : List of contributors 
+* [CONTRIBUTING](./CONTRIBUTING.md) : How to contribute to this project
+* [CODE OF CONDUCT](./CODE_OF_CONDUCT.md) : Some recommendations must be followed for a healthy development environment.
+* [CHANGELOG](./CHANGELOG.md) : Changes in every version
+* [CREDITS](./CREDITS.md) : List of contributors
 
 ## License
 

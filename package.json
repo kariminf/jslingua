@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kariminf/JsLingua.git"
+    "url": "git://github.com/kariminf/jslingua.git"
   },
   "keywords": [
     "language",
@@ -44,7 +44,7 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/kariminf/JsLingua/issues"
+    "url": "https://github.com/kariminf/jslingua/issues"
   },
-  "homepage": "http://kariminf.github.io/JsLingua"
+  "homepage": "http://kariminf.github.io/jslingua"
 }
