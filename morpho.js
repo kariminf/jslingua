@@ -52,12 +52,12 @@
    * @type {object}
    */
   var PoS = C({
-    Noun: 0,
-    Verb: 1,
-    Adjective: 2,
-    Adverb: 3,
-    Preposition: 4,
-    Pronoun: 5
+    Noun: "noun",
+    Verb: "verb",
+    Adjective: "adjective",
+    Adverb: "adverb",
+    Preposition: "preposition",
+    Pronoun: "pronoun"
   });
 
   /**
@@ -69,9 +69,9 @@
    * @type {object}
    */
   var Tense = C({
-    Past: 0,
-    Present: 1,
-    Future: 2
+    Past: "past",
+    Present: "present",
+    Future: "future"
   });
 
   /**
@@ -83,10 +83,10 @@
    * @type {object}
    */
   var Aspect = C({
-    Simple: 0,
-    Continuous: 1,
-    Perfect: 2,
-    PerfectContinuous: 3
+    Simple: "simple",
+    Continuous: "continuous",
+    Perfect: "perfect",
+    PerfectContinuous: "perfect-continuous"
   });
 
   /**

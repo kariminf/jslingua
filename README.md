@@ -30,7 +30,7 @@ The project's ambitions are:
 * To afford good resources for those who want to learn javascript programming.
 * **TO HAVE FUN**: programming is fun, spend time for useful things, happiness is when your work is helpful to others, more obstacles give more experience.
 
-You can test it on [https://kariminf.github.com/jslingua/docs](https://kariminf.github.com/jslingua/docs)
+You can test it on [https://kariminf.github.com/jslingua](https://kariminf.github.com/jslingua)
 
 ## Functionalities
 
@@ -46,7 +46,7 @@ Javascript library to process languages:
 
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 
-YuiDoc generated API is located in [https://kariminf.github.com/jslingua/docs/docs/](https://kariminf.github.com/JsLingua/docs/docs/)
+YuiDoc generated API is located in [https://kariminf.github.com/jslingua/web/docs/](https://kariminf.github.com/JsLingua/web/docs/)
 
 ## How to use?
 

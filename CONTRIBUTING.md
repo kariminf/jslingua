@@ -30,6 +30,36 @@ If you want to fix something yourself, you are welcome to join us.
 * cd jslingua
 * nmp install
 
-If you want to test the web-site:
-* ./server
-* then in your browser http://127.0.0.1:8086/
+If you want to see the web-site:
+```
+./server
+```
+* then in your browser **http://127.0.0.1:8086/**
+
+This website is meant to users, because you have to execute
+```
+bash min.sh
+```
+which minimizes the javascript files and send them to "dist".
+
+
+To test while programming, see the next section "testing"
+
+## testing
+
+When you modify your code, it is preferable to test it.
+
+### browser
+```
+./server
+```
+* then in your browser **http://127.0.0.1:8086/test/browser/**
+* Choose the module if it is available, or create a simple website test
+
+### mocha
+
+You can find mocha tests in "./test/unit/"
+
+### nodejs
+
+You can find simple nodejs scripts (log test) in "./test/nodejs/"

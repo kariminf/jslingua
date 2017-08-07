@@ -22,7 +22,7 @@
   var g;
   function AraMorpho() {
     Morpho.call(this, "ara");
-    Morpho.newStemmer.call(this, "arabicDummyStemmer", "Arabic Dummy stemmer", arabicDummyStemmer);
+    Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
     g = this.g;
   }
 
@@ -337,14 +337,14 @@
   //=========================================================
 
   /**
-   * A dummy method to Stem Arabic words
+   * A method for Arabic stemming which aims to use regex as much as possible
    * @private
    * @static
-   * @method karimArDummyStemmer
+   * @method jslinguaAraStemmer
    * @param  {[type]}          word [description]
    * @return {[type]}               [description]
    */
-  function arabicDummyStemmer(word){
+  function jslinguaAraStemmer(word){
     var stem = word;
 
 

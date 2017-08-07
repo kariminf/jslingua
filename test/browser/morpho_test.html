@@ -5,14 +5,17 @@
   <title>Morphological test</title>
   <script type="text/javascript" src="../../jslingua.js" ></script>
   <script type="text/javascript" src="../../morpho.js" ></script>
-  <script type="text/javascript" src="../../ara/ara.morpho.js" ></script>
-  <!--script type="text/javascript" src="../../jpn/jpn.morpho.js" ></script-->
+  <!--script type="text/javascript" src="../../ara/ara.morpho.js" ></script-->
+  <script type="text/javascript" src="../../eng/eng.morpho.js" ></script>
+
   <script type="text/javascript">
 
-  var morpho;
+  var morpho = {};
+  var $ = function(id){return document.getElementById(id)};
+  var _ = function(e){return e.options[e.selectedIndex]};
 
   function loading(){
-    var e = document.getElementById("l");
+    var e = $("l");
 
     var langIDs = JsLingua.serviceLanguages("Morpho");
     var i;
@@ -27,17 +30,41 @@
   }
 
   function update(){
-    var e = document.getElementById("l");
-    var langID = e.options[e.selectedIndex].text;
-    var morphoClass = JsLingua.getService("Morpho", langID);
-    morpho = new morphoClass();
+    var lang = _($("l")).text;
+    morpho = new (JsLingua.getService("Morpho", lang))();
+    $("verb").dir = JsLingua.getDir(lang);
+    $("conj").dir = JsLingua.getDir(lang);
+    $("stemI").dir = JsLingua.getDir(lang);
+    $("stemO").dir = JsLingua.getDir(lang);
+
+    var stemmers = morpho.availableStemmers();
+    var m = $("stemM");
+    var i = m.options.length;
+    while (i--) m.remove(i);
+
+    stemmers.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      m.add(option);
+    });
+
+    setMethod();
   }
 
-  function conjugate(){
-    var verb = document.getElementById("verb").value;
-    var result = "<table>";
+  function setMethod(){
+    var sn = _($("stemM")).value;
+    if (sn) morpho.setCurrentStemmer(sn);
+  }
 
-    var conj = document.getElementById("conj");
+  function htmlEntities(str) {
+    var result = String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    result = result.replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /gi, "&nbsp;");
+    return result;
+  }
+
+  function conjugate() {
+    var verb = $("verb").value;
+    var result = "<table border=\"1\">";
 
     //console.log(morpho.getPronounOpts());
 
@@ -63,7 +90,11 @@
 
     result += "</table>"
 
-    conj.innerHTML = result;
+    $("conj").innerHTML = result;
+  }
+
+  function stem(){
+    $("stemO").innerHTML = morpho.stem($("stemI").value);
   }
 
   </script>
@@ -87,14 +118,24 @@
 
 </head>
 <body>
-  <h2>Choose the language:</h2>
-  <select id="l" onchange="update()"></select>
-  <br>
-  <h2>Conjugation</h2>
-  <input type="text" id="verb" />
-  <button onclick="conjugate()">Conjugate</button>
-  <br>
-  <div id="conj"></div>
+  <div>
+    <b>Language:</b>
+    <select id="l" onchange="update()"></select>
+  </div>
+  <div>
+    <b>Stemming</b>
+    <select id="stemM" onchange="setMethod()">
+    </select>
+    <input type="text" id="stemI" />
+    <button onclick="stem()">Stem</button>
+    <span id="stemO"></span>
+  </div>
+  <div class="kfs" >
+    <b>Verb Conjugation</b>
+    <input type="text" id="verb" />
+    <button onclick="conjugate()">Conjugate</button><br>
+    <div id="conj"></div>
+  </div>
   <script>
   loading();
   </script>
