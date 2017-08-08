@@ -1,12 +1,12 @@
 
 # JsLingua
 
-[![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/jslingua)
+[![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/jslingua.web)
 [![License](https://img.shields.io/github/license/kariminf/jslingua.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Version](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.org/kariminf/jslingua)
 [![codecov](https://img.shields.io/codecov/c/github/kariminf/jslingua.svg)](https://codecov.io/gh/kariminf/jslingua)
-[![npm](https://img.shields.io/npm/dm/jslingua.svg)](https://www.npmjs.com/package/jslingua)
+[![downloads](https://img.shields.io/npm/dm/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 
 
 This project aims to afford some of the tasks related to languages, such as;: detecting language, some transformations (majuscule to minuscule), verb conjugation, etc.
@@ -30,7 +30,7 @@ The project's ambitions are:
 * To afford good resources for those who want to learn javascript programming.
 * **TO HAVE FUN**: programming is fun, spend time for useful things, happiness is when your work is helpful to others, more obstacles give more experience.
 
-You can test it on [https://kariminf.github.com/jslingua](https://kariminf.github.com/jslingua)
+You can test it on [https://kariminf.github.com/jslingua.web](https://kariminf.github.com/jslingua.web)
 
 ## Functionalities
 
@@ -46,7 +46,7 @@ Javascript library to process languages:
 
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 
-YuiDoc generated API is located in [https://kariminf.github.com/jslingua/web/docs/](https://kariminf.github.com/JsLingua/web/docs/)
+YuiDoc generated API is located in [https://kariminf.github.com/jslingua.web/docs/](https://kariminf.github.com/jslingua.web/docs/)
 
 ## How to use?
 
