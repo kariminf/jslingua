@@ -14,6 +14,11 @@
   var $ = function(id){return document.getElementById(id)};
   var _ = function(e){return e.options[e.selectedIndex]};
 
+  var conjParams = {
+    rows: {},
+    cols: {}
+  };
+
   function loading(){
     var e = $("l");
 
@@ -32,10 +37,11 @@
   function update(){
     var lang = _($("l")).text;
     morpho = new (JsLingua.getService("Morpho", lang))();
-    $("verb").dir = JsLingua.getDir(lang);
-    $("conj").dir = JsLingua.getDir(lang);
-    $("stemI").dir = JsLingua.getDir(lang);
-    $("stemO").dir = JsLingua.getDir(lang);
+    var dir = JsLingua.getDir(lang);
+    $("verb").dir = dir;
+    $("conj").dir = dir;
+    $("stemI").dir = dir;
+    $("stemO").dir = dir;
 
     var stemmers = morpho.availableStemmers();
     var m = $("stemM");
@@ -47,6 +53,30 @@
       option.text = element;
       m.add(option);
     });
+
+    var text = "";
+    var repeat = 1;
+    conjParams = JsLingua.Cls.Morpho.parseConjModel(morpho);
+
+    var rr = conjParams.rows.labels.length;
+    var text2 = "";
+    while(rr--) text2 += "<td></td>"
+
+    conjParams.cols.labels.forEach(function(v, i, a){
+      text += "<tr>" + text2;
+      var rep = repeat;
+      repeat *= v.length;
+      while(rep--){
+        v.forEach(function(v2, i2, a2){
+          text += "<td colspan=\"" + conjParams.cols.spans[i] + "\">";
+          text += v2;
+          text += "</td>";
+        });
+      }
+
+      text += "</tr>";
+    });
+    conjParams.colHtml = text;
 
     setMethod();
   }
@@ -64,57 +94,70 @@
 
   function conjugate() {
     var verb = $("verb").value;
-    var result = "<table border=\"1\">";
+    var result = "";
+    var forms = morpho.getForms();
 
-    //console.log(morpho.getPronounOpts());
+    for (k in forms) {
+      result += "<div class=\"l\"><h3>" + k + "</h3>";
+      result += "<table border=\"1\">" + conjParams.colHtml;
+      var ropts = conjParams.rows.opts;
+      var copts = conjParams.cols.opts;
+      var rlabels = conjParams.rows.labels;
+      var rspans = conjParams.rows.spans;
+      var lIdx = 0;
 
-    var tenses = morpho.getTenses();
-    result += "<tr><th></th>";
-    tenses.forEach(function(element, index, array){
-      result += "<th>" + morpho.getTenseName(element) + "</th>";
-    });
-    result += "</tr>";
+      for(var rowi=0; rowi < ropts.length; rowi++){
+        result += "<tr>";
+        var rlabelIdx = rowi;
+        for (var rowj=0; rowj < rlabels.length; rowj++){
+          var idx = ~~(rlabelIdx / rspans[rowj]);
+          rlabelIdx = rlabelIdx % rspans[rowj];
+          if (rlabelIdx===0){
+            result += "<td rowspan=\"" + rspans[rowj] + "\">";
+            result += rlabels[rowj][idx];
+            result += "</td>";
+          }
+        }
 
-    morpho.getPronounOpts().forEach(function(pOpt, pIdx, pTab){
-      result += "<tr>";
-      result += "<th>" + morpho.getPronounName(pOpt) + "</th>";
-      //create a new clone
-      var allOpts = Object.assign({}, pOpt);
-      tenses.forEach(function(tOpt, tIdx, tTab){
-        allOpts.tense = tOpt;
-        //console.log(tOpt);
-        result += "<td>" + morpho.conjugate(verb, allOpts) + "</td>";
-      });
-      result += "</tr>";
-    });
+        for(coli = 0; coli < copts.length; coli++){
+          result += "<td>";
+          var fuseOpts = Object.assign({}, ropts[rowi], copts[coli], forms[k]);
+          result += morpho.conjugate(verb, fuseOpts);
+          result += "</td>";
+        }
 
-    result += "</table>"
+
+        result += "</tr>";
+      }
+
+      result += "</table>";
+      result += "</div>";
+    }
 
     $("conj").innerHTML = result;
   }
 
-  function stem(){
-    $("stemO").innerHTML = morpho.stem($("stemI").value);
-  }
+function stem(){
+  $("stemO").innerHTML = morpho.stem($("stemI").value);
+}
 
-  </script>
+</script>
 
-  <style >
-  .l {
-    display: inline-block;
-    border: 1px solid Black;
-    vertical-align: middle;
-    border-radius: 2px;
-    margin: 2px;
-    padding: 2px;
-  }
-  .t {
-    background-color: Violet;
-  }
-  .f {
-    background-color: Gray;
-  }
-  </style>
+<style >
+.l {
+  display: inline-block;
+  border: 1px solid Black;
+  vertical-align: middle;
+  margin: 2px;
+  padding: 2px;
+}
+.t {
+  background-color: Violet;
+}
+.f {
+  background-color: Gray;
+}
+</style>
 
 </head>
 <body>

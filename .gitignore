@@ -38,7 +38,7 @@ jspm_packages
 .eslintcache
 
 # Optional REPL history
-.node_repl_history 
+.node_repl_history
 
 #unpkg minified files folder
 dist
@@ -47,3 +47,5 @@ dist
 
 #yuido out folder
 out
+
+package-lock.json

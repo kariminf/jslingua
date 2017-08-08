@@ -12,13 +12,13 @@
 
   //Different global features
   var F = Morpho.Feature;
-  var T = F.Tense;
-  var M = F.Mood;
-  var V = F.Voice;
-  var N = F.Number;
-  var A = F.Aspect;
-  var G = F.Gender;
-  var P = F.Person;
+  var Tense = F.Tense;
+  var Mood = F.Mood;
+  var Voice = F.Voice;
+  var GNumber = F.Number;
+  var Aspect = F.Aspect;
+  var Gender = F.Gender;
+  var Person = F.Person;
 
   var g;
 
@@ -36,30 +36,97 @@
   var debugFunction = Morpho.prototype.debugFunction;
 
   Me.getTenseName = function(tense){
-    switch (tense) {
-      case T.Past:
-        return "past";
-      case T.Present:
-        return "present";
-      case T.Future:
-        return "future";
-    }
+    return tense;
+  }
 
+
+  Me.getOptLists = function(optLabel){
+    switch (optLabel) {
+      case "Pronoun": return getPronounOpts();
+      case "Negation": return getNegationOpts();
+      case "Voice": return getVoiceOpts();
+      default:
+
+    }
+    return [];
+  }
+
+  Me.getOptName = function(optLabel, opts){
+    switch (optLabel) {
+      case "Pronoun": return getPronounName(opts);
+      case "Negation": return getNegationName(opts);
+      case "Voice": return getVoiceName(opts);
+      default:
+
+    }
     return "";
   }
 
-  Me.getPronounOpts = function(){
+  function getNegationOpts(){
     return [
-        {person:P.First, number: N.Singular}, //I
-        {person:P.First, number: N.Plural}, //We
-
-        {person:P.Second},//You
-
-        {person:P.Third, number: N.Singular, gender: G.Masculine},//He
-        {person:P.Third, number: N.Singular, gender: G.Feminine},//She
-        {person:P.Third, number: N.Singular, gender: G.Neuter},//It
-        {person:P.Third, number: N.Plural}//They
+        {negated:0}, //Positive
+        {negated:1}//negative
     ];
+  }
+
+
+  function getNegationName(opts){
+    if (! opts) return "";
+    if (opts.negated) return "negative";
+    return "affirmative";
+  }
+
+  function getVoiceOpts(){
+    return [
+        {voice: Voice.A}, //Active voice
+        {voice: Voice.P} //Passive voice
+    ];
+  }
+
+
+  function getVoiceName(opts){
+    if (! opts) return "";
+    if (! opts.voice) return "";
+    switch (opts.voice) {
+      case Voice.A: return "active";
+      case Voice.P: return "passive";
+    }
+    return "";
+  }
+
+  function getPronounOpts(){
+    return [
+        {person:Person.F, number: GNumber.S}, //I
+        {person:Person.S},//You
+        {person:Person.T, number: GNumber.S, gender: Gender.M},//He
+        {person:Person.T, number: GNumber.S, gender: Gender.F},//She
+        {person:Person.T, number: GNumber.S, gender: Gender.N},//It
+        {person:Person.F, number: GNumber.P}, //We
+        {person:Person.T, number: GNumber.P}//They
+    ];
+  }
+
+
+  function getPronounName(opts){
+    switch (opts.person) {
+      case Person.F:
+      if (opts.number === GNumber.S) return "I";
+      else return "We";
+
+      case Person.S:
+      return "You";
+
+      case Person.T:
+      if (opts.number == GNumber.S) {
+        switch (opts.gender) {
+          case Gender.M: return "He";
+          case Gender.F: return "She";
+          default: return "It";
+        }
+      } else return "They";
+
+    }
+    return "";
   }
 
   //var C = Object.freeze;
@@ -86,128 +153,38 @@
 
 
   var irregular0 = {
-    "bet": 1,
-    "bid": 1,
-    "broadcast": 1,
-    "burst": 1,
-    "cast": 1,
-    "clad": 1,
-    "clearcut": 1,
-    "cost": 1,
-    "crosscut": 1,
-    "cut": 1,
-    "fit": 1,
-    "handset": 1,
-    "hit": 1,
-    "hurt": 1,
-    "intercut": 1,
-    "let": 1,
-    "lipread": 1,
-    "podcast": 1,
-    "precast": 1,
-    "proofread": 1,
-    "put": 1,
-    "quit": 1,
-    "read": 1,
-    "retrofit": 1,
-    "set": 1,
-    "shed": 1,
-    "shut": 1,
-    "simulcast": 1,
-    "slit": 1,
-    "spit": 1,
-    "split": 1,
-    "spread": 1,
-    "sublet": 1,
-    "telecast": 1,
-    "thrust": 1,
-    "typecast": 1,
-    "typeset": 1,
-    "webcast": 1,
-    "wed": 1
+    "bet": 1, "bid": 1, "broadcast": 1, "burst": 1,  "cast": 1, "clad": 1,
+    "clearcut": 1, "cost": 1, "crosscut": 1, "cut": 1, "fit": 1, "handset": 1,
+    "hit": 1, "hurt": 1, "intercut": 1, "let": 1, "lipread": 1, "podcast": 1,
+    "precast": 1, "proofread": 1, "put": 1, "quit": 1, "read": 1, "retrofit": 1,
+    "set": 1, "shed": 1, "shut": 1, "simulcast": 1, "slit": 1, "spit": 1,
+    "split": 1, "spread": 1, "sublet": 1, "telecast": 1, "thrust": 1,
+    "typecast": 1, "typeset": 1, "webcast": 1, "wed": 1
   },
   irregular1 = {
-    "babysit": "babysat",
-    "bend": "bent",
-    "beseech": "besought",
-    "besprenge": "besprent",
-    "bind": "bound",
-    "bleed": "bled",
-    "breastfeed": "breastfed",
-    "breed": "bred",
-    "bring": "brought",
-    "build": "built",
-    "buy": "bought",
-    "catch": "caught",
-    "cling": "clung",
-    "creep": "crept",
-    "deal": "dealt",
-    "dig": "dug",
-    "feed": "fed",
-    "feel": "felt",
-    "fight": "fought",
-    "find": "found",
-    "flee": "fled",
-    "fling": "flung",
-    "forthlead": "forthled",
-    "forthtell": "forthtold",
-    "get": "got",
-    "hamstring": "hamstrung",
-    "handspring": "handsprung",
-    "hang": "hung",
-    "hear": "heard",
-    "hold": "held",
-    "housesit": "housesat",
-    "interbreed": "interbred",
-    "interlay": "interlaid",
-    "keep": "kept",
-    "lay": "laid",
-    "lead": "led",
-    "leave": "left",
-    "lend": "lent",
-    "lose": "lost",
-    "make": "made",
-    "mean": "meant",
-    "meet": "met",
-    "naysay": "naysaid",
-    "onlay": "onlaid",
-    "onlead": "onled",
-    "pay": "paid",
-    "rend": "rent",
-    "say": "said",
-    "seek": "sought",
-    "sell": "sold",
-    "send": "sent",
-    "shrink": "shrunk",
-    "shoot": "shot",
-    "sink": "sunk",
-    "sit": "sat",
-    "sleep": "slept",
-    "slide": "slid",
-    "sling": "slung",
-    "slit": "slit",
-    "soothsay": "soothsaid",
-    "spend": "spent",
-    "spin": "spun",
-    "sprenge": "sprent",
-    "spring": "sprung",
-    "stand": "stood",
-    "stick": "stuck",
-    "sting": "stung",
-    "stink": "stunk",
-    "strike": "struck",
-    "string": "strung",
-    "sweep": "swept",
-    "swing": "swung",
-    "teach": "taught",
-    "tell": "told",
-    "think": "thought",
-    "tread": "trod",
-    "understand": "understood",
-    "waylay": "waylaid",
-    "win": "won",
-    "wind": "wound",
-    "wring": "wrung"
+    "babysit": "babysat", "bend": "bent", "beseech": "besought",
+    "besprenge": "besprent", "bind": "bound", "bleed": "bled",
+    "breastfeed": "breastfed", "breed": "bred", "bring": "brought",
+    "build": "built", "buy": "bought", "catch": "caught",
+    "cling": "clung", "creep": "crept", "deal": "dealt",
+    "dig": "dug", "feed": "fed", "feel": "felt",
+    "fight": "fought", "find": "found", "flee": "fled",
+    "fling": "flung", "forthlead": "forthled", "forthtell": "forthtold",
+    "get": "got", "hamstring": "hamstrung", "handspring": "handsprung",
+    "hang": "hung", "hear": "heard", "hold": "held",
+    "housesit": "housesat", "interbreed": "interbred", "interlay": "interlaid",
+    "keep": "kept", "lay": "laid", "lead": "led", "leave": "left",
+    "lend": "lent", "lose": "lost", "make": "made", "mean": "meant",
+    "meet": "met", "naysay": "naysaid", "onlay": "onlaid", "onlead": "onled",
+    "pay": "paid", "rend": "rent", "say": "said", "seek": "sought",
+    "sell": "sold", "send": "sent", "shrink": "shrunk", "shoot": "shot",
+    "sink": "sunk", "sit": "sat", "sleep": "slept", "slide": "slid",
+    "sling": "slung", "slit": "slit", "soothsay": "soothsaid", "spend": "spent",
+    "spin": "spun", "sprenge": "sprent","spring": "sprung", "stand": "stood",
+    "stick": "stuck", "sting": "stung", "stink": "stunk", "strike": "struck",
+    "string": "strung", "sweep": "swept", "swing": "swung", "teach": "taught",
+    "tell": "told", "think": "thought", "tread": "trod", "understand": "understood",
+    "waylay": "waylaid", "win": "won", "wind": "wound", "wring": "wrung"
   },
   irregular2 = {
     "acknow":  ["acknew", "1n"],
@@ -287,9 +264,9 @@
     if (! verb in beHave) return verb;
     if (! "Pr|Pa|Pp".includes(idx)) return verb;
 
-    if (opts.number === N.Singular){
-      if (opts.person == P.First) return beHave[verb][idx][0];
-      else if (opts.person == P.Third) return beHave[verb][idx][1];
+    if (opts.number === N.S){
+      if (opts.person == P.F) return beHave[verb][idx][0];
+      else if (opts.person == P.T) return beHave[verb][idx][1];
       return beHave[verb][idx][2];
     }
 
@@ -332,9 +309,9 @@
 
     switch (opts.tense) {
 
-      case T.Present:
+      case Tense.Pr:
       if (beHave[verb]) return beHaveConj(verb, "Pr", opts);
-      if (opts.person == P.Third && opts.number === N.Singular){
+      if (opts.person == Person.T && opts.number === GNumber.S){
         //hurry, clarify
         verb = verb.replace(/([^aeuio])y$/, "$1ie");
         //go, veto, do, wash, mix, fizz (add e )
@@ -344,7 +321,7 @@
       //TODO be, have
       break;
 
-      case T.Past:
+      case Tense.Pa:
       //To be, To have
       if (beHave[verb]) return beHaveConj(verb, "Pa", opts);
       //Irregular (the block is just for variables)
@@ -369,7 +346,7 @@
       else end = "ed";
       break;
 
-      case T.Future:
+      case Tense.Fu:
       begin = "will ";
       break;
 
@@ -379,35 +356,6 @@
 
     return result;
 
-  }
-
-  /**
-   * [getPronounName description]
-   * @method getPronounName
-   * @param  {[type]}       opts [description]
-   * @return {[type]}            [description]
-   */
-  Me.getPronounName = function(opts){
-
-    switch (opts.person) {
-      case P.First:
-      if (opts.number === N.Singular) return "I";
-      else return "We";
-
-      case P.Second:
-      return "You";
-
-      case P.Third:
-      if (opts.number == N.Singular) {
-        switch (opts.gender) {
-          case G.Masculine: return "He";
-          case G.Feminine: return "She";
-          default: return "It";
-        }
-      } else return "They";
-
-    }
-    return "";
   }
 
   //=========================================================
