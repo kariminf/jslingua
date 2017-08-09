@@ -187,86 +187,44 @@
     "waylay": "waylaid", "win": "won", "wind": "wound", "wring": "wrung"
   },
   irregular2 = {
-    "acknow":  ["acknew", "1n"],
-    "ake":  ["oke", "1n"],
-    "arise":  ["arose", "1n"],
-    "awake":  ["awoke", "2n"],
-    "bear":  ["bore", "born"],
-    "beat":  ["1", "1en"],
-    "bedo":  ["bedid", "1ne"],
-    "begin":  ["began", "begun"],
-    "bego":  ["bewent", "1ne"],
-    "bite":  ["bit", "2ten"],
-    "blow":  ["blew", "1n"],
-    "break":  ["broke", "2n"],
-    "browbeat":  ["1", "1en"],
-    "choose":  ["chose", "2n"],
-    "come":  ["came", "1"],
-    "cowrite":  ["cowrote", "1-ten"],
-    "do":  ["did", "1ne"],
-    "downdraw":  ["downdrew", "1n"],
-    "draw":  ["drew", "1n"],
-    "drink":  ["drank", "drunk"],
-    "drive":  ["drove", "1n"],
-    "eat":  ["ate", "1en"],
-    "fall":  ["fell", "1en"],
-    "fly":  ["flew", "flown"],
-    "forbid":  ["1", "1den"],
-    "forego":  ["forewent", "1ne"],
-    "forgo":  ["forwent", "1ne"],
-    "forlend":  ["forlent", "forlen"],
-    "freeze":  ["froze", "2n"],
-    "frostbite":  ["frostbit", "2ten"],
-    "ghostwrite":  ["ghostwrote", "1-ten"],
-    "give":  ["gave", "1n"],
-    "go":  ["went", "gone"],
-    "grow":  ["grew", "1n"],
-    "handwrite":  ["handwrote", "1-ten"],
-    "hide":  ["hid", "2den"],
-    "interweave":  ["interwove", "2n"],
-    "know":  ["knew", "1n"],
-    "lie":  ["lay", "lain"],
-    "misdo":  ["misdid", "1ne"],
-    "outdo":  ["outdid", "1ne"],
-    "overdo":  ["overdid", "1ne"],
-    "partake":  ["partook", "1n"],
-    "redo":  ["redid", "1ne"],
-    "ride":  ["rode", "ridden"],
-    "ring":  ["rang", "rung"],
-    "rise":  ["rose", "1n"],
-    "run":  ["ran", "run"],
-    "see":  ["saw", "1n"],
-    "shake":  ["shook", "1n"],
-    "sightsee":  ["sightsaw", "1n"],
-    "sing":  ["sang", "sung"],
-    "smite":  ["smote", "1-ten"],
-    "speak":  ["spoke", "2n"],
-    "steal":  ["stole", "2n"],
-    "stride":  ["strode", "1-den"],
-    "swear":  ["swore", "2-n"],
-    "swim":  ["swam", "swum"],
-    "swink":  ["swonk", "2en"],
-    "take":  ["took", "1n"],
-    "tear":  ["tore", "torn"],
-    "throw":  ["threw", "1-n"],
-    "toswink":  ["toswank", "toswunken"],
-    "underdo":  ["underdid", "1ne"],
-    "undergo":  ["underwent", "1ne"],
-    "undo":  ["undid", "1ne"],
-    "wake":  ["woke", "2n"],
-    "wear":  ["wore", "worn"],
-    "weave":  ["wove", "2n"],
-    "withgo":  ["withwent", "1ne"],
-    "write":  ["wrote", "1-ten"]
+    "acknow":  ["acknew", "1n"], "ake":  ["oke", "1n"], "arise":  ["arose", "1n"],
+    "awake":  ["awoke", "2n"], "bear":  ["bore", "born"], "beat":  ["1", "1en"],
+    "bedo":  ["bedid", "1ne"], "begin":  ["began", "begun"], "bego":  ["bewent", "1ne"],
+    "bite":  ["bit", "2ten"], "blow":  ["blew", "1n"], "break":  ["broke", "2n"],
+    "browbeat":  ["1", "1en"], "choose":  ["chose", "2n"], "come":  ["came", "1"],
+    "cowrite":  ["cowrote", "1-ten"], "do":  ["did", "1ne"], "downdraw":  ["downdrew", "1n"],
+    "draw":  ["drew", "1n"], "drink":  ["drank", "drunk"], "drive":  ["drove", "1n"],
+    "eat":  ["ate", "1en"], "fall":  ["fell", "1en"], "fly":  ["flew", "flown"],
+    "forbid":  ["1", "1den"], "forego":  ["forewent", "1ne"], "forgo":  ["forwent", "1ne"],
+    "forlend":  ["forlent", "forlen"], "freeze":  ["froze", "2n"],
+    "frostbite":  ["frostbit", "2ten"], "ghostwrite":  ["ghostwrote", "1-ten"],
+    "give":  ["gave", "1n"], "go":  ["went", "gone"], "grow":  ["grew", "1n"],
+    "handwrite":  ["handwrote", "1-ten"], "hide":  ["hid", "2den"],
+    "interweave":  ["interwove", "2n"], "know":  ["knew", "1n"],
+    "lie":  ["lay", "lain"], "misdo":  ["misdid", "1ne"], "outdo":  ["outdid", "1ne"],
+    "overdo":  ["overdid", "1ne"], "partake":  ["partook", "1n"],
+    "redo":  ["redid", "1ne"], "ride":  ["rode", "ridden"], "ring":  ["rang", "rung"],
+    "rise":  ["rose", "1n"], "run":  ["ran", "run"], "see":  ["saw", "1n"],
+    "shake":  ["shook", "1n"], "sightsee":  ["sightsaw", "1n"],
+    "sing":  ["sang", "sung"], "smite":  ["smote", "1-ten"],
+    "speak":  ["spoke", "2n"], "steal":  ["stole", "2n"],
+    "stride":  ["strode", "1-den"], "swear":  ["swore", "2-n"],
+    "swim":  ["swam", "swum"], "swink":  ["swonk", "2en"],
+    "take":  ["took", "1n"], "tear":  ["tore", "torn"], "throw":  ["threw", "1-n"],
+    "toswink":  ["toswank", "toswunken"], "underdo":  ["underdid", "1ne"],
+    "undergo":  ["underwent", "1ne"], "undo":  ["undid", "1ne"],
+    "wake":  ["woke", "2n"], "wear":  ["wore", "worn"], "weave":  ["wove", "2n"],
+    "withgo":  ["withwent", "1ne"], "write":  ["wrote", "1-ten"]
   };
 
   function beHaveConj(verb, idx, opts){
     if (! verb in beHave) return verb;
     if (! "Pr|Pa|Pp".includes(idx)) return verb;
+    if (idx === "Pp") return beHave[verb][idx];
 
-    if (opts.number === N.S){
-      if (opts.person == P.F) return beHave[verb][idx][0];
-      else if (opts.person == P.T) return beHave[verb][idx][1];
+    if (opts.number === GNumber.S){
+      if (opts.person == Person.F) return beHave[verb][idx][0];
+      else if (opts.person == Person.T) return beHave[verb][idx][1];
       return beHave[verb][idx][2];
     }
 
@@ -307,54 +265,84 @@
     var begin = "";
     var end = "";
 
+    if((opts.voice) && (opts.voice === Voice.P)){
+      if (beHave[verb]) end = " " + beHaveConj(verb, "Pp", opts);
+      else if (isIrregular(verb)) end = " " + irregularConj(verb, 1);
+      else end = " " + this.conjugate(verb, {tense:Tense.Pa});
+      verb = "be";
+    }
+
+    if(opts.aspect){
+      if([Aspect.C, Aspect.PC].includes(opts.aspect)){
+        end = " " + verb + "ing" + end;
+        verb = "be";
+      }
+      if([Aspect.P, Aspect.PC].includes(opts.aspect)){
+        if (beHave[verb]) end = " " + beHaveConj(verb, "Pp", opts) + end;
+        else if (isIrregular(verb)) end = " " + irregularConj(verb, 1) + end;
+        else end = " " + this.conjugate(verb, {tense:Tense.Pa}) + end;
+        verb = "have";
+      }
+    }
+
+    if((opts.negated) && (opts.tense !== Tense.Fu)){
+      end = " not" + end;
+      if ((!opts.aspect) || opts.aspect === Aspect.S){
+        if ((!opts.voice) || opts.voice === Voice.A){
+          end += " " + verb;
+          verb = "do";
+          //console.log("negation active aspect");
+        }
+      }
+    }
+
     switch (opts.tense) {
 
       case Tense.Pr:
-      if (beHave[verb]) return beHaveConj(verb, "Pr", opts);
+      if (beHave[verb]) return begin + beHaveConj(verb, "Pr", opts) + end;
       if (opts.person == Person.T && opts.number === GNumber.S){
         //hurry, clarify
         verb = verb.replace(/([^aeuio])y$/, "$1ie");
         //go, veto, do, wash, mix, fizz (add e )
         verb = verb.replace(/(s|z|sh|ch|[^aeui]o)$/, "$1e");
-        end += "s";
+        end = "s" + end;
       }
       //TODO be, have
       break;
 
       case Tense.Pa:
       //To be, To have
-      if (beHave[verb]) return beHaveConj(verb, "Pa", opts);
+      if (beHave[verb]) return begin + beHaveConj(verb, "Pa", opts) + end;
       //Irregular (the block is just for variables)
       {
         var pref = /(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
         var match = pref.exec(verb);
         if(match){
           //verify if the verb is in Irregular list with the prefix
-          if(isIrregular(verb)) return irregularConj(verb, 0);
+          if(isIrregular(verb)) return begin + irregularConj(verb, 0) + end;
           //Otherwise, delete the prefix and procede
           begin = match[1];
           verb = match[2];
         }
       }
 
-      if(isIrregular(verb)) return begin + irregularConj(verb, 0);
+      if(isIrregular(verb)) return begin + irregularConj(verb, 0) + end;
 
       verb = verb.replace(/([^aeuio])y$/, "$1i");
       verb = verb.replace(/c$/, "ck");
       verb = verb.replace(/([aeuio])([^aeuiohwxy])$/, "$1$2$2");
-      if (verb.endsWith("e")) end = "d";
-      else end = "ed";
+      if (verb.endsWith("e")) end = "d" + end;
+      else end = "ed" + end;
       break;
 
       case Tense.Fu:
       begin = "will ";
+      if(opts.negated) begin += "not ";
       break;
 
     }//swich(tense)
 
-    var result = begin + verb + end;
-
-    return result;
+    return begin + verb + end;;
 
   }
 

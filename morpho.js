@@ -332,7 +332,52 @@
       "Indicative future": {
         mood: Mood.Ind,
         tense: Tense.Fu,
+        aspect: Aspect.S
+      },
+      "Indicative present perfect": {
+        mood: Mood.Ind,
+        tense: Tense.Pr,
+        aspect: Aspect.P
+      },
+      "Indicative past perfect": {
+        mood: Mood.Ind,
+        tense: Tense.Pa,
+        aspect: Aspect.P
+      },
+      "Indicative future perfect": {
+        mood: Mood.Ind,
+        tense: Tense.Fu,
+        aspect: Aspect.P
+      },
+      "Indicative present continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Pr,
         aspect: Aspect.C
+      },
+      "Indicative past continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Pa,
+        aspect: Aspect.C
+      },
+      "Indicative future continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Fu,
+        aspect: Aspect.C
+      },
+      "Indicative present perfect continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Pr,
+        aspect: Aspect.PC
+      },
+      "Indicative past perfect continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Pa,
+        aspect: Aspect.PC
+      },
+      "Indicative future perfect continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Fu,
+        aspect: Aspect.PC
       }
     };
   }
