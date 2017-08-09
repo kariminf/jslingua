@@ -262,6 +262,11 @@
   //Override conjugate function
   Me.conjugate = function(verb, opts){
 
+    if((opts.mood) && (opts.mood === Mood.Impe)){
+      if(opts.person === Person.S) return verb;
+      return "";
+    }
+
     var begin = "";
     var end = "";
 
@@ -274,7 +279,13 @@
 
     if(opts.aspect){
       if([Aspect.C, Aspect.PC].includes(opts.aspect)){
-        end = " " + verb + "ing" + end;
+        // http://www.eclecticenglish.com/grammar/PresentContinuous1G.html
+        var base = verb;
+        if(["lie", "die"].includes(verb)) base = verb.slice(0,-2) + "y";
+        else if (/^[^aeuio]*[aeuio][^aeuioy]$/g.test(verb)) base = verb + verb.slice(-1);
+        else if (/^.{2,}e$/g.test(verb)) base = verb.slice(0,-1);
+
+        end = " " + base + "ing" + end;
         verb = "be";
       }
       if([Aspect.P, Aspect.PC].includes(opts.aspect)){
@@ -307,7 +318,6 @@
         verb = verb.replace(/(s|z|sh|ch|[^aeui]o)$/, "$1e");
         end = "s" + end;
       }
-      //TODO be, have
       break;
 
       case Tense.Pa:
@@ -330,7 +340,7 @@
 
       verb = verb.replace(/([^aeuio])y$/, "$1i");
       verb = verb.replace(/c$/, "ck");
-      verb = verb.replace(/([aeuio])([^aeuiohwxy])$/, "$1$2$2");
+      verb = verb.replace(/^([^aeuio]*[aeuio])([^aeuiohwxy])$/, "$1$2$2");
       if (verb.endsWith("e")) end = "d" + end;
       else end = "ed" + end;
       break;
