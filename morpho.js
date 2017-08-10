@@ -90,9 +90,9 @@
   });
 
   /**
-  * The mood: Indicative, Subjunctive, Conditional,
-  * Optative, Imperative, Jussive, Potential,
-  * Hypothetical, Inferential
+  * The mood: indicative, subjunctive, conditional,
+  * optative, imperative, jussive, potential,
+  * hypothetical, inferential
   * @access Morpho.Feature.Mood
   * @attribute Mood
   * @readOnly
@@ -292,13 +292,12 @@
   * @return {String}       the name of the tense in the selected language
   */
   Me.getTenseName = function(tense){
-    var T = Tense;
     switch (tense) {
-      case T.Pa:
+      case Tense.Pa:
       return "past";
-      case T.Pr:
+      case Tense.Pr:
       return "present";
-      case T.Fu:
+      case Tense.Fu:
       return "future";
     }
 
@@ -320,64 +319,19 @@
     //Past and Present are defaults
     return {
       "Indicative present": {
-        mood: Mood.Ind,
+        mood: Mood.Indi,
         tense: Tense.Pr,
         aspect: Aspect.S
       },
       "Indicative past": {
-        mood: Mood.Ind,
+        mood: Mood.Indi,
         tense: Tense.Pa,
         aspect: Aspect.S
       },
       "Indicative future": {
-        mood: Mood.Ind,
+        mood: Mood.Indi,
         tense: Tense.Fu,
         aspect: Aspect.S
-      },
-      "Indicative present perfect": {
-        mood: Mood.Ind,
-        tense: Tense.Pr,
-        aspect: Aspect.P
-      },
-      "Indicative past perfect": {
-        mood: Mood.Ind,
-        tense: Tense.Pa,
-        aspect: Aspect.P
-      },
-      "Indicative future perfect": {
-        mood: Mood.Ind,
-        tense: Tense.Fu,
-        aspect: Aspect.P
-      },
-      "Indicative present continuous": {
-        mood: Mood.Ind,
-        tense: Tense.Pr,
-        aspect: Aspect.C
-      },
-      "Indicative past continuous": {
-        mood: Mood.Ind,
-        tense: Tense.Pa,
-        aspect: Aspect.C
-      },
-      "Indicative future continuous": {
-        mood: Mood.Ind,
-        tense: Tense.Fu,
-        aspect: Aspect.C
-      },
-      "Indicative present perfect continuous": {
-        mood: Mood.Ind,
-        tense: Tense.Pr,
-        aspect: Aspect.PC
-      },
-      "Indicative past perfect continuous": {
-        mood: Mood.Ind,
-        tense: Tense.Pa,
-        aspect: Aspect.PC
-      },
-      "Indicative future perfect continuous": {
-        mood: Mood.Ind,
-        tense: Tense.Fu,
-        aspect: Aspect.PC
       }
     };
   }
@@ -398,13 +352,70 @@
     };
   }
 
+
   Me.getOptLists = function(optLabel){
+    switch (optLabel) {
+      case "Pronoun": return this.getPronounOpts();
+      case "Negation": return this.getNegationOpts();
+      case "Voice": return this.getVoiceOpts();
+      default:
+
+    }
     return [];
   }
 
   Me.getOptName = function(optLabel, opts){
+    switch (optLabel) {
+      case "Pronoun": return this.getPronounName(opts);
+      case "Negation": return this.getNegationName(opts);
+      case "Voice": return this.getVoiceName(opts);
+      default:
+
+    }
     return "";
   }
+
+  Me.getNegationOpts = function(){
+    return [
+        {negated:0}, //Positive
+        {negated:1}//negative
+    ];
+  }
+
+
+  Me.getNegationName = function(opts){
+    if (! opts) return "";
+    if (opts.negated) return "negative";
+    return "affirmative";
+  }
+
+  Me.getVoiceOpts = function(){
+    return [
+        {voice: Voice.A}, //Active voice
+        {voice: Voice.P} //Passive voice
+    ];
+  }
+
+
+  Me.getVoiceName = function(opts){
+    if (! opts) return "";
+    if (! opts.voice) return "";
+    switch (opts.voice) {
+      case Voice.A: return "active";
+      case Voice.P: return "passive";
+    }
+    return "";
+  }
+
+  Me.getPronounOpts = function(){
+    return [{}];
+  }
+
+
+  Me.getPronounName = function(opts){
+    return "";
+  }
+
 
   /**
   * This function is used for verb conjugation

@@ -11,13 +11,13 @@
 
   //Different global features
   var F = Morpho.Feature;
-  var T = F.Tense;
-  var M = F.Mood;
-  var V = F.Voice;
-  var N = F.Number;
-  var A = F.Aspect;
-  var G = F.Gender;
-  var P = F.Person;
+  var Tense = F.Tense;
+  var Mood = F.Mood;
+  var Voice = F.Voice;
+  var GNumber = F.Number;
+  var Aspect = F.Aspect;
+  var Gender = F.Gender;
+  var Person = F.Person;
 
   var g;
   function AraMorpho() {
@@ -33,11 +33,11 @@
 
   Me.getTenseName = function(tense){
     switch (tense) {
-      case T.Past:
+      case Tense.Pa:
         return "الماضي";
-      case T.Present:
+      case Tense.Pr:
         return "المضارع";
-      case T.Future:
+      case Tense.Fu:
         return "المستقبل";
     }
 
@@ -46,22 +46,22 @@
 
   Me.getPronounOpts = function(){
     return [
-        {person:P.First, number: N.Singular},
-        {person:P.First, number: N.Plural},
+        {person:Person.F, number: GNumber.S},
+        {person:Person.F, number: GNumber.P},
 
-        {person:P.Second, number: N.Singular, gender: G.Masculine},
-        {person:P.Second, number: N.Singular, gender: G.Feminine},
-        {person:P.Second, number: N.Dual, gender: G.Masculine},
-        {person:P.Second, number: N.Dual, gender: G.Feminine},
-        {person:P.Second, number: N.Plural, gender: G.Masculine},
-        {person:P.Second, number: N.Plural, gender: G.Feminine},
+        {person:Person.S, number: GNumber.S, gender: Gender.M},
+        {person:Person.S, number: GNumber.S, gender: Gender.F},
+        {person:Person.S, number: GNumber.D, gender: Gender.M},
+        {person:Person.S, number: GNumber.D, gender: Gender.F},
+        {person:Person.S, number: GNumber.P, gender: Gender.M},
+        {person:Person.S, number: GNumber.P, gender: Gender.F},
 
-        {person:P.Third, number: N.Singular, gender: G.Masculine},
-        {person:P.Third, number: N.Singular, gender: G.Feminine},
-        {person:P.Third, number: N.Dual, gender: G.Masculine},
-        {person:P.Third, number: N.Dual, gender: G.Feminine},
-        {person:P.Third, number: N.Plural, gender: G.Masculine},
-        {person:P.Third, number: N.Plural, gender: G.Feminine}
+        {person:Person.T, number: GNumber.S, gender: Gender.M},
+        {person:Person.T, number: GNumber.S, gender: Gender.F},
+        {person:Person.T, number: GNumber.D, gender: Gender.M},
+        {person:Person.T, number: GNumber.D, gender: Gender.F},
+        {person:Person.T, number: GNumber.P, gender: Gender.M},
+        {person:Person.T, number: GNumber.P, gender: Gender.F}
     ];
   }
 
@@ -91,43 +91,43 @@
     var notAllowed = false;
 
     //Future is prefix + present
-    var future = false;
-    if (opts.tense === T.Future){
-      future = true;
-      opts.tense = T.Present;
+    var future = 0;
+    if (opts.tense === Tense.Fu){
+      future = 1;
+      opts.tense = Tense.Pr;
     }
 
     switch (opts.tense) {
 
-      case T.Present:
+      case Tense.Pr:
 
       switch (opts.person) {
 
-        case P.First:
-        if (opts.number === N.Singular) begin = "أ";
+        case Person.F:
+        if (opts.number === GNumber.S) begin = "أ";
         else begin = "ن";
         break;
 
 
-        case P.Second:
+        case Person.S:
         begin = "ت";
         switch (opts.number) {
-          case N.Singular:
-          if (opts.gender === G.Feminine){
+          case GNumber.S:
+          if (opts.gender === Gender.F){
             end = "ينَ";
             var endDiac = "ِ";//Kasra
           }
           break;
 
 
-          case N.Dual:
+          case GNumber.D:
           end = "انِ";
           endDiac = "َ";//Fatha
           break;
 
 
-          case N.Plural:
-          if (opts.gender === G.Feminine){
+          case GNumber.P:
+          if (opts.gender === Gender.F){
             end = "نَ";
             var endDiac = "ْ";//Sukuun
           }
@@ -139,20 +139,20 @@
         break;
 
 
-        case P.Third:
+        case Person.T:
         begin = "ي";
-        if (opts.gender === G.Feminine) begin = "ت";
+        if (opts.gender === Gender.F) begin = "ت";
 
         switch (opts.number) {
           //No ending for singular
-          case N.Dual:
+          case GNumber.D:
           end = "انِ";
           endDiac = "َ";//Fatha
           break;
 
 
-          case N.Plural:
-          if (opts.gender === G.Feminine){
+          case GNumber.P:
+          if (opts.gender === Gender.F){
             end = "نَ";
             begin = "ي";
             endDiac = "ْ";//Sukuun
@@ -166,49 +166,48 @@
       break;
 
 
-      case T.Past:
+      case Tense.Pa:
       endDiac = "ْ";//Sukuun for past
       switch (opts.person) {
-        case P.First:
-        if (opts.number == N.Singular) end = "تُ";
+        case Person.F:
+        if (opts.number == GNumber.S) end = "تُ";
         else end = "نَا";
         break;
 
-
-        case P.Second:
+        case Person.S:
         switch (opts.number) {
-          case N.Singular:
-          if (opts.gender === G.Feminine) end = "تِ";
+          case GNumber.S:
+          if (opts.gender === Gender.F) end = "تِ";
           else end = "تَ";
           break;
 
-          case N.Dual:
+          case GNumber.D:
           end = "تُمَا";
           break;
 
-          case N.Plural:
-          if (opts.gender === G.Feminine) end = "تُنَّ";
+          case GNumber.P:
+          if (opts.gender === Gender.F) end = "تُنَّ";
           else end = "تُمْ";
 
         }//Number
         break;
 
 
-        case P.Third:
+        case Person.T:
         endDiac = "َ";//Fatha for past third
         switch (opts.number) {
-          case N.Singular:
-          if (opts.gender === G.Feminine) end = "تْ";
+          case GNumber.S:
+          if (opts.gender === Gender.F) end = "تْ";
           break;
 
-          case N.Dual:
-          if (opts.gender === G.Feminine) end = "تَا";
+          case GNumber.D:
+          if (opts.gender === Gender.F) end = "تَا";
           else end = "ا";
           break;
 
 
-          case N.Plural:
-          if (opts.gender === G.Feminine){
+          case GNumber.P:
+          if (opts.gender === Gender.F){
             end = "نَ";
             endDiac = "ْ";//Sukuun for past third plural feminine
           }else{
@@ -226,7 +225,7 @@
 
     var result = verb;
 
-    if (opts.tense === T.Present){
+    if (opts.tense === Tense.Pr){
       result = result.replace(/^(.)[َُِْ]?/, "$1ْ");
     }
 
@@ -244,36 +243,36 @@
   Me.getPronounName = function(opts){
 
     switch (opts.person) {
-      case P.First:
-      if (opts.number === N.Singular) return "أَنَا";
+      case Person.F:
+      if (opts.number === GNumber.S) return "أَنَا";
       else return "نَحْنُ";
 
-      case P.Second:
+      case Person.S:
       switch (opts.number) {
-        case N.Singular:
-        if (opts.gender === G.Feminine) return "أَنْتِ";
+        case GNumber.S:
+        if (opts.gender === Gender.F) return "أَنْتِ";
         else return "أَنْتَ";
 
-        case N.Dual:
+        case GNumber.D:
         return "أَنْتُمَا";
 
-        case N.Plural:
-        if (opts.gender === G.Feminine) return "أَنْتُنَّ";
+        case GNumber.P:
+        if (opts.gender === Gender.F) return "أَنْتُنَّ";
         else return "أَنْتُمْ";
 
       }
 
-      case P.Third:
+      case Person.T:
       switch (opts.number) {
-        case N.Singular:
-        if (opts.gender === G.Feminine) return "هِيَ";
+        case GNumber.S:
+        if (opts.gender === Gender.F) return "هِيَ";
         else return "هُوَ";
 
-        case N.Dual:
+        case GNumber.D:
         return "هُمَا";
 
-        case N.Plural:
-        if (opts.gender === G.Feminine) return "هُنَّ";
+        case GNumber.P:
+        if (opts.gender === Gender.F) return "هُنَّ";
         else return "هُمْ";
 
       }

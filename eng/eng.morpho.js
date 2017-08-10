@@ -35,66 +35,8 @@
 
   var debugFunction = Morpho.prototype.debugFunction;
 
-  Me.getTenseName = function(tense){
-    return tense;
-  }
 
-
-  Me.getOptLists = function(optLabel){
-    switch (optLabel) {
-      case "Pronoun": return getPronounOpts();
-      case "Negation": return getNegationOpts();
-      case "Voice": return getVoiceOpts();
-      default:
-
-    }
-    return [];
-  }
-
-  Me.getOptName = function(optLabel, opts){
-    switch (optLabel) {
-      case "Pronoun": return getPronounName(opts);
-      case "Negation": return getNegationName(opts);
-      case "Voice": return getVoiceName(opts);
-      default:
-
-    }
-    return "";
-  }
-
-  function getNegationOpts(){
-    return [
-        {negated:0}, //Positive
-        {negated:1}//negative
-    ];
-  }
-
-
-  function getNegationName(opts){
-    if (! opts) return "";
-    if (opts.negated) return "negative";
-    return "affirmative";
-  }
-
-  function getVoiceOpts(){
-    return [
-        {voice: Voice.A}, //Active voice
-        {voice: Voice.P} //Passive voice
-    ];
-  }
-
-
-  function getVoiceName(opts){
-    if (! opts) return "";
-    if (! opts.voice) return "";
-    switch (opts.voice) {
-      case Voice.A: return "active";
-      case Voice.P: return "passive";
-    }
-    return "";
-  }
-
-  function getPronounOpts(){
+  Me.getPronounOpts = function(){
     return [
         {person:Person.F, number: GNumber.S}, //I
         {person:Person.S},//You
@@ -107,7 +49,7 @@
   }
 
 
-  function getPronounName(opts){
+  Me.getPronounName = function(opts){
     switch (opts.person) {
       case Person.F:
       if (opts.number === GNumber.S) return "I";
@@ -127,6 +69,61 @@
 
     }
     return "";
+  }
+
+
+  Me.getForms = function(){
+    //super doesn't work here
+    var superFrm = Morpho.prototype.getForms.call(this);
+    var engForms =  {
+      "Indicative present perfect": {
+        mood: Mood.Indi,
+        tense: Tense.Pr,
+        aspect: Aspect.P
+      },
+      "Indicative past perfect": {
+        mood: Mood.Indi,
+        tense: Tense.Pa,
+        aspect: Aspect.P
+      },
+      "Indicative future perfect": {
+        mood: Mood.Indi,
+        tense: Tense.Fu,
+        aspect: Aspect.P
+      },
+      "Indicative present continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Pr,
+        aspect: Aspect.C
+      },
+      "Indicative past continuous": {
+        mood: Mood.Indi,
+        tense: Tense.Pa,
+        aspect: Aspect.C
+      },
+      "Indicative future continuous": {
+        mood: Mood.Indi,
+        tense: Tense.Fu,
+        aspect: Aspect.C
+      },
+      "Indicative present perfect continuous": {
+        mood: Mood.Indi,
+        tense: Tense.Pr,
+        aspect: Aspect.PC
+      },
+      "Indicative past perfect continuous": {
+        mood: Mood.Ind,
+        tense: Tense.Pa,
+        aspect: Aspect.PC
+      },
+      "Indicative future perfect continuous": {
+        mood: Mood.Indi,
+        tense: Tense.Fu,
+        aspect: Aspect.PC
+      }
+    };
+
+    return Object.assign({}, superFrm, engForms);
   }
 
   //var C = Object.freeze;
