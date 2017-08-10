@@ -268,6 +268,8 @@
 
   /**
   * Sets the current stemmer
+  *
+  * @final
   * @method setCurrentStemmer
   * @param {string} StemmerName stemmer method's name
   */
@@ -279,6 +281,7 @@
 
   /**
   * Returns the list of available stemming methods
+  * @final
   * @method availableStemmers
   * @return {array}  Array of Strings containing stemmers names
   */
@@ -353,6 +356,12 @@
   }
 
 
+  /**
+   * [getOptLists description]
+   * @method getOptLists
+   * @param  {[type]}    optLabel [description]
+   * @return {[type]}             [description]
+   */
   Me.getOptLists = function(optLabel){
     switch (optLabel) {
       case "Pronoun": return this.getPronounOpts();
@@ -375,6 +384,12 @@
     return "";
   }
 
+  /**
+   * [getNegationOpts description]
+   * @protected
+   * @method getNegationOpts
+   * @return {[type]}        [description]
+   */
   Me.getNegationOpts = function(){
     return [
         {negated:0}, //Positive
@@ -382,13 +397,25 @@
     ];
   }
 
-
+  /**
+   * [getNegationName description]
+   * @protected
+   * @method getNegationName
+   * @param  {[type]}        opts [description]
+   * @return {[type]}             [description]
+   */
   Me.getNegationName = function(opts){
     if (! opts) return "";
     if (opts.negated) return "negative";
     return "affirmative";
   }
 
+  /**
+   * [getVoiceOpts description]
+   * @protected
+   * @method getVoiceOpts
+   * @return {[type]}     [description]
+   */
   Me.getVoiceOpts = function(){
     return [
         {voice: Voice.A}, //Active voice
@@ -396,7 +423,13 @@
     ];
   }
 
-
+  /**
+   * [getVoiceName description]
+   * @protected
+   * @method getVoiceName
+   * @param  {[type]}     opts [description]
+   * @return {[type]}          [description]
+   */
   Me.getVoiceName = function(opts){
     if (! opts) return "";
     if (! opts.voice) return "";
@@ -407,11 +440,23 @@
     return "";
   }
 
+  /**
+   * [getPronounOpts description]
+   * @protected
+   * @method getPronounOpts
+   * @return {[type]}       [description]
+   */
   Me.getPronounOpts = function(){
     return [{}];
   }
 
-
+  /**
+   * [getPronounName description]
+   * @protected
+   * @method getPronounName
+   * @param  {[type]}       opts [description]
+   * @return {[type]}            [description]
+   */
   Me.getPronounName = function(opts){
     return "";
   }
@@ -498,6 +543,15 @@
   // HELPERS
   // =======================================================================
 
+  /**
+   * [parseConjModelBranch description]
+   * @private
+   * @static
+   * @method parseConjModelBranch
+   * @param  {[type]}             morpho [description]
+   * @param  {[type]}             branch [description]
+   * @return {[type]}                    [description]
+   */
   function parseConjModelBranch(morpho, branch){
     var result = {
       labels: [], // Array[Array[string]]: each level have many labels
@@ -532,6 +586,14 @@
     return result;
   }
 
+  /**
+   * [parseConjModel description]
+   * @static
+   * @public
+   * @method parseConjModel
+   * @param  {[type]}       morpho [description]
+   * @return {[type]}              [description]
+   */
   Morpho.parseConjModel = function(morpho) {
 
     var result = {
