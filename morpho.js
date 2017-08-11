@@ -93,6 +93,8 @@
   * The mood: indicative, subjunctive, conditional,
   * optative, imperative, jussive, potential,
   * hypothetical, inferential
+  *
+  * @see http://universaldependencies.org/u/feat/Mood.html
   * @access Morpho.Feature.Mood
   * @attribute Mood
   * @readOnly
@@ -100,15 +102,100 @@
   * @type {object}
   */
   var Mood = C({
-    Indi: "indicative",
-    Subj: "subjunctive",
-    Cond: "conditional",
-    Opta: "optative",
-    Impe: "imperative",
-    Juss: "jussive",
-    Pote: "potential",
-    Hypo: "hypothetical",
-    Infe: "inferential"
+    /**
+     * The indicative can be considered the default mood.
+     * A verb in indicative merely states that something happens,
+     * has happened or will happen, without adding any attitude of the speaker.
+     * @example You study at the university
+     * @type {String}
+     */
+    Ind: "indicative",
+
+    /**
+     * The speaker uses imperative to order or ask the addressee to do the action of the verb.
+     * @example Study at the university
+     * @type {String}
+     */
+    Imp: "imperative",
+
+    /**
+     * The conditional mood is used to express actions that would have taken
+     * place under some circumstances but they actually did not / do not happen.
+     * Grammars of some languages may classify conditional as tense (rather than mood)
+     * but e.g. in Czech it combines with two different tenses (past and present).
+     * @example if she went home
+     * @type {String}
+     */
+    Cnd: "conditional",
+
+    /**
+     * The action of the verb is possible but not certain.
+     * This mood corresponds to the modal verbs can, might, be able to. Used e.g. in Finnish.
+     * @example she can go home
+     * @type {String}
+     */
+    Pot: "potential",
+
+    /**
+     * The subjunctive mood is used under certain circumstances in subordinate clauses,
+     * typically for actions that are subjective or otherwise uncertain.
+     * In German, it may be also used to convey the conditional meaning.
+     * @example "Je veux que tu le fasses": I want that you to do it
+     * @type {String}
+     */
+    Sub: "subjunctive",
+
+    /**
+     * The jussive mood expresses the desire that the action happens;
+     * it is thus close to both imperative and optative.
+     * Unlike in desiderative, it is the speaker, not the subject who wishes that it happens.
+     * Used e.g. in Arabic.
+     * @example فليكن let it be
+     * @type {String}
+     */
+    Jus: "jussive",
+
+    /**
+     * Means “in order to”, occurs in Amazonian languages.
+     * @type {String}
+     */
+    Prp: "purposive",
+
+    /**
+     * The quotative mood is used e.g. in Estonian to denote direct speech.
+     * @type {String}
+     */
+    Qot: "quotative",
+
+    /**
+     * Expresses exclamations like “May you have a long life!” or
+     * “If only I were rich!” In Turkish it also expresses suggestions.
+     * @example let’s go home
+     * @type {String}
+     */
+    Opt: "optative",
+
+    /**
+     * The desiderative mood corresponds to the modal verb “want to”:
+     * “He wants to come.” Used e.g. in Turkish.
+     * @type {String}
+     */
+    Des: "desiderative",
+
+    /**
+     * The necessitative mood expresses necessity and corresponds to the modal
+     * verbs “must, should, have to”: “He must come.”
+     * @type {String}
+     */
+    Nec: "necessitative",
+
+    /**
+     * Expresses surprise, irony or doubt. Occurs in Albanian,
+     * other Balkan languages, and in Caddo (Native American from Oklahoma).
+     * @type {String}
+     */
+    Adm: "admirative"
+
   });
 
   /**

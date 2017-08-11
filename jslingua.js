@@ -6,7 +6,7 @@
 (function(){
 
 
-  var version = "0.4.0";
+  var version = "0.5.0";
 
   var rtls = ["ara", "heb"];
 
@@ -69,6 +69,8 @@
 
   /**
   * Add a service for a specific language
+  * @public
+  * @static
   * @method addService
   * @param {string} serviceID The services name: "Info", "Lang", etc.
   * @param {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
@@ -85,6 +87,8 @@
 
   /**
   * Get the codes of available languages of a given service
+  * @public
+  * @static
   * @method serviceLanguages
   * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
   * @return {array}   array of strings, with ISO639-2 codes
@@ -97,6 +101,8 @@
   /**
   * Get the service class for a given language and service name.<br>
   * For example: JsLingua.getService("Info", "ara") Gives a class AraInfo
+  * @public
+  * @static
   * @method getService
   * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
   * @param  {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
@@ -108,6 +114,13 @@
     return services[serviceID][langCode];
   }
 
+  /**
+   * [getVersion description]
+   * @public
+   * @static
+   * @method getVersion
+   * @return {[type]}   [description]
+   */
   JsLingua.getVersion = function(){
     return version;
   }
@@ -118,6 +131,9 @@
    * But, the direction is used a lot for presentation, so a centralized
    * version is to be afforded, so we don't import the js file for each
    * language in each webpage.
+   * @public
+   * @static
+   * @method getDir
    * @param  {string} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
    * @return {String}     either "rtl" or "ltr"
    */

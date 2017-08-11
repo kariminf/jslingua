@@ -28,7 +28,8 @@
 
   var VType = C({
     V1: "ichidan",
-    V5: "godan"
+    V5: "godan",
+    SK: "suru-kuru"
   });
 
 
@@ -80,7 +81,7 @@
       "Imperative": {// go
         mood: Mood.Impe
       },
-      "Volutional": {//let's go //TODO volutional
+      "Volitional": {//let's go //TODO volutional
         mood: Mood.Indi
       },
       "Causative": {// make go //TODO causative
@@ -180,7 +181,6 @@
       return verb.slice(0, -1);
     }
 
-
     return verb.slice(0, -1) + sound.charAt(uSound.indexOf(end));
 
   }
@@ -249,7 +249,13 @@
   };
 
   function verifyType(verb, opts){
-    if(opts.vtype && opts.vtype in VType) return;
+    if(opts.vtype) return;//&& (opts.vtype in VType)
+
+    if(/(す|く|来)る$/g.test(verb)){
+      opts.vtype = VType.SK;
+      return;
+    }
+
     var end = verb.slice(-1);
     var bend = verb.slice(-2,-1);
     if(end === "る"){
@@ -258,7 +264,7 @@
         var utf8 = bend.charCodeAt(0);
         if(0x3040 <= utf8 && utf8 <= 0x309F){//if it is Hiragana
           opts.vtype = VType.V5;
-          console.log(bend);
+          //console.log(bend);
           return;
         }
       }
