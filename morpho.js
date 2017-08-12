@@ -227,26 +227,6 @@
   });
 
   /**
-  * The case: Nominative, Accusative, Genitive, Dative,
-  * Prepositional, Ablative, Instrumental, Vocative
-  * @access Morpho.Feature.Case
-  * @attribute Case
-  * @readOnly
-  * @static
-  * @type {object}
-  */
-  var Case = C({
-    Nom: "nominative",
-    Acc: "accusative",
-    Gen: "genitive",
-    Dat: "dative",
-    Pre: "prepositional",
-    Abl: "ablative",
-    Ins: "instrumental",
-    Voc: "vocative"
-  });
-
-  /**
   * The person: First, Second, Third.
   * @access Morpho.Feature.Person
   * @attribute Person
@@ -305,7 +285,6 @@
     Mood: Mood,
     Voice: Voice,
     Number: GNumber,
-    Case: Case,
     Person: Person,
     Gender: Gender
   });
@@ -391,6 +370,28 @@
       return "future";
     }
 
+    return "";
+  }
+
+  /**
+   * Returns a list of verb types
+   * @abstract
+   * @public
+   * @method getVerbTypes
+   * @return {Array}     [description]
+   */
+  Me.getVerbTypes = function(){
+    return [];
+  }
+
+  /**
+   * Given a verb, it detects its type
+   * @abstract
+   * @public
+   * @method getVerbType
+   * @return {[type]}    [description]
+   */
+  Me.getVerbType = function(){
     return "";
   }
 

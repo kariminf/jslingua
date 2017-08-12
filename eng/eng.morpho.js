@@ -77,17 +77,17 @@
     var superFrm = Morpho.prototype.getForms.call(this);
     var engForms =  {
       "Indicative present perfect": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.P
       },
       "Indicative past perfect": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.P
       },
       "Indicative future perfect": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.P
       },
@@ -97,17 +97,17 @@
         aspect: Aspect.C
       },
       "Indicative past continuous": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.C
       },
       "Indicative future continuous": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.C
       },
       "Indicative present perfect continuous": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.PC
       },
@@ -117,7 +117,7 @@
         aspect: Aspect.PC
       },
       "Indicative future perfect continuous": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.PC
       }
@@ -259,7 +259,7 @@
   //Override conjugate function
   Me.conjugate = function(verb, opts){
 
-    if((opts.mood) && (opts.mood === Mood.Impe)){
+    if((opts.mood) && (opts.mood === Mood.Imp)){
       if(opts.person === Person.S) return verb;
       return "";
     }

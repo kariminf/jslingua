@@ -22,8 +22,7 @@
   var C = Object.freeze;
   var Formality = C({
     Pl: "plain",
-    Po: "polite",
-    Fo: "formal"
+    Po: "polite"
   });
 
   var VType = C({
@@ -51,52 +50,62 @@
 
 
   Me.getForms = function(){
+    //Indicative is the default mood
     return {
       "Present": { // go
-        mood: Mood.Indi,
-        tense: Tense.Pr,
-        aspect: Aspect.P
+        tense: Tense.Pr
       },
       "Past": { //went
-        mood: Mood.Indi,
-        tense: Tense.Pa,
-        aspect: Aspect.P
+        tense: Tense.Pa
       },
       "Present continuous": { //is going
-        mood: Mood.Indi,
         tense: Tense.Pr,
         aspect: Aspect.C
       },
       "Past continuous": {//was going
-        mood: Mood.Indi,
         tense: Tense.Pa,
         aspect: Aspect.C
       },
-      "Provision": {// Condition //TODO Provision
-        mood: Mood.Indi
+      "Provision": {//First type of condition
+        mood: Mood.Cnd,
+        cond: "ba"
       },
       "Condition": { //Second type of condition
-        mood: Mood.Cond
+        mood: Mood.Cnd,
+        cond: "tara"
       },
       "Imperative": {// go
-        mood: Mood.Impe
+        mood: Mood.Imp
       },
-      "Volitional": {//let's go //TODO volutional
-        mood: Mood.Indi
+      "Volitional": {//let's go //Optative mood
+        mood: Mood.Opt
       },
-      "Causative": {// make go //TODO causative
-        mood: Mood.Indi
+      "Causative": {// make go
+        cause: 1
       },
       "Potential": {// I can go
-        mood: Mood.Pote
+        mood: Mood.Pot
+      },
+      "Passive": {// I can go
+        voice: Voice.P,
+        tense: Tense.Pr
+      },
+      "Causative Passive": {// I can go
+        voice: Voice.P,
+        tense: Tense.Pr,
+        cause: 1
       }
     };
+  }
+
+  Me.getVerbTypes = function(){
+    return Object.values(VType);
   }
 
   Me.getConjugModel = function(){
     //Past and Present are defaults
     return {
-      rows: ["Voice", "Formality"],
+      rows: ["Formality"],
       cols: ["Negation"]
     };
   }
@@ -104,8 +113,7 @@
   function getFormalityOpts(){
     return [
       {formality: Formality.Pl},
-      {formality: Formality.Po},
-      {formality: Formality.Fo}
+      {formality: Formality.Po}
     ];
   }
 
@@ -162,12 +170,23 @@
 
 
   var
-  uSound = "うるくむぬすつぶぐず",
-  iSound = "いりきみにしちびぎじ",
-  eSound = "えれけめねせてべげず",//verify the last + れ
-  tSound = "っっいんんしっんいじ",//verify ず
-  aSound = "わらかまなさたばがじ";//verify ず
+  uSound = "うるくすつむぬぶぐず",
+  iSound = "いりきしちみにびぎじ",
+  oSound = "おろこそとものぼごじ",
+  eSound = "えれけせてめねべげず",//verify the last + れ
+  tSound = "っっいしっんんんいじ",//verify ず
+  aSound = "わらかさたまなばがじ";//verify ず
 
+  /**
+   * [basicForm description]
+   * @static
+   * @private
+   * @method basicForm
+   * @param  {string}  verb  [description]
+   * @param  {Array}  sound [description]
+   * @param  {string}  vtype [description]
+   * @return {string}        [description]
+   */
   function basicForm(verb, sound, vtype){
 
     var end = verb.slice(-1);
@@ -181,6 +200,21 @@
       return verb.slice(0, -1);
     }
 
+    if(vtype === VType.SK){
+      //すれ　来れ　くれ
+      if(sound === eSound) return verb.slice(0, -1) + "れ";
+
+      if(verb.endsWith("くる")){
+        verb = verb.slice(0,-2);
+        if(sound === iSound) return verb + "き";
+        return verb + "こ";
+      }
+
+      if(verb.endsWith("来る")) return verb.slice(0,-1);
+
+      return verb.slice(0,-2) + "し";
+    }
+
     return verb.slice(0, -1) + sound.charAt(uSound.indexOf(end));
 
   }
@@ -192,13 +226,21 @@
     if(uSound.indexOf(end) < 0) return "";
 
     var res = "て";
-    if(uSound.indexOf(end) > 6 ){
+    if(uSound.indexOf(end) > 4 ){
       res = "で";
       if(teta) res = "だ";
     }
     else if(teta) res = "た";
 
     if(vtype === VType.V1) return verb.slice(0, -1) + res;
+
+    if(vtype === VType.SK){
+      if(verb.endsWith("くる")) return verb.slice(0,-2) + "き" + res;
+      if(verb.endsWith("する")) return verb.slice(0, -2) + "し" + res;
+      return verb.slice(0, -1) + res;
+    }
+
+    if(/[行いゆ]く$/g.test(verb)) return verb.slice(0, -1) + "っ" + res;
 
     res = tSound.charAt(uSound.indexOf(end)) + res;
 
@@ -248,42 +290,29 @@
     "駆": 1, "騙": 1, "驕": 1, "鳴": 1, "鴨": 1, "黙": 1, "齧": 1
   };
 
-  function verifyType(verb, opts){
-    if(opts.vtype) return;//&& (opts.vtype in VType)
+  Me.getVerbType = function(verb){
 
-    if(/(す|く|来)る$/g.test(verb)){
-      opts.vtype = VType.SK;
-      return;
-    }
-
+    if(/(出来)る$/g.test(verb)) return VType.V1;
+    if(/(す|く|来)る$/g.test(verb)) return VType.SK;
     var end = verb.slice(-1);
     var bend = verb.slice(-2,-1);
     if(end === "る"){
       //If not these before-endings, and hiragana, then it is Godan
       if(! "いえしせちてにねびべみめりれ".includes(bend)){
         var utf8 = bend.charCodeAt(0);
-        if(0x3040 <= utf8 && utf8 <= 0x309F){//if it is Hiragana
-          opts.vtype = VType.V5;
-          //console.log(bend);
-          return;
-        }
+        if(0x3040 <= utf8 && utf8 <= 0x309F) return VType.V5;
       }
 
       {//If it ends with these; it is Godan
         var v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
-        if(v5r.test(verb) || ruV5List[bend]){
-          opts.vtype = VType.V5;
-          return;
-        }
+        if(v5r.test(verb) || ruV5List[bend]) return VType.V5;
       }
 
       //Otherwise, it is Ichidan
-      opts.vtype = VType.V1;
-      return;
+      return VType.V1;
     }
 
-    //TODO detect the type
-    opts.vtype = VType.V5;
+    return VType.V5;
 
   }
 
@@ -291,42 +320,42 @@
   //Override conjugate function
   Me.conjugate = function(verb, opts){
 
-    var begin = "";
-    var end = "";
-
-    verifyType(verb, opts);
-
-    var vtype =  opts.vtype;
+    if(!opts.mood) opts.mood = Mood.Ind;
+    var vtype = (opts.vtype)? opts.vtype: this.getVerbType(verb);
 
     //console.log(vtype);
+    var end ="";
 
-
-    /*if(causative){
+    if(opts.cause){
       end = "せる";
-      if(vtype === VType.V1) end = "さ" + end;
-      verb = basicForm(verb, aSound, vtype) + end;
-      end = "";
+      if(vtype === VType.V1 || vtype === VType.SK) end = "さ" + end;
+      if(verb.endsWith("する")) verb = verb.slice(0,-2) + end;
+      else verb = basicForm(verb, aSound, vtype) + end;
+
       vtype = VType.V1;
-    }*/
+    }
 
     if(opts.voice === Voice.P){
-      if(opts.mood !== Mood.Pote){
+      if(opts.mood !== Mood.Pot){
         end = "れる";
-        if(vtype === VType.V1) end = "ら" + end;
-        verb = basicForm(verb, aSound, vtype) + end;
-        end = "";
+
+        if(vtype === VType.V1 || vtype === VType.SK) end = "ら" + end;
+
+        if(verb.endsWith("する")) verb = verb.slice(0,-2) + "される";
+        else verb = basicForm(verb, aSound, vtype) + end;
+
         vtype = VType.V1;
       }
     }
 
     switch (opts.mood) {
 
-      case Mood.Indi:
-
+      case Mood.Ind:
+      end = "";
       if(opts.aspect === Aspect.C){
-        begin = tForm(verb, 0, vtype);
+        verb = tForm(verb, 0, vtype);
         vtype = VType.V1;
-        verb = "いる";
+        verb += "いる";
       }
 
       switch (opts.formality) {
@@ -338,6 +367,7 @@
           end = "ません";
           if(opts.tense === Tense.Pa) end += "でした";
         }
+        return verb + end;
         break;
 
         case Formality.Pl:
@@ -352,61 +382,93 @@
             end = "";
           }
         }
+        return verb + end;
         break;
 
         default:
-        verb = "";
-        begin = "";
-        end = "";
+        return "";
 
       }
       break;//End Indiative Mood
 
-      case Mood.Impe: //Begin Imperative Mood
-
+      case Mood.Imp: //Begin Imperative Mood
+      end = "";
       switch (opts.formality) {
         case Formality.Po:
-        verb = tForm(verb, 0, vtype);
-        if(opts.negated) end = "ないで";
-        end += "下さい";
+        if(opts.negated){
+          verb = basicForm(verb, aSound, vtype);
+          end = "ないで";
+        } else {
+          verb = tForm(verb, 0, vtype);
+        }
+        return verb + end + "下さい";
         break;
 
         case Formality.Pl:
-        if(opts.negated) end = "な";
-        //TODO suru, zuru, ichidan and kuru have different imperative
-        else {
-          if(vtype === VType.V1) verb = verb.slice(0,-1) + "ろ/よ";
-          else verb = basicForm(verb, eSound, vtype);
+        if(opts.negated) return verb + "な";
+        if(vtype === VType.V1) return verb.slice(0,-1) + "(ろ/よ)";
+        if(vtype === VType.SK){
+          if(verb.endsWith("くる")) return verb.slice(0,-2) + "こい";
+          if(verb.endsWith("来る")) return verb.slice(0,-1) + "い";
+          //suru
+          return verb.slice(0,-2) + "(しろ/せよ)";
         }
+        return basicForm(verb, eSound, vtype);
         break;
 
         default:
-        verb = "";
-        begin = "";
-        end = "";
+        return "";
       }
       break;//End Imperative Mood
 
-      case Mood.Pote: //Begin Potential Mood
+      case Mood.Pot: //Begin Potential Mood
       if(opts.voice === Voice.P) return "";
-      verb = basicForm(verb, eSound, vtype) + "る";
+      if(verb.endsWith("する")) verb = verb.slice(0,-2) + "出来る";
+      else if (vtype === VType.V1) verb = verb.slice(0, -1) + "られる";
+      else verb = basicForm(verb, eSound, vtype) + "る";
       var newOpts = Object.assign({}, opts);
-      newOpts.mood = Mood.Indi;
+      newOpts.mood = Mood.Ind;
       newOpts.vtype = VType.V1;
-      newOpts.voice = Voice.A; //Affirmative because already applicated
       return this.conjugate(verb + end, newOpts);
       break; //End Potential Mood
 
+      case Mood.Cnd: //Begin Conditional Mood
+      if(opts.voice === Voice.P) return "";
+
+      if(opts.cond === "ba"){
+        if(opts.formality === Formality.Po) return "";
+        if(opts.negated) return basicForm(verb, aSound, vtype) + "なければ";
+        return basicForm(verb, eSound, vtype) + "ば";
+      }
+
+      var newOpts = Object.assign({}, opts);
+      newOpts.mood = Mood.Ind;
+      newOpts.tense = Tense.Pa;
+      return  this.conjugate(verb , newOpts) + "ら";
+      break; //End Conditional Mood
+
+
+      case Mood.Opt: //Begin Optative Mood
+      if(opts.voice === Voice.P) return "";
+
+      if(opts.negated){
+        verb += "のは止め";
+        if(opts.formality === Formality.Pl) return verb + "よう";
+        else return verb + "ましょう";
+      }
+
+      if(opts.formality !== Formality.Pl) return basicForm(verb, iSound, vtype) + "ましょう";
+
+      verb = basicForm(verb, oSound, vtype);
+      if(vtype === VType.V1 || vtype === VType.SK) verb += "よ";
+      return  verb + "う";
+
+      break; //End Optative Mood
+
       default:
-      verb = "";
-      begin = "";
-      end = "";
+      return "";
 
     }
-
-    var result = begin + verb + end;
-
-    return result;
 
   }
 

@@ -98,7 +98,7 @@
     var verb = $("verb").value;
     var result = "";
     var forms = morpho.getForms();
-    var typeOpts = {};
+    var typeOpts = {vtype:morpho.getVerbType(verb)};
 
     for (k in forms) {
       result += "<div class=\"l\"><h3>" + k + "</h3>";
@@ -126,7 +126,6 @@
           result += "<td>";
           var fuseOpts = Object.assign({}, ropts[rowi], copts[coli], forms[k], typeOpts);
           result += morpho.conjugate(verb, fuseOpts);
-          if(!typeOpts.vtype) typeOpts.vtype = fuseOpts.vtype;
           result += "</td>";
         }
 
