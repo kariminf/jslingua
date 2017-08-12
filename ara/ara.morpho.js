@@ -71,10 +71,14 @@
   //Conjugation zone
   //=================
 
+
   //Override conjugate function
   Me.conjugate = function(verb, opts){
     //delete diacretics
+    verb = verb.trim();
     var noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
+
+    var len = noDiac.length;
 
     //detect if the verb with weak begining
     var weekBegin = /^[اأو]/.test(noDiac);
@@ -97,9 +101,22 @@
       opts.tense = Tense.Pr;
     }
 
+    var befLast = "ِ";//kasra for the char before last
+
+
+    if (len === 3){
+      befLast = "X"; //delete the vocal due to dictionary dependency
+      if (! /[^أعحه][^أعحه]$/g.test(noDiac))
+      if(/.ُ.[َُِ]?$/g.test(verb)) befLast = ""; //no change
+      //explanation: verbs with three letters and have a dhamma
+      //don't change the dhamma in present
+    } else if(len > 3 && noDiac.startsWith("ت")) befLast = ""; //no change
+
     switch (opts.tense) {
 
       case Tense.Pr:
+
+      if(/^[ا]/g.test(verb)) verb = verb.slice(1);
 
       switch (opts.person) {
 
@@ -162,7 +179,17 @@
         }//Number
 
       }//person
+
       begin += "َ";//Add fatha
+      if(len < 4 || ! noDiac.startsWith("ت")){
+        verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
+      }
+
+      if(len === 4) {
+        //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
+        begin += "ُ";//Add dhamma
+      }
+
       break;
 
 
@@ -225,13 +252,22 @@
 
     var result = verb;
 
-    if (opts.tense === Tense.Pr){
-      result = result.replace(/^(.)[َُِْ]?/, "$1ْ");
+    if(befLast){
+      if(befLast === "X") befLast = "";
+      result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLast + "$2");
     }
 
     result = result.replace(/[َ]?$/, endDiac);
 
     result = begin + result + end;
+
+    //Normalization of alif
+    //order is important, don't change
+    result = result.replace(/أَأْ/, "آ");
+    result = result.replace(/أَا/, "آ");
+    result = result.replace(/ِأِي/, "ئِي");
+    result = result.replace(/ِأ(.?)/, "ئ$1");
+    result = result.replace(/أُو/, "ؤُو");
 
     if (future) result = "سَوْفَ " + result;
 
