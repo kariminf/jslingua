@@ -27,7 +27,16 @@
   "keywords": [
     "language",
     "transliteration",
-    "NLP"
+    "NLP",
+    "conjugation",
+    "IR",
+    "stemming",
+    "toolkit",
+    "library",
+    "front-end",
+    "back-end",
+    "number pronounciation",
+    "multi-lingual"
   ],
   "files": [
     "info.js",

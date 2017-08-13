@@ -47,5 +47,6 @@ dist
 
 #yuido out folder
 out
+docs/
 
 package-lock.json

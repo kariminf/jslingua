@@ -27,11 +27,13 @@ mkdir dist
 # copy the main files to dist
 for s in *.js; do
   cp $s dist/
+  echo "copying $s"
 done
 
 # copy the languages implementations to dist
-for s in !(dist|web|test)/*.js; do
+for s in !(dist|web|test|node_modules)/*.js; do
   cp $s dist/
+  echo "copying $s"
   # minify --output "dist/{{filename}}.min.{{ext}}" $s
 done
 
