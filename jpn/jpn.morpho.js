@@ -474,35 +474,28 @@
 
 
 
-  var jpnEndings = [
-    //continuous
-    "ている",
-    "ていた",
-    "ていません",
-    "ています",
-    //------
-    "でした",
-    "なかった",
-    "ました",
-    "ません",
-    "ない",
-    "ないで",
-    "ましょう",
-    "なければ",
-    "られる",
-    "られ",
-    "しろ",
-    "せよ",
-    "ます"
+  var jpnSuff = [
+    /^(.+[てで])いる?$/, //continuous
+    /^(.+)[いりきしちみにびぎじ]?ま(した|せん|しょう)$/, //past
+    /^(.+)[わらかさたまなばがじ]?な(い|かった|ければ)$/, //
+    /^(.+)(させ|られ)$/,
+    /^(.+[^っいん])[っいん]?[てでただ]$/
   ];
 
   function jslinguaJpnStemmer(word){
     var stem = word;
-    for(i =0; i< jpnEndings.length; i++){
-      if(stem.endsWith(jpnEndings[i])){
-        stem = stem.slice(0, -1 * jpnEndings[i].length);
+    var stillModif = 1;
+    while(stillModif){
+      stillModif = 0;
+      var m;
+      for(i =0; i< jpnSuff.length; i++){
+        if(m = jpnSuff[i].exec(stem)){
+          stem = m[1];
+          stillModif = 1;
+        }
       }
     }
+
     return stem;
   }
 

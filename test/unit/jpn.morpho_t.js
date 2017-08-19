@@ -216,6 +216,22 @@ describe("Japanese Verb conjugation", function(){
 
   });
 
+});
 
+
+morpho.setCurrentStemmer("jslinguaJpnStemmer");
+//using text from here
+//https://ja.wikipedia.org/wiki/日本
+describe("Japanese JsLingua Stemmer", function(){
+  //comments: what we want to achieve
+  it("The stemmer", function() {
+    expect(morpho.stem("用いられている")).to.eql("用い");
+    expect(morpho.stem("始まった")).to.eql("始ま");//始ま
+    expect(morpho.stem("読ませている")).to.eql("読ませ");//読
+    expect(morpho.stem("強調したい")).to.eql("強調したい");//強調
+    expect(morpho.stem("伝わっていない")).to.eql("伝わ");//伝
+    expect(morpho.stem("表記されている")).to.eql("表記され");//表記
+
+  });
 
 });
