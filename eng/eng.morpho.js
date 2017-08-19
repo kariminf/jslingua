@@ -482,7 +482,8 @@
     }
 
     // Step 2
-    re = /^(.+?)(ational|tional|enci|anci|izer|bli|alli|entli|eli|ousli|ization|ation|ator|alism|iveness|fulness|ousness|aliti|iviti|biliti|logi)$/;
+    re = new RegExp("^(.+?)(" + Object.keys(step2list).join("|") + ")$");
+    //re = /^(.+?)(ational|tional|enci|anci|izer|bli|alli|entli|eli|ousli|ization|ation|ator|alism|iveness|fulness|ousness|aliti|iviti|biliti|logi)$/;
     if (re.test(word)) {
       var fp = re.exec(word);
       stemmed = fp[1];
@@ -495,7 +496,8 @@
     }
 
     // Step 3
-    re = /^(.+?)(icate|ative|alize|iciti|ical|ful|ness)$/;
+    re = new RegExp("^(.+?)(" + Object.keys(step3list).join("|") + ")$");
+    //re = /^(.+?)(icate|ative|alize|iciti|ical|ful|ness)$/;
     if (re.test(word)) {
       var fp = re.exec(word);
       stemmed = fp[1];
