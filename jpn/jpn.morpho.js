@@ -473,8 +473,36 @@
   }
 
 
+
+  var jpnEndings = [
+    //continuous
+    "ている",
+    "ていた",
+    "ていません",
+    "ています",
+    //------
+    "でした",
+    "なかった",
+    "ました",
+    "ません",
+    "ない",
+    "ないで",
+    "ましょう",
+    "なければ",
+    "られる",
+    "られ",
+    "しろ",
+    "せよ",
+    "ます"
+  ];
+
   function jslinguaJpnStemmer(word){
     var stem = word;
+    for(i =0; i< jpnEndings.length; i++){
+      if(stem.endsWith(jpnEndings[i])){
+        stem = stem.slice(0, -1 * jpnEndings[i].length);
+      }
+    }
     return stem;
   }
 
