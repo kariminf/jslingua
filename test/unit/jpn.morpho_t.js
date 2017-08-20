@@ -231,6 +231,7 @@ describe("Japanese JsLingua Stemmer", function(){
     expect(morpho.stem("伝わっていない")).to.eql("伝わ");
     expect(morpho.stem("表記されている")).to.eql("表記され");
     expect(morpho.stem("行かなければならない")).to.eql("行く");
+    expect(morpho.stem("いっていません")).to.eql("いく");
     expect(morpho.stem("いかなければならない")).to.eql("いく");
   });
 
