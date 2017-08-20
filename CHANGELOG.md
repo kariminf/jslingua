@@ -11,6 +11,10 @@ This will break the projects developed on precedent versions.
 * FIX: Fixing bugs
 * DEL: Delete or deprecate some functions
 
+## Version current
+
+* ADD: Japanese Morpho -> jslinguaJpnStemmer
+
 ## Version 0.5.0 (2017-08-13)
 
 * ADD: verb Conjugation to Japanese Morpho
@@ -18,7 +22,7 @@ This will break the projects developed on precedent versions.
 * ADD: getVerbTypes, getVerbType(verb)
 * MODIFY: The way to access conjugation parameters: getTenses --> GetForms
 * ADD: normalization function to Morpho
-* ADD: normalization to Arabic Morpho 
+* ADD: normalization to Arabic Morpho
 
 ## Version 0.4.4 (2017-07-31)
 

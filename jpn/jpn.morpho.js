@@ -475,11 +475,43 @@
 
 
   var jpnSuff = [
-    /^(.+[てで])いる?$/, //continuous
-    /^(.+)[いりきしちみにびぎじ]?ま(した|せん|しょう)$/, //past
-    /^(.+)[わらかさたまなばがじ]?な(い|かった|ければ)$/, //
-    /^(.+)(させ|られ)$/,
-    /^(.+[^っいん])[っいん]?[てでただ]$/
+    { //desu must be deleted
+      e: /^(.*)で(?:した|す)$/,
+      r: "$1"
+    },
+    { //negation polite
+      e: /^(.*)(?:じゃ|では)(?:ない|ありません)$/,
+      r: "$1"
+    },
+    { //continuous
+      e: /^(.+[てで])(?:いる?|う)$/, //u came from imasu --> u
+      r: "$1"
+    },
+    { //isound
+      e: /^(.*)(.+)(?:ま(?:した|す|せん|しょう)|たい)$/,
+      r: function (match, p1, p2, offset, string){
+        var iidx = iSound.indexOf(p2);
+        if( iidx > -1) return p1 + uSound[iidx];
+        return p1 + p2 ;
+      }
+    },
+    {//asound (verbs), ka (adjectives)
+      e: /^(.*)(.+)な(?:い|かった|ければ(?:なる)?)$/,
+      r: function (match, p1, p2, offset, string){
+        if(p2 === "く") return p1 + "い";
+        var aidx = aSound.indexOf(p2);
+        if( aidx > -1) return p1  + uSound[aidx];
+        return p1 + p2;
+      }
+    },
+    {
+      e: /^(.+)(?:させ|られ)る?$/,
+      r: "$1"
+    },
+    {// t sound
+      e: /^(.*[^っいん])[っいん]?[てでただ]$/,
+      r: "$1"
+    }
   ];
 
   function jslinguaJpnStemmer(word){
@@ -487,10 +519,11 @@
     var stillModif = 1;
     while(stillModif){
       stillModif = 0;
-      var m;
       for(i =0; i< jpnSuff.length; i++){
-        if(m = jpnSuff[i].exec(stem)){
-          stem = m[1];
+        var rule = jpnSuff[i];
+        if(rule.e.test(stem)){
+          stem = stem.replace(rule.e, rule.r);
+          //console.log(rule.e);
           stillModif = 1;
         }
       }
