@@ -242,3 +242,49 @@ describe("Japanese JsLingua Stemmer", function(){
   });
 
 });
+
+describe("Japanese Normalization", function(){
+
+  it("Chat", function() {
+    expect(morpho.normalize("雨ねえええ")).to.eql("雨ね");
+    expect(morpho.normalize("雨ねぇぇぇ")).to.eql("雨ね");
+    expect(morpho.normalize("そうかなあああ")).to.eql("そうかな");
+    expect(morpho.normalize("そうかなぁぁぁぁ")).to.eql("そうかな");
+    expect(morpho.normalize("すげえええ")).to.eql("すごい");
+  });
+
+  it("Hakata Ben", function() {
+    expect(morpho.normalize("犬やない")).to.eql("犬じゃない");
+    expect(morpho.normalize("言ったばい")).to.eql("言ったよ");
+  });
+
+  it("Osaka Ben", function() {
+    expect(morpho.normalize("飲まへん")).to.eql("飲まない");
+    expect(morpho.normalize("帰るさかい")).to.eql("帰るから");
+  });
+
+  it("Hiroshima Ben", function() {
+    expect(morpho.normalize("飲みんさんな")).to.eql("飲まないでください");
+    expect(morpho.normalize("食べんさんな")).to.eql("食べないでください");
+  });
+
+  it("Kyoto Ben", function() {
+    expect(morpho.normalize("行きますえ")).to.eql("行きますよ");
+  });
+
+  it("Nagoya Ben", function() {
+    expect(morpho.normalize("書いてちょう")).to.eql("書いてください");
+  });
+
+  it("Sendai Ben", function() {
+    expect(morpho.normalize("寒いべ")).to.eql("寒いでしょう");
+    expect(morpho.normalize("日本人だべ")).to.eql("日本人でしょう");
+  });
+
+  it("Hokkaido Ben", function() {
+    expect(morpho.normalize("寒いべ")).to.eql("寒いでしょう");
+    expect(morpho.normalize("寒いっしょ")).to.eql("寒いでしょう");
+    expect(morpho.normalize("明日しょや")).to.eql("明日でしょう");
+  });
+
+});

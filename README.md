@@ -1,6 +1,7 @@
 
-# ![Logo](design/logo128.png) JsLingua
+# JsLingua
 
+![Logo](design/logo128.png)
 [![NPM](https://nodei.co/npm/jslingua.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/jslingua/)
 
 [![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/jslingua.web)

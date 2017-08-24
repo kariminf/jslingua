@@ -545,6 +545,48 @@
     return stem;
   }
 
+  /**
+   * Normalizes Japanese words
+   * @method normalize
+   * @param  {string}  word a word to be normalized
+   * @param  {object}  opts For the time being, no options for Japanese
+   * @return {string}       normalized ord
+   */
+  Me.normalize = function(word, opts){
+    var m;
+    if(m = /^(.*ね)[えぇ]+$/.exec(word)) return m[1];
+    if(m = /^(.*な)[あぁ]+$/.exec(word)) return m[1];
+    if(m = /^(.*す)げ[えぇ]+$/.exec(word)) return m[1] + "ごい";
 
+    //http://www.fluentu.com/blog/japanese/different-japanese-dialects/
+    //Hakata Ben
+    if(m = /^(.*)やない$/.exec(word)) return m[1] + "じゃない";
+    if(m = /^(.*)ばい$/.exec(word)) return m[1] + "よ";
+
+    //Osaka Ben
+    if(m = /^(.*)へん$/.exec(word)) return m[1] + "ない";
+    if(m = /^(.*)さかい$/.exec(word)) return m[1] + "から";
+
+    //Hiroshima Ben
+    if(m = (new RegExp("^(.+)([" + iSound + "])んさんな")).exec(word)){
+      return m[1] + aSound[iSound.indexOf(m[2])] + "ないでください";
+    }
+    if(m = /^(.*)んさんな$/.exec(word)) return m[1] + "ないでください";
+
+    //Kyoto Ben
+    if(m = /^(.*)[え]+$/.exec(word)) return m[1] + "よ";
+
+    //Nagoya Ben
+    if(m = /^(.*て)ちょう$/.exec(word)) return m[1] + "ください";
+
+    //Sendai Ben
+    if(m = /^(.*[^だ])だ?べ$/.exec(word)) return m[1] + "でしょう";
+
+    //Hokkaido Ben
+    if(m = /^(.*)っしょ$/.exec(word)) return m[1] + "でしょう";
+    if(m = /^(.*)しょや$/.exec(word)) return m[1] + "でしょう";
+
+    return word;
+  }
 
 }());
