@@ -1,5 +1,5 @@
 (function(){
-  var Trans = {};
+  let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = JpnTrans;
@@ -9,7 +9,7 @@
     window.JsLingua.addService("Trans", "jpn", JpnTrans);
   }
 
-  var hiragana = [
+  let hiragana = [
     "が",
     "ぎ",
     "ぐ",
@@ -92,10 +92,8 @@
     "ゅ",
     "ぃ",
     "ょ"
-  ];
-
-  //https://en.wikipedia.org/wiki/Hepburn_romanization
-  var hepburn = [
+  ],
+  hepburn = [//https://en.wikipedia.org/wiki/Hepburn_romanization
     "ga",
     "gi",
     "gu",
@@ -178,9 +176,8 @@
     "xyu",
     "xyi",
     "xyo"
-  ];
-
-  var loneUnTrans = {
+  ],
+  loneUnTrans = {
     "ku": "く",
     "su": "す",
     "nu": "ぬ",
@@ -194,9 +191,8 @@
     "du": "づ",
     "bu": "ぶ",
     "pu": "ぷ"
-  };
-
-  var wabun = [
+  },
+  wabun = [
     " .-..  .. ",//ga
     " -.-..  .. ",//gi
     " ..-  .. ",//gu
@@ -279,9 +275,8 @@
     " -..-- ",//xyu
     " .- ",//xi
     " -- "//xyo
-  ];
-
-  var otherMourseBef = [
+  ],
+  otherMourseBef = [
     //numbers,
     "0",
     "1",
@@ -296,9 +291,8 @@
     //punctuation,
     "。", //actually it is a dot, this is to prevent conflect
     "、"
-  ];
-
-  var otherMourseAft = [
+  ],
+  otherMourseAft = [
     //numbers
     " ----- ",
     " .---- ",
@@ -315,7 +309,7 @@
     " --..-- "
   ];
 
-  var otherMourseTrans = new Trans("otherMourse");
+  let otherMourseTrans = new Trans("otherMourse");
   Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
   /**
@@ -358,7 +352,7 @@
   function morsePreTrans(text){
     var result = text;
     //cleaning non supported codes
-    result = result.replace(/[\.\-]/gi, "");
+    result = result.replace(/[.-]/gi, "");
     result = result.replace(/[ ]+/gi, "\t");
     //result = result.replace(/([^\t])([^\t])/gi, "$1 $2");
     result = ja2morseNormalize(result);
@@ -371,7 +365,7 @@
     result = result.replace(/ +/gi, " ");
     result = result.replace(/\t/gi, "   ");
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
 
     //Add DO and SN prosigns
     result = "-..---" + result + "...-.";
@@ -381,15 +375,15 @@
   function morsePreUntrans(text){
     var result = text;
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
     result = result.replace(/[ ]{3,}/gi, " \t ");
     result = result.replace(/ +/gi, "  ");
     result = result.replace(/^/gi, " ");
     result = result.replace(/$/gi, " ");
 
     //delete DO and SN prosigns used to specify the beginning and end of wabun
-    result = result.replace(/ \-\.\.\-\-\- /gi, " ");
-    result = result.replace(/ \.\.\.\-\. /gi, " ");
+    result = result.replace(/ -\.\.--- /gi, " ");
+    result = result.replace(/ \.\.\.-\. /gi, " ");
 
     return result;
   }
@@ -418,7 +412,7 @@
   }
 
   function shikiPreUntrans(text){
-    var result = text;
+    let result = text;
     //result = result.replace(/([tzs])y/gi, "$1iy");
     result = result.replace(/si/gi, "し");
     result = result.replace(/ti/gi, "ち");
@@ -436,7 +430,7 @@
 
   function hepburnPreTrans(text){
     return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){
-      var result = hepburn[hiragana.indexOf(p1)];
+      let result = hepburn[hiragana.indexOf(p1)];
       result = result + hepburn[hiragana.indexOf(p2)];
       return result.replace("ixy", "");
     });
@@ -445,7 +439,7 @@
   function hepburnPreUntrans(text){
     var result = doubleReplace(text);
     result = result.replace(/(sh|ch|j)([aeuo])/gi, function(match, p1, p2){
-      var key = p1 + "i";
+      let key = p1 + "i";
       if (hepburn.indexOf(key) > -1){
         var result =  hiragana[hepburn.indexOf(key)];
         key = "xy" + p2;
@@ -473,7 +467,7 @@
   }
 
   function nihonShikiPreUntrans(text){
-    var result = doubleReplace(text);
+    let result = doubleReplace(text);
     result = shikiPreUntrans(result);
     result = result.replace(/di/gi, "ぢ");
     result = result.replace(/du/gi, "づ");
@@ -481,7 +475,7 @@
   }
 
   function nihonShikiPreTrans(text){
-    var result = shikiPreTrans(text);
+    let result = shikiPreTrans(text);
     result = result.replace(/ぢ/gi, "di");
     result = result.replace(/づ/gi, "du");
     return result;
@@ -495,7 +489,7 @@
    * @return {string}      Pre-tranliterated text
    */
   function kunreiShikiPreTrans(text){
-    var result = shikiPreTrans(text);
+    let result = shikiPreTrans(text);
     result = result.replace(/ぢ/gi, "zi");
     //result = result.replace(/づ/gi, "zu"); //already on hepburn
     return result;

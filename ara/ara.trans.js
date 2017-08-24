@@ -1,5 +1,5 @@
 (function(){
-  var Trans = {};
+  let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = AraTrans;
@@ -8,7 +8,7 @@
     window.JsLingua.addService("Trans", "ara", AraTrans);
   }
 
-  var arabic = [
+  const arabic = [
     "ث", // tha
     "ح", // Ḥa
     "خ", // kha
@@ -62,9 +62,8 @@
 
     "ء", // lone hamza
     "ا" // alif
-  ];
-
-  var buckwalter = [
+  ],
+  buckwalter = [
     "v", // tha
     "H", // Ḥa
     "x", // kha
@@ -118,9 +117,8 @@
 
     "'", // lone hamza
     "A" // alif
-  ];
-
-  var arabtex = [
+  ],
+  arabtex = [
     "_t", // tha
     ".h", // Ḥa
     "_h", // kha
@@ -174,10 +172,8 @@
 
     "'", // lone hamza
     "A" // alif
-  ];
-
-  //https://en.wikipedia.org/wiki/Morse_code_for_non-Latin_alphabets
-  var armorse = [
+  ],
+  armorse = [//https://en.wikipedia.org/wiki/Morse_code_for_non-Latin_alphabets
     " -.-. ", // tha
     " .... ", // Ḥa
     " --- ", // kha
@@ -231,9 +227,8 @@
 
     " . ", // lone hamza
     " .- " // alif
-  ];
-
-  var otherMourseBef = [
+  ],
+  otherMourseBef = [
     //numbers,
     "0",
     "1",
@@ -264,9 +259,8 @@
     "\"",
     "$",
     "@"
-  ];
-
-  var otherMourseAft = [
+  ],
+  otherMourseAft = [
     //numbers
     " ----- ",
     " .---- ",
@@ -299,7 +293,7 @@
     " .--.-. "
   ];
 
-  var otherMourseTrans = new Trans("otherMourse");
+  let otherMourseTrans = new Trans("otherMourse");
   Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
   /**
@@ -328,7 +322,7 @@
    * @return {string}      normalized text
    */
   function ar2morseNormalize(text){
-    var result = text;
+    let result = text;
     result = result.replace(/[أإئؤ]/gi, "ء");
     result = result.replace(/[ىآ]/gi, "ا");
     result = result.replace(/[ة]/gi, "ه");
@@ -343,7 +337,7 @@
    * @return {string}      processed text for morse transliteration
    */
   function morsePreTrans(text){
-    var result = text;
+    let result = text;
     //cleaning non supported codes
     result = result.replace(/[\^\#]/gi, "");
     result = result.replace(/\./gi, "#").replace(/\-/gi, "^");
@@ -361,7 +355,7 @@
    * @return {string}      filtered morse code
    */
   function morsePostTrans(text){
-    var result = text;
+    let result = text;
     result = otherMourseTrans.transliterate(result);
     result = result.replace(/ +/gi, " ");
     result = result.replace(/^ /gi, "");
@@ -380,7 +374,7 @@
    * @return {string}      processed morse code for untransliteration
    */
   function morsePreUntrans(text){
-    var result = text;
+    let result = text;
     //clean non morse characters
     result = result.replace(/[^ \.\-]/gi, "");
     result = result.replace(/[ ]{3,}/gi, " \t ");
@@ -398,7 +392,7 @@
    * @return {string}      filtered Arabic text
    */
   function morsePostUntrans(text){
-    var result = text;
+    let result = text;
     result = otherMourseTrans.untransliterate(result);
     result = result.replace(/\#/gi, ".").replace(/\^/gi, "-");
     result = result.replace(/ +/gi, "");

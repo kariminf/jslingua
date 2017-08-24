@@ -1,7 +1,7 @@
 (function () {
 
   //TODO see https://en.wikipedia.org/wiki/English_irregular_verbs#List
-  var Morpho = {};
+  let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
     module.exports = EngMorpho;
@@ -11,16 +11,16 @@
   }
 
   //Different global features
-  var F = Morpho.Feature;
-  var Tense = F.Tense;
-  var Mood = F.Mood;
-  var Voice = F.Voice;
-  var GNumber = F.Number;
-  var Aspect = F.Aspect;
-  var Gender = F.Gender;
-  var Person = F.Person;
+  let F = Morpho.Feature,
+  Tense = F.Tense,
+  Mood = F.Mood,
+  Voice = F.Voice,
+  GNumber = F.Number,
+  Aspect = F.Aspect,
+  Gender = F.Gender,
+  Person = F.Person;
 
-  var g;
+  let g;
 
   function EngMorpho() {
     Morpho.call(this, "eng");
@@ -29,12 +29,9 @@
   }
 
   EngMorpho.prototype = Object.create(Morpho.prototype);
-  var Me = EngMorpho.prototype;
+  let Me = EngMorpho.prototype;
 
   Me.constructor = EngMorpho;
-
-  var debugFunction = Morpho.prototype.debugFunction;
-
 
   Me.getPronounOpts = function(){
     return [
@@ -74,8 +71,8 @@
 
   Me.getForms = function(){
     //super doesn't work here
-    var superFrm = Morpho.prototype.getForms.call(this);
-    var engForms =  {
+    let superFrm = Morpho.prototype.getForms.call(this);
+    const engForms =  {
       "Indicative present perfect": {
         mood: Mood.Ind,
         tense: Tense.Pr,
@@ -126,7 +123,7 @@
     return Object.assign({}, superFrm, engForms);
   }
 
-  //var C = Object.freeze;
+  //let C = Object.freeze;
 
   //=================
   //Conjugation zone
@@ -135,7 +132,7 @@
   //https://en.wikipedia.org/wiki/List_of_English_irregular_verbs
   //TODO will, can, shall
 
-  var beHave = {
+  const beHave = {
     "be":  {
       Pr: ["am", "is", "are"],
       Pa: ["was", "was", "were"],
@@ -146,10 +143,8 @@
       Pa: ["had", "had", "had"],
       Pp: "had"
     }
-  }
-
-
-  var irregular0 = {
+  },
+  irregular0 = {
     "bet": 1, "bid": 1, "broadcast": 1, "burst": 1,  "cast": 1, "clad": 1,
     "clearcut": 1, "cost": 1, "crosscut": 1, "cut": 1, "fit": 1, "handset": 1,
     "hit": 1, "hurt": 1, "intercut": 1, "let": 1, "lipread": 1, "podcast": 1,
@@ -215,7 +210,7 @@
   };
 
   function beHaveConj(verb, idx, opts){
-    if (! verb in beHave) return verb;
+    if (! (verb in beHave)) return verb;
     if (! "Pr|Pa|Pp".includes(idx)) return verb;
     if (idx === "Pp") return beHave[verb][idx];
 
@@ -247,7 +242,7 @@
     if (irregular0[verb]) return verb;
     if (irregular1[verb])return irregular1[verb];
     //Here, we suppose it is irregular2[verb]
-    var res = irregular2[verb][idx];
+    let res = irregular2[verb][idx];
     res = res.replace("1", verb);
     if(idx === 1){
       res = res.replace("2", irregular2[verb][0]);
@@ -264,8 +259,7 @@
       return "";
     }
 
-    var begin = "";
-    var end = "";
+    let begin = "", end = "";
 
     if((opts.voice) && (opts.voice === Voice.P)){
       if (beHave[verb]) end = " " + beHaveConj(verb, "Pp", opts);
@@ -277,7 +271,7 @@
     if(opts.aspect){
       if([Aspect.C, Aspect.PC].includes(opts.aspect)){
         // http://www.eclecticenglish.com/grammar/PresentContinuous1G.html
-        var base = verb;
+        let base = verb;
         if(["lie", "die"].includes(verb)) base = verb.slice(0,-2) + "y";
         else if (/^[^aeuio]*[aeuio][^aeuioy]$/g.test(verb)) base = verb + verb.slice(-1);
         else if (/^.{2,}e$/g.test(verb)) base = verb.slice(0,-1);
@@ -322,8 +316,8 @@
       if (beHave[verb]) return begin + beHaveConj(verb, "Pa", opts) + end;
       //Irregular (the block is just for variables)
       {
-        var pref = /(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
-        var match = pref.exec(verb);
+        const pref = /(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
+        let match = pref.exec(verb);
         if(match){
           //verify if the verb is in Irregular list with the prefix
           if(isIrregular(verb)) return begin + irregularConj(verb, 0) + end;
@@ -349,7 +343,7 @@
 
     }//swich(tense)
 
-    return begin + verb + end;;
+    return begin + verb + end;
 
   }
 
@@ -362,7 +356,7 @@
   url1: http://snowballstem.org/algorithms/porter/stemmer.html
   url2: https://github.com/kristopolous/Porter-Stemmer/blob/master/PorterStemmer1980.js
   */
-  var step2list = {
+  const step2list = {
     "ational" : "ate",
     "tional" : "tion",
     "enci" : "ence",
@@ -405,14 +399,14 @@
 
 
   function porterStemmer(word){
-    var stemmed,
+    let stemmed,
     suffix,
     firstch,
     re,
     re2,
     re3,
-    re4,
-    origword = word;
+    re4;
+    //origword = word;
 
     if (word.length < 3) { return word; }
 
@@ -437,7 +431,7 @@
     re = /^(.+?)eed$/;
     re2 = /^(.+?)(ed|ing)$/;
     if (re.test(word)) {
-      var fp = re.exec(word);
+      let fp = re.exec(word);
       re = new RegExp(mgr0);
       if (re.test(fp[1])) {
         re = /.$/;
@@ -445,7 +439,7 @@
         g.debugFunction('1b',re, word);
       }
     } else if (re2.test(word)) {
-      var fp = re2.exec(word);
+      let fp = re2.exec(word);
       stemmed = fp[1];
       re2 = new RegExp(s_v);
       if (re2.test(stemmed)) {
@@ -475,7 +469,7 @@
     // Step 1c
     re = new RegExp("^(.*" + v + ".*)y$");
     if (re.test(word)) {
-      var fp = re.exec(word);
+      let fp = re.exec(word);
       stemmed = fp[1];
       word = stemmed + "i";
       g.debugFunction('1c', re, word);
@@ -485,7 +479,7 @@
     re = new RegExp("^(.+?)(" + Object.keys(step2list).join("|") + ")$");
     //re = /^(.+?)(ational|tional|enci|anci|izer|bli|alli|entli|eli|ousli|ization|ation|ator|alism|iveness|fulness|ousness|aliti|iviti|biliti|logi)$/;
     if (re.test(word)) {
-      var fp = re.exec(word);
+      let fp = re.exec(word);
       stemmed = fp[1];
       suffix = fp[2];
       re = new RegExp(mgr0);
@@ -499,7 +493,7 @@
     re = new RegExp("^(.+?)(" + Object.keys(step3list).join("|") + ")$");
     //re = /^(.+?)(icate|ative|alize|iciti|ical|ful|ness)$/;
     if (re.test(word)) {
-      var fp = re.exec(word);
+      let fp = re.exec(word);
       stemmed = fp[1];
       suffix = fp[2];
       re = new RegExp(mgr0);
@@ -513,7 +507,7 @@
     re = /^(.+?)(al|ance|ence|er|ic|able|ible|ant|ement|ment|ent|ou|ism|ate|iti|ous|ive|ize)$/;
     re2 = /^(.+?)(s|t)(ion)$/;
     if (re.test(word)) {
-      var fp = re.exec(word);
+      let fp = re.exec(word);
       stemmed = fp[1];
       re = new RegExp(mgr1);
       if (re.test(stemmed)) {
@@ -521,7 +515,7 @@
         g.debugFunction('4', re, word);
       }
     } else if (re2.test(word)) {
-      var fp = re2.exec(word);
+      let fp = re2.exec(word);
       stemmed = fp[1] + fp[2];
       re2 = new RegExp(mgr1);
       if (re2.test(stemmed)) {
@@ -533,7 +527,7 @@
     // Step 5
     re = /^(.+?)e$/;
     if (re.test(word)) {
-      var fp = re.exec(word);
+      let fp = re.exec(word);
       stemmed = fp[1];
       re = new RegExp(mgr1);
       re2 = new RegExp(meq1);

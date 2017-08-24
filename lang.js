@@ -14,7 +14,7 @@
   * @return {Number} returns the same number or the unicode of the first character
   */
   function getUnicode(char) {
-    var type = typeof char;
+    let type = typeof char;
     if (type === "number")
     return char;
 
@@ -35,7 +35,7 @@
   */
   function isBetween(min,  max){
     return function (char){
-      var u = getUnicode(char);
+      let u = getUnicode(char);
       if(min <= u && u <= max)
       return true;
       return false;
@@ -44,8 +44,8 @@
 
   function contains(charTestFunc) {
     return function(text) {
-      for (var i = 0; i < text.length; i++) {
-        var u = text.charCodeAt(i);
+      for (let i = 0; i < text.length; i++) {
+        let u = text.charCodeAt(i);
         if (charTestFunc(u))
         return true;
       }
@@ -56,8 +56,8 @@
 
   function all(charTestFunc) {
     return function(text) {
-      for (var i = 0; i < text.length; i++) {
-        var u = text.charCodeAt(i);
+      for (let i = 0; i < text.length; i++) {
+        let u = text.charCodeAt(i);
         if (! charTestFunc(u))
         return false;
       }
@@ -67,9 +67,9 @@
 
   function transform (diff, charTestFunc) {
     return function(text) {
-      var result = "";
-      for (var i = 0; i < text.length; i++){
-        var u = text.charCodeAt(i);
+      let result = "";
+      for (let i = 0; i < text.length; i++){
+        let u = text.charCodeAt(i);
         if (charTestFunc(u))
         u += diff;
         result += String.fromCharCode(u);
@@ -120,7 +120,7 @@
    * @param {string} origCharSet The name of the charset
    */
   Lang.addTransform = function(transName, offset, origCharSet, begin, end){
-    var charSetFunc = function(char){return false};
+    let charSetFunc = function(char){return false};
 
     if ((typeof begin != 'undefined') &&  (typeof begin != 'undefined')){
         charSetFunc = isBetween(begin, end);
@@ -134,7 +134,7 @@
   //=========================================
   // Prototypes
   // ========================================
-  var Me = Lang.prototype;
+  let Me = Lang.prototype;
 
   /**
    * Returns the available charsets for the current language

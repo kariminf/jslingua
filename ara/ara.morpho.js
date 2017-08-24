@@ -1,6 +1,6 @@
 (function () {
 
-  var Morpho = {};
+  let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
     module.exports = AraMorpho;
@@ -10,14 +10,14 @@
   }
 
   //Different global features
-  var F = Morpho.Feature;
-  var Tense = F.Tense;
-  var Mood = F.Mood;
-  var Voice = F.Voice;
-  var GNumber = F.Number;
-  var Aspect = F.Aspect;
-  var Gender = F.Gender;
-  var Person = F.Person;
+  let F = Morpho.Feature,
+  Tense = F.Tense,
+  Mood = F.Mood,
+  Voice = F.Voice,
+  GNumber = F.Number,
+  Aspect = F.Aspect,
+  Gender = F.Gender,
+  Person = F.Person;
 
   var g;
   function AraMorpho() {
@@ -27,7 +27,7 @@
   }
 
   AraMorpho.prototype = Object.create(Morpho.prototype);
-  var Me = AraMorpho.prototype;
+  let Me = AraMorpho.prototype;
 
   Me.constructor = AraMorpho;
 
@@ -76,32 +76,32 @@
   Me.conjugate = function(verb, opts){
     //delete diacretics
     verb = verb.trim();
-    var noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
+    let noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
 
-    var len = noDiac.length;
+    let len = noDiac.length;
 
     //detect if the verb with weak begining
-    var weekBegin = /^[اأو]/.test(noDiac);
+    let weekBegin = /^[اأو]/.test(noDiac);
 
     //detect if the verb has a week ending
-    var weekEnd = /[يى]$/.test(noDiac);
+    let weekEnd = /[يى]$/.test(noDiac);
 
     //detect if the verb has a week middle
-    var weekMiddle = false;
+    let weekMiddle = false;
 
-    var begin = "";
-    var end = "";
-    var endDiac = "ُ";//Dhamma for present
-    var notAllowed = false;
+    let begin = "",
+    end = "",
+    endDiac = "ُ",//Dhamma for present
+    notAllowed = false;
 
     //Future is prefix + present
-    var future = 0;
+    let future = 0;
     if (opts.tense === Tense.Fu){
       future = 1;
       opts.tense = Tense.Pr;
     }
 
-    var befLast = "ِ";//kasra for the char before last
+    let befLast = "ِ";//kasra for the char before last
 
 
     if (len === 3){
@@ -132,7 +132,7 @@
           case GNumber.S:
           if (opts.gender === Gender.F){
             end = "ينَ";
-            var endDiac = "ِ";//Kasra
+            endDiac = "ِ";//Kasra
           }
           break;
 
@@ -146,7 +146,7 @@
           case GNumber.P:
           if (opts.gender === Gender.F){
             end = "نَ";
-            var endDiac = "ْ";//Sukuun
+            endDiac = "ْ";//Sukuun
           }
           else end = "ونَ";
           break;
@@ -250,7 +250,7 @@
 
     }//swich(tense)
 
-    var result = verb;
+    let result = verb;
 
     if(befLast){
       if(befLast === "X") befLast = "";
@@ -331,11 +331,11 @@
    * @return {string}      normalized word
    **/
   Me.normalize = function(word, opts){
-    var norm = word.trim();
+    let norm = word.trim();
 
     //If no options are afforded, do all
     if (! opts || opts.length < 1){
-      var opts = "voc,alef,yeh,teh,_";
+      opts = "voc,alef,yeh,teh,_";
     }
 
     //Delete vocals: fathah, kasrah, etc.
@@ -380,9 +380,7 @@
    * @return {[type]}               [description]
    */
   function jslinguaAraStemmer(word){
-    var stem = word;
-
-
+    let stem = word;
     return stem;
   }
 

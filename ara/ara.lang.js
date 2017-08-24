@@ -1,6 +1,6 @@
 (function(){
 
-  var Lang = {};
+  let Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
     module.exports = AraLang;
@@ -32,30 +32,27 @@
   }
 
   AraLang.prototype = Object.create(Lang.prototype);
-  var Me = AraLang.prototype;
+  let Me = AraLang.prototype;
   Me.constructor = AraLang;
 
   //https://ar.wikipedia.org/wiki/قائمة_الأعداد
-  var lookup = {
+  const lookup = {
     0: "صفر", 1:"واحد", 2:"اثنان", 3:"ثلاث", 4:"أربع", 5:"خمس",
     6:"ست", 7:"سبع", 8:"ثمان", 9:"تسع", 10:"عشر",
     100:"مائة", 1000:"ألف", 1000000:"مليون", 1000000000:"مليار"
-  }
-
-  var bigNbr = [
+  },
+  bigNbr = [
     100, 1000, 1000000, 1000000000
     //1000000000, 1000000, 1000, 100, 10
-  ]
-
-  var lookup2 = {
+  ],
+  lookup2 = {
     100: "مائتان",
     1000: "ألفان",
     1000000: "مليونان",
     1000000000: "ملياران"
     //1000000000, 1000000, 1000, 100, 10
-  }
-
-  var lookupPl = {
+  },
+  lookupPl = {
     100: "مائة",
     1000: "آلاف",
     1000000: "ملايين",
@@ -97,8 +94,8 @@
     return lookup[num] + "ة";
 
     if (num < 100 ){
-      var div = ~~(num/10);
-      var rem = ~~(num % 10);
+      let div = ~~(num/10);
+      let rem = ~~(num % 10);
 
       if (div == 1){
         if (rem == 0)
@@ -110,29 +107,28 @@
         return toArabicLetters(rem) + " " + lookup[10];
       }
 
-      var tenth = lookup[div] + "ون";
+      let tenth = lookup[div] + "ون";
       if (div == 2)
       tenth = lookup[10] + "ون";
 
       if (rem == 0)
       return tenth;
 
-      var suff = " و";
+      let suff = " و";
 
       return toArabicLetters(rem) + suff + tenth;
 
     }
 
-    for (var i = 1; i < bigNbr.length; i++) {
-      var big = bigNbr[i];
-      var lessBig = bigNbr[i-1];
+    for (let i = 1; i < bigNbr.length; i++) {
+      let big = bigNbr[i],
+      lessBig = bigNbr[i-1];
       if (num < big ){
-        var div = ~~(num/lessBig);
-        var rem = ~~(num % lessBig);
-
-        var pron = lookup[lessBig];
-        var pref = "";
-        var suff = "";
+        let div = ~~(num/lessBig),
+        rem = ~~(num % lessBig),
+        pron = lookup[lessBig],
+        pref = "",
+        suff = "";
 
         if (div < 3){
           if (div == 2)
@@ -165,14 +161,12 @@
       }
     }
 
-    var lessBig = bigNbr[bigNbr.length-1];
-
-    var div = ~~(num/lessBig);
-    var rem = ~~(num % lessBig);
-
-    var pron = lookup[lessBig];
-    var pref = "";
-    var suff = "";
+    let lessBig = bigNbr[bigNbr.length-1],
+    div = ~~(num/lessBig),
+    rem = ~~(num % lessBig),
+    pron = lookup[lessBig],
+    pref = "",
+    suff = "";
 
     if (div < 3){
       if (div == 2)

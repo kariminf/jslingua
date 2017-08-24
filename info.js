@@ -36,7 +36,7 @@
   //===========================
   //functions
   //===========================
-  var Me = Info.prototype;
+  let Me = Info.prototype;
 
   /**
    * Get the name of the language

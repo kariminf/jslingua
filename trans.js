@@ -17,10 +17,9 @@
 	*/
 	function getTransliterator(srcTbl, dstTbl) {
 		return function(text) {
-			var result = text;
-			var i;
-			for (i=0; i< srcTbl.length; i++){
-				var keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+			let result = text;
+			for (let i=0; i< srcTbl.length; i++){
+				let keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 				result = result.replace(new RegExp(keyEscaped, 'g'), dstTbl[i]);
 			}
 			return result;
@@ -140,7 +139,7 @@
 	//=============================================
 	// Prototypes
 	// ============================================
-	var Me = Trans.prototype;
+	let Me = Trans.prototype;
 
 
 	/**
@@ -179,7 +178,7 @@
 	* @return {string}      the transliterated text
 	*/
 	Me.transliterate = function(text){
-		var result = text;
+		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preTrans === "function"){
 			result = this.methods[this.currentMethod].preTrans(result);
@@ -200,7 +199,7 @@
 	* @return {string}      untranslaterated text (original text)
 	*/
 	Me.untransliterate = function(text){
-		var result = text;
+		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preUntrans === "function"){
 			result = this.methods[this.currentMethod].preUntrans(result);

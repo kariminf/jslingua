@@ -1,6 +1,6 @@
 (function(){
 
-  var Lang = {};
+  let Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
     module.exports = EngLang;
@@ -26,11 +26,11 @@
   }
 
   EngLang.prototype = Object.create(Lang.prototype);
-  var Me = EngLang.prototype;
+  let Me = EngLang.prototype;
   Me.constructor = EngLang;
 
   //https://en.wikipedia.org/wiki/List_of_numbers
-  var lookup = {
+  const lookup = {
     0: "zero", 1: "one", 2: "two", 3:"three", 4: "four",
     5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine",
 
@@ -43,9 +43,8 @@
     1000: "thousand",
     1000000: "million",
     1000000000: "billion"
-  }
-
-  var bigNbr = [
+  },
+  bigNbr = [
     100, 1000, 1000000, 1000000000
     //1000000000, 1000000, 1000, 100, 10
   ]
@@ -85,15 +84,15 @@
     if (num < 10) return lookup[num];
 
     if (num < 100 ){
-      var div = ~~(num/10);
-      var rem = ~~(num % 10);
+      let div = ~~(num/10),
+      rem = ~~(num % 10);
 
       if (div == 1){
         if (rem < 6) return lookup[num];
         return lookup[rem] + "teen";
       }
 
-      var tenth = "";
+      let tenth = "";
 
       if (div == 8) tenth = "eighty";
       else if (div < 6) tenth = lookup[div * 10];
@@ -106,13 +105,13 @@
     }
 
 
-    var bigIdx = bigNbr.length -1;
+    let bigIdx = bigNbr.length -1;
     while (bigIdx >= 0 && num < bigNbr[bigIdx]) bigIdx--;
 
-    var div = ~~(num/bigNbr[bigIdx]);
-    var rem = ~~(num % bigNbr[bigIdx]);
+    let div = ~~(num/bigNbr[bigIdx]),
+    rem = ~~(num % bigNbr[bigIdx]);
 
-    var pronounce = toEnglishLetters2(div, false) + " " + lookup[bigNbr[bigIdx]];
+    let pronounce = toEnglishLetters2(div, false) + " " + lookup[bigNbr[bigIdx]];
 
     //if (div > 1) pronounce += "s"; //plural
 

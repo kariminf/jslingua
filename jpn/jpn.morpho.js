@@ -1,6 +1,6 @@
 (function () {
 
-  var Morpho = {};
+  let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
     module.exports = JpnMorpho;
@@ -10,22 +10,21 @@
   }
 
   //Different global features
-  var F = Morpho.Feature;
-  var Tense = F.Tense;
-  var Mood = F.Mood;
-  var Voice = F.Voice;
-  var GNumber = F.Number;
-  var Aspect = F.Aspect;
-  var Gender = F.Gender;
-  var Person = F.Person;
+  let F = Morpho.Feature,
+  Tense = F.Tense,
+  Mood = F.Mood,
+  Voice = F.Voice,
+  GNumber = F.Number,
+  Aspect = F.Aspect,
+  Gender = F.Gender,
+  Person = F.Person;
 
-  var C = Object.freeze;
-  var Formality = C({
+  let C = Object.freeze;
+  const Formality = C({
     Pl: "plain",
     Po: "polite"
-  });
-
-  var VType = C({
+  }),
+  VType = C({
     V1: "ichidan",
     V5: "godan",
     SK: "suru-kuru"
@@ -38,7 +37,7 @@
   }
 
   JpnMorpho.prototype = Object.create(Morpho.prototype);
-  var Me = JpnMorpho.prototype;
+  let Me = JpnMorpho.prototype;
 
   Me.constructor = JpnMorpho;
 
@@ -169,7 +168,7 @@
   }
 
 
-  var
+  const
   uSound = "うるくすつむぬぶぐず",
   iSound = "いりきしちみにびぎじ",
   oSound = "おろこそとものぼごじ",
@@ -189,7 +188,7 @@
    */
   function basicForm(verb, sound, vtype){
 
-    var end = verb.slice(-1);
+    let end = verb.slice(-1);
 
     if(uSound.indexOf(end) < 0) return "";
 
@@ -221,11 +220,11 @@
 
   function tForm(verb, teta, vtype){
 
-    var end = verb.slice(-1);
+    let end = verb.slice(-1);
 
     if(uSound.indexOf(end) < 0) return "";
 
-    var res = "て";
+    let res = "て";
     if(uSound.indexOf(end) > 4 ){
       res = "で";
       if(teta) res = "だ";
@@ -248,7 +247,7 @@
 
   }
 
-  var ruV5List = {
+  const ruV5List = {
     "い": 1, "き": 1, "け": 1, "し": 1, "じ": 1, "ね": 1, "び": 1, "上": 1, "下": 1, "与": 1, "中": 1,
     "乗": 1, "乘": 1, "亘": 1, "亙": 1, "交": 1, "代": 1, "伐": 1, "余": 1, "作": 1, "侍": 1, "依": 1,
     "侮": 1, "便": 1, "係": 1, "倚": 1, "借": 1, "偏": 1, "偽": 1, "傲": 1, "優": 1, "光": 1, "入": 1,
@@ -294,17 +293,17 @@
 
     if(/(出来)る$/g.test(verb)) return VType.V1;
     if(/(す|く|来)る$/g.test(verb)) return VType.SK;
-    var end = verb.slice(-1);
-    var bend = verb.slice(-2,-1);
+    let end = verb.slice(-1);
+    let bend = verb.slice(-2,-1);
     if(end === "る"){
       //If not these before-endings, and hiragana, then it is Godan
       if(! "いえしせちてにねびべみめりれ".includes(bend)){
-        var utf8 = bend.charCodeAt(0);
+        let utf8 = bend.charCodeAt(0);
         if(0x3040 <= utf8 && utf8 <= 0x309F) return VType.V5;
       }
 
       {//If it ends with these; it is Godan
-        var v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
+        let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
         if(v5r.test(verb) || ruV5List[bend]) return VType.V5;
       }
 
@@ -321,10 +320,10 @@
   Me.conjugate = function(verb, opts){
 
     if(!opts.mood) opts.mood = Mood.Ind;
-    var vtype = (opts.vtype)? opts.vtype: this.getVerbType(verb);
+    let vtype = (opts.vtype)? opts.vtype: this.getVerbType(verb);
 
     //console.log(vtype);
-    var end ="";
+    let end ="";
 
     if(opts.cause){
       end = "せる";
@@ -474,7 +473,7 @@
 
 
 
-  var jpnSuff = [
+  const jpnSuff = [
     { //desu must be deleted
       e: /^(.*)で(?:した|す)$/,
       r: "$1"
@@ -490,7 +489,7 @@
     { //isound
       e: /^(.*)(.+)(?:ま(?:した|す|せん|しょう)|たい)$/,
       r: function (match, p1, p2, offset, string){
-        var iidx = iSound.indexOf(p2);
+        let iidx = iSound.indexOf(p2);
         if( iidx > -1) return p1 + uSound[iidx];
         return p1 + p2 ;
       }
@@ -499,7 +498,7 @@
       e: /^(.*)(.+)な(?:い|かった|ければ(?:なる)?)$/,
       r: function (match, p1, p2, offset, string){
         if(p2 === "く") return p1 + "い";
-        var aidx = aSound.indexOf(p2);
+        let aidx = aSound.indexOf(p2);
         if( aidx > -1) return p1  + uSound[aidx];
         return p1 + p2;
       }
@@ -528,12 +527,12 @@
   ];
 
   function jslinguaJpnStemmer(word){
-    var stem = word;
-    var stillModif = 1;
+    let stem = word,
+    stillModif = 1;
     while(stillModif){
       stillModif = 0;
       for(i =0; i< jpnSuff.length; i++){
-        var rule = jpnSuff[i];
+        let rule = jpnSuff[i];
         if(rule.e.test(stem)){
           stem = stem.replace(rule.e, rule.r);
           //console.log(rule.e);
@@ -553,38 +552,38 @@
    * @return {string}       normalized ord
    */
   Me.normalize = function(word, opts){
-    var m;
-    if(m = /^(.*ね)[えぇ]+$/.exec(word)) return m[1];
-    if(m = /^(.*な)[あぁ]+$/.exec(word)) return m[1];
-    if(m = /^(.*す)げ[えぇ]+$/.exec(word)) return m[1] + "ごい";
+    let m;
+    if(!!(m = /^(.*ね)[えぇ]+$/.exec(word))) return m[1];
+    if(!!(m = /^(.*な)[あぁ]+$/.exec(word))) return m[1];
+    if(!!(m = /^(.*す)げ[えぇ]+$/.exec(word))) return m[1] + "ごい";
 
     //http://www.fluentu.com/blog/japanese/different-japanese-dialects/
     //Hakata Ben
-    if(m = /^(.*)やない$/.exec(word)) return m[1] + "じゃない";
-    if(m = /^(.*)ばい$/.exec(word)) return m[1] + "よ";
+    if(!!(m = /^(.*)やない$/.exec(word))) return m[1] + "じゃない";
+    if(!!(m = /^(.*)ばい$/.exec(word))) return m[1] + "よ";
 
     //Osaka Ben
-    if(m = /^(.*)へん$/.exec(word)) return m[1] + "ない";
-    if(m = /^(.*)さかい$/.exec(word)) return m[1] + "から";
+    if(!!(m = /^(.*)へん$/.exec(word))) return m[1] + "ない";
+    if(!!(m = /^(.*)さかい$/.exec(word))) return m[1] + "から";
 
     //Hiroshima Ben
-    if(m = (new RegExp("^(.+)([" + iSound + "])んさんな")).exec(word)){
+    if(!!(m = (new RegExp("^(.+)([" + iSound + "])んさんな")).exec(word))){
       return m[1] + aSound[iSound.indexOf(m[2])] + "ないでください";
     }
-    if(m = /^(.*)んさんな$/.exec(word)) return m[1] + "ないでください";
+    if(!!(m = /^(.*)んさんな$/.exec(word))) return m[1] + "ないでください";
 
     //Kyoto Ben
     if(m = /^(.*)[え]+$/.exec(word)) return m[1] + "よ";
 
     //Nagoya Ben
-    if(m = /^(.*て)ちょう$/.exec(word)) return m[1] + "ください";
+    if(!!(m = /^(.*て)ちょう$/.exec(word))) return m[1] + "ください";
 
     //Sendai Ben
-    if(m = /^(.*[^だ])だ?べ$/.exec(word)) return m[1] + "でしょう";
+    if(!!(m = /^(.*[^だ])だ?べ$/.exec(word))) return m[1] + "でしょう";
 
     //Hokkaido Ben
-    if(m = /^(.*)っしょ$/.exec(word)) return m[1] + "でしょう";
-    if(m = /^(.*)しょや$/.exec(word)) return m[1] + "でしょう";
+    if(!!(m = /^(.*)っしょ$/.exec(word))) return m[1] + "でしょう";
+    if(!!(m = /^(.*)しょや$/.exec(word))) return m[1] + "でしょう";
 
     return word;
   }

@@ -40,7 +40,7 @@
     console.log(Array.prototype.slice.call(arguments).join(' '));
   }
 
-  var C = Object.freeze;
+  let C = Object.freeze;
 
   /**
   * The part of speech: Noun, Verb, Adjective,
@@ -51,14 +51,14 @@
   * @static
   * @type {object}
   */
-  var PoS = C({
+  const PoS = C({
     N: "noun",
     V: "verb",
     Adj: "adjective",
     Adv: "adverb",
     Prep: "preposition",
     Pron: "pronoun"
-  });
+  }),
 
   /**
   * The tense: Past, Present, Future
@@ -68,11 +68,11 @@
   * @static
   * @type {object}
   */
-  var Tense = C({
+  Tense = C({
     Pa: "past",
     Pr: "present",
     Fu: "future"
-  });
+  }),
 
   /**
   * The aspect: Simple, Continuous, Perfect, PerfectContinuous
@@ -82,12 +82,12 @@
   * @static
   * @type {object}
   */
-  var Aspect = C({
+  Aspect = C({
     S: "simple",
     C: "continuous",
     P: "perfect",
     PC: "perfect-continuous"
-  });
+  }),
 
   /**
   * The mood: indicative, subjunctive, conditional,
@@ -101,7 +101,7 @@
   * @static
   * @type {object}
   */
-  var Mood = C({
+  Mood = C({
     /**
      * The indicative can be considered the default mood.
      * A verb in indicative merely states that something happens,
@@ -196,7 +196,7 @@
      */
     Adm: "admirative"
 
-  });
+  }),
 
   /**
   * The voice: Active,Passive, Middle
@@ -206,11 +206,11 @@
   * @static
   * @type {object}
   */
-  var Voice = C({
+  Voice = C({
     A: "active",
     P: "passive",
     M: "middle"
-  });
+  }),
 
   /**
   * The grammatical number: Singular, Dual, Plural
@@ -220,11 +220,11 @@
   * @static
   * @type {object}
   */
-  var GNumber = C({
+  GNumber = C({
     S: "singular",
     D: "dual",
     P: "plural"
-  });
+  }),
 
   /**
   * The person: First, Second, Third.
@@ -234,11 +234,11 @@
   * @static
   * @type {object}
   */
-  var Person = C({
+  Person = C({
     F: "first",
     S: "second",
     T: "third"
-  });
+  }),
 
   /**
   * The gender: Masculine, Feminine, Neuter.
@@ -248,7 +248,7 @@
   * @static
   * @type {object}
   */
-  var Gender = C({
+  Gender = C({
     M: "masculine",
     F: "feminine",
     N: "neuter"
@@ -289,7 +289,6 @@
     Gender: Gender
   });
 
-
   //=========================================
   // Protected Static methods
   // ========================================
@@ -314,7 +313,7 @@
   //===================================================
   // Prototypes
   //===================================================
-  var Me = Morpho.prototype;
+  let Me = Morpho.prototype;
 
   /**
   * Enables the debugging messages
@@ -546,6 +545,7 @@
    * @return {[type]}            [description]
    */
   Me.getPronounName = function(opts){
+    // jshint unused: true
     return "";
   }
 
@@ -558,6 +558,7 @@
   * @return {string}      inflected word
   */
   Me.conjugate = function(verb, opts){
+    // jshint unused: true
     return verb;
   }
 
@@ -577,6 +578,7 @@
   * @return {string}      the pronoun
   */
   Me.getPronounName = function(opts){
+    // jshint unused: true
     return "";
   }
 
@@ -589,6 +591,7 @@
   * @return {string}      the inflected noun
   */
   Me.declenseNoun = function(noun, opts){
+    // jshint unused: true
     return noun;
   }
 
@@ -614,6 +617,7 @@
   * @return {string}      normalized word
   */
   Me.normalize = function(word, opts){
+    // jshint unused: true
     return word;
   }
 
@@ -637,16 +641,16 @@
       opts: [{}]
     };
 
-    for (var bi = 0; bi < branch.length; bi++){
-      var tmpOpts = [];
-      var opts = morpho.getOptLists(branch[bi]);
-      for(var si = 0; si < result.spans.length; si++){
+    for (let bi = 0; bi < branch.length; bi++){
+      let tmpOpts = [];
+      let opts = morpho.getOptLists(branch[bi]);
+      for(let si = 0; si < result.spans.length; si++){
         result.spans[si] *= opts.length;
       }
-      var labels = [];
-      result.opts.forEach(function(val, idx, a){
-        opts.forEach(function(val2, idx2, a2){
-          var fuseOpts = Object.assign({}, val, val2);
+      let labels = [];
+      result.opts.forEach(function(val, idx){
+        opts.forEach(function(val2, idx2){
+          let fuseOpts = Object.assign({}, val, val2);
           tmpOpts.push(fuseOpts);
           if(!idx){//we process labels just once
             labels.push(morpho.getOptName(branch[bi], val2));
@@ -674,14 +678,14 @@
    */
   Morpho.parseConjModel = function(morpho) {
 
-    var result = {
+    let result = {
       rows: {},
       cols: {}
     }
 
     if (! (morpho instanceof Morpho)) return result;
 
-    var model = morpho.getConjugModel();
+    let model = morpho.getConjugModel();
 
     result.rows = parseConjModelBranch(morpho, model.rows);
     result.cols = parseConjModelBranch(morpho, model.cols);

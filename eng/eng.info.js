@@ -1,6 +1,6 @@
 (function(){
 
-  var Info = {};
+  let Info = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Info = require("../info.js");
     module.exports = EngInfo;

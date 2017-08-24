@@ -36,7 +36,8 @@
     "front-end",
     "back-end",
     "number pronounciation",
-    "multi-lingual"
+    "multi-lingual",
+    "normalization"
   ],
   "files": [
     "info.js",

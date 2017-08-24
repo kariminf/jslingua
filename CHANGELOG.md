@@ -14,6 +14,7 @@ This will break the projects developed on precedent versions.
 ## Version current
 
 * ADD: Japanese Morpho -> jslinguaJpnStemmer
+* ADD: normalization to Japanese Morpho
 
 ## Version 0.5.0 (2017-08-13)
 

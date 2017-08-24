@@ -6,22 +6,22 @@
 (function(){
 
 
-  var version = "0.5.0";
+  let version = "0.5.0";
 
-  var rtls = ["ara", "heb"];
+  const rtls = ["ara", "heb"];
 
   //service name: [services for languages]
-  var services = {};
+  let services = {};
 
   /**
   * The main class
   * @class JsLingua
   */
-  var JsLingua = {};
+  let JsLingua = {};
 
   JsLingua.Cls = {};
 
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+  if ( (typeof module === "object") && module && (typeof module.exports === "object") ) {
     //In case of nodeJs, we load all available modules
     services = {
       "Info": {
@@ -110,7 +110,7 @@
   */
   JsLingua.getService = function(serviceID, langCode){
     if (services[serviceID] === undefined) return null;
-    if (! langCode in services[serviceID]) return null;
+    if (! (langCode in services[serviceID])) return null;
     return services[serviceID][langCode];
   }
 
