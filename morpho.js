@@ -606,16 +606,6 @@
   }
 
   /**
-  * lemmatize a word: return it to its origin
-  * @method lemmatize
-  * @param  {string} word the word to be lemmatized
-  * @return {string}      lemmatized word
-  */
-  Me.lemmatize = function(word){
-    return word;
-  }
-
-  /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
   * @method normalize
   * @param  {string} word the word to be normalized
