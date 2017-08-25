@@ -1,9 +1,13 @@
-(function(){
+(function() {
+
+  "use strict";
+
   let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = JpnTrans;
-  } else {
+  }
+  else {
     Trans = window.JsLingua.Cls.Trans;
     //window.JpnTrans = JpnTrans;
     window.JsLingua.addService("Trans", "jpn", JpnTrans);
@@ -341,7 +345,7 @@
   JpnTrans.prototype = Object.create(Trans.prototype);
   JpnTrans.prototype.constructor = JpnTrans;
 
-  function ja2morseNormalize(text){
+  function ja2morseNormalize(text) {
     var result = text;
     result = result.replace(/[っ]/gi, "つ");
     //Japanese space
@@ -349,7 +353,7 @@
     return result;
   }
 
-  function morsePreTrans(text){
+  function morsePreTrans(text) {
     var result = text;
     //cleaning non supported codes
     result = result.replace(/[.-]/gi, "");
@@ -359,7 +363,7 @@
     return result;
   }
 
-  function morsePostTrans(text){
+  function morsePostTrans(text) {
     var result = text;
     result = otherMourseTrans.transliterate(result);
     result = result.replace(/ +/gi, " ");
@@ -372,7 +376,7 @@
     return result;
   }
 
-  function morsePreUntrans(text){
+  function morsePreUntrans(text) {
     var result = text;
     //clean non morse characters
     result = result.replace(/[^ .-]/gi, "");
@@ -388,7 +392,7 @@
     return result;
   }
 
-  function morsePostUntrans(text){
+  function morsePostUntrans(text) {
     var result = text;
     result = otherMourseTrans.untransliterate(result);
     result = result.replace(/ +/gi, "");
@@ -398,7 +402,7 @@
 
 
 
-  function shikiPreTrans(text){
+  function shikiPreTrans(text) {
     var result = text.replace(/し/gi, "si");
     result = result.replace(/ち/gi, "ti");
     result = result.replace(/つ/gi, "tu");
@@ -411,7 +415,7 @@
     return result;
   }
 
-  function shikiPreUntrans(text){
+  function shikiPreUntrans(text) {
     let result = text;
     //result = result.replace(/([tzs])y/gi, "$1iy");
     result = result.replace(/si/gi, "し");
@@ -428,7 +432,7 @@
   }
 
 
-  function hepburnPreTrans(text){
+  function hepburnPreTrans(text) {
     return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){
       let result = hepburn[hiragana.indexOf(p1)];
       result = result + hepburn[hiragana.indexOf(p2)];
@@ -436,14 +440,14 @@
     });
   }
 
-  function hepburnPreUntrans(text){
+  function hepburnPreUntrans(text) {
     var result = doubleReplace(text);
     result = result.replace(/(sh|ch|j)([aeuo])/gi, function(match, p1, p2){
       let key = p1 + "i";
-      if (hepburn.indexOf(key) > -1){
+      if (hepburn.indexOf(key) > -1) {
         var result =  hiragana[hepburn.indexOf(key)];
         key = "xy" + p2;
-        if (hepburn.indexOf(key) > -1){
+        if (hepburn.indexOf(key) > -1) {
           result += hiragana[hepburn.indexOf(key)];
         }
         return result;
@@ -454,19 +458,19 @@
     return xya2Jap(result);
   }
 
-  function shikiPostTrans(text){
+  function shikiPostTrans(text) {
     var result = text.replace(/ix/gi, "");
     result = littleTsuPostTrans(result);
     return result;
   }
 
-  function littleTsuPostTrans(text){
-    return text.replace(/(っ+)(.)/gi, function(match, p1, p2){
+  function littleTsuPostTrans(text) {
+    return text.replace(/(っ+)(.)/gi, function(match, p1, p2) {
       return new Array(2 + p1.length).join(p2);
     });
   }
 
-  function nihonShikiPreUntrans(text){
+  function nihonShikiPreUntrans(text) {
     let result = doubleReplace(text);
     result = shikiPreUntrans(result);
     result = result.replace(/di/gi, "ぢ");
@@ -474,7 +478,7 @@
     return xya2Jap(result);
   }
 
-  function nihonShikiPreTrans(text){
+  function nihonShikiPreTrans(text) {
     let result = shikiPreTrans(text);
     result = result.replace(/ぢ/gi, "di");
     result = result.replace(/づ/gi, "du");
@@ -488,7 +492,7 @@
    * @param  {string} text Japanese text
    * @return {string}      Pre-tranliterated text
    */
-  function kunreiShikiPreTrans(text){
+  function kunreiShikiPreTrans(text) {
     let result = shikiPreTrans(text);
     result = result.replace(/ぢ/gi, "zi");
     //result = result.replace(/づ/gi, "zu"); //already on hepburn
@@ -502,7 +506,7 @@
    * @param  {string} text Romanized text
    * @return {string}      Pre-untranliterated text
    */
-  function kunreiShikiPreUntrans(text){
+  function kunreiShikiPreUntrans(text) {
     var result = doubleReplace(text);
     result = shikiPreUntrans(result);
     result = result.replace(/zi/gi, "ぢ");
@@ -517,11 +521,10 @@
   * @param  {String} text The text to be replaced
   * @return {String} The same string but the repeated characters are replaced
   */
-  function doubleReplace(text){
-    return text.replace(/(sh|ch|.)\1+/gi, function(match, p1){
+  function doubleReplace(text) {
+    return text.replace(/(sh|ch|.)\1+/gi, function(match, p1) {
       //vowels are ignored
-      if ("aeuio".indexOf(p1)>-1)
-        return match;
+      if ("aeuio".indexOf(p1) > -1 ) return match;
 
       var repChar = "っ";
 
@@ -542,14 +545,14 @@
    * @param  {string} text Romanized text
    * @return {string}      text with xya transformed to Japanese
    */
-  function xya2Jap(text){
+  function xya2Jap(text) {
     //var result = text.replace("sh", "し").replace("ch", "ち");
-    return text.replace(/(sh|ch|.)y([aeuio])/gi, function(match, p1, p2){
+    return text.replace(/(sh|ch|.)y([aeuio])/gi, function(match, p1, p2) {
       var key = p1 + "i";
-      if (hepburn.indexOf(key) > -1){
+      if (hepburn.indexOf(key) > -1) {
         var result =  hiragana[hepburn.indexOf(key)];
         key = "xy" + p2;
-        if (hepburn.indexOf(key) > -1){
+        if (hepburn.indexOf(key) > -1) {
           result += hiragana[hepburn.indexOf(key)];
         }
         return result;
@@ -568,11 +571,11 @@
   * @param  {string} text the text to be replaced
   * @return {string}      The resulted text
   */
-  function loneCharReplace(text){
-    return text.replace(/[a-z][う]?/gi, function(x){
+  function loneCharReplace(text) {
+    return text.replace(/[a-z][う]?/gi, function(x) {
       var key = x;
-      if (x.length > 1){
-        if (x === "tう"){
+      if (x.length > 1) {
+        if (x === "tう") {
           return "つ";
         }
         key = x[0];
@@ -580,11 +583,11 @@
 
       key += "u";
       var result = "";
-      if (key in loneUnTrans){
+      if (key in loneUnTrans) {
         result = loneUnTrans[key];
       }
 
-      if (x.length > 1){
+      if (x.length > 1) {
         result += "う";
       }
 

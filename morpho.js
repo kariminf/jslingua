@@ -1,11 +1,11 @@
-/*jshint esversion: 6 */
 (function () {
 
   "use strict";
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     module.exports = Morpho;
-  } else {
+  }
+  else {
     window.JsLingua.Cls.Morpho = Morpho;
   }
 
@@ -39,11 +39,9 @@
   * @method realDebug
   * @private
   */
-  function realDebug(){
+  function realDebug() {
     console.log(Array.prototype.slice.call(arguments).join(" "));
   }
-
-  let C = Object.freeze;
 
   /**
   * The part of speech: Noun, Verb, Adjective,
@@ -54,14 +52,14 @@
   * @static
   * @type {object}
   */
-  const PoS = C({
+  const PoS = {
     N: "noun",
     V: "verb",
     Adj: "adjective",
     Adv: "adverb",
     Prep: "preposition",
     Pron: "pronoun"
-  }),
+  },
 
   /**
   * The tense: Past, Present, Future
@@ -71,11 +69,11 @@
   * @static
   * @type {object}
   */
-  Tense = C({
+  Tense = {
     Pa: "past",
     Pr: "present",
     Fu: "future"
-  }),
+  },
 
   /**
   * The aspect: Simple, Continuous, Perfect, PerfectContinuous
@@ -85,12 +83,12 @@
   * @static
   * @type {object}
   */
-  Aspect = C({
+  Aspect = {
     S: "simple",
     C: "continuous",
     P: "perfect",
     PC: "perfect-continuous"
-  }),
+  },
 
   /**
   * The mood: indicative, subjunctive, conditional,
@@ -104,7 +102,7 @@
   * @static
   * @type {object}
   */
-  Mood = C({
+  Mood = {
     /**
      * The indicative can be considered the default mood.
      * A verb in indicative merely states that something happens,
@@ -199,7 +197,7 @@
      */
     Adm: "admirative"
 
-  }),
+  },
 
   /**
   * The voice: Active,Passive, Middle
@@ -209,11 +207,11 @@
   * @static
   * @type {object}
   */
-  Voice = C({
+  Voice = {
     A: "active",
     P: "passive",
     M: "middle"
-  }),
+  },
 
   /**
   * The grammatical number: Singular, Dual, Plural
@@ -223,11 +221,11 @@
   * @static
   * @type {object}
   */
-  GNumber = C({
+  GNumber = {
     S: "singular",
     D: "dual",
     P: "plural"
-  }),
+  },
 
   /**
   * The person: First, Second, Third.
@@ -237,11 +235,11 @@
   * @static
   * @type {object}
   */
-  Person = C({
+  Person = {
     F: "first",
     S: "second",
     T: "third"
-  }),
+  },
 
   /**
   * The gender: Masculine, Feminine, Neuter.
@@ -251,11 +249,11 @@
   * @static
   * @type {object}
   */
-  Gender = C({
+  Gender = {
     M: "masculine",
     F: "feminine",
     N: "neuter"
-  });
+  };
 
   /**
   * This is a map to different morphology features:
@@ -281,7 +279,7 @@
   * @static
   * @type {object}
   */
-  Morpho.Feature = C({
+  Morpho.Feature = {
     POS: PoS,
     Tense: Tense,
     Aspect: Aspect,
@@ -290,7 +288,20 @@
     Number: GNumber,
     Person: Person,
     Gender: Gender
-  });
+  };
+
+  {//Freezing all constants so their values won't be modified
+    let C = Object.freeze;
+    C(PoS);
+    C(Tense);
+    C(Aspect);
+    C(Mood);
+    C(Voice);
+    C(GNumber);
+    C(Person);
+    C(Gender);
+    C(Morpho.Feature);
+  }
 
   //=========================================
   // Protected Static methods
@@ -547,8 +558,7 @@
    * @param  {[type]}       opts [description]
    * @return {[type]}            [description]
    */
-  Me.getPronounName = function(opts){
-    // jshint unused: false
+  Me.getPronounName = function(_opts){
     return "";
   };
 
@@ -560,8 +570,7 @@
   * @param  {object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
   * @return {string}      inflected word
   */
-  Me.conjugate = function(verb, opts){
-    // jshint unused: false
+  Me.conjugate = function(verb, _opts){
     return verb;
   };
 
@@ -580,8 +589,7 @@
   * @param  {object} opts An object containing parameters: person, gender, number.
   * @return {string}      the pronoun
   */
-  Me.getPronounName = function(opts){
-    // jshint unused: false
+  Me.getPronounName = function(_opts){
     return "";
   };
 
@@ -593,8 +601,7 @@
   * @param  {object} opts  the options: number for example
   * @return {string}      the inflected noun
   */
-  Me.declenseNoun = function(noun, opts){
-    // jshint unused: false
+  Me.declenseNoun = function(noun, _opts){
     return noun;
   };
 
@@ -619,8 +626,7 @@
   * normalization options
   * @return {string}      normalized word
   */
-  Me.normalize = function(word, opts){
-    // jshint unused: false
+  Me.normalize = function(word, _opts){
     return word;
   };
 
@@ -652,7 +658,7 @@
       }
       let labels = [];
       result.opts.forEach(function(val, idx){
-        opts.forEach(function(val2, idx2){
+        opts.forEach(function(val2){
           let fuseOpts = Object.assign({}, val, val2);
           tmpOpts.push(fuseOpts);
           if(!idx){//we process labels just once

@@ -1,5 +1,7 @@
 (function () {
 
+  "use strict";
+
   let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
@@ -48,7 +50,7 @@
   //=================
 
 
-  Me.getForms = function(){
+  Me.getForms = function() {
     //Indicative is the default mood
     return {
       "Present": { // go
@@ -95,43 +97,43 @@
         cause: 1
       }
     };
-  }
+  };
 
-  Me.getVerbTypes = function(){
+  Me.getVerbTypes = function() {
     return Object.values(VType);
-  }
+  };
 
-  Me.getConjugModel = function(){
+  Me.getConjugModel = function() {
     //Past and Present are defaults
     return {
       rows: ["Formality"],
       cols: ["Negation"]
     };
-  }
+  };
 
-  function getFormalityOpts(){
+  function getFormalityOpts() {
     return [
       {formality: Formality.Pl},
       {formality: Formality.Po}
     ];
   }
 
-  Me.getOptLists = function(optLabel){
+  Me.getOptLists = function(optLabel) {
     if (optLabel === "Formality") return getFormalityOpts();
     return Morpho.prototype.getOptLists.call(this, optLabel);
-  }
+  };
 
-  Me.getOptName = function(optLabel, opts){
+  Me.getOptName = function(optLabel, opts) {
     if (optLabel === "Formality"){
       if(opts.formality) return opts.formality;
       return "";
     }
     return Morpho.prototype.getOptName.call(this, optLabel, opts);
-  }
+  };
 
   //https://en.wikipedia.org/wiki/Japanese_pronouns
   //TODO pronouns problem in Japanese
-  Me.getPronounOpts = function(){
+  Me.getPronounOpts = function() {
     return [
       {person:Person.F, number: GNumber.S}, // watashi
       {person:Person.F, number: GNumber.P}, //watashi-tachi
@@ -141,10 +143,10 @@
       {person:Person.T, number: GNumber.S, gender:Gender.F}, //kanojo
       {person:Person.T, number: GNumber.P} //karera
     ];
-  }
+  };
 
 
-  Me.getPronounName = function(opts){
+  Me.getPronounName = function(opts) {
     switch (opts.person) {
       case Person.F:
       if (opts.number === GNumber.S) return "私";
@@ -165,7 +167,7 @@
 
     }
     return "";
-  }
+  };
 
 
   const
@@ -186,30 +188,30 @@
    * @param  {string}  vtype [description]
    * @return {string}        [description]
    */
-  function basicForm(verb, sound, vtype){
+  function basicForm(verb, sound, vtype) {
 
     let end = verb.slice(-1);
 
-    if(uSound.indexOf(end) < 0) return "";
+    if (uSound.indexOf(end) < 0) return "";
 
-    if(sound === uSound) return verb;
+    if (sound === uSound) return verb;
 
-    if(vtype === VType.V1){
-      if(sound === eSound) return verb.slice(0, -1) + "れ";
+    if (vtype === VType.V1) {
+      if (sound === eSound) return verb.slice(0, -1) + "れ";
       return verb.slice(0, -1);
     }
 
-    if(vtype === VType.SK){
-      //すれ　来れ　くれ
-      if(sound === eSound) return verb.slice(0, -1) + "れ";
+    if (vtype === VType.SK) {
+      //すれ 来れ くれ
+      if (sound === eSound) return verb.slice(0, -1) + "れ";
 
-      if(verb.endsWith("くる")){
+      if (verb.endsWith("くる")) {
         verb = verb.slice(0,-2);
-        if(sound === iSound) return verb + "き";
+        if (sound === iSound) return verb + "き";
         return verb + "こ";
       }
 
-      if(verb.endsWith("来る")) return verb.slice(0,-1);
+      if (verb.endsWith("来る")) return verb.slice(0,-1);
 
       return verb.slice(0,-2) + "し";
     }
@@ -218,28 +220,28 @@
 
   }
 
-  function tForm(verb, teta, vtype){
+  function tForm(verb, teta, vtype) {
 
     let end = verb.slice(-1);
 
-    if(uSound.indexOf(end) < 0) return "";
+    if (uSound.indexOf(end) < 0) return "";
 
     let res = "て";
-    if(uSound.indexOf(end) > 4 ){
+    if (uSound.indexOf(end) > 4 ) {
       res = "で";
-      if(teta) res = "だ";
+      if (teta) res = "だ";
     }
-    else if(teta) res = "た";
+    else if (teta) res = "た";
 
-    if(vtype === VType.V1) return verb.slice(0, -1) + res;
+    if (vtype === VType.V1) return verb.slice(0, -1) + res;
 
-    if(vtype === VType.SK){
-      if(verb.endsWith("くる")) return verb.slice(0,-2) + "き" + res;
-      if(verb.endsWith("する")) return verb.slice(0, -2) + "し" + res;
+    if (vtype === VType.SK) {
+      if (verb.endsWith("くる")) return verb.slice(0,-2) + "き" + res;
+      if (verb.endsWith("する")) return verb.slice(0, -2) + "し" + res;
       return verb.slice(0, -1) + res;
     }
 
-    if(/[行いゆ]く$/g.test(verb)) return verb.slice(0, -1) + "っ" + res;
+    if (/[行いゆ]く$/g.test(verb)) return verb.slice(0, -1) + "っ" + res;
 
     res = tSound.charAt(uSound.indexOf(end)) + res;
 
@@ -291,20 +293,20 @@
 
   Me.getVerbType = function(verb){
 
-    if(/(出来)る$/g.test(verb)) return VType.V1;
-    if(/(す|く|来)る$/g.test(verb)) return VType.SK;
+    if (/(出来)る$/g.test(verb)) return VType.V1;
+    if (/(す|く|来)る$/g.test(verb)) return VType.SK;
     let end = verb.slice(-1);
     let bend = verb.slice(-2,-1);
-    if(end === "る"){
+    if (end === "る") {
       //If not these before-endings, and hiragana, then it is Godan
-      if(! "いえしせちてにねびべみめりれ".includes(bend)){
+      if (! "いえしせちてにねびべみめりれ".includes(bend)) {
         let utf8 = bend.charCodeAt(0);
-        if(0x3040 <= utf8 && utf8 <= 0x309F) return VType.V5;
+        if (0x3040 <= utf8 && utf8 <= 0x309F) return VType.V5;
       }
 
       {//If it ends with these; it is Godan
         let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
-        if(v5r.test(verb) || ruV5List[bend]) return VType.V5;
+        if (v5r.test(verb) || ruV5List[bend]) return VType.V5;
       }
 
       //Otherwise, it is Ichidan
@@ -313,19 +315,19 @@
 
     return VType.V5;
 
-  }
+  };
 
   //https://en.wikipedia.org/wiki/Japanese_verb_conjugation
   //Override conjugate function
-  Me.conjugate = function(verb, opts){
+  Me.conjugate = function(verb, opts) {
 
-    if(!opts.mood) opts.mood = Mood.Ind;
+    if (!opts.mood) opts.mood = Mood.Ind;
     let vtype = (opts.vtype)? opts.vtype: this.getVerbType(verb);
 
     //console.log(vtype);
     let end ="";
 
-    if(opts.cause){
+    if (opts.cause) {
       end = "せる";
       if(vtype === VType.V1 || vtype === VType.SK) end = "さ" + end;
       if(verb.endsWith("する")) verb = verb.slice(0,-2) + end;
@@ -334,13 +336,13 @@
       vtype = VType.V1;
     }
 
-    if(opts.voice === Voice.P){
-      if(opts.mood !== Mood.Pot){
+    if (opts.voice === Voice.P) {
+      if (opts.mood !== Mood.Pot) {
         end = "れる";
 
-        if(vtype === VType.V1 || vtype === VType.SK) end = "ら" + end;
+        if (vtype === VType.V1 || vtype === VType.SK) end = "ら" + end;
 
-        if(verb.endsWith("する")) verb = verb.slice(0,-2) + "される";
+        if (verb.endsWith("する")) verb = verb.slice(0,-2) + "される";
         else verb = basicForm(verb, aSound, vtype) + end;
 
         vtype = VType.V1;
@@ -351,7 +353,7 @@
 
       case Mood.Ind:
       end = "";
-      if(opts.aspect === Aspect.C){
+      if (opts.aspect === Aspect.C) {
         verb = tForm(verb, 0, vtype);
         vtype = VType.V1;
         verb += "いる";
@@ -361,117 +363,120 @@
         case Formality.Po:
         verb = basicForm(verb, iSound, vtype);
         end = "ます";
-        if(opts.tense === Tense.Pa) end = "ました";
-        if(opts.negated){
+        if (opts.tense === Tense.Pa) end = "ました";
+        if (opts.negated) {
           end = "ません";
           if(opts.tense === Tense.Pa) end += "でした";
         }
         return verb + end;
-        break;
+        //break;
 
         case Formality.Pl:
-        if(opts.tense === Tense.Pa) end = "ました";
-        if(opts.negated){
+        if (opts.tense === Tense.Pa) end = "ました";
+        if (opts.negated) {
           verb = basicForm(verb, aSound, vtype);
-          if(opts.tense === Tense.Pa) end = "なかった";
+          if (opts.tense === Tense.Pa) end = "なかった";
           else end = "ない";
         } else {
-          if(opts.tense === Tense.Pa){
+          if (opts.tense === Tense.Pa) {
             verb = tForm(verb, 1, vtype);//TA
             end = "";
           }
         }
         return verb + end;
-        break;
+        //break;
 
         default:
         return "";
 
       }
-      break;//End Indiative Mood
+      //break;//End Indiative Mood
 
       case Mood.Imp: //Begin Imperative Mood
       end = "";
       switch (opts.formality) {
         case Formality.Po:
-        if(opts.negated){
+        if (opts.negated) {
           verb = basicForm(verb, aSound, vtype);
           end = "ないで";
-        } else {
+        }
+        else {
           verb = tForm(verb, 0, vtype);
         }
         return verb + end + "下さい";
-        break;
+        //break;
 
         case Formality.Pl:
-        if(opts.negated) return verb + "な";
-        if(vtype === VType.V1) return verb.slice(0,-1) + "(ろ/よ)";
-        if(vtype === VType.SK){
-          if(verb.endsWith("くる")) return verb.slice(0,-2) + "こい";
-          if(verb.endsWith("来る")) return verb.slice(0,-1) + "い";
+        if (opts.negated) return verb + "な";
+        if (vtype === VType.V1) return verb.slice(0,-1) + "(ろ/よ)";
+        if (vtype === VType.SK) {
+          if (verb.endsWith("くる")) return verb.slice(0,-2) + "こい";
+          if (verb.endsWith("来る")) return verb.slice(0,-1) + "い";
           //suru
           return verb.slice(0,-2) + "(しろ/せよ)";
         }
         return basicForm(verb, eSound, vtype);
-        break;
+        //break;
 
         default:
         return "";
       }
-      break;//End Imperative Mood
+      //break;//End Imperative Mood
 
       case Mood.Pot: //Begin Potential Mood
-      if(opts.voice === Voice.P) return "";
-      if(verb.endsWith("する")) verb = verb.slice(0,-2) + "出来る";
+      if (opts.voice === Voice.P) return "";
+      if (verb.endsWith("する")) verb = verb.slice(0,-2) + "出来る";
       else if (vtype === VType.V1) verb = verb.slice(0, -1) + "られる";
       else verb = basicForm(verb, eSound, vtype) + "る";
-      var newOpts = Object.assign({}, opts);
-      newOpts.mood = Mood.Ind;
-      newOpts.vtype = VType.V1;
-      return this.conjugate(verb + end, newOpts);
-      break; //End Potential Mood
+      {//This block is to contain newOpts
+        let newOpts = Object.assign({}, opts);
+        newOpts.mood = Mood.Ind;
+        newOpts.vtype = VType.V1;
+        return this.conjugate(verb + end, newOpts);
+      }
+      //break; //End Potential Mood
 
       case Mood.Cnd: //Begin Conditional Mood
-      if(opts.voice === Voice.P) return "";
+      if (opts.voice === Voice.P) return "";
 
-      if(opts.cond === "ba"){
-        if(opts.formality === Formality.Po) return "";
-        if(opts.negated) return basicForm(verb, aSound, vtype) + "なければ";
+      if (opts.cond === "ba") {
+        if (opts.formality === Formality.Po) return "";
+        if (opts.negated) return basicForm(verb, aSound, vtype) + "なければ";
         return basicForm(verb, eSound, vtype) + "ば";
       }
 
-      var newOpts = Object.assign({}, opts);
-      newOpts.mood = Mood.Ind;
-      newOpts.tense = Tense.Pa;
-      return  this.conjugate(verb , newOpts) + "ら";
-      break; //End Conditional Mood
+      {//This block is to contain newOpts
+        let newOpts = Object.assign({}, opts);
+        newOpts.mood = Mood.Ind;
+        newOpts.tense = Tense.Pa;
+        return  this.conjugate(verb , newOpts) + "ら";
+      }
+      //break; //End Conditional Mood
 
 
       case Mood.Opt: //Begin Optative Mood
-      if(opts.voice === Voice.P) return "";
+      if (opts.voice === Voice.P) return "";
 
-      if(opts.negated){
+      if (opts.negated) {
         verb += "のは止め";
-        if(opts.formality === Formality.Pl) return verb + "よう";
+        if (opts.formality === Formality.Pl) return verb + "よう";
         else return verb + "ましょう";
       }
 
-      if(opts.formality !== Formality.Pl) return basicForm(verb, iSound, vtype) + "ましょう";
+      if (opts.formality !== Formality.Pl) return basicForm(verb, iSound, vtype) + "ましょう";
 
       verb = basicForm(verb, oSound, vtype);
-      if(vtype === VType.V1 || vtype === VType.SK) verb += "よ";
+      if (vtype === VType.V1 || vtype === VType.SK) verb += "よ";
       return  verb + "う";
 
-      break; //End Optative Mood
+      //break; //End Optative Mood
 
       default:
       return "";
 
     }
 
-  }
-
-
+  };
 
   const jpnSuff = [
     { //desu must be deleted
@@ -488,7 +493,7 @@
     },
     { //isound
       e: /^(.*)(.+)(?:ま(?:した|す|せん|しょう)|たい)$/,
-      r: function (match, p1, p2, offset, string){
+      r: function (match, p1, p2){
         let iidx = iSound.indexOf(p2);
         if( iidx > -1) return p1 + uSound[iidx];
         return p1 + p2 ;
@@ -496,7 +501,7 @@
     },
     {//asound (verbs), ka (adjectives)
       e: /^(.*)(.+)な(?:い|かった|ければ(?:なる)?)$/,
-      r: function (match, p1, p2, offset, string){
+      r: function (match, p1, p2){
         if(p2 === "く") return p1 + "い";
         let aidx = aSound.indexOf(p2);
         if( aidx > -1) return p1  + uSound[aidx];
@@ -513,7 +518,7 @@
     },
     {// t sound
       e: /^(.*)([^っいん])([っいん]?[てでただ])$/,
-      r: function (match, p1, p2, p3, offset, string){
+      r: function (match, p1, p2, p3){
         if (/^い[てた]$/.test(p2 + p3)) return p1 + "く";
         if (/^い[でだ]$/.test(p2 + p3)) return p1 + "ぐ";
         if (/^し[てた]$/.test(p2 + p3)) return p1 + "す";
@@ -526,14 +531,14 @@
     }
   ];
 
-  function jslinguaJpnStemmer(word){
+  function jslinguaJpnStemmer(word) {
     let stem = word,
     stillModif = 1;
-    while(stillModif){
+    while (stillModif) {
       stillModif = 0;
-      for(i =0; i< jpnSuff.length; i++){
+      for (let i =0; i< jpnSuff.length; i++) {
         let rule = jpnSuff[i];
-        if(rule.e.test(stem)){
+        if (rule.e.test(stem)) {
           stem = stem.replace(rule.e, rule.r);
           //console.log(rule.e);
           stillModif = 1;
@@ -544,6 +549,10 @@
     return stem;
   }
 
+  function notNull(obj) {
+    return (obj != null);
+  }
+
   /**
    * Normalizes Japanese words
    * @method normalize
@@ -551,41 +560,42 @@
    * @param  {object}  opts For the time being, no options for Japanese
    * @return {string}       normalized ord
    */
-  Me.normalize = function(word, opts){
+  Me.normalize = function(word, _opts) {
     let m;
-    if(!!(m = /^(.*ね)[えぇ]+$/.exec(word))) return m[1];
-    if(!!(m = /^(.*な)[あぁ]+$/.exec(word))) return m[1];
-    if(!!(m = /^(.*す)げ[えぇ]+$/.exec(word))) return m[1] + "ごい";
+    if (notNull(m = /^(.*ね)[えぇ]+$/.exec(word))) return m[1];
+    if (notNull(m = /^(.*な)[あぁ]+$/.exec(word))) return m[1];
+    if (notNull(m = /^(.*す)げ[えぇ]+$/.exec(word))) return m[1] + "ごい";
 
     //http://www.fluentu.com/blog/japanese/different-japanese-dialects/
     //Hakata Ben
-    if(!!(m = /^(.*)やない$/.exec(word))) return m[1] + "じゃない";
-    if(!!(m = /^(.*)ばい$/.exec(word))) return m[1] + "よ";
+    if (notNull(m = /^(.*)やない$/.exec(word))) return m[1] + "じゃない";
+    if (notNull(m = /^(.*)ばい$/.exec(word))) return m[1] + "よ";
 
     //Osaka Ben
-    if(!!(m = /^(.*)へん$/.exec(word))) return m[1] + "ない";
-    if(!!(m = /^(.*)さかい$/.exec(word))) return m[1] + "から";
+    if (notNull(m = /^(.*)へん$/.exec(word))) return m[1] + "ない";
+    if (notNull(m = /^(.*)さかい$/.exec(word))) return m[1] + "から";
 
     //Hiroshima Ben
-    if(!!(m = (new RegExp("^(.+)([" + iSound + "])んさんな")).exec(word))){
+    if (notNull(m = (new RegExp("^(.+)([" + iSound + "])んさんな")).exec(word))){
       return m[1] + aSound[iSound.indexOf(m[2])] + "ないでください";
     }
-    if(!!(m = /^(.*)んさんな$/.exec(word))) return m[1] + "ないでください";
+
+    if (notNull(m = /^(.*)んさんな$/.exec(word))) return m[1] + "ないでください";
 
     //Kyoto Ben
-    if(m = /^(.*)[え]+$/.exec(word)) return m[1] + "よ";
+    if (notNull(m = /^(.*)[え]+$/.exec(word))) return m[1] + "よ";
 
     //Nagoya Ben
-    if(!!(m = /^(.*て)ちょう$/.exec(word))) return m[1] + "ください";
+    if (notNull(m = /^(.*て)ちょう$/.exec(word))) return m[1] + "ください";
 
     //Sendai Ben
-    if(!!(m = /^(.*[^だ])だ?べ$/.exec(word))) return m[1] + "でしょう";
+    if (notNull(m = /^(.*[^だ])だ?べ$/.exec(word))) return m[1] + "でしょう";
 
     //Hokkaido Ben
-    if(!!(m = /^(.*)っしょ$/.exec(word))) return m[1] + "でしょう";
-    if(!!(m = /^(.*)しょや$/.exec(word))) return m[1] + "でしょう";
+    if (notNull(m = /^(.*)っしょ$/.exec(word))) return m[1] + "でしょう";
+    if (notNull(m = /^(.*)しょや$/.exec(word))) return m[1] + "でしょう";
 
     return word;
-  }
+  };
 
 }());

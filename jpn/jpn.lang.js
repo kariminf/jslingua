@@ -1,10 +1,13 @@
-(function(){
+(function() {
+
+  "use strict";
 
   let Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
     module.exports = JpnLang;
-  } else {
+  }
+  else {
     Lang = window.JsLingua.Cls.Lang;
     window.JsLingua.addService("Lang", "jpn", JpnLang);
   }
@@ -41,7 +44,7 @@
   bigNbr = [
     1000000000000, 100000000,
     10000, 1000, 100, 10
-  ]
+  ];
 
   /*
   * Write the Arabic number in Japanese Kanjis
@@ -58,24 +61,22 @@
   */
   function toJapaneseLetters (num) {
 
-    if (isNaN(num))
-    return "";
+    if (isNaN(num)) return "";
 
     let neg = false;
-    if(num < 0){
+    if (num < 0) {
       neg = true;
       num = - num;
     }
 
-    if (num < 10)
-    return lookup[num];
+    if (num < 10) return lookup[num];
 
     //search for the max index
     let i = 0,
     max = 1,
     div;
-    for (i = 0; i < bigNbr.length; i++){
-      max = bigNbr[i]
+    for (i = 0; i < bigNbr.length; i++) {
+      max = bigNbr[i];
       div = ~~(num/max);
       if (div > 0)
       break;
@@ -85,9 +86,9 @@
     if (div > 0)
     if (div > 1 || max > 1000)  result += toJapaneseLetters(div);
     result += lookup[max];
-    if(rem > 0) result += toJapaneseLetters(rem);
+    if (rem > 0) result += toJapaneseLetters(rem);
 
-    if(neg) result = "マイナス" + result;
+    if (neg) result = "マイナス" + result;
 
     return result;
 

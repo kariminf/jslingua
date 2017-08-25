@@ -1,9 +1,13 @@
-(function(){
+(function() {
+
+  "use strict";
+
   let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = EngTrans;
-  } else {
+  }
+  else {
     Trans = window.JsLingua.Cls.Trans;
     window.JsLingua.addService("Trans", "eng", EngTrans);
   }
@@ -155,11 +159,11 @@
    * @param  {string} text Arabic text
    * @return {string}      processed text for morse transliteration
    */
-  function morsePreTrans(text){
+  function morsePreTrans(text) {
     let result = text;
     //cleaning non supported codes
-    result = result.replace(/[\^\#]/gi, "");
-    result = result.replace(/\./gi, "#").replace(/\-/gi, "^");
+    result = result.replace(/[\^#]/gi, "");
+    result = result.replace(/\./gi, "#").replace(/-/gi, "^");
     result = result.replace(/[ ]+/gi, "\t");
     return result.toUpperCase();
   }
@@ -171,7 +175,7 @@
    * @param  {string} text morse code
    * @return {string}      filtered morse code
    */
-  function morsePostTrans(text){
+  function morsePostTrans(text) {
     let result = text;
     result = otherMourseTrans.transliterate(result);
     result = result.replace(/ +/gi, " ");
@@ -179,7 +183,7 @@
     result = result.replace(/ $/gi, "");
     result = result.replace(/\t/gi, "   ");
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
     return result;
   }
 
@@ -190,10 +194,10 @@
    * @param  {string} text morse code
    * @return {string}      processed morse code for untransliteration
    */
-  function morsePreUntrans(text){
+  function morsePreUntrans(text) {
     let result = text;
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
     result = result.replace(/[ ]{3,}/gi, " \t ");
     result = result.replace(/ +/gi, "  ");
     result = result.replace(/^/gi, " ");
@@ -208,10 +212,10 @@
    * @param  {string} text Arabic text
    * @return {string}      filtered Arabic text
    */
-  function morsePostUntrans(text){
+  function morsePostUntrans(text) {
     let result = text;
     result = otherMourseTrans.untransliterate(result);
-    result = result.replace(/\#/gi, ".").replace(/\^/gi, "-");
+    result = result.replace(/#/gi, ".").replace(/\^/gi, "-");
     result = result.replace(/ +/gi, "");
     result = result.replace(/\t/gi, " ");
     return result;

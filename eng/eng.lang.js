@@ -1,10 +1,13 @@
-(function(){
+(function() {
+
+  "use strict";
 
   let Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
     module.exports = EngLang;
-  } else {
+  }
+  else {
     Lang = window.JsLingua.Cls.Lang;
     window.JsLingua.addService("Lang", "eng", EngLang);
   }
@@ -47,7 +50,7 @@
   bigNbr = [
     100, 1000, 1000000, 1000000000
     //1000000000, 1000000, 1000, 100, 10
-  ]
+  ];
 
   /*
   * Write the Arabic number into English letters
@@ -63,7 +66,7 @@
   * @param {Number} nbr the integer number
   * @return {String} English writing of numbers
   */
-  function toEnglishLetters (num) {
+  function toEnglishLetters(num) {
     return toEnglishLetters2(num, true);
   }
 
@@ -75,7 +78,7 @@
   * @param {boolean} comma put a comma or not
   * @return {String} English writing of numbers
   */
-  function toEnglishLetters2 (num, comma) {
+  function toEnglishLetters2(num, comma) {
 
     if (isNaN(num)) return "";
 

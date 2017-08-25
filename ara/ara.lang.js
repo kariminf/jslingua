@@ -1,10 +1,13 @@
-(function(){
+(function() {
+
+  "use strict";
 
   let Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
     module.exports = AraLang;
-  } else {
+  }
+  else {
     Lang = window.JsLingua.Cls.Lang;
     window.JsLingua.addService("Lang", "ara", AraLang);
   }
@@ -58,7 +61,7 @@
     1000000: "ملايين",
     1000000000: "ملايير"
     //1000000000, 1000000, 1000, 100, 10
-  }
+  };
 
   /*
   * Write the Arabic number into Arabic letters
@@ -73,7 +76,7 @@
   * @param {Number} nbr the integer number
   * @return {String} Arabic writing of numbers
   */
-  function toArabicLetters (num) {
+  function toArabicLetters(num) {
 
     if (isNaN(num))
     return "";

@@ -1,5 +1,7 @@
 (function () {
 
+  "use strict";
+
   //TODO see https://en.wikipedia.org/wiki/English_irregular_verbs#List
   let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
@@ -33,7 +35,7 @@
 
   Me.constructor = EngMorpho;
 
-  Me.getPronounOpts = function(){
+  Me.getPronounOpts = function() {
     return [
         {person:Person.F, number: GNumber.S}, //I
         {person:Person.S},//You
@@ -43,10 +45,10 @@
         {person:Person.F, number: GNumber.P}, //We
         {person:Person.T, number: GNumber.P}//They
     ];
-  }
+  };
 
 
-  Me.getPronounName = function(opts){
+  Me.getPronounName = function(opts) {
     switch (opts.person) {
       case Person.F:
       if (opts.number === GNumber.S) return "I";
@@ -62,14 +64,15 @@
           case Gender.F: return "She";
           default: return "It";
         }
-      } else return "They";
+      }
+      else return "They";
 
     }
     return "";
-  }
+  };
 
 
-  Me.getForms = function(){
+  Me.getForms = function() {
     //super doesn't work here
     let superFrm = Morpho.prototype.getForms.call(this);
     const engForms =  {
@@ -121,7 +124,7 @@
     };
 
     return Object.assign({}, superFrm, engForms);
-  }
+  };
 
   //let C = Object.freeze;
 
@@ -209,12 +212,12 @@
     "withgo":  ["withwent", "1ne"], "write":  ["wrote", "1-ten"]
   };
 
-  function beHaveConj(verb, idx, opts){
+  function beHaveConj(verb, idx, opts) {
     if (! (verb in beHave)) return verb;
     if (! "Pr|Pa|Pp".includes(idx)) return verb;
     if (idx === "Pp") return beHave[verb][idx];
 
-    if (opts.number === GNumber.S){
+    if (opts.number === GNumber.S) {
       if (opts.person == Person.F) return beHave[verb][idx][0];
       else if (opts.person == Person.T) return beHave[verb][idx][1];
       return beHave[verb][idx][2];
@@ -224,7 +227,7 @@
   }
 
 
-  function isIrregular(verb){
+  function isIrregular(verb) {
     if (irregular0[verb]) return 1;
     if (irregular1[verb]) return 1;
     if (irregular2[verb]) return 1;
@@ -238,13 +241,13 @@
    * @param  {[type]}      idx  0 for past, 1 for past participle
    * @return {[type]}           [description]
    */
-  function irregularConj(verb, idx){
+  function irregularConj(verb, idx) {
     if (irregular0[verb]) return verb;
     if (irregular1[verb])return irregular1[verb];
     //Here, we suppose it is irregular2[verb]
     let res = irregular2[verb][idx];
     res = res.replace("1", verb);
-    if(idx === 1){
+    if(idx === 1) {
       res = res.replace("2", irregular2[verb][0]);
       res = res.replace(/.-/,"");
     }
@@ -252,24 +255,24 @@
   }
 
   //Override conjugate function
-  Me.conjugate = function(verb, opts){
+  Me.conjugate = function(verb, opts) {
 
-    if((opts.mood) && (opts.mood === Mood.Imp)){
+    if((opts.mood) && (opts.mood === Mood.Imp)) {
       if(opts.person === Person.S) return verb;
       return "";
     }
 
     let begin = "", end = "";
 
-    if((opts.voice) && (opts.voice === Voice.P)){
+    if ((opts.voice) && (opts.voice === Voice.P)) {
       if (beHave[verb]) end = " " + beHaveConj(verb, "Pp", opts);
       else if (isIrregular(verb)) end = " " + irregularConj(verb, 1);
       else end = " " + this.conjugate(verb, {tense:Tense.Pa});
       verb = "be";
     }
 
-    if(opts.aspect){
-      if([Aspect.C, Aspect.PC].includes(opts.aspect)){
+    if (opts.aspect) {
+      if ([Aspect.C, Aspect.PC].includes(opts.aspect)) {
         // http://www.eclecticenglish.com/grammar/PresentContinuous1G.html
         let base = verb;
         if(["lie", "die"].includes(verb)) base = verb.slice(0,-2) + "y";
@@ -279,7 +282,8 @@
         end = " " + base + "ing" + end;
         verb = "be";
       }
-      if([Aspect.P, Aspect.PC].includes(opts.aspect)){
+
+      if ([Aspect.P, Aspect.PC].includes(opts.aspect)) {
         if (beHave[verb]) end = " " + beHaveConj(verb, "Pp", opts) + end;
         else if (isIrregular(verb)) end = " " + irregularConj(verb, 1) + end;
         else end = " " + this.conjugate(verb, {tense:Tense.Pa}) + end;
@@ -287,10 +291,10 @@
       }
     }
 
-    if((opts.negated) && (opts.tense !== Tense.Fu)){
+    if ((opts.negated) && (opts.tense !== Tense.Fu)) {
       end = " not" + end;
-      if ((!opts.aspect) || opts.aspect === Aspect.S){
-        if ((!opts.voice) || opts.voice === Voice.A){
+      if ((!opts.aspect) || opts.aspect === Aspect.S) {
+        if ((!opts.voice) || opts.voice === Voice.A) {
           end += " " + verb;
           verb = "do";
           //console.log("negation active aspect");
@@ -302,7 +306,7 @@
 
       case Tense.Pr:
       if (beHave[verb]) return begin + beHaveConj(verb, "Pr", opts) + end;
-      if (opts.person == Person.T && opts.number === GNumber.S){
+      if (opts.person == Person.T && opts.number === GNumber.S) {
         //hurry, clarify
         verb = verb.replace(/([^aeuio])y$/, "$1ie");
         //go, veto, do, wash, mix, fizz (add e )
@@ -318,16 +322,16 @@
       {
         const pref = /(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
         let match = pref.exec(verb);
-        if(match){
+        if (match) {
           //verify if the verb is in Irregular list with the prefix
-          if(isIrregular(verb)) return begin + irregularConj(verb, 0) + end;
+          if (isIrregular(verb)) return begin + irregularConj(verb, 0) + end;
           //Otherwise, delete the prefix and procede
           begin = match[1];
           verb = match[2];
         }
       }
 
-      if(isIrregular(verb)) return begin + irregularConj(verb, 0) + end;
+      if (isIrregular(verb)) return begin + irregularConj(verb, 0) + end;
 
       verb = verb.replace(/([^aeuio])y$/, "$1i");
       verb = verb.replace(/c$/, "ck");
@@ -338,14 +342,14 @@
 
       case Tense.Fu:
       begin = "will ";
-      if(opts.negated) begin += "not ";
+      if (opts.negated) begin += "not ";
       break;
 
     }//swich(tense)
 
     return begin + verb + end;
 
-  }
+  };
 
   //=========================================================
   //                 STEMMERS
@@ -398,7 +402,7 @@
   s_v = "^(" + C + ")?" + v;                   // vowel in stem
 
 
-  function porterStemmer(word){
+  function porterStemmer(word) {
     let stemmed,
     suffix,
     firstch,
@@ -420,11 +424,12 @@
 
     if (re.test(word)) {
       word = word.replace(re,"$1$2");
-      g.debugFunction('1a',re, word);
+      g.debugFunction("1a",re, word);
 
-    } else if (re2.test(word)) {
+    }
+    else if (re2.test(word)) {
       word = word.replace(re2,"$1$2");
-      g.debugFunction('1a',re2, word);
+      g.debugFunction("1a",re2, word);
     }
 
     // Step 1b
@@ -436,15 +441,16 @@
       if (re.test(fp[1])) {
         re = /.$/;
         word = word.replace(re,"");
-        g.debugFunction('1b',re, word);
+        g.debugFunction("1b",re, word);
       }
-    } else if (re2.test(word)) {
+    }
+    else if (re2.test(word)) {
       let fp = re2.exec(word);
       stemmed = fp[1];
       re2 = new RegExp(s_v);
       if (re2.test(stemmed)) {
         word = stemmed;
-        g.debugFunction('1b', re2, word);
+        g.debugFunction("1b", re2, word);
 
         re2 = /(at|bl|iz)$/;
         re3 = new RegExp("([^aeiouylsz])\\1$");
@@ -452,16 +458,18 @@
 
         if (re2.test(word)) {
           word = word + "e";
-          g.debugFunction('1b', re2, word);
+          g.debugFunction("1b", re2, word);
 
-        } else if (re3.test(word)) {
+        }
+        else if (re3.test(word)) {
           re = /.$/;
           word = word.replace(re,"");
-          g.debugFunction('1b', re3, word);
+          g.debugFunction("1b", re3, word);
 
-        } else if (re4.test(word)) {
+        }
+        else if (re4.test(word)) {
           word = word + "e";
-          g.debugFunction('1b', re4, word);
+          g.debugFunction("1b", re4, word);
         }
       }
     }
@@ -472,7 +480,7 @@
       let fp = re.exec(word);
       stemmed = fp[1];
       word = stemmed + "i";
-      g.debugFunction('1c', re, word);
+      g.debugFunction("1c", re, word);
     }
 
     // Step 2
@@ -485,7 +493,7 @@
       re = new RegExp(mgr0);
       if (re.test(stemmed)) {
         word = stemmed + step2list[suffix];
-        g.debugFunction('2', re, word);
+        g.debugFunction("2", re, word);
       }
     }
 
@@ -499,7 +507,7 @@
       re = new RegExp(mgr0);
       if (re.test(stemmed)) {
         word = stemmed + step3list[suffix];
-        g.debugFunction('3', re, word);
+        g.debugFunction("3", re, word);
       }
     }
 
@@ -512,15 +520,16 @@
       re = new RegExp(mgr1);
       if (re.test(stemmed)) {
         word = stemmed;
-        g.debugFunction('4', re, word);
+        g.debugFunction("4", re, word);
       }
-    } else if (re2.test(word)) {
+    }
+    else if (re2.test(word)) {
       let fp = re2.exec(word);
       stemmed = fp[1] + fp[2];
       re2 = new RegExp(mgr1);
       if (re2.test(stemmed)) {
         word = stemmed;
-        g.debugFunction('4', re2, word);
+        g.debugFunction("4", re2, word);
       }
     }
 
@@ -534,7 +543,7 @@
       re3 = new RegExp("^" + C + v + "[^aeiouwxy]$");
       if (re.test(stemmed) || (re2.test(stemmed) && !(re3.test(stemmed)))) {
         word = stemmed;
-        g.debugFunction('5', re, re2, re3, word);
+        g.debugFunction("5", re, re2, re3, word);
       }
     }
 
@@ -543,7 +552,7 @@
     if (re.test(word) && re2.test(word)) {
       re = /.$/;
       word = word.replace(re,"");
-      g.debugFunction('5', re, re2, word);
+      g.debugFunction("5", re, re2, word);
     }
 
     // and turn initial Y back to y

@@ -1,10 +1,13 @@
 (function () {
 
+  "use strict";
+
   let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
     module.exports = AraMorpho;
-  } else {
+  }
+  else {
     Morpho = window.JsLingua.Cls.Morpho;
     window.JsLingua.addService("Morpho", "ara", AraMorpho);
   }
@@ -12,18 +15,18 @@
   //Different global features
   let F = Morpho.Feature,
   Tense = F.Tense,
-  Mood = F.Mood,
-  Voice = F.Voice,
+  //Mood = F.Mood,
+  //Voice = F.Voice,
   GNumber = F.Number,
-  Aspect = F.Aspect,
+  //Aspect = F.Aspect,
   Gender = F.Gender,
   Person = F.Person;
 
-  var g;
+  //var g;
   function AraMorpho() {
     Morpho.call(this, "ara");
     Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
-    g = this.g;
+    //g = this.g;
   }
 
   AraMorpho.prototype = Object.create(Morpho.prototype);
@@ -31,7 +34,7 @@
 
   Me.constructor = AraMorpho;
 
-  Me.getTenseName = function(tense){
+  Me.getTenseName = function(tense) {
     switch (tense) {
       case Tense.Pa:
         return "الماضي";
@@ -42,9 +45,9 @@
     }
 
     return "";
-  }
+  };
 
-  Me.getPronounOpts = function(){
+  Me.getPronounOpts = function() {
     return [
         {person:Person.F, number: GNumber.S},
         {person:Person.F, number: GNumber.P},
@@ -63,7 +66,7 @@
         {person:Person.T, number: GNumber.P, gender: Gender.M},
         {person:Person.T, number: GNumber.P, gender: Gender.F}
     ];
-  }
+  };
 
   //var C = Object.freeze;
 
@@ -73,7 +76,7 @@
 
 
   //Override conjugate function
-  Me.conjugate = function(verb, opts){
+  Me.conjugate = function(verb, opts) {
     //delete diacretics
     verb = verb.trim();
     let noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
@@ -81,18 +84,17 @@
     let len = noDiac.length;
 
     //detect if the verb with weak begining
-    let weekBegin = /^[اأو]/.test(noDiac);
+    //let weekBegin = /^[اأو]/.test(noDiac);
 
     //detect if the verb has a week ending
-    let weekEnd = /[يى]$/.test(noDiac);
+    //let weekEnd = /[يى]$/.test(noDiac);
 
     //detect if the verb has a week middle
-    let weekMiddle = false;
+    //let weekMiddle = false;
 
     let begin = "",
     end = "",
-    endDiac = "ُ",//Dhamma for present
-    notAllowed = false;
+    endDiac = "ُ";//Dhamma for present
 
     //Future is prefix + present
     let future = 0;
@@ -110,7 +112,8 @@
       if(/.ُ.[َُِ]?$/g.test(verb)) befLast = ""; //no change
       //explanation: verbs with three letters and have a dhamma
       //don't change the dhamma in present
-    } else if(len > 3 && noDiac.startsWith("ت")) befLast = ""; //no change
+    }
+    else if (len > 3 && noDiac.startsWith("ت")) befLast = ""; //no change
 
     switch (opts.tense) {
 
@@ -144,7 +147,7 @@
 
 
           case GNumber.P:
-          if (opts.gender === Gender.F){
+          if (opts.gender === Gender.F) {
             end = "نَ";
             endDiac = "ْ";//Sukuun
           }
@@ -169,7 +172,7 @@
 
 
           case GNumber.P:
-          if (opts.gender === Gender.F){
+          if (opts.gender === Gender.F) {
             end = "نَ";
             begin = "ي";
             endDiac = "ْ";//Sukuun
@@ -181,7 +184,7 @@
       }//person
 
       begin += "َ";//Add fatha
-      if(len < 4 || ! noDiac.startsWith("ت")){
+      if (len < 4 || ! noDiac.startsWith("ت")) {
         verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
       }
 
@@ -234,10 +237,11 @@
 
 
           case GNumber.P:
-          if (opts.gender === Gender.F){
+          if (opts.gender === Gender.F) {
             end = "نَ";
             endDiac = "ْ";//Sukuun for past third plural feminine
-          }else{
+          }
+          else {
             end = "وا";
             endDiac = "ُ";//Sukuun for past third plural feminine
           }
@@ -252,7 +256,7 @@
 
     let result = verb;
 
-    if(befLast){
+    if (befLast) {
       if(befLast === "X") befLast = "";
       result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLast + "$2");
     }
@@ -274,9 +278,9 @@
 
     return result;
 
-  }
+  };
 
-  Me.getPronounName = function(opts){
+  Me.getPronounName = function(opts) {
 
     switch (opts.person) {
       case Person.F:
@@ -297,6 +301,7 @@
         else return "أَنْتُمْ";
 
       }
+      break;
 
       case Person.T:
       switch (opts.number) {
@@ -315,7 +320,7 @@
 
     }
     return "";
-  }
+  };
 
   /**
    * Normalization method for Arabic: it helps delete vocalization
@@ -330,42 +335,42 @@
    * normalization options
    * @return {string}      normalized word
    **/
-  Me.normalize = function(word, opts){
+  Me.normalize = function(word, opts) {
     let norm = word.trim();
 
     //If no options are afforded, do all
-    if (! opts || opts.length < 1){
+    if (! opts || opts.length < 1) {
       opts = "voc,alef,yeh,teh,_";
     }
 
     //Delete vocals: fathah, kasrah, etc.
-    if(opts.includes("voc")){
+    if (opts.includes("voc")) {
       norm = norm.replace(/[َ ً ُ ٍ ْ ِ ٌ]/g, "");
     }
 
     //Replace all alef variants with the simple alef
-    if(opts.includes("alef")){
+    if (opts.includes("alef")) {
       norm = norm.replace(/[أإآ]/g, "ا");
     }
 
     //Relace the alif maqsorah with yeh
-    if(opts.includes("yeh")){
+    if (opts.includes("yeh")) {
       norm = norm.replace(/[ى]/g, "ي");
     }
 
     //Replace teh marbuta with heh
-    if(opts.includes("teh")){
+    if (opts.includes("teh")) {
       norm = norm.replace(/[ة]/g, "ه");
     }
 
     //Delete tatweel
-    if(opts.includes("_")){
+    if (opts.includes("_")) {
       norm = norm.replace(/[ـ]+/g, "");
     }
 
     return norm;
 
-  }
+  };
 
   //=========================================================
   //                 STEMMERS
@@ -379,7 +384,7 @@
    * @param  {[type]}          word [description]
    * @return {[type]}               [description]
    */
-  function jslinguaAraStemmer(word){
+  function jslinguaAraStemmer(word) {
     let stem = word;
     return stem;
   }

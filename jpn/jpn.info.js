@@ -1,10 +1,13 @@
-(function(){
+(function() {
+
+  "use strict";
 
   let Info = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Info = require("../info.js");
     module.exports = JpnInfo;
-  } else {
+  }
+  else {
     Info = window.JsLingua.Cls.Info;
     //window.JpnInfo = JpnInfo;
     window.JsLingua.addService("Info", "jpn", JpnInfo);

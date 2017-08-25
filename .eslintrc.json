@@ -8,8 +8,8 @@
     "extends": "eslint:recommended",
     "rules": {
         "quotes": ["warn", "double"],
-        "semi": ["warn", "always"],
+        "semi": ["error", "always"],
         "no-console": "off",
-        "no-unused-vars": ["error", { "vars": "all", "args": "none"}]
+        "no-unused-vars": ["error", { "vars": "all", "argsIgnorePattern": "^_"}]
     }
 }

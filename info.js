@@ -1,8 +1,11 @@
-(function(){
+(function() {
+
+  "use strict";
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     module.exports = Info;
-  } else {
+  }
+  else {
     window.JsLingua.Cls.Info = Info;
   }
 
@@ -43,45 +46,45 @@
    * @method getName
    * @return {string}  the language name: arabic, english, japanese, etc.
    */
-  Me.getName = function(){
+  Me.getName = function() {
     return this.name;
-  }
+  };
 
   /**
    * Get the code of the language
    * @method getCode
    * @return {string}  The language ISO639-2 code: "ara", "jpn", "eng", etc.
    */
-  Me.getCode = function(){
+  Me.getCode = function() {
     return this.code;
-  }
+  };
 
   /**
    * Get the family of the language
    * @method getFamily
    * @return {string}  The language family: Afro-asiatic, Japonic, etc.
    */
-  Me.getFamily = function(){
+  Me.getFamily = function() {
     return this.family;
-  }
+  };
 
   /**
    * Get the branch of the language, if any
    * @method getBranch
    * @return {string}  The language branch: semitic, etc.
    */
-  Me.getBranch = function(){
+  Me.getBranch = function() {
     return this.branch;
-  }
+  };
 
   /**
    * Get the direction of writing of the language: ltr or rtl
    * @method getDir
    * @return {string}  The language direction: left to right (ltr) or right to left (rtl)
    */
-  Me.getDir = function(){
+  Me.getDir = function() {
     return this.dir;
-  }
+  };
 
   /**
    * Get the words order:
@@ -94,8 +97,8 @@
    * @method getWordOrder
    * @return {string}  The words order in the language
    */
-  Me.getWordOrder = function(){
+  Me.getWordOrder = function() {
     return this.wordOrder;
-  }
+  };
 
 }());

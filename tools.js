@@ -2,7 +2,7 @@
  * The tools module
  * @module Tools
  */
-
+"use strict";
  /**
   * The tools class
   * @class Tools
@@ -15,7 +15,7 @@
  * @method readMorse
  * @param  {string} morse morse code written using ".", "-" and blacks " ".
  */
-function readMorse(morse){
+function readMorse(morse) {
   let dotLength = 0.07,
   AudioContext = window.AudioContext || window.webkitAudioContext,
   context = new AudioContext(),
@@ -48,8 +48,9 @@ function readMorse(morse){
         time += dotLength;
         break;
       case " ":
-      gain.gain.setValueAtTime(0.0, time);
-      time += 3 * dotLength;
+        gain.gain.setValueAtTime(0.0, time);
+        time += 3 * dotLength;
+        break;
       default:
     }
   }
@@ -65,7 +66,7 @@ function readMorse(morse){
  * @return {string}     skip string
  */
 function htmlEntities(str) {
-  let result = String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  result = result.replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /gi, "&nbsp;");
+  let result = String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  result = result.replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/ /gi, "&nbsp;");
   return result;
 }
