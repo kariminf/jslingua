@@ -9,12 +9,12 @@ engines:
           mass_threshold: 100
 ratings:
   paths:
-  - "**.js"
-  - ara/**
-  - eng/**
-  - jpn/**
+  - "*.js"
+  - ara/*.js
+  - eng/*.js
+  - jpn/*.js
 
 exclude_paths:
-- dist/**/*
-- design/**/*
-- node_modules/**/*
+- dist/*
+- design/*
+- node_modules/*
