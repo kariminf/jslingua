@@ -1,4 +1,7 @@
-(function(){
+/*jshint esversion: 6 */
+(function () {
+
+  "use strict";
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     module.exports = Morpho;
@@ -308,7 +311,7 @@
       this.stemmers[stemmerName].desc = stemmerDesc;
       this.stemmers[stemmerName].fct = stemmerFct;
     }
-  }
+  };
 
   //===================================================
   // Prototypes
@@ -321,7 +324,7 @@
   */
   Me.enableDebug = function(){
     this.g.debugFunction = realDebug;
-  }
+  };
 
   /**
   * disables the debugging messages
@@ -329,7 +332,7 @@
   */
   Me.disableDebug = function(){
     this.g.debugFunction = dummyDebug;
-  }
+  };
 
   /**
   * Sets the current stemmer
@@ -342,7 +345,7 @@
     if (StemmerName in this.stemmers){
       this.currentStemmer = StemmerName;
     }
-  }
+  };
 
   /**
   * Returns the list of available stemming methods
@@ -352,7 +355,7 @@
   */
   Me.availableStemmers = function(){
     return Object.keys(this.stemmers);
-  }
+  };
 
   /**
   * This method is used to recover the name of the tense
@@ -370,7 +373,7 @@
     }
 
     return "";
-  }
+  };
 
   /**
    * Returns a list of verb types
@@ -381,7 +384,7 @@
    */
   Me.getVerbTypes = function(){
     return [];
-  }
+  };
 
   /**
    * Given a verb, it detects its type
@@ -392,7 +395,7 @@
    */
   Me.getVerbType = function(){
     return "";
-  }
+  };
 
   /**
   * This function returns an object of available conjugation forms
@@ -424,7 +427,7 @@
         aspect: Aspect.S
       }
     };
-  }
+  };
 
 
   /**
@@ -440,7 +443,7 @@
       rows: ["Pronoun"],
       cols: ["Voice", "Negation"]
     };
-  }
+  };
 
 
   /**
@@ -458,7 +461,7 @@
 
     }
     return [];
-  }
+  };
 
   Me.getOptName = function(optLabel, opts){
     switch (optLabel) {
@@ -469,7 +472,7 @@
 
     }
     return "";
-  }
+  };
 
   /**
    * [getNegationOpts description]
@@ -482,7 +485,7 @@
         {negated:0}, //Positive
         {negated:1}//negative
     ];
-  }
+  };
 
   /**
    * [getNegationName description]
@@ -495,7 +498,7 @@
     if (! opts) return "";
     if (opts.negated) return "negative";
     return "affirmative";
-  }
+  };
 
   /**
    * [getVoiceOpts description]
@@ -508,7 +511,7 @@
         {voice: Voice.A}, //Active voice
         {voice: Voice.P} //Passive voice
     ];
-  }
+  };
 
   /**
    * [getVoiceName description]
@@ -525,7 +528,7 @@
       case Voice.P: return "passive";
     }
     return "";
-  }
+  };
 
   /**
    * [getPronounOpts description]
@@ -535,7 +538,7 @@
    */
   Me.getPronounOpts = function(){
     return [{}];
-  }
+  };
 
   /**
    * [getPronounName description]
@@ -545,9 +548,9 @@
    * @return {[type]}            [description]
    */
   Me.getPronounName = function(opts){
-    // jshint unused: true
+    // jshint unused: false
     return "";
-  }
+  };
 
 
   /**
@@ -558,9 +561,9 @@
   * @return {string}      inflected word
   */
   Me.conjugate = function(verb, opts){
-    // jshint unused: true
+    // jshint unused: false
     return verb;
-  }
+  };
 
 
 
@@ -578,9 +581,9 @@
   * @return {string}      the pronoun
   */
   Me.getPronounName = function(opts){
-    // jshint unused: true
+    // jshint unused: false
     return "";
-  }
+  };
 
   /**
   * This function is used for noun inflexion<br>
@@ -591,9 +594,9 @@
   * @return {string}      the inflected noun
   */
   Me.declenseNoun = function(noun, opts){
-    // jshint unused: true
+    // jshint unused: false
     return noun;
-  }
+  };
 
   /**
   * Stem a word: delete prefixes, suffixes and infixes
@@ -606,7 +609,7 @@
     if (typeof stemmer !== "object") return word;
     if (typeof stemmer.fct !== "function") return word;
     return stemmer.fct(word);
-  }
+  };
 
   /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
@@ -617,9 +620,9 @@
   * @return {string}      normalized word
   */
   Me.normalize = function(word, opts){
-    // jshint unused: true
+    // jshint unused: false
     return word;
-  }
+  };
 
   //========================================================================
   // HELPERS
@@ -635,7 +638,7 @@
    * @return {[type]}                    [description]
    */
   function parseConjModelBranch(morpho, branch){
-    var result = {
+    let result = {
       labels: [], // Array[Array[string]]: each level have many labels
       spans: [1], // spans of each level
       opts: [{}]
@@ -681,7 +684,7 @@
     let result = {
       rows: {},
       cols: {}
-    }
+    };
 
     if (! (morpho instanceof Morpho)) return result;
 
@@ -692,6 +695,6 @@
 
     return result;
 
-  }
+  };
 
 }());

@@ -3,8 +3,9 @@
 * @module JsLingua
 */
 
-(function(){
+(function () {
 
+  'use strict';
 
   let version = "0.5.0";
 

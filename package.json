@@ -58,5 +58,8 @@
   "bugs": {
     "url": "https://github.com/kariminf/jslingua/issues"
   },
-  "homepage": "http://kariminf.github.io/jslingua"
+  "homepage": "http://kariminf.github.io/jslingua",
+  "dependencies": {
+    "jslint": "^0.11.0"
+  }
 }
