@@ -12,6 +12,7 @@
 [![downloads](https://img.shields.io/npm/dm/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 [![Inline docs](http://inch-ci.org/github/kariminf/jslingua.svg?branch=master)](http://inch-ci.org/github/kariminf/jslingua)
 [![CodeFactor](https://www.codefactor.io/repository/github/kariminf/jslingua/badge/master)](https://www.codefactor.io/repository/github/kariminf/jslingua/overview/master)
+[![Code Climate](https://img.shields.io/codeclimate/github/kariminf/jslingua.svg)](https://codeclimate.com/github/kariminf/jslingua/)
 
 This project aims to afford some of the tasks related to languages, such as;: detecting language, some transformations (majuscule to minuscule), verb conjugation, etc.
 There are a lot of projects like this such as: [NLTK](https://github.com/nltk/nltk) (python), [OpenNLP](https://github.com/apache/opennlp) (Java), etc.
