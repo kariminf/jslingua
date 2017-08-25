@@ -9,6 +9,74 @@
 		window.JsLingua.Cls.Trans = Trans;
 	}
 
+	const specialBef = [
+		//numbers,
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		//punctuation,
+		"#", //actually it is a dot, this is to prevent conflect
+		",",
+		"?",
+		"'",
+		"!",
+		"/",
+		"(",
+		")",
+		"&",
+		":",
+		";",
+		"=",
+		"+",
+		"^", //actually it is a hyphen, this is to prevent conflect
+		"_",
+		"\"",
+		"$",
+		"@"
+	],
+	specialAft = [
+		//numbers
+		" ----- ",
+		" .---- ",
+		" ..--- ",
+		" ...-- ",
+		" ....- ",
+		" ..... ",
+		" -.... ",
+		" --... ",
+		" ---.. ",
+		" ----. ",
+		//punctuation
+		" .-.-.- ",
+		" --..-- ",
+		" ..--.. ",
+		" .----. ",
+		" -.-.-- ",
+		" -..-. ",
+		" -.--. ",
+		" -.--.- ",
+		" .-... ",
+		" ---... ",
+		" -.-.-. ",
+		" -...- ",
+		" .-.-. ",
+		" -....- ",
+		" ..--.- ",
+		" .-..-. ",
+		" ...-..- ",
+		" .--.-. "
+	];
+
+	Trans.specialCharTrans = getTransliterator(specialBef, specialAft);
+	Trans.specialCharUntrans = getTransliterator(specialAft, specialBef);
+
 	/**
 	* This function returns another function which do the transformation
 	* @method getTransliterator
@@ -43,6 +111,9 @@
 		this.defMethod = "";
 
 		this.currentMethod = "";
+
+	  //Trans.newMethod.call("def", otherMourseBef, otherMourseAft);
+
 	}
 
 	//=========================================
@@ -85,12 +156,15 @@
 	*/
 	Trans.setTransUntrasMethods = function(methodName, trans, untrans) {
 		if (methodName in this.methods){
+
 			if (typeof trans === "function") {
 				this.methods[methodName].trans = trans;
 			}
+
 			if (typeof untrans === "function") {
 				this.methods[methodName].untrans = untrans;
 			}
+
 		}
 	};
 

@@ -279,42 +279,7 @@
     " -..-- ",//xyu
     " .- ",//xi
     " -- "//xyo
-  ],
-  otherMourseBef = [
-    //numbers,
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    //punctuation,
-    "。", //actually it is a dot, this is to prevent conflect
-    "、"
-  ],
-  otherMourseAft = [
-    //numbers
-    " ----- ",
-    " .---- ",
-    " ..--- ",
-    " ...-- ",
-    " ....- ",
-    " ..... ",
-    " -.... ",
-    " --... ",
-    " ---.. ",
-    " ----. ",
-    //punctuation
-    " .-.-.- ",
-    " --..-- "
   ];
-
-  let otherMourseTrans = new Trans("otherMourse");
-  Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
   /**
    * Japanese transliteration
@@ -349,7 +314,7 @@
     var result = text;
     result = result.replace(/[っ]/gi, "つ");
     //Japanese space
-    result = result.replace(/　/gi, "\t");
+    //result = result.replace(/　/gi, "\t");
     return result;
   }
 
@@ -365,7 +330,7 @@
 
   function morsePostTrans(text) {
     var result = text;
-    result = otherMourseTrans.transliterate(result);
+    result = Trans.specialCharTrans(result);
     result = result.replace(/ +/gi, " ");
     result = result.replace(/\t/gi, "   ");
     //clean non morse characters
@@ -388,19 +353,16 @@
     //delete DO and SN prosigns used to specify the beginning and end of wabun
     result = result.replace(/ -\.\.--- /gi, " ");
     result = result.replace(/ \.\.\.-\. /gi, " ");
-
     return result;
   }
 
   function morsePostUntrans(text) {
     var result = text;
-    result = otherMourseTrans.untransliterate(result);
+    result = Trans.specialCharUntrans(result);
     result = result.replace(/ +/gi, "");
     result = result.replace(/\t/gi, "　");
     return result;
   }
-
-
 
   function shikiPreTrans(text) {
     var result = text.replace(/し/gi, "si");
@@ -430,7 +392,6 @@
     result = result.replace(/uぇ/gi, "e");*/
     return result;
   }
-
 
   function hepburnPreTrans(text) {
     return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){

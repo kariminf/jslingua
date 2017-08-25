@@ -228,74 +228,7 @@
 
     " . ", // lone hamza
     " .- " // alif
-  ],
-  otherMourseBef = [
-    //numbers,
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    //punctuation,
-    "#", //actually it is a dot, this is to prevent conflect
-    "،",
-    "؟",
-    "'",
-    "!",
-    "/",
-    "(",
-    ")",
-    "&",
-    ":",
-    "؛",
-    "=",
-    "+",
-    "^", //actually it is a hyphen, this is to prevent conflect
-    "_",
-    "\"",
-    "$",
-    "@"
-  ],
-  otherMourseAft = [
-    //numbers
-    " ----- ",
-    " .---- ",
-    " ..--- ",
-    " ...-- ",
-    " ....- ",
-    " ..... ",
-    " -.... ",
-    " --... ",
-    " ---.. ",
-    " ----. ",
-    //punctuation
-    " .-.-.- ",
-    " --..-- ",
-    " ..--.. ",
-    " .----. ",
-    " -.-.-- ",
-    " -..-. ",
-    " -.--. ",
-    " -.--.- ",
-    " .-... ",
-    " ---... ",
-    " -.-.-. ",
-    " -...- ",
-    " .-.-. ",
-    " -....- ",
-    " ..--.- ",
-    " .-..-. ",
-    " ...-..- ",
-    " .--.-. "
   ];
-
-  let otherMourseTrans = new Trans("otherMourse");
-  Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
 
   /**
    * Arabic transliteration
@@ -357,7 +290,7 @@
    */
   function morsePostTrans(text) {
     let result = text;
-    result = otherMourseTrans.transliterate(result);
+    result = Trans.specialCharTrans(result);
     result = result.replace(/ +/gi, " ");
     result = result.replace(/^ /gi, "");
     result = result.replace(/ $/gi, "");
@@ -394,7 +327,7 @@
    */
   function morsePostUntrans(text) {
     let result = text;
-    result = otherMourseTrans.untransliterate(result);
+    result = Trans.specialCharUntrans(result);
     result = result.replace(/#/gi, ".").replace(/\^/gi, "-");
     result = result.replace(/ +/gi, "");
     result = result.replace(/\t/gi, " ");
