@@ -5,6 +5,7 @@
   "main": "jslingua.js",
   "devDependencies": {
     "codecov": "^2.2.0",
+    "eslint": "^4.5.0",
     "expect.js": "^0.3.1",
     "http-server": "^0.10.0",
     "istanbul": "^0.4.5",

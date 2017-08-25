@@ -40,7 +40,7 @@
   * @private
   */
   function realDebug(){
-    console.log(Array.prototype.slice.call(arguments).join(' '));
+    console.log(Array.prototype.slice.call(arguments).join(" "));
   }
 
   let C = Object.freeze;
