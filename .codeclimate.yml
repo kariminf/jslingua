@@ -1,7 +1,20 @@
 engines:
+  eslint:
+    enabled: true
   duplication:
     enabled: true
     config:
       languages:
         javascript:
           mass_threshold: 100
+ratings:
+  paths:
+  - "**.js"
+  - ara/**
+  - eng/**
+  - jpn/**
+
+exclude_paths:
+- dist/**
+- design/**
+- node_modules/**
