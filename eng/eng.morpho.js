@@ -563,4 +563,38 @@
     return word;
   }
 
+  //http://teflpedia.com/Non-standard_English
+  const norm = {
+    "ain't": "is not",
+    "innit": "is not it",
+    "gonna": "going to",
+    "gotta": "have to",
+    "outta": "out of",
+    "sorta": "sort of",
+    "wanna": "want to",
+    "y'all": "you all",
+    "C'mon": "come on",
+    "cop": "policeman",
+    "'cos'": "because",
+    "don't": "do not",
+    "doesn't": "does not",
+    "won't": "will not",
+    "lil'": "little",
+    "dunno": "do not know",
+    "gimme": "give me",
+    "kinda": "kind of",
+    "lemme": "let me",
+    "lotta": "lot of",
+    "ma": "mother",
+    "luv": "love",
+    "yeah": "yes",
+    "wot": "what"
+  };
+
+  Me.normalize = function(word, _opts){
+    let result = norm[word];
+    if(result) return result;
+    return word;
+  };
+
 }());
