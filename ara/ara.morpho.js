@@ -74,6 +74,35 @@
   //Conjugation zone
   //=================
 
+  const conjAffix = {
+    [Tense.Pr]: {
+      prefix: ["أَ", "نَ", "تَ", "تَ", "تَ", "تَ", "تَ", "تَ", "يَ", "تَ", "يَ", "تَ", "يَ", "يَ"],
+      suffix: ["ُ", "ُ", "ُ", "ِينَ", "َانِ", "َانِ", "ُون", "ْنَ", "ُ", "ُ", "َانِ", "َانِ", "ُونَ", "ْنَ"]
+    },
+    [Tense.Pa]: {
+      prefix: [],
+      suffix: ["ْتُ", "ْنَا", "ْتَ", "ْتِ", "ْتُمَا", "ْتُمَا", "ْتُمْ", "ْتُنَّ", "َ", "َتْ", "َا", "َتَا", "ُوا", "ْنَ"]
+    }
+  };
+
+  const numberIndex = [
+    [GNumber.S], [GNumber.D], [GNumber.P]
+  ];
+
+
+
+  function getPronounIndex(opts){
+    if(opts.person === Person.F){
+      if(opts.number === GNumber.S) return 0;
+      else return 1;
+    }
+
+    let personIdx = (Object.values(Person).indexOf(opts.person)-1) * 6;
+    let numberIdx = Object.values(GNumber).indexOf(opts.number) * 2;
+    let genderIdx = Object.values(Gender).indexOf(opts.gender);
+
+    return personIdx + numberIdx + genderIdx + 2;
+  }
 
   //Override conjugate function
   Me.conjugate = function(verb, opts) {
@@ -82,15 +111,6 @@
     let noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
 
     let len = noDiac.length;
-
-    //detect if the verb with weak begining
-    //let weekBegin = /^[اأو]/.test(noDiac);
-
-    //detect if the verb has a week ending
-    //let weekEnd = /[يى]$/.test(noDiac);
-
-    //detect if the verb has a week middle
-    //let weekMiddle = false;
 
     let begin = "",
     end = "",
@@ -105,6 +125,20 @@
 
     let befLast = "ِ";//kasra for the char before last
 
+    //detect if the verb with weak begining
+    //let weekBegin = /^[اأو]/.test(noDiac);
+
+    //detect if the verb has a week ending
+    let weekEnd = /[يى]$/.test(noDiac);
+
+    if(weekEnd){
+      if (opts.tense === Tense.Pa) befLast = "َ";
+      verb = verb.slice(0, -1) + "ي";
+    }
+
+    //detect if the verb has a week middle
+    //let weekMiddle = false;
+
 
     if (len === 3){
       befLast = "X"; //delete the vocal due to dictionary dependency
@@ -115,75 +149,8 @@
     }
     else if (len > 3 && noDiac.startsWith("ت")) befLast = ""; //no change
 
-    switch (opts.tense) {
-
-      case Tense.Pr:
-
+    if(opts.tense === Tense.Pr){
       if(/^[ا]/g.test(verb)) verb = verb.slice(1);
-
-      switch (opts.person) {
-
-        case Person.F:
-        if (opts.number === GNumber.S) begin = "أ";
-        else begin = "ن";
-        break;
-
-
-        case Person.S:
-        begin = "ت";
-        switch (opts.number) {
-          case GNumber.S:
-          if (opts.gender === Gender.F){
-            end = "ينَ";
-            endDiac = "ِ";//Kasra
-          }
-          break;
-
-
-          case GNumber.D:
-          end = "انِ";
-          endDiac = "َ";//Fatha
-          break;
-
-
-          case GNumber.P:
-          if (opts.gender === Gender.F) {
-            end = "نَ";
-            endDiac = "ْ";//Sukuun
-          }
-          else end = "ونَ";
-          break;
-
-
-        }//Number
-        break;
-
-
-        case Person.T:
-        begin = "ي";
-        if (opts.gender === Gender.F) begin = "ت";
-
-        switch (opts.number) {
-          //No ending for singular
-          case GNumber.D:
-          end = "انِ";
-          endDiac = "َ";//Fatha
-          break;
-
-
-          case GNumber.P:
-          if (opts.gender === Gender.F) {
-            end = "نَ";
-            begin = "ي";
-            endDiac = "ْ";//Sukuun
-          }
-          else end = "ونَ";
-
-        }//Number
-
-      }//person
-
-      begin += "َ";//Add fatha
       if (len < 4 || ! noDiac.startsWith("ت")) {
         verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
       }
@@ -192,68 +159,12 @@
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
         begin += "ُ";//Add dhamma
       }
+    }
 
-      break;
-
-
-      case Tense.Pa:
-      endDiac = "ْ";//Sukuun for past
-      switch (opts.person) {
-        case Person.F:
-        if (opts.number == GNumber.S) end = "تُ";
-        else end = "نَا";
-        break;
-
-        case Person.S:
-        switch (opts.number) {
-          case GNumber.S:
-          if (opts.gender === Gender.F) end = "تِ";
-          else end = "تَ";
-          break;
-
-          case GNumber.D:
-          end = "تُمَا";
-          break;
-
-          case GNumber.P:
-          if (opts.gender === Gender.F) end = "تُنَّ";
-          else end = "تُمْ";
-
-        }//Number
-        break;
-
-
-        case Person.T:
-        endDiac = "َ";//Fatha for past third
-        switch (opts.number) {
-          case GNumber.S:
-          if (opts.gender === Gender.F) end = "تْ";
-          break;
-
-          case GNumber.D:
-          if (opts.gender === Gender.F) end = "تَا";
-          else end = "ا";
-          break;
-
-
-          case GNumber.P:
-          if (opts.gender === Gender.F) {
-            end = "نَ";
-            endDiac = "ْ";//Sukuun for past third plural feminine
-          }
-          else {
-            end = "وا";
-            endDiac = "ُ";//Sukuun for past third plural feminine
-          }
-
-
-        }//Number
-
-      }//person
-
-
-    }//swich(tense)
-
+    let pronounIdx = getPronounIndex(opts);
+    let suffix = conjAffix[opts.tense].suffix[pronounIdx];
+    let prefix = conjAffix[opts.tense].prefix[pronounIdx];
+    if(! prefix) prefix = "";
     let result = verb;
 
     if (befLast) {
@@ -261,10 +172,10 @@
       result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLast + "$2");
     }
 
-    result = result.replace(/[َ]?$/, endDiac);
+    //result = result.replace(/[َ]?$/, endDiac);
 
-    result = begin + result + end;
-
+    //result = begin + result + end;
+    result = prefix + result + suffix;
     //Normalization of alif
     //order is important, don't change
     result = result.replace(/أَأْ/, "آ");
