@@ -90,7 +90,12 @@
   ];
 
 
-
+  /**
+   * A function that gives the pronoun index in conjugation table
+   * @method getPronounIndex
+   * @param  {object}        opts contains person, number and gender
+   * @return {number}             a number from 0 to 13
+   */
   function getPronounIndex(opts){
     if(opts.person === Person.F){
       if(opts.number === GNumber.S) return 0;
@@ -183,6 +188,7 @@
     result = result.replace(/ِأِي/, "ئِي");
     result = result.replace(/ِأ(.?)/, "ئ$1");
     result = result.replace(/أُو/, "ؤُو");
+    result = result.replace(/أُو/, "ؤُو");
 
     if (future) result = "سَوْفَ " + result;
 
@@ -191,46 +197,14 @@
 
   };
 
+  const pronouns = [
+    "أَنَا", "نَحْنُ",
+    "أَنْتَ", "أَنْتِ", "أَنْتُمَا", "أَنْتُمَا", "أَنْتُمْ", "أَنْتُنَّ",
+    "هُوَ", "هِيَ", "هُمَا", "هُمَا", "هُمْ", "هُنَّ"
+  ];
+
   Me.getPronounName = function(opts) {
-
-    switch (opts.person) {
-      case Person.F:
-      if (opts.number === GNumber.S) return "أَنَا";
-      else return "نَحْنُ";
-
-      case Person.S:
-      switch (opts.number) {
-        case GNumber.S:
-        if (opts.gender === Gender.F) return "أَنْتِ";
-        else return "أَنْتَ";
-
-        case GNumber.D:
-        return "أَنْتُمَا";
-
-        case GNumber.P:
-        if (opts.gender === Gender.F) return "أَنْتُنَّ";
-        else return "أَنْتُمْ";
-
-      }
-      break;
-
-      case Person.T:
-      switch (opts.number) {
-        case GNumber.S:
-        if (opts.gender === Gender.F) return "هِيَ";
-        else return "هُوَ";
-
-        case GNumber.D:
-        return "هُمَا";
-
-        case GNumber.P:
-        if (opts.gender === Gender.F) return "هُنَّ";
-        else return "هُمْ";
-
-      }
-
-    }
-    return "";
+    return pronouns[getPronounIndex(opts)];
   };
 
   /**
