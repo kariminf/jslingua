@@ -76,9 +76,9 @@ You can use a CDN (content-delivery network):
 if you want to use the last version, just replace "version" with "latest".
 For example, :
 ```javascript
-<script type="text/javascript" src="https://unpkg.com/package@latest/jslingua.min.js" ></script>
-<script type="text/javascript" src="https://unpkg.com/package@latest/lang.min.js" ></script>
-<script type="text/javascript" src="https://unpkg.com/package@latest/ara.lang.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/jslingua@latest/jslingua.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/jslingua@latest/lang.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/jslingua@latest/ara.lang.min.js" ></script>
 ...
 ```
 
@@ -90,7 +90,7 @@ npm install jslingua
 ```
 Then in your test file, call the main module "jslingua".
 ```javascript
-var JsLingua = require('jslingua');
+var JsLingua = require("jslingua");
 ```
 
 ### Get the services (Browser & Node)
