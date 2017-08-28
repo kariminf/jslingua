@@ -117,10 +117,6 @@
 
     let len = noDiac.length;
 
-    let begin = "",
-    end = "",
-    endDiac = "ُ";//Dhamma for present
-
     //Future is prefix + present
     let future = 0;
     if (opts.tense === Tense.Fu){
@@ -155,7 +151,7 @@
     else if (len > 3 && noDiac.startsWith("ت")) befLast = ""; //no change
 
     if(opts.tense === Tense.Pr){
-      if(/^[ا]/g.test(verb)) verb = verb.slice(1);
+      if(/^[ا]/g.test(verb)) verb = verb.slice(1);//verb starts with alif
       if (len < 4 || ! noDiac.startsWith("ت")) {
         verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
       }
@@ -181,6 +177,7 @@
 
     //result = begin + result + end;
     result = prefix + result + suffix;
+
     //Normalization of alif
     //order is important, don't change
     result = result.replace(/أَأْ/, "آ");
@@ -189,6 +186,11 @@
     result = result.replace(/ِأ(.?)/, "ئ$1");
     result = result.replace(/أُو/, "ؤُو");
     result = result.replace(/أُو/, "ؤُو");
+
+    //Manqoos normalization
+    result = result.replace(/يُ$/, "ي");//last yaa with dhamma
+    result = result.replace(/[َِ]يُو/, "ُو");// fatha or kasra before yaa with dhamma and waw
+    result = result.replace(/ِيِي/, "ِي");// kasra before yaa with kasra then yaa
 
     if (future) result = "سَوْفَ " + result;
 
