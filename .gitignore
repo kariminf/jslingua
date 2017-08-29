@@ -50,3 +50,5 @@ out
 docs/
 
 package-lock.json
+#inchjs generated docs
+docs.json
