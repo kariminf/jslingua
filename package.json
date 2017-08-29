@@ -61,6 +61,7 @@
   },
   "homepage": "http://kariminf.github.io/jslingua",
   "dependencies": {
+    "inchjs": "^0.4.1",
     "jslint": "^0.11.0"
   }
 }
