@@ -4,7 +4,7 @@ var expect = require('expect.js');
 var morpho = new EnglMorpho();
 
 morpho.setCurrentStemmer("porterStemmer");
-morpho.enableDebug();
+//morpho.enableDebug();
 
 describe("English Morphology porter stemmer ", function(){
 

@@ -48,3 +48,90 @@ describe("Arabic Word normalization", function(){
   });
 
 });
+
+
+var
+$ = Object.assign,//shorten the function
+//tenses
+pr = {tense:"present"},
+pa = {tense:"past"},
+//pronouns
+i = {person:"first", number: "singular"},
+we = {person:"first", number: "plural"},
+
+youm = {person:"second", number: "singular", gender: "masculine"},
+youf = {person:"second", number: "singular", gender: "feminine"},
+youmd = {person:"second", number: "dual", gender: "masculine"},
+youfd = {person:"second", number: "dual", gender: "feminine"},
+yoump = {person:"second", number: "plural", gender: "masculine"},
+youfp = {person:"second", number: "plural", gender: "feminine"},
+
+he = {person:"third", number: "singular", gender: "masculine"},
+she = {person:"third", number: "singular", gender: "feminine"},
+theymd = {person:"third", number: "dual", gender: "masculine"},
+theyfd = {person:"third", number: "dual", gender: "feminine"},
+theymp = {person:"third", number: "plural", gender: "masculine"},
+theyfp = {person:"third", number: "plural", gender: "feminine"};
+
+describe("Arabic Verb conjugation", function(){
+
+  it("Sahih Salim (standard) past", function() {
+    //past
+    expect(morpho.conjugate("ذهب",$({}, pa, i))).to.eql("ذَهبْتُ");
+    expect(morpho.conjugate("ذهب",$({}, pa, we))).to.eql("ذَهبْنَا");
+    expect(morpho.conjugate("ذهب",$({}, pa, youm))).to.eql("ذَهبْتَ");
+    expect(morpho.conjugate("ذهب",$({}, pa, youf))).to.eql("ذَهبْتِ");
+    expect(morpho.conjugate("ذهب",$({}, pa, youmd))).to.eql("ذَهبْتُمَا");
+    expect(morpho.conjugate("ذهب",$({}, pa, youfd))).to.eql("ذَهبْتُمَا");
+    expect(morpho.conjugate("ذهب",$({}, pa, yoump))).to.eql("ذَهبْتُمْ");
+    expect(morpho.conjugate("ذهب",$({}, pa, youfp))).to.eql("ذَهبْتُنَّ");
+    expect(morpho.conjugate("ذهب",$({}, pa, he))).to.eql("ذَهبَ");
+    expect(morpho.conjugate("ذهب",$({}, pa, she))).to.eql("ذَهبَتْ");
+    expect(morpho.conjugate("ذهب",$({}, pa, theymd))).to.eql("ذَهبَا");
+    expect(morpho.conjugate("ذهب",$({}, pa, theyfd))).to.eql("ذَهبَتَا");
+    expect(morpho.conjugate("ذهب",$({}, pa, theymp))).to.eql("ذَهبُوا");
+    expect(morpho.conjugate("ذهب",$({}, pa, theyfp))).to.eql("ذَهبْنَ");
+
+  });
+
+  it("Sahih Salim (standard) present", function() {
+    //present
+    expect(morpho.conjugate("ذهب",$({}, pr, i))).to.eql("أَذْهبُ");
+    expect(morpho.conjugate("ذهب",$({}, pr, we))).to.eql("نَذْهبُ");
+    expect(morpho.conjugate("ذهب",$({}, pr, youm))).to.eql("تَذْهبُ");
+    expect(morpho.conjugate("ذهب",$({}, pr, youf))).to.eql("تَذْهبِينَ");
+    expect(morpho.conjugate("ذهب",$({}, pr, youmd))).to.eql("تَذْهبَانِ");
+    expect(morpho.conjugate("ذهب",$({}, pr, youfd))).to.eql("تَذْهبَانِ");
+    expect(morpho.conjugate("ذهب",$({}, pr, yoump))).to.eql("تَذْهبُون");
+    expect(morpho.conjugate("ذهب",$({}, pr, youfp))).to.eql("تَذْهبْنَ");
+    expect(morpho.conjugate("ذهب",$({}, pr, he))).to.eql("يَذْهبُ");
+    expect(morpho.conjugate("ذهب",$({}, pr, she))).to.eql("تَذْهبُ");
+    expect(morpho.conjugate("ذهب",$({}, pr, theymd))).to.eql("يَذْهبَانِ");
+    expect(morpho.conjugate("ذهب",$({}, pr, theyfd))).to.eql("تَذْهبَانِ");
+    expect(morpho.conjugate("ذهب",$({}, pr, theymp))).to.eql("يَذْهبُونَ");
+    expect(morpho.conjugate("ذهب",$({}, pr, theyfp))).to.eql("يَذْهبْنَ");
+
+  });
+
+  it("Muatal Mithal + alif", function() {
+    //وضع Waw
+    //past
+    expect(morpho.conjugate("وضع",$({}, pr, i))).to.eql("أَضعُ");
+    //present
+    expect(morpho.conjugate("وضع",$({}, pr, youfd))).to.eql("تَضعَانِ");
+
+    //استعمل alif
+    //past
+    expect(morpho.conjugate("استعمل",$({}, pr, i))).to.eql("أَسْتعمِلُ");
+    //present
+    expect(morpho.conjugate("استعمل",$({}, pr, youfd))).to.eql("تَسْتعمِلَانِ");
+
+    //ينع yaa
+    //past
+    expect(morpho.conjugate("ينع",$({}, pr, i))).to.eql("أَيْنعُ");
+    //present
+    expect(morpho.conjugate("ينع",$({}, pr, youfd))).to.eql("تَيْنعَانِ");
+
+  });
+
+});

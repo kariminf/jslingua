@@ -128,7 +128,8 @@
     let befLast = "ِ";//kasra for the char before last
 
     //detect if the verb with weak begining
-    let weekBegin = /^[واي]/.test(noDiac);//alif does not belong to mithal, but it has the same
+    let weekBegin = /^[او]/.test(noDiac);//alif does not belong to mithal, but it has the same
+    //yaa is ommited since it will not be deleted
     if (weekBegin) {
       if (opts.tense === Tense.Pr) {
         verb = verb.slice(1);//verb starts with alif
@@ -166,9 +167,15 @@
 
       if (len === 4) {
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
-        begin += "ُ";//Add dhamma
+        //begin += "ُ";//Add dhamma
       }
     }
+    else { //past
+      verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
+      //TODO passive
+    }
+
+
 
     let pronounIdx = getPronounIndex(opts);
     let suffix = conjAffix[opts.tense].suffix[pronounIdx];
@@ -210,7 +217,7 @@
     if (future) result = "سَوْفَ " + result;
 
 
-    return result;
+    return result.trim();
 
   };
 
