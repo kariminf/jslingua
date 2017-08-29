@@ -10,11 +10,10 @@ engines:
 ratings:
   paths:
   - "*.js"
-  - ara/*.js
-  - eng/*.js
-  - jpn/*.js
+  - "{ara, eng, jpn}/*.js"
 
 exclude_paths:
-- dist/
-- design/
-- node_modules/
+- "test/"
+- "dist/"
+- "design/"
+- "node_modules/"

@@ -85,11 +85,6 @@
     }
   };
 
-  const numberIndex = [
-    [GNumber.S], [GNumber.D], [GNumber.P]
-  ];
-
-
   /**
    * A function that gives the pronoun index in conjugation table
    * @method getPronounIndex
