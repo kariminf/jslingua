@@ -1,4 +1,4 @@
-(function(){
+(function() {
 
   "use strict";
 
@@ -121,7 +121,7 @@
   Lang.addTransform = function(transName, offset, origCharSet, begin, end) {
     let charSetFunc = function() { return false; };
 
-    if ((typeof begin != "undefined") &&  (typeof begin != "undefined")){
+    if ((typeof begin != "undefined") &&  (typeof begin != "undefined")) {
         charSetFunc = isBetween(begin, end);
     }
     else
@@ -161,7 +161,7 @@
    */
   Me.transformationFunction = function(transName) {
     if (typeof transName !== "string") {
-      return function(text){ return text; };
+      return function(text) { return text; };
     }
 
     return this.TR[transName];

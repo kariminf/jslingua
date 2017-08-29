@@ -96,9 +96,9 @@
    * @param  {object}        opts contains person, number and gender
    * @return {number}             a number from 0 to 13
    */
-  function getPronounIndex(opts){
-    if(opts.person === Person.F){
-      if(opts.number === GNumber.S) return 0;
+  function getPronounIndex(opts) {
+    if (opts.person === Person.F) {
+      if (opts.number === GNumber.S) return 0;
       else return 1;
     }
 
@@ -111,6 +111,7 @@
 
   //Override conjugate function
   Me.conjugate = function(verb, opts) {
+
     //delete diacretics
     verb = verb.trim();
     let noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
@@ -119,7 +120,7 @@
 
     //Future is prefix + present
     let future = 0;
-    if (opts.tense === Tense.Fu){
+    if (opts.tense === Tense.Fu) {
       future = 1;
       opts.tense = Tense.Pr;
     }
@@ -127,36 +128,43 @@
     let befLast = "ِ";//kasra for the char before last
 
     //detect if the verb with weak begining
-    //let weekBegin = /^[اأو]/.test(noDiac);
+    let weekBegin = /^[واي]/.test(noDiac);//alif does not belong to mithal, but it has the same
+    if (weekBegin) {
+      if (opts.tense === Tense.Pr) {
+        verb = verb.slice(1);//verb starts with alif
+      }
+    }
 
     //detect if the verb has a week ending
-    let weekEnd = /[يى]$/.test(noDiac);
+    let weekEnd = /[اى]$/.test(noDiac);
 
-    if(weekEnd){
+    if (weekEnd) {
       if (opts.tense === Tense.Pa) befLast = "َ";
-      verb = verb.slice(0, -1) + "ي";
+      verb = verb.slice(0, -1);
+      if (noDiac.endsWith("ى")) verb += "ي";//TODO fix
+      else verb += "و";//TODO fix
+      //Sometimes it is not a
     }
 
     //detect if the verb has a week middle
     //let weekMiddle = false;
 
 
-    if (len === 3){
+    if (len === 3) {
       befLast = "X"; //delete the vocal due to dictionary dependency
       if (! /[^أعحه][^أعحه]$/g.test(noDiac))
-      if(/.ُ.[َُِ]?$/g.test(verb)) befLast = ""; //no change
+      if (/.ُ.[َُِ]?$/g.test(verb)) befLast = ""; //no change
       //explanation: verbs with three letters and have a dhamma
       //don't change the dhamma in present
     }
     else if (len > 3 && noDiac.startsWith("ت")) befLast = ""; //no change
 
-    if(opts.tense === Tense.Pr){
-      if(/^[ا]/g.test(verb)) verb = verb.slice(1);//verb starts with alif
+    if (opts.tense === Tense.Pr) {
       if (len < 4 || ! noDiac.startsWith("ت")) {
         verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
       }
 
-      if(len === 4) {
+      if (len === 4) {
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
         begin += "ُ";//Add dhamma
       }
@@ -169,13 +177,10 @@
     let result = verb;
 
     if (befLast) {
-      if(befLast === "X") befLast = "";
+      if (befLast === "X") befLast = "";
       result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLast + "$2");
     }
 
-    //result = result.replace(/[َ]?$/, endDiac);
-
-    //result = begin + result + end;
     result = prefix + result + suffix;
 
     //Normalization of alif
@@ -187,10 +192,20 @@
     result = result.replace(/أُو/, "ؤُو");
     result = result.replace(/أُو/, "ؤُو");
 
-    //Manqoos normalization
-    result = result.replace(/يُ$/, "ي");//last yaa with dhamma
-    result = result.replace(/[َِ]يُو/, "ُو");// fatha or kasra before yaa with dhamma and waw
-    result = result.replace(/ِيِي/, "ِي");// kasra before yaa with kasra then yaa
+    //naqis normalization
+    if (weekEnd) {
+      //Yaa
+      result = result.replace(/يُ$/, "ي");//last yaa with dhamma
+      result = result.replace(/[َِ]يُو/, "ُو");// fatha or kasra before yaa with dhamma and waw
+      result = result.replace(/ِيِي/, "ِي");// kasra before yaa with kasra then yaa
+
+      //Waw
+      result = result.replace(/وُ$/, "و");//last waw with dhamma
+      result = result.replace(/وُو/, "و");// waw with dhamma before another waw
+
+
+    }
+
 
     if (future) result = "سَوْفَ " + result;
 
