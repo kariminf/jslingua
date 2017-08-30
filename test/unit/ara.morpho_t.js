@@ -134,4 +134,33 @@ describe("Arabic Verb conjugation", function(){
 
   });
 
+  it("Muatal Naqiq", function() {
+    //دنا Waw
+    //past
+    expect(morpho.conjugate("دنا",$({}, pa, i))).to.eql("دَنوْتُ");
+    expect(morpho.conjugate("دنا",$({}, pa, he))).to.eql("دَنا");
+    expect(morpho.conjugate("دنا",$({}, pa, she))).to.eql("دَنَتْ");
+    expect(morpho.conjugate("دنا",$({}, pa, theyfd))).to.eql("دَنَتَا");
+    expect(morpho.conjugate("دنا",$({}, pa, theymp))).to.eql("دَنُوا");//VERIFY
+    //present
+    expect(morpho.conjugate("دنا",$({}, pr, i))).to.eql("أَدْنو");
+    expect(morpho.conjugate("دنا",$({}, pr, youf))).to.eql("تَدْنِينَ");
+    expect(morpho.conjugate("دنا",$({}, pr, yoump))).to.eql("تَدْنُون");
+    expect(morpho.conjugate("دنا",$({}, pr, theymp))).to.eql("يَدْنُونَ");
+
+    //مشى Yaa
+    //past
+    expect(morpho.conjugate("مشى",$({}, pa, i))).to.eql("مَشيْتُ");
+    expect(morpho.conjugate("مشى",$({}, pa, he))).to.eql("مَشى");
+    expect(morpho.conjugate("مشى",$({}, pa, she))).to.eql("مَشَتْ");
+    expect(morpho.conjugate("مشى",$({}, pa, theyfd))).to.eql("مَشَتَا");
+    expect(morpho.conjugate("مشى",$({}, pa, theymp))).to.eql("مَشُوا");//VERIFY
+    //present
+    expect(morpho.conjugate("مشى",$({}, pr, i))).to.eql("أَمْشي");
+    expect(morpho.conjugate("مشى",$({}, pr, youf))).to.eql("تَمْشِينَ");
+    expect(morpho.conjugate("مشى",$({}, pr, yoump))).to.eql("تَمْشُون");
+    expect(morpho.conjugate("مشى",$({}, pr, theymp))).to.eql("يَمْشُونَ");
+
+  });
+
 });

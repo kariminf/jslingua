@@ -92,6 +92,7 @@
    * @return {number}             a number from 0 to 13
    */
   function getPronounIndex(opts) {
+
     if (opts.person === Person.F) {
       if (opts.number === GNumber.S) return 0;
       else return 1;
@@ -170,8 +171,6 @@
       //TODO passive
     }
 
-
-
     let pronounIdx = getPronounIndex(opts);
     let suffix = conjAffix[opts.tense].suffix[pronounIdx];
     let prefix = conjAffix[opts.tense].prefix[pronounIdx];
@@ -183,31 +182,13 @@
       result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLast + "$2");
     }
 
-    result = prefix + result + suffix;
+    //naqis normalization
+    if (weekEnd) result = weekEndNormalization(verb, prefix, suffix, pronounIdx, opts.tense);
+    else result = prefix + result + suffix;
+
 
     //Normalization of alif
-    //order is important, don't change
-    result = result.replace(/أَأْ/, "آ");
-    result = result.replace(/أَا/, "آ");
-    result = result.replace(/ِأِي/, "ئِي");
-    result = result.replace(/ِأ(.?)/, "ئ$1");
-    result = result.replace(/أُو/, "ؤُو");
-    result = result.replace(/أُو/, "ؤُو");
-
-    //naqis normalization
-    if (weekEnd) {
-      //Yaa
-      result = result.replace(/يُ$/, "ي");//last yaa with dhamma
-      result = result.replace(/[َِ]يُو/, "ُو");// fatha or kasra before yaa with dhamma and waw
-      result = result.replace(/ِيِي/, "ِي");// kasra before yaa with kasra then yaa
-
-      //Waw
-      result = result.replace(/وُ$/, "و");//last waw with dhamma
-      result = result.replace(/وُو/, "و");// waw with dhamma before another waw
-
-
-    }
-
+    result = conjNormakizeAlif(result);
 
     if (future) result = "سَوْفَ " + result;
 
@@ -215,6 +196,52 @@
     return result.trim();
 
   };
+
+  /**
+   * Normalizing alif during conjugation
+   * @static
+   * @private
+   * @method conjNormakizeAlif
+   * @param  {string}          verb conjugated verb
+   * @return {string}               verb with alif normalization
+   */
+  function conjNormakizeAlif(verb) {
+    //order is important, don't change
+    verb = verb.replace(/أَأْ/, "آ");
+    verb = verb.replace(/أَا/, "آ");
+    verb = verb.replace(/ِأِي/, "ئِي");
+    verb = verb.replace(/ِأ(.?)/, "ئ$1");
+    verb = verb.replace(/أُو/, "ؤُو");
+    verb = verb.replace(/أُو/, "ؤُو");
+    return verb;
+  }
+
+  function weekEndNormalization(verb, prefix, suffix, pronounIdx, tense) {
+
+    if (tense === Tense.Pa) {
+
+      if (pronounIdx === 8) {
+        prefix = suffix = "";
+        let ending = verb.slice(-1);
+        verb = verb.slice(0, -1);
+        if (ending === "ي") verb += "ى";
+        else verb += "ا";
+      }
+      else if ([9, 11, 12].indexOf(pronounIdx) > -1) {
+        verb = verb.slice(0, -1);
+        if (/[وي]$/.test(verb)) verb = verb.slice(0, -1);
+      }
+    }
+    else {
+      if ([0, 1, 2, 8, 9].indexOf(pronounIdx) > -1) suffix = "";
+      else if ([3, 6, 12].indexOf(pronounIdx) > -1) {
+        verb = verb.slice(0, -1);
+        if (/[وي]$/.test(verb)) verb = verb.slice(0, -1);
+      }
+    }
+
+    return prefix + verb + suffix;
+  }
 
   const pronouns = [
     "أَنَا", "نَحْنُ",
