@@ -122,9 +122,9 @@ describe("Arabic Verb conjugation", function(){
 
     //استعمل alif
     //past
-    expect(morpho.conjugate("استعمل",$({}, pr, i))).to.eql("أَسْتعمِلُ");
+    expect(morpho.conjugate("استعمل",$({}, pr, i))).to.eql("أَستعمِلُ");
     //present
-    expect(morpho.conjugate("استعمل",$({}, pr, youfd))).to.eql("تَسْتعمِلَانِ");
+    expect(morpho.conjugate("استعمل",$({}, pr, youfd))).to.eql("تَستعمِلَانِ");
 
     //ينع yaa
     //past
@@ -134,7 +134,7 @@ describe("Arabic Verb conjugation", function(){
 
   });
 
-  it("Muatal Naqiq", function() {
+  it("Muatal Naqis", function() {
     //دنا Waw
     //past
     expect(morpho.conjugate("دنا",$({}, pa, i))).to.eql("دَنوْتُ");
@@ -160,6 +160,40 @@ describe("Arabic Verb conjugation", function(){
     expect(morpho.conjugate("مشى",$({}, pr, youf))).to.eql("تَمْشِينَ");
     expect(morpho.conjugate("مشى",$({}, pr, yoump))).to.eql("تَمْشُون");
     expect(morpho.conjugate("مشى",$({}, pr, theymp))).to.eql("يَمْشُونَ");
+
+  });
+
+  it("Muatal ajwaf", function() {
+    //نام Alif
+    //past
+    expect(morpho.conjugate("نام",$({}, pa, i))).to.eql("نِمْتُ");
+    expect(morpho.conjugate("نام",$({}, pa, theymd))).to.eql("نَامَا");
+    expect(morpho.conjugate("نام",$({}, pa, theyfp))).to.eql("نِمْنَ");
+    //present
+    expect(morpho.conjugate("نام",$({}, pr, i))).to.eql("أَنَامُ");
+    expect(morpho.conjugate("نام",$({}, pr, youfp))).to.eql("تَنَمْنَ");
+    expect(morpho.conjugate("نام",$({}, pr, theyfp))).to.eql("يَنَمْنَ");
+
+    //شاء Alif with Hamza
+    //TODO fix it
+
+    //عاد Waw
+    //past
+    expect(morpho.conjugate("عاد",$({}, pa, i))).to.eql("عُدْتُ");
+    expect(morpho.conjugate("عاد",$({}, pa, theymd))).to.eql("عَادَا");
+    expect(morpho.conjugate("عاد",$({}, pa, theyfp))).to.eql("عُدْنَ");
+    //present
+    expect(morpho.conjugate("عاد",$({}, pr, i))).to.eql("أَعُودُ");
+    expect(morpho.conjugate("عاد",$({}, pr, youfp))).to.eql("تَعُدْنَ");
+
+    //ساح Yaa
+    //past
+    expect(morpho.conjugate("ساح",$({}, pa, i))).to.eql("سِحْتُ");
+    expect(morpho.conjugate("ساح",$({}, pa, theymd))).to.eql("سَاحَا");
+    expect(morpho.conjugate("ساح",$({}, pa, theyfp))).to.eql("سِحْنَ");
+    //present
+    expect(morpho.conjugate("ساح",$({}, pr, i))).to.eql("أَسِيحُ");
+    expect(morpho.conjugate("ساح",$({}, pr, youfp))).to.eql("تَسِحْنَ");
 
   });
 

@@ -114,13 +114,8 @@
    */
   Me.conjugate = function(verb, opts) {
 
-    //delete diacretics
+    //delete spaces
     verb = verb.trim();
-    let noDiac = verb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
-
-    let len = noDiac.length;
-
-    let pronounIdx = getPronounIndex(opts);
 
     //Future is prefix + present
     let future = 0;
@@ -129,44 +124,75 @@
       opts.tense = Tense.Pr;
     }
 
-    let befLast = "ِ";//kasra for the char before last
+    //replace Alif madda
+    let filteredVerb = verb.replace("آ", "أا");
+    //delete diacretics
+    filteredVerb = filteredVerb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
+    //Muda33af
+    filteredVerb = (/َ?ّ$/.test(verb))? filteredVerb + filteredVerb.slice(-1): filteredVerb;
+
+    let len = filteredVerb.length;
+
+    let pronounIdx = getPronounIndex(opts);
+
+    let suffix = conjAffix[opts.tense].suffix[pronounIdx];
+    let prefix = conjAffix[opts.tense].prefix[pronounIdx];
+    if(! prefix) prefix = "";
+
+    let befLastDiac = "ِ";//kasra for the char before last
+
+    let firstDiac = (opts.tense === Tense.Pr)? "ْ": "َ";
+
 
     //detect if the verb with weak begining
-    let weekBegin = /^[او]/.test(noDiac);//alif does not belong to mithal, but it has the same
+    let weekBegin = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
     //yaa is ommited since it will not be deleted
 
     //detect if the verb has a week middle
-    let weekMiddle = /[اآ].$/.test(noDiac);
+    let weekMiddle = /[اآ].$/.test(filteredVerb);
 
     //detect if the verb has a week ending
-    let weekEnd = /[اى]$/.test(noDiac);
+    let weekEnd = /[اى]$/.test(filteredVerb);
 
     if (weekBegin) {
       if (opts.tense === Tense.Pr) {
         verb = verb.slice(1);//verb starts with alif
+        firstDiac = "";
       }
     }
 
     if (weekMiddle) {
+
+      let weekType = weekMiddleOrigin(verb, filteredVerb);
+
+      firstDiac = "َُِ"[weekType];
+
       if (opts.tense === Tense.Pa) {
-        if (noDiac.length === 3) befLast = "ُ";
-        else befLast = "َ";
+        befLastDiac = (len === 3)? "ُ": "َ";
 
         if (pronounIdx === 13 || pronounIdx < 8) {
           verb = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
           if (verb.startsWith("آ")) verb = "أ" + verb.slice(1);
+          if (weekType === 0) firstDiac = "ِ";
         }
-        else befLast = "";
+        else {
+          befLastDiac = "";
+          firstDiac = "َ";
+        }
       }
       else {//Present
-        verb = weekMiddleOrigin(verb, noDiac);
+        let weekChar = "اوي"[weekType];
+        //with plural feminine; delete the weekChar
+        if ([7, 13].indexOf(pronounIdx) > -1) weekChar = "";
+
+        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weekChar + "$2");
       }
     }
 
     if (weekEnd) {
-      if (opts.tense === Tense.Pa) befLast = "َ";
+      if (opts.tense === Tense.Pa) befLastDiac = "َ";
       verb = verb.slice(0, -1);
-      if (noDiac.endsWith("ى")) verb += "ي";//TODO fix
+      if (filteredVerb.endsWith("ى")) verb += "ي";//TODO fix
       else verb += "و";//TODO fix
       //Sometimes it is not a
     }
@@ -176,17 +202,17 @@
 
 
     if (len === 3) {
-      befLast = "X"; //delete the vocal due to dictionary dependency
-      if (! /[^أعحه][^أعحه]$/g.test(noDiac))
-      if (/.ُ.[َُِ]?$/g.test(verb)) befLast = ""; //no change
+      befLastDiac = "X"; //delete the vocal due to dictionary dependency
+      if (! /[^أعحه][^أعحه]$/g.test(filteredVerb))
+      if (/.ُ.[َُِ]?$/g.test(verb)) befLastDiac = ""; //no change
       //explanation: verbs with three letters and have a dhamma
       //don't change the dhamma in present
     }
-    else if (len > 3 && noDiac.startsWith("ت")) befLast = ""; //no change
+    else if (len > 3 && filteredVerb.startsWith("ت")) befLastDiac = ""; //no change
 
     if (opts.tense === Tense.Pr) {
-      if (len < 4 || ! noDiac.startsWith("ت")) {
-        verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
+      if (len < 4 || ! filteredVerb.startsWith("ت")) {
+        //sukuun
       }
 
       if (len === 4) {
@@ -200,18 +226,20 @@
     }
 
 
-    let suffix = conjAffix[opts.tense].suffix[pronounIdx];
-    let prefix = conjAffix[opts.tense].prefix[pronounIdx];
-    if(! prefix) prefix = "";
     let result = verb;
 
-    if (befLast) {
-      if (befLast === "X") befLast = "";
-      result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLast + "$2");
+    if (befLastDiac) {
+      if (befLastDiac === "X") befLastDiac = "";//delete current one
+      result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLastDiac + "$2");
+    }
+
+    if (firstDiac) {
+      if (firstDiac === "X") firstDiac = "";//delete current one
+      result = result.replace(/^(.)[َُِْ]?/, "$1" + firstDiac);
     }
 
     //naqis normalization
-    if (weekEnd) result = weekEndNormalization(verb, prefix, suffix, pronounIdx, opts.tense);
+    if (weekEnd) result = weekEndNormalization(result, prefix, suffix, pronounIdx, opts.tense);
     else result = prefix + result + suffix;
 
 
@@ -238,10 +266,13 @@
     verb = verb.replace(/أْوِ/, "ؤُو");
     verb = verb.replace(/أَأْ/, "آ");
     verb = verb.replace(/أَا/, "آ");
-    verb = verb.replace(/ِأِي/, "ئِي");
+    verb = verb.replace("أِي", "ئِي");
     verb = verb.replace(/ِأ(.?)/, "ئ$1");
     verb = verb.replace(/أُو/, "ؤُو");
     verb = verb.replace(/أُو/, "ؤُو");
+    verb = verb.replace(/([ِي])ء([َُِْ].)/, "$1ئ$2");
+    verb = verb.replace(/اءُ?و/, "اؤُو");
+
     return verb;
   }
 
@@ -270,7 +301,7 @@
 
     "زج": 1, "زح": 1, "زد": 1, "زر": 1, "زغ": 1, "زق": 1, "زل": 1, "زم": 1, "زن": 1, "زي": 1,
 
-    "سأ": 1, "سج": 1, "سح": 1, "سخ": 1, "سد": 1, "سر": 1, "سس": 1, "سط": 1, "سع": 1, "سغ": 1, "سف": 1, "سق": 1, "سك": 1, "سل": 1, "سم": 1, "سي": 1,
+    "سء": 1, "سج": 1,  "سخ": 1, "سد": 1,  "سس": 1, "سط": 1, "سع": 1, "سغ": 1, "سف": 1, "سق": 1, "سك": 1, "سل": 1, "سم": 1, "سي": 1,
 
     "شب": 1, "شح": 1, "شر": 1, "شش": 1, "شط": 1, "شظ": 1, "شف": 1, "شق": 1, "شك": 1, "شل": 1, "شم": 1, "شن": 1, "شه": 1, "شي": 1,
 
@@ -294,21 +325,21 @@
 
     "مأ": 1, "مت": 1, "مج": 1, "مر": 1, "مل": 1, "من": 1, "مه": 1,
 
-    "نأ": 1, "نب": 1, "نت": 1, "نح": 1, "نخ": 1, "ند": 1, "نر": 1, "نس": 1, "نش": 1, "نص": 1, "نط": 1, "نع": 1, "نف": 1, "نق": 1, "نل": 1, "نم": 1, "نن": 1, "نه": 1, "نو": 1, "ني": 1,
+    "نء": 1, "نب": 1, "نت": 1, "نح": 1, "نخ": 1, "ند": 1, "نر": 1, "نس": 1, "نش": 1, "نص": 1, "نط": 1, "نع": 1, "نف": 1, "نق": 1,  "نن": 1, "نه": 1, "نو": 1, "ني": 1,
 
     "هب": 1, "هت": 1, "هج": 1, "هد": 1, "هر": 1, "هس": 1, "هش": 1, "هع": 1, "هل": 1, "هم": 1, "هن": 1, "هو": 1, "هي": 1,
 
     "يد": 1, "يم": 1
 
   },
-  miYaa = {
+  midYaa = {
     "أب": 1, "أد": 1, "أر": 1, "أس": 1, "أض": 1, "أك": 1, "أل": 1, "أم": 1, "أن": 1,
 
     "بت": 1, "بد": 1, "بض": 1, "بع": 1, "بن": 1,
 
     "تح": 1, "تر": 1, "تس": 1, "تل": 1, "تم": 1, "ته": 1,
 
-    "جأ": 1, "جب": 1, "جر": 1, "جش": 1, "جف": 1, "جل": 1,
+    "جء": 1, "جب": 1, "جر": 1, "جش": 1, "جف": 1, "جل": 1,
 
     "حث": 1, "حد": 1, "حر": 1, "حز": 1, "حص": 1, "حض": 1, "حط": 1, "حف": 1, "حق": 1, "حك": 1, "حل": 1, "حن": 1, "حو": 1, "حي": 1,
 
@@ -322,7 +353,7 @@
 
     "زت": 1, "زح": 1, "زد": 1, "زر": 1, "زز": 1, "زغ": 1, "زف": 1, "زق": 1, "زل": 1, "زن": 1, "زي": 1,
 
-    "سأ": 1, "سب": 1, "سج": 1, "سح": 1, "سخ": 1, "سد": 1, "سر": 1, "سس": 1, "سف": 1, "سل": 1,
+    "سء": 1, "سب": 1, "سج": 1, "سح": 1, "سخ": 1, "سد": 1, "سر": 1, "سس": 1, "سف": 1, "سل": 1,
 
     "شأ": 1, "شب": 1, "شت": 1, "شح": 1, "شخ": 1, "شد": 1, "شط": 1, "شع": 1, "شف": 1, "شق": 1, "شل": 1, "شم": 1, "شن": 1,
 
@@ -346,7 +377,7 @@
 
     "مت": 1, "مح": 1, "مد": 1, "مر": 1, "مز": 1, "مس": 1, "مط": 1, "مع": 1, "مل": 1, "من": 1,
 
-    "نأ": 1, "نب": 1, "نح": 1, "نر": 1, "نع": 1, "نف": 1, "نق": 1, "نك": 1, "نل": 1, "نم": 1, "ني": 1,
+    "نق": 1, "نك": 1, "ني": 1,
 
     "هأ": 1, "هب": 1, "هت": 1, "هج": 1, "هر": 1, "هش": 1, "هض": 1, "هط": 1, "هف": 1, "هل": 1, "هم": 1, "هن": 1,
 
@@ -358,31 +389,27 @@
     verb: "",
     res: ""
   };
+
   function weekMiddleOrigin(verb, noDiac) {
-    noDiac = noDiac.replace("آ", "أا");
 
     //This is used for optimization
     if (weekMiddleStack.verb === verb) return weekMiddleStack.res;
 
     weekMiddleStack.verb = verb;
 
-    if (noDiac.length > 3) {
-      weekMiddleStack.res = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
-      return weekMiddleStack.res;
+    if (noDiac.length > 3) {//Always yaa
+      weekMiddleStack.res = 2;
+      return 2;
     }
 
     let noWeek = noDiac[0] + noDiac[2];
+    let res = 0;
 
-    let rep = "ا";
+    if (midWaw[noWeek]) res = 1;
+    else if (midYaa[noWeek]) res = 2;
 
-    if (midWaw[noWeek]) rep = "و";
-    else if (midYaa[noWeek]) rep = "ي";
-
-    weekMiddleStack.res = noDiac[0] + rep + noDiac[2];
-    console.log(weekMiddleStack.res);
-
-    return weekMiddleStack.res;
-
+    weekMiddleStack.res = res;
+    return res;
   }
 
   /**
