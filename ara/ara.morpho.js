@@ -16,7 +16,7 @@
   let F = Morpho.Feature,
   Tense = F.Tense,
   //Mood = F.Mood,
-  //Voice = F.Voice,
+  Voice = F.Voice,
   GNumber = F.Number,
   //Aspect = F.Aspect,
   Gender = F.Gender,
@@ -77,7 +77,7 @@
   const conjAffix = {
     [Tense.Pr]: {
       prefix: ["أَ", "نَ", "تَ", "تَ", "تَ", "تَ", "تَ", "تَ", "يَ", "تَ", "يَ", "تَ", "يَ", "يَ"],
-      suffix: ["ُ", "ُ", "ُ", "ِينَ", "َانِ", "َانِ", "ُون", "ْنَ", "ُ", "ُ", "َانِ", "َانِ", "ُونَ", "ْنَ"]
+      suffix: ["ُ", "ُ", "ُ", "ِينَ", "َانِ", "َانِ", "ُونَ", "ْنَ", "ُ", "ُ", "َانِ", "َانِ", "ُونَ", "ْنَ"]
     },
     [Tense.Pa]: {
       prefix: [],
@@ -117,6 +117,7 @@
     //delete spaces
     verb = verb.trim();
 
+
     //Future is prefix + present
     let future = 0;
     if (opts.tense === Tense.Fu) {
@@ -135,13 +136,31 @@
 
     let pronounIdx = getPronounIndex(opts);
 
-    let suffix = conjAffix[opts.tense].suffix[pronounIdx];
-    let prefix = conjAffix[opts.tense].prefix[pronounIdx];
+    let suffix;
+    let prefix;
+
+    if (opts.negated) {
+      let end = (opts.tense === Tense.Pa)? "ْ": "َ";
+      suffix = conjAffix[Tense.Pr].suffix[pronounIdx];
+      if (/[^ْ]ن[َِ]$/.test(suffix)) {//delete nuun with negation when not preceded by sukuun
+        suffix = suffix.slice(0, -2);
+        if (suffix.endsWith("و")) suffix += "ا";
+      } //Otherwise add fatha for present, sukuun for past
+      else suffix = suffix.slice(0, -1) + end;
+      opts.tense = Tense.Pr;
+    }
+    else {
+      suffix = conjAffix[opts.tense].suffix[pronounIdx];
+    }
+
+    prefix = conjAffix[opts.tense].prefix[pronounIdx];
     if(! prefix) prefix = "";
 
     let befLastDiac = "ِ";//kasra for the char before last
 
     let firstDiac = (opts.tense === Tense.Pr)? "ْ": "َ";
+
+    if (opts.voice === Voice.P) firstDiac = "ُ";
 
 
     //detect if the verb with weak begining
@@ -217,12 +236,18 @@
 
       if (len === 4) {
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
-        //begin += "ُ";//Add dhamma
+        verb = verb.replace(/^.َ?/, "");
+        prefix = prefix.slice(0, -1) + "ُ";
+        firstDiac = "ْ";
       }
     }
     else { //past
       //verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
       //TODO passive
+      if (len === 4) {
+        befLastDiac = "َ";
+      }
+
     }
 
 
