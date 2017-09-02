@@ -106,7 +106,84 @@
   }
 
 
-  
+  /**
+   * An object to be a midium between different functions
+   * @type {Object}
+   */
+  let conjVerb = {
+    /**
+     * The verb
+     * @type {String}
+     */
+    verb: "",
+    /**
+     * The filtered verb
+     * @type {String}
+     */
+    filter: "",
+    /**
+     * The length of the verb
+     * @type {Number}
+     */
+    len: 0,
+    /**
+     * Weak beginning
+     * @type {Boolean}
+     */
+    wb: false,
+    /**
+     * Weak middle
+     * @type {Boolean}
+     */
+    wm: false,
+    /**
+     * Weak ending
+     * @type {Boolean}
+     */
+    we: false,
+    /**
+     * Mudaaf
+     * @type {Boolean}
+     */
+    m: false
+  };
+
+  function verbTypes(verb) {
+    //delete spaces
+    verb = verb.trim();
+
+    if (verb === conjVerb.verb) return;
+
+    conjVerb.verb = verb;
+
+    //replace Alif madda
+    let filteredVerb = verb.replace("آ", "أا");
+    //Muda33af
+    filteredVerb = (/َ?ّ$/.test(verb))? filteredVerb + filteredVerb.slice(-1): filteredVerb;
+    //delete diacretics
+    filteredVerb = filteredVerb.replace(/[َُِّْ]/gi, "");//fat,dam,kas,shad,sukun
+
+    conjVerb.filter = filteredVerb;
+
+
+    conjVerb.len = filteredVerb.length;
+
+    //detect if the verb with weak begining
+    conjVerb.wb = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
+    //yaa is ommited since it will not be deleted
+
+    //detect if the verb has a weak middle
+    conjVerb.wm = /[اآ].$/.test(filteredVerb);
+
+    //detect if the verb has a weak ending
+    conjVerb.we = /[اى]$/.test(filteredVerb);
+
+    //detect if muda33af
+    conjVerb.m = /َّ?$/.test(verb);
+
+    console.log(verb);
+
+  }
 
   /**
    * [conjugate description]
@@ -117,9 +194,7 @@
    */
   Me.conjugate = function(verb, opts) {
 
-    //delete spaces
-    verb = verb.trim();
-
+    verbTypes(verb);
 
     //Future is prefix + present
     let future = 0;
@@ -127,16 +202,6 @@
       future = 1;
       opts.tense = Tense.Pr;
     }
-
-    //replace Alif madda
-    let filteredVerb = verb.replace("آ", "أا");
-    //Muda33af
-    filteredVerb = (/َ?ّ$/.test(verb))? filteredVerb + filteredVerb.slice(-1): filteredVerb;
-    //delete diacretics
-    filteredVerb = filteredVerb.replace(/[َُِّْ]/gi, "");//fat,dam,kas,shad,sukun
-
-    let len = filteredVerb.length;
-    console.log(filteredVerb);
 
     let pronounIdx = getPronounIndex(opts);
 
@@ -165,27 +230,14 @@
 
     if (opts.voice === Voice.P) diacF = "ُ";
 
-    //detect if the verb with weak begining
-    let weakBegin = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
-    //yaa is ommited since it will not be deleted
-
-    //detect if the verb has a weak middle
-    let weakMiddle = /[اآ].$/.test(filteredVerb);
-
-    //detect if the verb has a weak ending
-    let weakEnd = /[اى]$/.test(filteredVerb);
-
-    //detect if muda33af
-    let mudaaf = /َّ?$/.test(verb);
-
-    if (weakBegin) {
+    if (conjVerb.wb) {
       if (opts.tense === Tense.Pr) {
         verb = verb.slice(1);//verb starts with alif
         diacF = "";
       }
     }
 
-    if (weakMiddle) {
+    if (conjVerb.wm) {
 
       let weakType = weakMiddleOrigin(verb, filteredVerb);
 
@@ -213,7 +265,7 @@
       }
     }
 
-    if (weakEnd) {
+    if (conjVerb.we) {
       if (opts.tense === Tense.Pa) diacX = "َ";
       verb = verb.slice(0, -1);
       if (filteredVerb.endsWith("ى")) verb += "ي";//TODO fix
@@ -221,7 +273,7 @@
       //Sometimes it is not a
     }
 
-    if (mudaaf) {
+    if (conjVerb.m) {
       if (opts.tense === Tense.Pr) {
         verb = verb.replace(/َ$/, "");
         diacF = "ُ";
@@ -236,22 +288,22 @@
     //let weakMiddle = false;
 
 
-    if (len === 3) {
+    if (conjVerb.len === 3) {
       diacX = "X"; //delete the vocal due to dictionary dependency
       if (! /[^أعحه][^أعحه]$/g.test(filteredVerb))
       if (/.ُ.[َُِ]?$/g.test(verb)) diacX = ""; //no change
       //explanation: verbs with three letters and have a dhamma
       //don't change the dhamma in present
     }
-    else if (len > 3 && filteredVerb.startsWith("ت")) diacX = ""; //no change
+    else if (conjVerb.len > 3 && filteredVerb.startsWith("ت")) diacX = ""; //no change
 
     if (opts.tense === Tense.Pr) {
 
-      if (len < 4 || ! filteredVerb.startsWith("ت")) {
+      if (conjVerb.len < 4 || ! filteredVerb.startsWith("ت")) {
         //sukuun
       }
 
-      if (len === 4) {
+      if (conjVerb.len === 4) {
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
         verb = verb.replace(/^.َ?/, "");
         prefix = prefix.slice(0, -1) + "ُ";
@@ -262,7 +314,7 @@
       //verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
       //TODO passive
 
-      if (len === 4) {
+      if (conjVerb.len === 4) {
         diacX = "َ";
       }
 
@@ -282,7 +334,7 @@
     }
 
     //naqis normalization
-    if (weakEnd) result = weakEndNormalization(result, prefix, suffix, pronounIdx, opts.tense);
+    if (conjVerb.we) result = weakEndNormalization(result, prefix, suffix, pronounIdx, opts.tense);
     else result = prefix + result + suffix;
 
 
