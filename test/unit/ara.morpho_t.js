@@ -102,7 +102,7 @@ describe("Arabic Verb conjugation", function(){
     expect(morpho.conjugate("ذهب",$({}, pr, youf))).to.eql("تَذْهبِينَ");
     expect(morpho.conjugate("ذهب",$({}, pr, youmd))).to.eql("تَذْهبَانِ");
     expect(morpho.conjugate("ذهب",$({}, pr, youfd))).to.eql("تَذْهبَانِ");
-    expect(morpho.conjugate("ذهب",$({}, pr, yoump))).to.eql("تَذْهبُون");
+    expect(morpho.conjugate("ذهب",$({}, pr, yoump))).to.eql("تَذْهبُونَ");
     expect(morpho.conjugate("ذهب",$({}, pr, youfp))).to.eql("تَذْهبْنَ");
     expect(morpho.conjugate("ذهب",$({}, pr, he))).to.eql("يَذْهبُ");
     expect(morpho.conjugate("ذهب",$({}, pr, she))).to.eql("تَذْهبُ");
@@ -145,7 +145,7 @@ describe("Arabic Verb conjugation", function(){
     //present
     expect(morpho.conjugate("دنا",$({}, pr, i))).to.eql("أَدْنو");
     expect(morpho.conjugate("دنا",$({}, pr, youf))).to.eql("تَدْنِينَ");
-    expect(morpho.conjugate("دنا",$({}, pr, yoump))).to.eql("تَدْنُون");
+    expect(morpho.conjugate("دنا",$({}, pr, yoump))).to.eql("تَدْنُونَ");
     expect(morpho.conjugate("دنا",$({}, pr, theymp))).to.eql("يَدْنُونَ");
 
     //مشى Yaa
@@ -158,7 +158,7 @@ describe("Arabic Verb conjugation", function(){
     //present
     expect(morpho.conjugate("مشى",$({}, pr, i))).to.eql("أَمْشي");
     expect(morpho.conjugate("مشى",$({}, pr, youf))).to.eql("تَمْشِينَ");
-    expect(morpho.conjugate("مشى",$({}, pr, yoump))).to.eql("تَمْشُون");
+    expect(morpho.conjugate("مشى",$({}, pr, yoump))).to.eql("تَمْشُونَ");
     expect(morpho.conjugate("مشى",$({}, pr, theymp))).to.eql("يَمْشُونَ");
 
   });

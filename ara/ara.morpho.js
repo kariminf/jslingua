@@ -156,78 +156,76 @@
     prefix = conjAffix[opts.tense].prefix[pronounIdx];
     if(! prefix) prefix = "";
 
-    let befLastDiac = "ِ";//kasra for the char before last
+    let diacF = (opts.tense === Tense.Pr)? "ْ": "َ";
+    let diacX = "ِ";//kasra for the char before last
 
-    let firstDiac = (opts.tense === Tense.Pr)? "ْ": "َ";
-
-    if (opts.voice === Voice.P) firstDiac = "ُ";
-
+    if (opts.voice === Voice.P) diacF = "ُ";
 
     //detect if the verb with weak begining
-    let weekBegin = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
+    let weakBegin = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
     //yaa is ommited since it will not be deleted
 
-    //detect if the verb has a week middle
-    let weekMiddle = /[اآ].$/.test(filteredVerb);
+    //detect if the verb has a weak middle
+    let weakMiddle = /[اآ].$/.test(filteredVerb);
 
-    //detect if the verb has a week ending
-    let weekEnd = /[اى]$/.test(filteredVerb);
+    //detect if the verb has a weak ending
+    let weakEnd = /[اى]$/.test(filteredVerb);
 
-    if (weekBegin) {
+    if (weakBegin) {
       if (opts.tense === Tense.Pr) {
         verb = verb.slice(1);//verb starts with alif
-        firstDiac = "";
+        diacF = "";
       }
     }
 
-    if (weekMiddle) {
+    if (weakMiddle) {
 
-      let weekType = weekMiddleOrigin(verb, filteredVerb);
+      let weakType = weakMiddleOrigin(verb, filteredVerb);
 
-      firstDiac = "َُِ"[weekType];
+      diacF = "َُِ"[weakType];
 
       if (opts.tense === Tense.Pa) {
-        befLastDiac = (len === 3)? "ُ": "َ";
+        diacX = (len === 3)? "ُ": "َ";
 
         if (pronounIdx === 13 || pronounIdx < 8) {
           verb = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
           if (verb.startsWith("آ")) verb = "أ" + verb.slice(1);
-          if (weekType === 0) firstDiac = "ِ";
+          if (weakType === 0) diacF = "ِ";
         }
         else {
-          befLastDiac = "";
-          firstDiac = "َ";
+          diacX = "";
+          diacF = "َ";
         }
       }
       else {//Present
-        let weekChar = "اوي"[weekType];
-        //with plural feminine; delete the weekChar
-        if ([7, 13].indexOf(pronounIdx) > -1) weekChar = "";
+        let weakChar = "اوي"[weakType];
+        //with plural feminine; delete the weakChar
+        if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
 
-        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weekChar + "$2");
+        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weakChar + "$2");
       }
     }
 
-    if (weekEnd) {
-      if (opts.tense === Tense.Pa) befLastDiac = "َ";
+    if (weakEnd) {
+      if (opts.tense === Tense.Pa) diacX = "َ";
       verb = verb.slice(0, -1);
       if (filteredVerb.endsWith("ى")) verb += "ي";//TODO fix
       else verb += "و";//TODO fix
       //Sometimes it is not a
     }
 
-    //detect if the verb has a week middle
-    //let weekMiddle = false;
+    //detect if the verb has a weak middle
+    //let weakMiddle = false;
 
 
     if (len === 3) {
-      befLastDiac = "X"; //delete the vocal due to dictionary dependency
+      diacX = "X"; //delete the vocal due to dictionary dependency
       if (! /[^أعحه][^أعحه]$/g.test(filteredVerb))
-      if (/.ُ.[َُِ]?$/g.test(verb)) befLastDiac = ""; //no change
+      if (/.ُ.[َُِ]?$/g.test(verb)) diacX = ""; //no change
       //explanation: verbs with three letters and have a dhamma
       //don't change the dhamma in present
     }
-    else if (len > 3 && filteredVerb.startsWith("ت")) befLastDiac = ""; //no change
+    else if (len > 3 && filteredVerb.startsWith("ت")) diacX = ""; //no change
 
     if (opts.tense === Tense.Pr) {
       if (len < 4 || ! filteredVerb.startsWith("ت")) {
@@ -238,14 +236,14 @@
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
         verb = verb.replace(/^.َ?/, "");
         prefix = prefix.slice(0, -1) + "ُ";
-        firstDiac = "ْ";
+        diacF = "ْ";
       }
     }
     else { //past
       //verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
       //TODO passive
       if (len === 4) {
-        befLastDiac = "َ";
+        diacX = "َ";
       }
 
     }
@@ -253,18 +251,18 @@
 
     let result = verb;
 
-    if (befLastDiac) {
-      if (befLastDiac === "X") befLastDiac = "";//delete current one
-      result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + befLastDiac + "$2");
+    if (diacX) {
+      if (diacX === "X") diacX = "";//delete current one
+      result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacX + "$2");
     }
 
-    if (firstDiac) {
-      if (firstDiac === "X") firstDiac = "";//delete current one
-      result = result.replace(/^(.)[َُِْ]?/, "$1" + firstDiac);
+    if (diacF) {
+      if (diacF === "X") diacF = "";//delete current one
+      result = result.replace(/^(.)[َُِْ]?/, "$1" + diacF);
     }
 
     //naqis normalization
-    if (weekEnd) result = weekEndNormalization(result, prefix, suffix, pronounIdx, opts.tense);
+    if (weakEnd) result = weakEndNormalization(result, prefix, suffix, pronounIdx, opts.tense);
     else result = prefix + result + suffix;
 
 
@@ -408,20 +406,20 @@
     "وب": 1, "ول": 1
   };
 
-  let weekMiddleStack = {
+  let weakMiddleStack = {
     verb: "",
     res: ""
   };
 
-  function weekMiddleOrigin(verb, noDiac) {
+  function weakMiddleOrigin(verb, noDiac) {
 
     //This is used for optimization
-    if (weekMiddleStack.verb === verb) return weekMiddleStack.res;
+    if (weakMiddleStack.verb === verb) return weakMiddleStack.res;
 
-    weekMiddleStack.verb = verb;
+    weakMiddleStack.verb = verb;
 
     if (noDiac.length > 3) {//Always yaa
-      weekMiddleStack.res = 2;
+      weakMiddleStack.res = 2;
       return 2;
     }
 
@@ -431,15 +429,15 @@
     if (midWaw[noWeek]) res = 1;
     else if (midYaa[noWeek]) res = 2;
 
-    weekMiddleStack.res = res;
+    weakMiddleStack.res = res;
     return res;
   }
 
   /**
-   * [weekEndNormalization description]
+   * [weakEndNormalization description]
    * @static
    * @private
-   * @method weekEndNormalization
+   * @method weakEndNormalization
    * @param  {[type]}             verb       [description]
    * @param  {[type]}             prefix     [description]
    * @param  {[type]}             suffix     [description]
@@ -447,7 +445,7 @@
    * @param  {[type]}             tense      [description]
    * @return {[type]}                        [description]
    */
-  function weekEndNormalization(verb, prefix, suffix, pronounIdx, tense) {
+  function weakEndNormalization(verb, prefix, suffix, pronounIdx, tense) {
 
     if (tense === Tense.Pa) {
 
