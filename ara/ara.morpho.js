@@ -105,6 +105,9 @@
     return personIdx + numberIdx + genderIdx + 2;
   }
 
+
+  
+
   /**
    * [conjugate description]
    * @method conjugate
@@ -127,12 +130,13 @@
 
     //replace Alif madda
     let filteredVerb = verb.replace("آ", "أا");
-    //delete diacretics
-    filteredVerb = filteredVerb.replace(/\u064E\u064F\u0650\u0651\u0652/gi, "");//fat,dam,kas,shad,sukun
     //Muda33af
     filteredVerb = (/َ?ّ$/.test(verb))? filteredVerb + filteredVerb.slice(-1): filteredVerb;
+    //delete diacretics
+    filteredVerb = filteredVerb.replace(/[َُِّْ]/gi, "");//fat,dam,kas,shad,sukun
 
     let len = filteredVerb.length;
+    console.log(filteredVerb);
 
     let pronounIdx = getPronounIndex(opts);
 
@@ -170,6 +174,9 @@
 
     //detect if the verb has a weak ending
     let weakEnd = /[اى]$/.test(filteredVerb);
+
+    //detect if muda33af
+    let mudaaf = /َّ?$/.test(verb);
 
     if (weakBegin) {
       if (opts.tense === Tense.Pr) {
@@ -214,6 +221,17 @@
       //Sometimes it is not a
     }
 
+    if (mudaaf) {
+      if (opts.tense === Tense.Pr) {
+        verb = verb.replace(/َ$/, "");
+        diacF = "ُ";
+        diacX = "";
+      } else {
+        diacX = "َ";
+        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
+      }
+    }
+
     //detect if the verb has a weak middle
     //let weakMiddle = false;
 
@@ -228,6 +246,7 @@
     else if (len > 3 && filteredVerb.startsWith("ت")) diacX = ""; //no change
 
     if (opts.tense === Tense.Pr) {
+
       if (len < 4 || ! filteredVerb.startsWith("ت")) {
         //sukuun
       }
@@ -242,6 +261,7 @@
     else { //past
       //verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
       //TODO passive
+
       if (len === 4) {
         diacX = "َ";
       }
@@ -277,7 +297,7 @@
   };
 
   /**
-   * Normalizing alif during conjugation
+   * Normalizing alif after conjugation
    * @static
    * @private
    * @method conjNormakizeAlif
@@ -406,11 +426,33 @@
     "وب": 1, "ول": 1
   };
 
+  /**
+   * This object is used to save the last weak middle verb and its type.
+   * This will optimize the process time when looking for the type of the
+   * same used verb.
+   * @private
+   * @static
+   * @type {Object}
+   */
   let weakMiddleStack = {
     verb: "",
     res: ""
   };
 
+  /**
+   * Giving the type of weak middle verb
+   * @private
+   * @static
+   * @method weakMiddleOrigin
+   * @param  {string}         verb   the verb as introduced by user
+   * @param  {string}         noDiac the verb filtered from vocalization, split shadda and split alif madda
+   * @return {number}                an integer representing the origin of the middle alif:
+   * <ul>
+   * <li>0: alif itself</li>
+   * <li>1: waw</li>
+   * <li>2: Yaa</li>
+   * </ul>
+   */
   function weakMiddleOrigin(verb, noDiac) {
 
     //This is used for optimization
@@ -434,16 +476,16 @@
   }
 
   /**
-   * [weakEndNormalization description]
+   * Normalization of weak-end verbs
    * @static
    * @private
    * @method weakEndNormalization
-   * @param  {[type]}             verb       [description]
-   * @param  {[type]}             prefix     [description]
-   * @param  {[type]}             suffix     [description]
-   * @param  {[type]}             pronounIdx [description]
-   * @param  {[type]}             tense      [description]
-   * @return {[type]}                        [description]
+   * @param  {string}             verb       [description]
+   * @param  {string}             prefix     [description]
+   * @param  {string}             suffix     [description]
+   * @param  {number}             pronounIdx [description]
+   * @param  {Tense}             tense      [description]
+   * @return {string}                        [description]
    */
   function weakEndNormalization(verb, prefix, suffix, pronounIdx, tense) {
 
@@ -472,6 +514,12 @@
     return prefix + verb + suffix;
   }
 
+  /**
+   * List of Arabic personal pronouns
+   * @private
+   * @static
+   * @type {Array}
+   */
   const pronouns = [
     "أَنَا", "نَحْنُ",
     "أَنْتَ", "أَنْتِ", "أَنْتُمَا", "أَنْتُمَا", "أَنْتُمْ", "أَنْتُنَّ",
