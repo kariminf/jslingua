@@ -196,6 +196,8 @@
 
     verbTypes(verb);
 
+    let filteredVerb = conjVerb.filter;
+
     //Future is prefix + present
     let future = 0;
     if (opts.tense === Tense.Fu) {
