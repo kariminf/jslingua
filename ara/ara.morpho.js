@@ -110,7 +110,7 @@
    * An object to be a midium between different functions
    * @type {Object}
    */
-  let conjVerb = {
+  let verbInfo = {
     /**
      * The verb
      * @type {String}
@@ -152,9 +152,9 @@
     //delete spaces
     verb = verb.trim();
 
-    if (verb === conjVerb.verb) return;
+    if (verb === verbInfo.verb) return;
 
-    conjVerb.verb = verb;
+    verbInfo.verb = verb;
 
     //replace Alif madda
     let filteredVerb = verb.replace("آ", "أا");
@@ -163,53 +163,30 @@
     //delete diacretics
     filteredVerb = filteredVerb.replace(/[َُِّْ]/gi, "");//fat,dam,kas,shad,sukun
 
-    conjVerb.filter = filteredVerb;
+    verbInfo.filter = filteredVerb;
 
 
-    conjVerb.len = filteredVerb.length;
+    verbInfo.len = filteredVerb.length;
 
     //detect if the verb with weak begining
-    conjVerb.wb = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
+    verbInfo.wb = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
     //yaa is ommited since it will not be deleted
 
     //detect if the verb has a weak middle
-    conjVerb.wm = /[اآ].$/.test(filteredVerb);
+    verbInfo.wm = /[اآ].$/.test(filteredVerb);
 
     //detect if the verb has a weak ending
-    conjVerb.we = /[اى]$/.test(filteredVerb);
+    verbInfo.we = /[اى]$/.test(filteredVerb);
 
     //detect if muda33af
-    conjVerb.m = /َّ?$/.test(verb);
+    verbInfo.m = /َّ?$/.test(verb);
 
     console.log(verb);
 
   }
 
-  /**
-   * [conjugate description]
-   * @method conjugate
-   * @param  {[type]}  verb [description]
-   * @param  {[type]}  opts [description]
-   * @return {[type]}       [description]
-   */
-  Me.conjugate = function(verb, opts) {
-
-    verbTypes(verb);
-
-    let filteredVerb = conjVerb.filter;
-
-    //Future is prefix + present
-    let future = 0;
-    if (opts.tense === Tense.Fu) {
-      future = 1;
-      opts.tense = Tense.Pr;
-    }
-
-    let pronounIdx = getPronounIndex(opts);
-
-    let suffix;
-    let prefix;
-
+  function affixHandler(conjVerb, opts, pronounIdx) {
+    let suffix = "";
     if (opts.negated) {
       let end = (opts.tense === Tense.Pa)? "ْ": "َ";
       suffix = conjAffix[Tense.Pr].suffix[pronounIdx];
@@ -223,77 +200,95 @@
     else {
       suffix = conjAffix[opts.tense].suffix[pronounIdx];
     }
+    conjVerb.s = suffix;
 
-    prefix = conjAffix[opts.tense].prefix[pronounIdx];
+    let prefix = conjAffix[opts.tense].prefix[pronounIdx];
     if(! prefix) prefix = "";
+    conjVerb.p = prefix;
+  }
 
-    let diacF = (opts.tense === Tense.Pr)? "ْ": "َ";
-    let diacX = "ِ";//kasra for the char before last
 
-    if (opts.voice === Voice.P) diacF = "ُ";
+  function weakBeginHandler(conjVerb, opts, pronounIdx) {
+    let verb = conjVerb.v;
+    if (opts.tense === Tense.Pr) {
+      verb = verb.slice(1);//verb starts with alif
+      diacF = "";
+    }
+    conjVerb.v = verb;
+  }
 
-    if (conjVerb.wb) {
-      if (opts.tense === Tense.Pr) {
-        verb = verb.slice(1);//verb starts with alif
-        diacF = "";
+  function weakMiddleHandler(conjVerb, opts, pronounIdx) {
+
+    let weakType = weakMiddleOrigin(verb, filteredVerb);
+
+    let diacV = "َُِ"[weakType];
+    let diacR = "";
+    let verb = conjVerb.v;
+
+    if (opts.tense === Tense.Pa) {
+      diacR = (len === 3)? "ُ": "َ";
+
+      if (pronounIdx === 13 || pronounIdx < 8) {
+        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
+        if (verb.startsWith("آ")) verb = "أ" + verb.slice(1);
+        if (weakType === 0) diacV = "ِ";
+      }
+      else {
+        diacR = "";
+        diacV = "َ";
       }
     }
+    else {//Present
+      let weakChar = "اوي"[weakType];
+      //with plural feminine; delete the weakChar
+      if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
 
-    if (conjVerb.wm) {
-
-      let weakType = weakMiddleOrigin(verb, filteredVerb);
-
-      diacF = "َُِ"[weakType];
-
-      if (opts.tense === Tense.Pa) {
-        diacX = (len === 3)? "ُ": "َ";
-
-        if (pronounIdx === 13 || pronounIdx < 8) {
-          verb = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
-          if (verb.startsWith("آ")) verb = "أ" + verb.slice(1);
-          if (weakType === 0) diacF = "ِ";
-        }
-        else {
-          diacX = "";
-          diacF = "َ";
-        }
-      }
-      else {//Present
-        let weakChar = "اوي"[weakType];
-        //with plural feminine; delete the weakChar
-        if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
-
-        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weakChar + "$2");
-      }
+      verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weakChar + "$2");
     }
 
-    if (conjVerb.we) {
-      if (opts.tense === Tense.Pa) diacX = "َ";
-      verb = verb.slice(0, -1);
-      if (filteredVerb.endsWith("ى")) verb += "ي";//TODO fix
-      else verb += "و";//TODO fix
-      //Sometimes it is not a
+    conjVerb.v = verb;
+    conjVerb.dV = diacV;
+    conjVerb.dR = diacR;
+
+  }
+
+  function weakEndHandler(conjVerb, opts, pronounIdx) {
+    let verb = conjVerb.v;
+    if (opts.tense === Tense.Pa) diacX = "َ";
+    verb = verb.slice(0, -1);
+    if (verbInfo.filter.endsWith("ى")) verb += "ي";//TODO fix
+    else verb += "و";//TODO fix
+    //Sometimes it is not a
+
+    conjVerb.v = verb;
+  }
+
+  function mudaafHandler(conjVerb, opts, pronounIdx) {
+    let verb = conjVerb.v;
+    if (opts.tense === Tense.Pr) {
+      verb = verb.replace(/َ$/, "");
+      conjVerb.dV = "ُ";
+      conjVerb.dR = "";
+    } else {
+      conjVerb.dR = "َ";
+      verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
     }
 
-    if (conjVerb.m) {
-      if (opts.tense === Tense.Pr) {
-        verb = verb.replace(/َ$/, "");
-        diacF = "ُ";
-        diacX = "";
-      } else {
-        diacX = "َ";
-        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
-      }
-    }
+    conjVerb.v = verb;
 
-    //detect if the verb has a weak middle
-    //let weakMiddle = false;
+  }
 
+  function verbLengthHandler(conjVerb, opts, pronounIdx) {
+    let verb = conjVerb.v,
+    filteredVerb = verbInfo.filter,
+    diacV = conjVerb.dV,
+    diacR = conjVerb.dR,
+    prefix = conjVerb.p;
 
-    if (conjVerb.len === 3) {
-      diacX = "X"; //delete the vocal due to dictionary dependency
+    if (verbInfo.len === 3) {
+      diacR = "X"; //delete the vocal due to dictionary dependency
       if (! /[^أعحه][^أعحه]$/g.test(filteredVerb))
-      if (/.ُ.[َُِ]?$/g.test(verb)) diacX = ""; //no change
+      if (/.ُ.[َُِ]?$/g.test(verb)) diacR = ""; //no change
       //explanation: verbs with three letters and have a dhamma
       //don't change the dhamma in present
     }
@@ -301,11 +296,11 @@
 
     if (opts.tense === Tense.Pr) {
 
-      if (conjVerb.len < 4 || ! filteredVerb.startsWith("ت")) {
+      if (verbInfo.len < 4 || ! filteredVerb.startsWith("ت")) {
         //sukuun
       }
 
-      if (conjVerb.len === 4) {
+      if (verbInfo.len === 4) {
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
         verb = verb.replace(/^.َ?/, "");
         prefix = prefix.slice(0, -1) + "ُ";
@@ -322,23 +317,89 @@
 
     }
 
+    conjVerb.v = verb;
+    verbInfo.filter = filteredVerb;
+    conjVerb.dV = diacV;
+    conjVerb.dR = diacR;
+    conjVerb.p = prefix;
+  }
 
-    let result = verb;
+  function diacreticsHandler(conjVerb, opts, pronounIdx) {
+    let diacV = conjVerb.dV,
+    diacR = conjVerb.dR,
+    verb = conjVerb.v;
 
-    if (diacX) {
-      if (diacX === "X") diacX = "";//delete current one
-      result = result.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacX + "$2");
+    if (diacR) {
+      if (diacR === "X") diacR = "";//delete current one
+      verb = verb.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacR + "$2");
     }
 
-    if (diacF) {
-      if (diacF === "X") diacF = "";//delete current one
-      result = result.replace(/^(.)[َُِْ]?/, "$1" + diacF);
+    if (diacV) {
+      if (diacV === "X") diacV = "";//delete current one
+      verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
     }
+
+    conjVerb.v = verb;
+  }
+
+  /**
+   * [conjugate description]
+   * @method conjugate
+   * @param  {[type]}  verb [description]
+   * @param  {[type]}  opts [description]
+   * @return {[type]}       [description]
+   */
+  Me.conjugate = function(verb, opts) {
+
+    verbTypes(verb);
+
+    let filteredVerb = verbInfo.filter;
+
+    //Future is prefix + present
+    let future = 0;
+    if (opts.tense === Tense.Fu) {
+      future = 1;
+      opts.tense = Tense.Pr;
+    }
+
+    let pronounIdx = getPronounIndex(opts);
+
+    let conjVerb = {
+      v: verb,
+      s: "",
+      p: "",
+      dV: (opts.tense === Tense.Pr)? "ْ": "َ",
+      dR: "",
+      dB: "ِ"//kasra for the char before last
+    };
+
+    affixHandler(conjVerb, opts, pronounIdx);
+
+    if (opts.voice === Voice.P) {
+      conjVerb.dV = "ُ";
+
+    }
+
+    if (conjVerb.wb) weakBeginHandler(conjVerb, opts, pronounIdx);
+
+    if (conjVerb.wm) weakMiddleHandler(conjVerb, opts, pronounIdx);
+
+    if (conjVerb.we) weakEndHandler(conjVerb, opts, pronounIdx);
+
+    if (conjVerb.m) mudaafHandler(conjVerb, opts, pronounIdx);
+
+    //detect if the verb has a weak middle
+    //let weakMiddle = false;
+
+
+    verbLengthHandler(conjVerb, opts, pronounIdx);
+
+    diacreticsHandler(conjVerb, opts, pronounIdx);
 
     //naqis normalization
-    if (conjVerb.we) result = weakEndNormalization(result, prefix, suffix, pronounIdx, opts.tense);
-    else result = prefix + result + suffix;
+    if (conjVerb.we) weakEndNormalization(conjVerb, pronounIdx, opts.tense);
 
+    let result = conjVerb.p + conjVerb.v + conjVerb.s;
 
     //Normalization of alif
     result = conjNormakizeAlif(result);
@@ -534,14 +595,15 @@
    * @static
    * @private
    * @method weakEndNormalization
-   * @param  {string}             verb       [description]
-   * @param  {string}             prefix     [description]
-   * @param  {string}             suffix     [description]
+   * @param  {object}             conjVerb       [description]
    * @param  {number}             pronounIdx [description]
    * @param  {Tense}             tense      [description]
-   * @return {string}                        [description]
    */
-  function weakEndNormalization(verb, prefix, suffix, pronounIdx, tense) {
+  function weakEndNormalization(conjVerb, pronounIdx, tense) {
+
+    let verb = conjVerb.v,
+    prefix = conjVerb.p,
+    suffix = conjVerb.s;
 
     if (tense === Tense.Pa) {
 
@@ -565,7 +627,10 @@
       }
     }
 
-    return prefix + verb + suffix;
+    conjVerb.v = verb;
+    conjVerb.p = prefix;
+    conjVerb.s = suffix;
+
   }
 
   /**
