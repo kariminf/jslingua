@@ -212,21 +212,21 @@
     let verb = conjVerb.v;
     if (opts.tense === Tense.Pr) {
       verb = verb.slice(1);//verb starts with alif
-      diacF = "";
+      conjVerb.dV = "";
     }
     conjVerb.v = verb;
   }
 
   function weakMiddleHandler(conjVerb, opts, pronounIdx) {
 
-    let weakType = weakMiddleOrigin(verb, filteredVerb);
+    let verb = conjVerb.v,
+    weakType = weakMiddleOrigin(verb, verbInfo.filter),
+    diacV = "َُِ"[weakType],
+    diacR = "";
 
-    let diacV = "َُِ"[weakType];
-    let diacR = "";
-    let verb = conjVerb.v;
 
     if (opts.tense === Tense.Pa) {
-      diacR = (len === 3)? "ُ": "َ";
+      diacR = (verbInfo.len === 3)? "ُ": "َ";
 
       if (pronounIdx === 13 || pronounIdx < 8) {
         verb = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
@@ -254,7 +254,7 @@
 
   function weakEndHandler(conjVerb, opts, pronounIdx) {
     let verb = conjVerb.v;
-    if (opts.tense === Tense.Pa) diacX = "َ";
+    if (opts.tense === Tense.Pa) conjVerb.dR = "َ";
     verb = verb.slice(0, -1);
     if (verbInfo.filter.endsWith("ى")) verb += "ي";//TODO fix
     else verb += "و";//TODO fix
@@ -292,7 +292,7 @@
       //explanation: verbs with three letters and have a dhamma
       //don't change the dhamma in present
     }
-    else if (conjVerb.len > 3 && filteredVerb.startsWith("ت")) diacX = ""; //no change
+    else if (conjVerb.len > 3 && filteredVerb.startsWith("ت")) diacR = ""; //no change
 
     if (opts.tense === Tense.Pr) {
 
@@ -304,7 +304,7 @@
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
         verb = verb.replace(/^.َ?/, "");
         prefix = prefix.slice(0, -1) + "ُ";
-        diacF = "ْ";
+        diacV = "ْ";
       }
     }
     else { //past
@@ -312,7 +312,7 @@
       //TODO passive
 
       if (conjVerb.len === 4) {
-        diacX = "َ";
+        diacR = "َ";
       }
 
     }
@@ -369,7 +369,7 @@
       s: "",
       p: "",
       dV: (opts.tense === Tense.Pr)? "ْ": "َ",
-      dR: "",
+      dR: "ِ",
       dB: "ِ"//kasra for the char before last
     };
 
@@ -380,13 +380,13 @@
 
     }
 
-    if (conjVerb.wb) weakBeginHandler(conjVerb, opts, pronounIdx);
+    if (verbInfo.wb) weakBeginHandler(conjVerb, opts, pronounIdx);
 
-    if (conjVerb.wm) weakMiddleHandler(conjVerb, opts, pronounIdx);
+    if (verbInfo.wm) weakMiddleHandler(conjVerb, opts, pronounIdx);
 
-    if (conjVerb.we) weakEndHandler(conjVerb, opts, pronounIdx);
+    if (verbInfo.we) weakEndHandler(conjVerb, opts, pronounIdx);
 
-    if (conjVerb.m) mudaafHandler(conjVerb, opts, pronounIdx);
+    if (verbInfo.m) mudaafHandler(conjVerb, opts, pronounIdx);
 
     //detect if the verb has a weak middle
     //let weakMiddle = false;
@@ -397,7 +397,7 @@
     diacreticsHandler(conjVerb, opts, pronounIdx);
 
     //naqis normalization
-    if (conjVerb.we) weakEndNormalization(conjVerb, pronounIdx, opts.tense);
+    if (verbInfo.we) weakEndNormalization(conjVerb, pronounIdx, opts.tense);
 
     let result = conjVerb.p + conjVerb.v + conjVerb.s;
 
