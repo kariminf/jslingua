@@ -209,7 +209,7 @@
   }
 
 
-  function weakBeginHandler(conjVerb, opts, pronounIdx) {
+  function weakBeginHandler(conjVerb, opts) {
     let verb = conjVerb.v;
     if (opts.tense === Tense.Pr) {
       verb = verb.slice(1);//verb starts with alif
@@ -253,7 +253,7 @@
 
   }
 
-  function weakEndHandler(conjVerb, opts, pronounIdx) {
+  function weakEndHandler(conjVerb, opts) {
     let verb = conjVerb.v;
     if (opts.tense === Tense.Pa) conjVerb.dR = "َ";
     verb = verb.slice(0, -1);
@@ -264,7 +264,7 @@
     conjVerb.v = verb;
   }
 
-  function mudaafHandler(conjVerb, opts, pronounIdx) {
+  function mudaafHandler(conjVerb, opts) {
     let verb = conjVerb.v;
     if (opts.tense === Tense.Pr) {
       verb = verb.replace(/َ$/, "");
@@ -292,7 +292,7 @@
     }
   }
 
-  function verbLengthHandler(conjVerb, opts, pronounIdx) {
+  function verbLengthHandler(conjVerb, opts) {
     let verb = conjVerb.v,
     filteredVerb = verbInfo.filter,
     diacV = conjVerb.dV,
@@ -389,13 +389,13 @@
 
     affixHandler(conjVerb, opts, pronounIdx);
 
-    if (verbInfo.wb) weakBeginHandler(conjVerb, opts, pronounIdx);
+    if (verbInfo.wb) weakBeginHandler(conjVerb, opts);
 
     if (verbInfo.wm) weakMiddleHandler(conjVerb, opts, pronounIdx);
 
-    if (verbInfo.we) weakEndHandler(conjVerb, opts, pronounIdx);
+    if (verbInfo.we) weakEndHandler(conjVerb, opts);
 
-    if (verbInfo.m) mudaafHandler(conjVerb, opts, pronounIdx);
+    if (verbInfo.m) mudaafHandler(conjVerb, opts);
 
     voiceHandler(conjVerb, opts);
 
@@ -403,7 +403,7 @@
     //let weakMiddle = false;
 
 
-    verbLengthHandler(conjVerb, opts, pronounIdx);
+    verbLengthHandler(conjVerb, opts);
 
     diacreticsHandler(conjVerb);
 
