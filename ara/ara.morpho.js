@@ -196,6 +196,7 @@
       } //Otherwise add fatha for present, sukuun for past
       else suffix = suffix.slice(0, -1) + end;
       opts.tense = Tense.Pr;
+      conjVerb.dV = "ْ";
     }
     else {
       suffix = conjAffix[opts.tense].suffix[pronounIdx];
@@ -278,6 +279,19 @@
 
   }
 
+  function voiceHandler(conjVerb, opts) {
+    if (opts.voice === Voice.P) {
+      if (opts.tense === Tense.Pa) {
+        conjVerb.dV = "ُ";
+        conjVerb.dR = "ِ";
+      }
+      else {
+        conjVerb.p = conjVerb.p.slice(0, -1) + "ُ";
+      }
+
+    }
+  }
+
   function verbLengthHandler(conjVerb, opts, pronounIdx) {
     let verb = conjVerb.v,
     filteredVerb = verbInfo.filter,
@@ -324,7 +338,7 @@
     conjVerb.p = prefix;
   }
 
-  function diacreticsHandler(conjVerb, opts, pronounIdx) {
+  function diacreticsHandler(conjVerb) {
     let diacV = conjVerb.dV,
     diacR = conjVerb.dR,
     verb = conjVerb.v;
@@ -375,11 +389,6 @@
 
     affixHandler(conjVerb, opts, pronounIdx);
 
-    if (opts.voice === Voice.P) {
-      conjVerb.dV = "ُ";
-
-    }
-
     if (verbInfo.wb) weakBeginHandler(conjVerb, opts, pronounIdx);
 
     if (verbInfo.wm) weakMiddleHandler(conjVerb, opts, pronounIdx);
@@ -388,13 +397,15 @@
 
     if (verbInfo.m) mudaafHandler(conjVerb, opts, pronounIdx);
 
+    voiceHandler(conjVerb, opts);
+
     //detect if the verb has a weak middle
     //let weakMiddle = false;
 
 
     verbLengthHandler(conjVerb, opts, pronounIdx);
 
-    diacreticsHandler(conjVerb, opts, pronounIdx);
+    diacreticsHandler(conjVerb);
 
     //naqis normalization
     if (verbInfo.we) weakEndNormalization(conjVerb, pronounIdx, opts.tense);
