@@ -415,7 +415,13 @@
     //Normalization of alif
     result = conjNormakizeAlif(result);
 
-    if (future) result = "سَوْفَ " + result;
+    if (future) {
+      let begin = "سَوْفَ ";
+      if (opts.negated) begin = "لَنْ ";
+
+      result = begin  + result;
+
+    }
 
 
     return result.trim();
