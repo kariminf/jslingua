@@ -242,7 +242,7 @@
     else {//Present
 
       let weakChar = "اوي"[weakType];
-      if (opts.voice !== Voice.P) {//weakType === 2 || 
+      if (opts.voice !== Voice.P) {//weakType === 2 ||
         //with plural feminine; delete the weakChar
         if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
 
@@ -433,6 +433,8 @@
 
     result = conjNormakizeWaw(result);
 
+    result = conjNormakizeYaa(result);
+
     if (future) {
       let begin = "سَوْفَ ";
       if (opts.negated) begin = "لَنْ ";
@@ -445,6 +447,15 @@
     return result.trim();
 
   };
+
+
+  function conjNormakizeYaa(verb) {
+    //delete waw followed by sukun
+    verb = verb.replace(/ِي(.ْ)/, "ِ$1");
+
+    return verb;
+  }
+
 
   function conjNormakizeWaw(verb) {
     //delete waw followed by sukun
