@@ -197,4 +197,17 @@ describe("Arabic Verb conjugation", function(){
 
   });
 
+  it("Salim muda33af", function() {
+    //مدّ
+    //past
+    expect(morpho.conjugate("مدّ",$({}, pa, i))).to.eql("مَدَدْتُ");
+    expect(morpho.conjugate("مدّ",$({}, pa, theymd))).to.eql("مَدَّا");
+    expect(morpho.conjugate("مدّ",$({}, pa, theyfp))).to.eql("مَدَدْنَ");
+    //present
+    expect(morpho.conjugate("نام",$({}, pr, i))).to.eql("أَمُدُّ");
+    expect(morpho.conjugate("نام",$({}, pr, youfp))).to.eql("تَمْدُدْنَ");
+    expect(morpho.conjugate("نام",$({}, pr, theyfp))).to.eql("يَمْدُدْنَ");
+
+  });
+
 });

@@ -240,6 +240,7 @@
       }
     }
     else {//Present
+      
       let weakChar = "اوي"[weakType];
       //with plural feminine; delete the weakChar
       if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
