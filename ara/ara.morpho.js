@@ -317,10 +317,12 @@
 
     if (verbInfo.len === 3) {
       diacR = "X"; //delete the vocal due to dictionary dependency
-      if (! /[^أعحه][^أعحه]$/g.test(filteredVerb))
-      if (/.ُ.[َُِ]?$/g.test(verb)) diacR = ""; //no change
-      //explanation: verbs with three letters and have a dhamma
-      //don't change the dhamma in present
+      if (! /[^أعحه][^أعحه]$/g.test(filteredVerb)) {
+        if (/.ُ.[َُِ]?$/g.test(verb)) diacR = ""; //no change
+        //explanation: verbs with three letters and have a dhamma
+        //don't change the dhamma in present
+      }
+
     }
     else if (conjVerb.len > 3 && filteredVerb.startsWith("ت")) diacR = ""; //no change
 
@@ -359,9 +361,11 @@
     diacR = conjVerb.dR,
     verb = conjVerb.v;
 
+    //console.log(verb);
+
     if (diacV) {
       if (diacV === "X") diacV = "";//delete current one
-      verb = verb.replace(/(.+)[َُِْ]?(.[َُِْ]?.[َُِْ]?)/, "$1" + diacV + "$2");
+      verb = verb.replace(/(.*[^َُِْ])[َُِْ]?([^َُِْ][َُِْ]?[^َُِْ][َُِْ]?)/, "$1" + diacV + "$2");
     }
 
     if (diacR) {
