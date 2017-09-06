@@ -359,15 +359,20 @@
     diacR = conjVerb.dR,
     verb = conjVerb.v;
 
+    if (diacV) {
+      if (diacV === "X") diacV = "";//delete current one
+      verb = verb.replace(/(.+)[َُِْ]?(.[َُِْ]?.[َُِْ]?)/, "$1" + diacV + "$2");
+    }
+
     if (diacR) {
       if (diacR === "X") diacR = "";//delete current one
       verb = verb.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacR + "$2");
     }
 
-    if (diacV) {
+    /*if (diacB) {
       if (diacV === "X") diacV = "";//delete current one
       verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
-    }
+    }*/
 
     conjVerb.v = verb;
   }
@@ -434,6 +439,8 @@
     result = conjNormakizeWaw(result);
 
     result = conjNormakizeYaa(result);
+
+    result = result.replace(/(.)ْ\1([َُِ])/, "$1ّ$2");
 
     if (future) {
       let begin = "سَوْفَ ";
