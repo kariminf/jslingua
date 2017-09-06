@@ -242,10 +242,14 @@
     else {//Present
 
       let weakChar = "اوي"[weakType];
-      //with plural feminine; delete the weakChar
-      if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
+      if (opts.voice !== Voice.P) {//weakType === 2 || 
+        //with plural feminine; delete the weakChar
+        if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
 
-      verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weakChar + "$2");
+        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weakChar + "$2");
+      }
+      else diacV = "َ";
+
     }
 
     conjVerb.v = verb;
@@ -291,16 +295,17 @@
   }
 
   function voiceHandler(conjVerb, opts) {
-    if (opts.voice === Voice.P) {
-      if (opts.tense === Tense.Pa) {
-        conjVerb.dV = "ُ";
-        conjVerb.dR = "ِ";
-      }
-      else {
-        conjVerb.p = conjVerb.p.slice(0, -1) + "ُ";
-      }
 
+    if (opts.voice !== Voice.P) return;
+
+    if (opts.tense === Tense.Pa) {
+      conjVerb.dV = (verbInfo.wm)? "ِ": "ُ";
+      conjVerb.dR = "ِ";
     }
+    else {
+      conjVerb.p = conjVerb.p.slice(0, -1) + "ُ";
+    }
+
   }
 
   function verbLengthHandler(conjVerb, opts) {
@@ -426,6 +431,8 @@
     //Normalization of alif
     result = conjNormakizeAlif(result);
 
+    result = conjNormakizeWaw(result);
+
     if (future) {
       let begin = "سَوْفَ ";
       if (opts.negated) begin = "لَنْ ";
@@ -438,6 +445,13 @@
     return result.trim();
 
   };
+
+  function conjNormakizeWaw(verb) {
+    //delete waw followed by sukun
+    verb = verb.replace(/ُو(.ْ)/, "ُ$1");
+
+    return verb;
+  }
 
   /**
    * Normalizing alif after conjugation
@@ -458,6 +472,8 @@
     verb = verb.replace(/أُو/, "ؤُو");
     verb = verb.replace(/([ِي])ء([َُِْ].)/, "$1ئ$2");
     verb = verb.replace(/اءُ?و/, "اؤُو");
+    verb = verb.replace("ِا", "ِي");
+    verb = verb.replace(/ا(.ْ)/, "$1");
 
     return verb;
   }
