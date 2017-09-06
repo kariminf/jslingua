@@ -240,7 +240,7 @@
       }
     }
     else {//Present
-      
+
       let weakChar = "اوي"[weakType];
       //with plural feminine; delete the weakChar
       if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
@@ -265,15 +265,25 @@
     conjVerb.v = verb;
   }
 
-  function mudaafHandler(conjVerb, opts) {
+  function mudaafHandler(conjVerb, opts, pronounIdx) {
     let verb = conjVerb.v;
     if (opts.tense === Tense.Pr) {
-      verb = verb.replace(/َ$/, "");
-      conjVerb.dV = "ُ";
-      conjVerb.dR = "";
+      if ([7, 13].indexOf(pronounIdx) > -1) {
+        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
+        conjVerb.dR = "ُ";
+      }
+      else {
+        verb = verb.replace(/َ$/, "");
+        conjVerb.dV = "ُ";
+        conjVerb.dR = "";
+      }
+
     } else {
-      conjVerb.dR = "َ";
-      verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
+      if (pronounIdx === 13 || pronounIdx < 8) {
+        conjVerb.dR = "َ";
+        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
+      } else conjVerb.dR = "";
+
     }
 
     conjVerb.v = verb;
@@ -396,7 +406,7 @@
 
     if (verbInfo.we) weakEndHandler(conjVerb, opts);
 
-    if (verbInfo.m) mudaafHandler(conjVerb, opts);
+    if (verbInfo.m) mudaafHandler(conjVerb, opts, pronounIdx);
 
     voiceHandler(conjVerb, opts);
 
