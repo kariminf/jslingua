@@ -181,7 +181,7 @@
     //detect if muda33af
     verbInfo.m = /َّ?$/.test(verb);
 
-    console.log(verb);
+    //console.log(verb);
 
   }
 
@@ -197,6 +197,7 @@
       else suffix = suffix.slice(0, -1) + end;
       opts.tense = Tense.Pr;
       conjVerb.dV = "ْ";
+      conjVerb.dR = "ِ";
     }
     else {
       suffix = conjAffix[opts.tense].suffix[pronounIdx];
@@ -304,6 +305,7 @@
     }
     else {
       conjVerb.p = conjVerb.p.slice(0, -1) + "ُ";
+      conjVerb.dR = "َ";
     }
 
   }
@@ -324,7 +326,7 @@
       }
 
     }
-    else if (conjVerb.len > 3 && filteredVerb.startsWith("ت")) diacR = ""; //no change
+    else if (filteredVerb.startsWith("ت")) diacR = ""; //no change
 
     if (opts.tense === Tense.Pr) {
 
@@ -359,16 +361,19 @@
   function diacreticsHandler(conjVerb) {
     let diacV = conjVerb.dV,
     diacR = conjVerb.dR,
-    verb = conjVerb.v;
+    verb = conjVerb.v,
+    fverb = verb.replace(/[َُِّْ]/g, "");
 
-    //console.log(verb);
+    let  noR = (verbInfo.wm && (fverb.length < verbInfo.len));
 
     if (diacV) {
       if (diacV === "X") diacV = "";//delete current one
-      verb = verb.replace(/(.*[^َُِْ])[َُِْ]?([^َُِْ][َُِْ]?[^َُِْ][َُِْ]?)/, "$1" + diacV + "$2");
+      if (fverb.length < 4) verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
+      if (fverb.startsWith("است")) verb = verb.replace(/(ا[َُِْ]?س[َُِْ]?ت)[َُِْ]?/, "$1" + diacV);
+      else verb = verb.replace(/(.*[^َُِْ])[َُِْ]?([^َُِْ][َُِْ]?[^َُِْ][َُِْ]?)$/, "$1" + diacV + "$2");
     }
 
-    if (diacR) {
+    if (diacR && !noR) {
       if (diacR === "X") diacR = "";//delete current one
       verb = verb.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacR + "$2");
     }
@@ -408,7 +413,7 @@
       s: "",
       p: "",
       dV: (opts.tense === Tense.Pr)? "ْ": "َ",
-      dR: "ِ",
+      dR: (opts.tense === Tense.Pr)? "ِ": "َ",
       dB: "ِ"//kasra for the char before last
     };
 
