@@ -200,13 +200,56 @@ describe("Arabic Verb conjugation", function(){
   it("Salim muda33af", function() {
     //مدّ
     //past
-    expect(morpho.conjugate("مدّ",$({}, pa, i))).to.eql("مَدَدْتُ");
+    expect(morpho.conjugate("مدّ",$({}, pa, i))).to.eql("مَددْتُ");
     expect(morpho.conjugate("مدّ",$({}, pa, theymd))).to.eql("مَدَّا");
-    expect(morpho.conjugate("مدّ",$({}, pa, theyfp))).to.eql("مَدَدْنَ");
+    expect(morpho.conjugate("مدّ",$({}, pa, theyfp))).to.eql("مَددْنَ");
     //present
     expect(morpho.conjugate("مدّ",$({}, pr, i))).to.eql("أَمُدُّ");
-    expect(morpho.conjugate("مدّ",$({}, pr, youfp))).to.eql("تَمْدُدْنَ");
-    expect(morpho.conjugate("مدّ",$({}, pr, theyfp))).to.eql("يَمْدُدْنَ");
+    expect(morpho.conjugate("مدّ",$({}, pr, youfp))).to.eql("تَمْددْنَ");
+    expect(morpho.conjugate("مدّ",$({}, pr, theyfp))).to.eql("يَمْددْنَ");
+
+  });
+
+  it("verbs types", function() {
+    //فعّل
+    //past
+    expect(morpho.conjugate("فعّل",$({}, pa, i))).to.eql("فَعَّلْتُ");
+    expect(morpho.conjugate("فعّل",$({}, pa, theymd))).to.eql("فَعَّلَا");
+    expect(morpho.conjugate("فعّل",$({}, pa, theyfp))).to.eql("فَعَّلْنَ");
+    //present
+    expect(morpho.conjugate("فعّل",$({}, pr, i))).to.eql("أُفَعِّلُ");
+    expect(morpho.conjugate("فعّل",$({}, pr, youfp))).to.eql("تُفَعِّلْنَ");
+    expect(morpho.conjugate("فعّل",$({}, pr, theyfp))).to.eql("يُفَعِّلْنَ");
+
+    //فاعل
+    //past
+    expect(morpho.conjugate("فاعل",$({}, pa, i))).to.eql("فَاعَلْتُ");
+    expect(morpho.conjugate("فاعل",$({}, pa, theymd))).to.eql("فَاعَلَا");
+    expect(morpho.conjugate("فاعل",$({}, pa, theyfp))).to.eql("فَاعَلْنَ");
+    //present
+    expect(morpho.conjugate("فاعل",$({}, pr, i))).to.eql("أُفَاعِلُ");
+    expect(morpho.conjugate("فاعل",$({}, pr, youfp))).to.eql("تُفَاعِلْنَ");
+    expect(morpho.conjugate("فاعل",$({}, pr, theyfp))).to.eql("يُفَاعِلْنَ");
+
+    //أفعل
+    //past
+    expect(morpho.conjugate("أفعل",$({}, pa, i))).to.eql("أفْعَلْتُ");
+    expect(morpho.conjugate("أفعل",$({}, pa, theymd))).to.eql("أفْعَلَا");
+    expect(morpho.conjugate("أفعل",$({}, pa, theyfp))).to.eql("أفْعَلْنَ");
+    //present
+    expect(morpho.conjugate("أفعل",$({}, pr, i))).to.eql("أُفْعِلُ");
+    expect(morpho.conjugate("أفعل",$({}, pr, youfp))).to.eql("تُفْعِلْنَ");
+    expect(morpho.conjugate("أفعل",$({}, pr, theyfp))).to.eql("يُفْعِلْنَ");
+
+    //تفعّل
+    //past
+    expect(morpho.conjugate("تفعّل",$({}, pa, i))).to.eql("");
+    expect(morpho.conjugate("تفعّل",$({}, pa, theymd))).to.eql("");
+    expect(morpho.conjugate("تفعّل",$({}, pa, theyfp))).to.eql("");
+    //present
+    expect(morpho.conjugate("تفعّل",$({}, pr, i))).to.eql("");
+    expect(morpho.conjugate("تفعّل",$({}, pr, youfp))).to.eql("");
+    expect(morpho.conjugate("تفعّل",$({}, pr, theyfp))).to.eql("");
 
   });
 

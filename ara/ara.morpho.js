@@ -152,6 +152,8 @@
     //delete spaces
     verb = verb.trim();
 
+    verb = verb.replace(/^(.َ?.)َ?$/, "$1َّ");//if the verb has two chars add shadda in the end
+
     if (verb === verbInfo.verb) return;
 
     verbInfo.verb = verb;
@@ -166,10 +168,10 @@
     verbInfo.filter = filteredVerb;
 
 
-    verbInfo.len = filteredVerb.length;
+    verbInfo.len = filteredVerb.length + verb.replace(/[^ّ]/g, "").length;
 
     //detect if the verb with weak begining
-    verbInfo.wb = /^[او]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
+    verbInfo.wb = /^[أاو]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
     //yaa is ommited since it will not be deleted
 
     //detect if the verb has a weak middle
@@ -330,23 +332,24 @@
 
     if (opts.tense === Tense.Pr) {
 
-      if (verbInfo.len < 4 || ! filteredVerb.startsWith("ت")) {
+      /*if (verbInfo.len < 4 || ! filteredVerb.startsWith("ت")) {
         //sukuun
-      }
+      }*/
 
       if (verbInfo.len === 4) {
         //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
-        verb = verb.replace(/^.َ?/, "");
+        //verb = verb.replace(/^.َ?/, "");
         prefix = prefix.slice(0, -1) + "ُ";
-        diacV = "ْ";
+        diacV = (/^.َ?(ا|.ّ)/.test(verb))? "َ": "ْ";
       }
     }
     else { //past
       //verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
       //TODO passive
 
-      if (conjVerb.len === 4) {
+      if (verbInfo.len === 4) {
         diacR = "َ";
+        if (filteredVerb.startsWith("أ")) diacV = "ْ";
       }
 
     }
@@ -364,18 +367,22 @@
     verb = conjVerb.v,
     fverb = verb.replace(/[َُِّْ]/g, "");
 
-    let  noR = (verbInfo.wm && (fverb.length < verbInfo.len));
+    let  noR = (verbInfo.wm && (fverb.length === 2));
 
     if (diacV) {
       if (diacV === "X") diacV = "";//delete current one
-      if (fverb.length < 4) verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
-      if (fverb.startsWith("است")) verb = verb.replace(/(ا[َُِْ]?س[َُِْ]?ت)[َُِْ]?/, "$1" + diacV);
+
+      if (fverb.length < 4 || /^.ا../.test(fverb)) verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
+      else if (fverb.startsWith("است")) verb = verb.replace(/(ا[َُِْ]?س[َُِْ]?ت)[َُِْ]?/, "$1" + diacV);
       else verb = verb.replace(/(.*[^َُِْ])[َُِْ]?([^َُِْ][َُِْ]?[^َُِْ][َُِْ]?)$/, "$1" + diacV + "$2");
     }
 
     if (diacR && !noR) {
       if (diacR === "X") diacR = "";//delete current one
-      verb = verb.replace(/(.)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacR + "$2");
+      //if (/^(تَ?.َ?.َ)َ?(.َ?)$/.test(verb)) verb = verb.replace(/^(تَ?.َ?.َ)َ?(.َ?)$/, "$1" + diacR + "$2");
+
+      verb = verb.replace(/(.ّ?)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacR + "$2");
+
     }
 
     /*if (diacB) {
@@ -501,6 +508,7 @@
     verb = verb.replace(/اءُ?و/, "اؤُو");
     verb = verb.replace("ِا", "ِي");
     verb = verb.replace(/ا(.ْ)/, "$1");
+    verb = verb.replace("ُا", "ُو");
 
     return verb;
   }
