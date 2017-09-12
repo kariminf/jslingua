@@ -277,19 +277,26 @@
     if (opts.tense === Tense.Pr) {
       if ([7, 13].indexOf(pronounIdx) > -1) {
         verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
-        conjVerb.dR = "ُ";
+        conjVerb.dR = (verbInfo.len < 4)? "ُ": "ِ";
       }
       else {
         verb = verb.replace(/َ$/, "");
-        conjVerb.dV = "ُ";
-        conjVerb.dR = "";
+        if (verbInfo.len > 4) {
+          conjVerb.dV = "ْ";
+          conjVerb.dR = "َ";
+        }
+        else {
+          conjVerb.dV = "ُ";
+          conjVerb.dR = "";
+        }
       }
 
-    } else {
+    } else { //past
       if (pronounIdx === 13 || pronounIdx < 8) {
         conjVerb.dR = "َ";
         verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
-      } else conjVerb.dR = "";
+      }
+      else conjVerb.dR = "";
 
     }
 
@@ -328,7 +335,7 @@
       }
 
     }
-    else if (filteredVerb.startsWith("ت")) diacR = ""; //no change
+    else if (filteredVerb.startsWith("ت")) diacR = "َ"; //no change
 
     if (opts.tense === Tense.Pr) {
 
@@ -374,6 +381,7 @@
 
       if (fverb.length < 4 || /^.ا../.test(fverb)) verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
       else if (fverb.startsWith("است")) verb = verb.replace(/(ا[َُِْ]?س[َُِْ]?ت)[َُِْ]?/, "$1" + diacV);
+      else if (/ت.{3}/.test(fverb)) verb = verb.replace(/(.ّ?)[َُِْ]?(.[َُِْ]?)$/, "$1" + diacV + "$2");
       else verb = verb.replace(/(.*[^َُِْ])[َُِْ]?([^َُِْ][َُِْ]?[^َُِْ][َُِْ]?)$/, "$1" + diacV + "$2");
     }
 
@@ -381,7 +389,8 @@
       if (diacR === "X") diacR = "";//delete current one
       //if (/^(تَ?.َ?.َ)َ?(.َ?)$/.test(verb)) verb = verb.replace(/^(تَ?.َ?.َ)َ?(.َ?)$/, "$1" + diacR + "$2");
 
-      verb = verb.replace(/(.ّ?)[َُِْ]?(.)[َُِْ]?$/, "$1" + diacR + "$2");
+      //if it is nt muda33af with two chars
+      if (! (verbInfo.m && fverb.length === 2)) verb = verb.replace(/(.ّ?)[َُِْ]?(.ّ?)[َُِْ]?$/, "$1" + diacR + "$2");
 
     }
 
