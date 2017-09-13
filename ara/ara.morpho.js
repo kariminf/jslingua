@@ -215,7 +215,7 @@
   function weakBeginHandler(conjVerb, opts) {
     let verb = conjVerb.v;
     if (opts.tense === Tense.Pr) {
-      verb = verb.slice(1);//verb starts with alif
+      verb = (opts.voice === Voice.P)? verb.replace(/^(.)[َُِْ]/, "$1"): verb.slice(1);
       conjVerb.dV = "";
     }
     conjVerb.v = verb;
@@ -265,10 +265,16 @@
     let verb = conjVerb.v;
     if (opts.tense === Tense.Pa) conjVerb.dR = "َ";
     verb = verb.slice(0, -1);
-    if (verbInfo.filter.endsWith("ى")) verb += "ي";//TODO fix
-    else verb += "و";//TODO fix
-    //Sometimes it is not a
 
+    if (opts.voice === Voice.P) {
+      if (opts.tense === Tense.Pa) verb += "ي";
+      else verb += "ى";
+    }
+    else {
+      if (verbInfo.filter.endsWith("ى")) verb += "ي";//TODO fix
+      else verb += "و";//TODO fix
+      //Sometimes it is not a
+    }
     conjVerb.v = verb;
   }
 
@@ -511,8 +517,7 @@
     verb = verb.replace(/أَا/, "آ");
     verb = verb.replace("أِي", "ئِي");
     verb = verb.replace(/ِأ(.?)/, "ئ$1");
-    verb = verb.replace(/أُو/, "ؤُو");
-    verb = verb.replace(/أُو/, "ؤُو");
+    verb = verb.replace(/(.)أُو/, "$1ؤُو"); //alif followed by waw, but not first
     verb = verb.replace(/([ِي])ء([َُِْ].)/, "$1ئ$2");
     verb = verb.replace(/اءُ?و/, "اؤُو");
     verb = verb.replace("ِا", "ِي");
