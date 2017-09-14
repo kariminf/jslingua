@@ -324,18 +324,18 @@ describe("Arabic Verb conjugation", function(){
 
     // Muatal Naqis
     // ==============
-    //دنا Waw
+    //دعا Waw
     //past
-    expect(morpho.conjugate("دنا",$({}, pa, pv, i))).to.eql("دُنيْتُ");
-    expect(morpho.conjugate("دنا",$({}, pa, pv, he))).to.eql("");
-    expect(morpho.conjugate("دنا",$({}, pa, pv, she))).to.eql("");
-    expect(morpho.conjugate("دنا",$({}, pa, pv, theyfd))).to.eql("");
-    expect(morpho.conjugate("دنا",$({}, pa, pv, theymp))).to.eql("");
+    expect(morpho.conjugate("دعا",$({}, pa, pv, i))).to.eql("دُنيْتُ");
+    expect(morpho.conjugate("دعا",$({}, pa, pv, he))).to.eql("");
+    expect(morpho.conjugate("دعا",$({}, pa, pv, she))).to.eql("");
+    expect(morpho.conjugate("دعا",$({}, pa, pv, theyfd))).to.eql("");
+    expect(morpho.conjugate("دعا",$({}, pa, pv, theymp))).to.eql("");
     //present
-    expect(morpho.conjugate("دنا",$({}, pr, pv, i))).to.eql("");
-    expect(morpho.conjugate("دنا",$({}, pr, pv, youf))).to.eql("");
-    expect(morpho.conjugate("دنا",$({}, pr, pv, yoump))).to.eql("");
-    expect(morpho.conjugate("دنا",$({}, pr, pv, theymp))).to.eql("");
+    expect(morpho.conjugate("دعا",$({}, pr, pv, i))).to.eql("أُدْعى");
+    expect(morpho.conjugate("دعا",$({}, pr, pv, youf))).to.eql("");
+    expect(morpho.conjugate("دعا",$({}, pr, pv, yoump))).to.eql("");
+    expect(morpho.conjugate("دعا",$({}, pr, pv, theymp))).to.eql("");
 
     //مشى Yaa
     //past

@@ -5,14 +5,16 @@
   "main": "jslingua.js",
   "devDependencies": {
     "codecov": "^2.2.0",
-    "eslint": "^4.5.0",
+    "eslint": "^4.6.1",
     "expect.js": "^0.3.1",
     "http-server": "^0.10.0",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.3",
-    "mocha": "^3.0.2",
-    "uglify-js": "^3.0.20",
-    "yuidoc-marviq-theme": "^0.1.5"
+    "mocha": "^3.5.3",
+    "yuidoc-marviq-theme": "^0.1.5",
+    "uglify-es": "^3.1.0",
+    "inchjs": "^0.4.1",
+    "jslint": "^0.11.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
@@ -59,9 +61,5 @@
   "bugs": {
     "url": "https://github.com/kariminf/jslingua/issues"
   },
-  "homepage": "http://kariminf.github.io/jslingua",
-  "dependencies": {
-    "inchjs": "^0.4.1",
-    "jslint": "^0.11.0"
-  }
+  "homepage": "http://kariminf.github.io/jslingua"
 }

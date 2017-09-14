@@ -38,12 +38,13 @@ for s in !(dist|web|test|node_modules)/*.js; do
 done
 
 # Minify all js files in dist folder
+MIN="$PWD/node_modules/.bin/uglifyjs"
 cd dist
 for s in *.js; do
   ext="${s##*.}"
   file="${s%.*}"
   echo "minifying $s"
-  uglifyjs $s -o $file.min.$ext -c -m
+  $MIN $s -o $file.min.$ext -c -m
   rm $s
 done
 cd ..
