@@ -34,13 +34,18 @@
     "conjugation",
     "IR",
     "stemming",
+    "stemmer",
     "toolkit",
     "library",
     "front-end",
     "back-end",
-    "number pronounciation",
+    "pronounciation",
     "multi-lingual",
-    "normalization"
+    "multilingual",
+    "normalization",
+    "arabic",
+    "english",
+    "japanese"
   ],
   "files": [
     "info.js",
