@@ -15,7 +15,7 @@
   //Different global features
   let F = Morpho.Feature,
   Tense = F.Tense,
-  //Mood = F.Mood,
+  Mood = F.Mood,
   Voice = F.Voice,
   GNumber = F.Number,
   //Aspect = F.Aspect,
@@ -66,6 +66,18 @@
         {person:Person.T, number: GNumber.P, gender: Gender.M},
         {person:Person.T, number: GNumber.P, gender: Gender.F}
     ];
+  };
+
+  Me.getForms = function() {
+    //super doesn't work here
+    let superFrm = Morpho.prototype.getForms.call(this);
+    const araForms =  {
+      "Imperative": {
+        mood: Mood.Imp
+      }
+    };
+
+    return Object.assign({}, superFrm, araForms);
   };
 
   //var C = Object.freeze;
@@ -154,6 +166,8 @@
 
     verb = verb.replace(/^(.َ?.)َ?$/, "$1َّ");//if the verb has two chars add shadda in the end
 
+    //verb = verb.replace(/^([^ا])[َُِ]?/, "$1َ"); //add fatha to the first char if not alif
+
     if (verb === verbInfo.verb) return;
 
     verbInfo.verb = verb;
@@ -183,7 +197,7 @@
     //detect if muda33af
     verbInfo.m = /َّ?$/.test(verb);
 
-    //console.log(verb);
+    //console.log(verbInfo);
 
   }
 
@@ -196,7 +210,7 @@
         suffix = suffix.slice(0, -2);
         if (suffix.endsWith("و")) suffix += "ا";
       } //Otherwise add fatha for present, sukuun for past
-      else suffix = suffix.slice(0, -1) + end;
+      else if (! /ن[َِ]$/.test(suffix)) suffix = suffix.slice(0, -1) + end;
       opts.tense = Tense.Pr;
       conjVerb.dV = "ْ";
       conjVerb.dR = "ِ";
@@ -219,7 +233,12 @@
 
     if (opts.tense === Tense.Pr) {
       verb = (opts.voice === Voice.P && len ===3 && !filteredVerb.startsWith("أ"))? verb.replace(/^(.)[َُِْ]/, "$1"): verb.slice(1);
-      if (/^أ.{2}$/.test(filteredVerb)) verb += "و"; //
+      //TODO verify verbs like akala
+      /*if (len > 3 || !filteredVerb.startsWith("أ")) verb = verb.slice(1);
+      if (opts.voice === Voice.P) {
+        if (/^أ.{2}$/.test(filteredVerb)) verb += "أو"; //
+      }*/
+
 
       if (/^ا.ت..$/.test(filteredVerb)) {
         conjVerb.dV = "َ";
@@ -509,6 +528,8 @@
     //In Arabic, you can detect some of them using patterns
     if (opts.voice === Voice.P) {
 
+      if (opts.mood === Mood.Imp) return true;
+
       if (verbInfo.len > 4) {
         let filteredVerb = verbInfo.filter;
         if (filteredVerb.startsWith("ت")) return true;
@@ -517,7 +538,31 @@
       }
     }
 
+    //Imperative
+    if (opts.mood === Mood.Imp) {
+      if (opts.person !== Person.S) return true;
+    }
+
     return false;
+  }
+
+  function getImperative(verb, opts) {
+    if (noConjugation(opts)) return "";
+
+    let newOpts = Object.assign({}, opts);
+    newOpts.mood = Mood.Ind;
+    newOpts.tense = Tense.Pa;
+    newOpts.voice = Voice.A;
+    newOpts.negated = 1;
+    let imp = AraMorpho.prototype.conjugate(verb, newOpts);
+    if (opts.negated) return "لَا " + imp;
+    imp = imp.slice(2);
+
+    let begin = (verbInfo.wb || /[َُِ]/.test(imp[1]))? "": "ا";//if fatha, dhamma or kasra don't add alif
+
+    if (/^أ.{3}$/.test(verbInfo.filter)) begin = "أَ";
+
+    return begin + imp;
   }
 
   /**
@@ -528,6 +573,8 @@
    * @return {[type]}       [description]
    */
   Me.conjugate = function(verb, opts) {
+
+    if (opts.mood === Mood.Imp) return getImperative(verb, opts);
 
     verbTypes(verb);
 
