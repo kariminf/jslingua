@@ -558,9 +558,16 @@
     if (opts.negated) return "لَا " + imp;
     imp = imp.slice(2);
 
-    let begin = (verbInfo.wb || /[َُِ]/.test(imp[1]))? "": "ا";//if fatha, dhamma or kasra don't add alif
+    let begin = "";
 
-    if (/^أ.{3}$/.test(verbInfo.filter)) begin = "أَ";
+
+    if (verbInfo.wb) {
+      if (/^أ.{3}$/.test(verbInfo.filter)) begin = "أَ";
+      else if (verbInfo.filter.startsWith("ا")) begin = "ا";
+    }
+    else if (!/[َُِ]/.test(imp[1]) && !/^ت.(ا.|.).$/.test(verbInfo.filter)) {
+      begin = "ا";
+    }
 
     return begin + imp;
   }
