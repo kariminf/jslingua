@@ -1059,4 +1059,20 @@ describe("Arabic Verb conjugation", function(){
 
   });
 
+
+  /*
+  a port from NLTK ISRI stemmer
+  */
+  describe("Arabic Morphology ISRI stemmer ", function(){
+
+    before(function() {
+      morpho.setCurrentStemmer("IsriAraStemmer");
+    });
+
+    it("Words have length <= 3", function() {
+      expect(morpho.stem("ذَهَبٌ")).to.eql("ذهب");
+      expect(morpho.stem("جرّ")).to.eql("جرّ");
+    });
+  });
+
 });

@@ -994,7 +994,7 @@
       case 7:
       stem = IsriSuf1(stem);
       if (stem.length === 7) stem = IsriPre1(stem);
-      if (stem.length === 7) {
+      if (stem.length === 6) {
         stem = IsriProW6(stem);
         stem = IsriEndW6(stem);
       }

@@ -52,3 +52,6 @@ docs/
 package-lock.json
 #inchjs generated docs
 docs.json
+
+#ignore text files in helpers folder 
+test/helpers/*.txt
