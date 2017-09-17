@@ -25,8 +25,8 @@
   //var g;
   function AraMorpho() {
     Morpho.call(this, "ara");
-    Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
     Morpho.newStemmer.call(this, "IsriAraStemmer", "ISRI Arabic stemmer", IsriAraStemmer);
+    Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
 
     //g = this.g;
   }
@@ -881,6 +881,7 @@
    * Normalization method for Arabic: it helps delete vocalization
    * * voc: delete vocalization
    * * alef: Replace all alef variants with the simple alef
+   * * ihamza: Replace all beginning hamza variants with the simple alef
    * * yeh: Relace the alif maqsorah with yeh
    * * teh: Replace teh marbuta with heh
    * * _: Delete tatweel
@@ -906,6 +907,11 @@
     //Replace all alef variants with the simple alef
     if (opts.includes("alef")) {
       norm = norm.replace(/[أإآ]/g, "ا");
+    }
+
+    //Replace initial hamza with alef
+    if (opts.includes("ihamza")) {
+      norm = norm.replace(/^[أإآ]/g, "ا");
     }
 
     //Relace the alif maqsorah with yeh
@@ -958,37 +964,45 @@
   "كن", "ني", "وا", "ما", "هم"],
   //length three suffixes
   isriS3 = ["تمل", "همل", "تان", "تين", "كمل"];
-  /*
-  # groups of length four patterns
-  self.pr4 = {0: ['\u0645'], 1: ['\u0627'],
-  2: ['\u0627', '\u0648', '\u064A'], 3: ['\u0629']}
-
-  # Groups of length five patterns and length three roots
-  self.pr53 = {0: ['\u0627', '\u062a'],
-  1: ['\u0627', '\u064a', '\u0648'],
-  2: ['\u0627', '\u062a', '\u0645'],
-  3: ['\u0645', '\u064a', '\u062a'],
-  4: ['\u0645', '\u062a'],
-  5: ['\u0627', '\u0648'],
-  6: ['\u0627', '\u0645']}
-
-  self.re_short_vowels = re.compile(r'[\u064B-\u0652]')
-  self.re_hamza = re.compile(r'[\u0621\u0624\u0626]')
-  self.re_initial_hamza = re.compile(r'^[\u0622\u0623\u0625]')
-  */
 
   function IsriAraStemmer(word) {
-    let stem = word;
+    let stem = word,
+    norm = AraMorpho.prototype.normalize;
     //normalization
-    stem = AraMorpho.prototype.normalize(stem);
+    stem = norm(stem, "voc");
     //Stop words: ignore
 
     //remove length three and length two prefixes in this order
     stem = IsriPre32(stem);
     //remove length three and length two suffixes in this order
     stem = IsriSuf32(stem);
+    //remove connective ‘و’ if it precedes a word beginning with ‘و’
+    stem = IsriWaw(stem);
+    //normalize initial hamza to bare alif
+    stem = norm(stem, "ihamza");
 
-    return stem;
+    if (stem.length < 4) return stem;
+
+    switch (stem.length) {
+      case 4: return IsriProW4(stem);
+      case 5:
+      stem = IsriProW53(stem);
+      return IsriEndW5(stem);
+      case 6:
+      stem = IsriProW6(stem);
+      return IsriEndW6(stem);
+      case 7:
+      stem = IsriSuf1(stem);
+      if (stem.length === 7) stem = IsriPre1(stem);
+      if (stem.length === 7) {
+        stem = IsriProW6(stem);
+        stem = IsriEndW6(stem);
+      }
+      return stem;
+
+      default: return stem;
+
+    }
   }
 
   //remove length three and length two prefixes in this order
@@ -1023,9 +1037,156 @@
     return word;
   }
 
+  //remove connective ‘و’ if it precedes a word beginning with ‘و’
+  function IsriWaw(word) {
+    if (word.length >= 4 && word.startsWith("وو")) return word.slice(1);
+    return word
+  }
 
+  //process length four patterns and extract length three roots
+  function IsriProW4(word) {
+    //مفعل
+    if (word.startsWith("م")) return word.slice(1);
+    //فاعل
+    if (/^.ا/.test(word)) return word[0] + word.slice(2);
+    // فعال - فعول - فعيل
+    if (/^..[اوي]/.test(word)) return word.slice(0, -2) + word[3];
+    //فعلة
+    if (word[3] === "ة") return word.slice(0, -1);
+    //normalize short sufix
+    word = IsriSuf1(word);
+    //normalize short prefix
+    if (word.length === 4) word = IsriPre1(word);
 
+    return word;
 
+  }
 
+  //normalize short sufix
+  function IsriSuf1(word) {
+    for (let i in isriS1)
+      if (word.endsWith(isriS1[i]))
+        return word.slice(0, -1);
+    return word;
+  }
+
+  //normalize short prefix
+  function IsriPre1(word) {
+    for (let i in isriP1)
+      if (word.startsWith(isriP1[i]))
+        return word.slice(1);
+    return word;
+  }
+
+  //process length five patterns and extract length three roots
+  function IsriProW53(word) {
+    let m;
+    // افتعل - افاعل
+    if (notNull(m = /^ا(.)[ات](.+)$/.exec(word))) return m[1] + m[2];
+    // مفعول - مفعال - مفعيل
+    if (notNull(m = /^م(..)[اوي](.)$/.exec(word))) return m[1] + m[2];
+    // مفعلة - تفعلة - افعلة
+    if (notNull(m = /^[متا](.+)ة$/.exec(word))) return m[1];
+    // مفتعل - يفتعل - تفتعل
+    if (notNull(m = /^[ميت](.)ت(.+)$/.exec(word))) return m[1] + m[2];
+    // مفاعل - تفاعل
+    if (notNull(m = /^[مت](.)ا(.+)$/.exec(word))) return m[1] + m[2];
+    // فعولة - فعالة
+    if (notNull(m = /^(..)[وا](.)ة$/.exec(word))) return m[1] + m[2];
+    // انفعل - منفعل
+    if (notNull(m = /^[ام]ن(.+)$/.exec(word))) return m[1];
+    //افعال
+    if (notNull(m = /^ا(..)ا(.)$/.exec(word))) return m[1] + m[2];
+    //فعلان
+    if (notNull(m = /^(...)ان$/.exec(word))) return m[1];
+    //تفعيل
+    if (notNull(m = /^ت(..)ي(.)$/.exec(word))) return m[1] + m[2];
+    //فاعول
+    if (notNull(m = /^(.)ا(.)و(.)$/.exec(word))) return m[1] + m[2] + m[3];
+    //فواعل
+    if (notNull(m = /^(.)وا(..)$/.exec(word))) return m[1] + m[2];
+    //فعائل
+    if (notNull(m = /^(..)ائ(.)$/.exec(word))) return m[1] + m[2];
+    //فاعلة
+    if (notNull(m = /^(.)ا(..)ة$/.exec(word))) return m[1] + m[2];
+    //فعالي
+    if (notNull(m = /^(..)ا(.)ي$/.exec(word))) return m[1] + m[2];
+
+    //normalize short sufix
+    word = IsriSuf1(word);
+    //normalize short prefix
+    if (word.length === 5) word = IsriPre1(word);
+
+    return word
+  }
+
+  //ending step (word of length five)
+  function IsriEndW5(word) {
+    if (word.length === 4) return IsriProW4(word);
+    if (word.length === 5) return IsriProW54(word);
+    return word
+  }
+
+  //process length five patterns and extract length four roots
+  function IsriProW54(word) {
+    let m;
+    //تفعلل - افعلل - مفعلل
+    if (notNull(m = /^[تام](.+)$/.exec(word))) return m[1];
+    //فعللة
+    if (notNull(m = /^(.+)ة$/.exec(word))) return m[1];
+    //فعالل
+    if (notNull(m = /^(..)ا(..)$/.exec(word))) return m[1] + m[2];
+
+    return word
+  }
+
+  //process length six patterns and extract length three roots
+  function IsriProW6(word) {
+    let m;
+    //مستفعل - استفعل
+    if (notNull(m = /^[ام]ست(.+)$/.exec(word))) return m[1];
+    //مفعالة
+    if (notNull(m = /^م(..)ا(.)ة$/.exec(word))) return m[1] + m[2];
+    //افتعال
+    if (notNull(m = /^ا(.)ت(.)ا(.)$/.exec(word))) return m[1] + m[2] + m[3];
+    //افعوعل
+    if (notNull(m = /^ا(.)(.)و\2(.)$/.exec(word))) return m[1] + m[2] + m[3];
+    //تفاعيل
+    if (notNull(m = /^ت(.)ا(.)ي(.)$/.exec(word))) return m[1] + m[2] + m[3];
+
+    //normalize short sufix
+    word = IsriSuf1(word);
+    //normalize short prefix
+    if (word.length === 6) word = IsriPre1(word);
+
+    return word
+  }
+
+  //ending step (word of length six)
+  function IsriEndW6(word) {
+    if (word.length === 5) {
+      word = IsriProW53(word);
+      return IsriEndW5(word);
+    }
+
+    if (word.length === 6) return IsriProW64(word);
+
+    return word
+  }
+
+  //process length six patterns and extract length four roots
+  function IsriProW64(word) {
+    let m;
+    //افعلال
+    if (notNull(m = /^ا(...)ا(.)$/.exec(word))) return m[1] + m[2];
+    //متفعلل
+    if (notNull(m = /^مت(.+)$/.exec(word))) return m[1];
+
+    return word
+  }
+
+  function notNull(obj) {
+    return (obj != null);
+  }
 
 }());
