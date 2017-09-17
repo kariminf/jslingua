@@ -26,6 +26,8 @@
   function AraMorpho() {
     Morpho.call(this, "ara");
     Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
+    Morpho.newStemmer.call(this, "IsriAraStemmer", "ISRI Arabic stemmer", IsriAraStemmer);
+
     //g = this.g;
   }
 
@@ -941,6 +943,89 @@
     let stem = word;
     return stem;
   }
+
+
+  //length one prefixes
+  let isriP1 = ["ل", "ب", "ف", "س", "و", "ي", "ت", "ن", "ا"],
+  //length two prefixes
+  isriP2 = ["ال", "لل"],
+  //length three prefixes
+  isriP3 = ["كال", "بال", "ولل", "وال"],
+  //length one suffixes
+  isriS1 = ["ة", "ه", "ي", "ك", "ت", "ا", "ن"],
+  //length two suffixes
+  isriS2 = ["ون", "ات", "ان", "ين", "تن", "كم", "هن", "نا", "يا", "ها", "تم",
+  "كن", "ني", "وا", "ما", "هم"],
+  //length three suffixes
+  isriS3 = ["تمل", "همل", "تان", "تين", "كمل"];
+  /*
+  # groups of length four patterns
+  self.pr4 = {0: ['\u0645'], 1: ['\u0627'],
+  2: ['\u0627', '\u0648', '\u064A'], 3: ['\u0629']}
+
+  # Groups of length five patterns and length three roots
+  self.pr53 = {0: ['\u0627', '\u062a'],
+  1: ['\u0627', '\u064a', '\u0648'],
+  2: ['\u0627', '\u062a', '\u0645'],
+  3: ['\u0645', '\u064a', '\u062a'],
+  4: ['\u0645', '\u062a'],
+  5: ['\u0627', '\u0648'],
+  6: ['\u0627', '\u0645']}
+
+  self.re_short_vowels = re.compile(r'[\u064B-\u0652]')
+  self.re_hamza = re.compile(r'[\u0621\u0624\u0626]')
+  self.re_initial_hamza = re.compile(r'^[\u0622\u0623\u0625]')
+  */
+
+  function IsriAraStemmer(word) {
+    let stem = word;
+    //normalization
+    stem = AraMorpho.prototype.normalize(stem);
+    //Stop words: ignore
+
+    //remove length three and length two prefixes in this order
+    stem = IsriPre32(stem);
+    //remove length three and length two suffixes in this order
+    stem = IsriSuf32(stem);
+
+    return stem;
+  }
+
+  //remove length three and length two prefixes in this order
+  function IsriPre32(word) {
+    if (word.length >= 6) {
+      for (let i in isriP3)
+        if (word.startsWith(isriP3[i])) return word.slice(3);
+    }
+
+    if (word.length >= 5) {
+      for (let i in isriP2) {
+        if (word.startsWith(isriP2[i])) return word.slice(2);
+      }
+    }
+
+    return word;
+  }
+
+  //remove length three and length two suffixes in this order
+  function IsriSuf32(word) {
+    if (word.length >= 6) {
+      for (let i in isriS3)
+        if (word.endsWith(isriS3[i])) return word.slice(0, -3);
+    }
+
+    if (word.length >= 5) {
+      for (let i in isriS2) {
+        if (word.endsWith(isriS2[i])) return word.slice(0, -2);
+      }
+    }
+
+    return word;
+  }
+
+
+
+
 
 
 }());
