@@ -13,8 +13,17 @@ This will break the projects developed on precedent versions.
 
 ## Version current
 
-* ADD: Japanese Morpho -> jslinguaJpnStemmer
+## Version 0.6.0 (2017-09-18)
+
+* ADD: Japanese stemmer: jpn.morpho: jslinguaJpnStemmer
 * ADD: normalization to Japanese Morpho
+* ADD: ISRI stemmer to ara.morpho
+* IMPROVE: Arabic verb conjugation
+* ADD:  Japanese stemmer to jpn.morpho: IsriAraStemmer
+* DEL: lematize from Morpho
+* ADD: English normalization to eng.morpho
+* IMPROVE: improve the code readability
+
 
 ## Version 0.5.0 (2017-08-13)
 
