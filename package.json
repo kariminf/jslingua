@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
@@ -17,8 +17,7 @@
     "yuidoc-marviq-theme": "^0.1.5"
   },
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
-    "prepare": "bash min.sh"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
   },
   "publishConfig": {
     "access": "public"
