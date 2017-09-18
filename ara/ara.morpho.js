@@ -589,7 +589,7 @@
 
     if (noConjugation(opts)) return "";
 
-    let filteredVerb = verbInfo.filter;
+    //let filteredVerb = verbInfo.filter;
 
     //Future is prefix + present
     let future = 0;
@@ -1040,7 +1040,7 @@
   //remove connective ‘و’ if it precedes a word beginning with ‘و’
   function IsriWaw(word) {
     if (word.length >= 4 && word.startsWith("وو")) return word.slice(1);
-    return word
+    return word;
   }
 
   //process length four patterns and extract length three roots
@@ -1117,7 +1117,7 @@
     //normalize short prefix
     if (word.length === 5) word = IsriPre1(word);
 
-    return word
+    return word;
   }
 
   //ending step (word of length five)
@@ -1137,7 +1137,7 @@
     //فعالل
     if (notNull(m = /^(..)ا(..)$/.exec(word))) return m[1] + m[2];
 
-    return word
+    return word;
   }
 
   //process length six patterns and extract length three roots
@@ -1159,7 +1159,7 @@
     //normalize short prefix
     if (word.length === 6) word = IsriPre1(word);
 
-    return word
+    return word;
   }
 
   //ending step (word of length six)
@@ -1171,7 +1171,7 @@
 
     if (word.length === 6) return IsriProW64(word);
 
-    return word
+    return word;
   }
 
   //process length six patterns and extract length four roots
@@ -1182,7 +1182,7 @@
     //متفعلل
     if (notNull(m = /^مت(.+)$/.exec(word))) return m[1];
 
-    return word
+    return word;
   }
 
   function notNull(obj) {
