@@ -13,7 +13,7 @@ This will break the projects developed on precedent versions.
 
 ## Version current
 
-## Version 0.6.0 (2017-09-18)
+## Version 0.6.x (2017-09-18)
 
 * ADD: Japanese stemmer: jpn.morpho: jslinguaJpnStemmer
 * ADD: normalization to Japanese Morpho

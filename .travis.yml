@@ -5,6 +5,8 @@ before_install:
 - npm install codecov -g
 after_success:
 - codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
+before_deploy:
+- npm install uglify-es
 
 deploy:
   provider: npm
