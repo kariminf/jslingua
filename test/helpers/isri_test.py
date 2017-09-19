@@ -8,7 +8,8 @@ import nltk
 from nltk.stem.isri import ISRIStemmer
 
 case7p = [
-"استبدلتموهم"
+"استبدلتموهم",
+"فلتستقبلوهم"
 ]
 
 case7 = [

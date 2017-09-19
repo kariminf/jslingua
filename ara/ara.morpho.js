@@ -1124,7 +1124,7 @@
   function IsriEndW5(word) {
     if (word.length === 4) return IsriProW4(word);
     if (word.length === 5) return IsriProW54(word);
-    return word
+    return word;
   }
 
   //process length five patterns and extract length four roots
