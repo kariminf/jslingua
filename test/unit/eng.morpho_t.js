@@ -115,7 +115,32 @@ describe("English Morphology porter stemmer ", function(){
   });
 
 });
+// Lancaster Stemmer Unitary tests
+describe("English Morphology Lancaster Stemmer", function(){
 
+        before(function(){
+          morpho.setCurrentStemmer("lancasterStemmer");
+        });
+
+        it("Strip suffixes", function(){
+          expect(morpho.stem("maximum")).to.eql("maxim"); // Remove "-um" when word is intact 'maxim'
+          expect(morpho.stem("presumably")).to.eql("presum"); // Don't remove "-um" when word is not intact 'presum'
+          expect(morpho.stem("multiply")).to.eql("multiply"); // No action taken if word ends with "-ply" 'multiply'
+          expect(morpho.stem("provision")).to.eql("provid"); // Replace "-sion" with "-j" to trigger "j" set of rules 'provid'
+          expect(morpho.stem("owed")).to.eql("ow"); // Word starting with vowel must contain at least 2 letters 'ow'
+          expect(morpho.stem("ear")).to.eql("ear"); //  ditto 'ear'
+          expect(morpho.stem("saying")).to.eql("say"); // Words starting with consonant must contain at least 3'say
+          expect(morpho.stem("crying")).to.eql("cry"); // letters and one of those letters must be a vowel 'cry'
+          expect(morpho.stem("string")).to.eql("string"); // ditto 'string'
+          expect(morpho.stem("meant")).to.eql("meant"); // ditto 'meant'
+          expect(morpho.stem("cement")).to.eql("cem"); // ditto 'cem'
+          //expect(morpho.stem("ness")).to.eql("nest"); // Change s to t 'nest' TODO: Make it change s to t 'nest'
+        });
+
+        /*it('Strip Prefixes', function(){ TODO: make it strip Prefixes
+          expect(morpho.stem("kilometer")).to.eql("met");
+        });*/
+});
 
 var I = {person:"first", number:"singular"};
 var heSheIt = {person:"third", number:"singular"};
