@@ -28,6 +28,8 @@
     Morpho.call(this, "eng");
     Morpho.newStemmer.call(this, "porterStemmer", "English proter stemmr", porterStemmer);
     Morpho.newStemmer.call(this, "lancasterStemmer", "English Lnacaster stemmer", lancasterStemmer);
+
+    Morpho.addNounDeclension.call(this, "singularToPlural", singular2plural);
     g = this.g;
   }
 
@@ -847,5 +849,20 @@ function acceptable(value) {
     if(result) return result;
     return word;
   };
+
+
+  /**
+   * Transforms a singular noun to plural
+   * @method singular2plural
+   * @param  {[type]}        noun [description]
+   * @return {[type]}             [description]
+   */
+  function singular2plural(noun){
+    if (/^.*fe$/.test(noun)) return noun.slice(-2) + "ves";
+    if (/^.*f$/.test(noun)) return noun.slice(-1) + "ves";
+    if (/^.*(s|sh|ch|x|z)$/.test(noun)) return noun + "es";
+
+    return noun + "s";
+  }
 
 }());

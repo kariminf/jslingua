@@ -44,6 +44,8 @@
     $("conj").dir = dir;
     $("stemI").dir = dir;
     $("stemO").dir = dir;
+    $("ndecI").dir = dir;
+    $("ndecO").dir = dir;
 
     var stemmers = morpho.availableStemmers();
     var m = $("stemM");
@@ -51,6 +53,17 @@
     while (i--) m.remove(i);
 
     stemmers.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      m.add(option);
+    });
+
+    var declensers = morpho.availableNounDeclensions();
+    m = $("ndecM");
+    i = m.options.length;
+    while (i--) m.remove(i);
+
+    declensers.forEach(function(element, index, array){
       var option = document.createElement("option");
       option.text = element;
       m.add(option);
@@ -140,8 +153,15 @@
     $("conj").innerHTML = result;
   }
 
+
+
 function stem(){
   $("stemO").innerHTML = morpho.stem($("stemI").value);
+}
+
+function ndeclense(){
+  var decFunc = morpho.nounDeclensionFunction(_($("ndecM")).value);
+  if (typeof decFunc === "function") $("ndecO").innerHTML = decFunc($("ndecI").value);
 }
 
 function norm(){
@@ -185,6 +205,14 @@ function norm(){
     <input type="text" id="normI" />
     <button onclick="norm()">Normalize</button>
     <span id="normO"></span>
+  </div>
+  <div>
+    <b>Noun declension</b>
+    <select id="ndecM" onchange="ndecSetMethod()">
+    </select>
+    <input type="text" id="ndecI" />
+    <button onclick="ndeclense()">Declense</button>
+    <span id="ndecO"></span>
   </div>
   <div class="kfs" >
     <b>Verb Conjugation</b>

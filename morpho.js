@@ -22,6 +22,8 @@
     //Contains stemmers
     this.stemmers = {};
     this.currentStemmer = "";
+    //noun declension
+    this.ndeclense = {};
     this.g = {
       debugFunction: dummyDebug
     };
@@ -594,15 +596,39 @@
   };
 
   /**
-  * This function is used for noun inflexion<br>
-  * For example: noun to plural nouns
-  * @method declenseNoun
-  * @param  {string} noun the noun to be inflected
-  * @param  {object} opts  the options: number for example
-  * @return {string}      the inflected noun
-  */
-  Me.declenseNoun = function(noun, _opts){
-    return noun;
+   * Returns a function for declension
+   * @method nounDeclensionFunction
+   * @param  {string}               declenseName the name of the function
+   * @return {function}  a function which takes a noun as a parameter
+   */
+  Me.nounDeclensionFunction = function(declenseName) {
+    if (typeof declenseName !== "string") {
+      return function(text) { return text; };
+    }
+
+    return this.ndeclense[declenseName];
+  };
+
+  /**
+   * Add a noun declension function
+   * @method addNounDeclension
+   * @static
+   * @protected
+   * @param  {string}  name the name of the function
+   * @param  {function} func a function which takes a noun as parameter and returns a declensed one
+   */
+  Morpho.addNounDeclension = function(name, func) {
+    //TODO not protected
+    this.ndeclense[name] = func;
+  }
+
+  /**
+   * Returns a list of noun declension functions
+   * @method availableNounDeclensions
+   * @return {string}    A list of declense functions names
+   */
+  Me.availableNounDeclensions = function(){
+    return Object.keys(this.ndeclense);
   };
 
   /**
