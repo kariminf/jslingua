@@ -28,7 +28,8 @@
       "Info": {
         "ara": require("./ara/ara.info.js"),//Arabic information class
         "jpn": require("./jpn/jpn.info.js"),//Japanese information class
-        "eng": require("./eng/eng.info.js")//English information class
+        "eng": require("./eng/eng.info.js"),//English information class
+        "fra": require("./fra/fra.info.js")//French information class
       },
       "Lang": {
         "ara": require("./ara/ara.lang.js"),//Arabic language class
