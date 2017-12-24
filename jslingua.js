@@ -34,7 +34,8 @@
       "Lang": {
         "ara": require("./ara/ara.lang.js"),//Arabic language class
         "jpn": require("./jpn/jpn.lang.js"),//Japanese language class
-        "eng": require("./eng/eng.lang.js")//English language class
+        "eng": require("./eng/eng.lang.js"),//English language class
+        "fra": require("./fra/fra.lang.js")//English language class
       },
       "Trans": {
         "ara": require("./ara/ara.trans.js"),//Arabic transliteration class
