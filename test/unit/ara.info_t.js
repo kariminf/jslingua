@@ -1,4 +1,4 @@
-var EngInfo = require('../../ara/ara.info');
+var AraInfo = require('../../ara/ara.info');
 var expect = require('expect.js');
 
 var info = new AraInfo();

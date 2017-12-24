@@ -1,4 +1,4 @@
-var EngInfo = require('../../fra/fra.info');
+var FraInfo = require('../../fra/fra.info');
 var expect = require('expect.js');
 
 var info = new FraInfo();

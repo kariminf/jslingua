@@ -1,28 +1,28 @@
-var AraInfo = require('../../ara/ara.info');
+var EngInfo = require('../../eng/eng.info');
 var expect = require('expect.js');
 
-var info = new AraInfo();
+var info = new EngInfo();
 
-describe("Arabic Info", function(){
+describe("English Info", function(){
 
   it("Name", function(){
-    expect(info.getName()).to.eql("Arabic");
+    expect(info.getName()).to.eql("English");
   });
 
   it("Family", function(){
-    expect(info.getFamily()).to.eql("Afro-Asiatic");
+    expect(info.getFamily()).to.eql("Indo-European");
   });
 
   it("Branch", function(){
-    expect(info.getBranch()).to.eql("Semitic");
+    expect(info.getBranch()).to.eql("Germanic");
   });
 
   it("Writing direction", function(){
-    expect(info.getDir()).to.eql("rtl");
+    expect(info.getDir()).to.eql("ltr");
   });
 
   it("Words order", function(){
-    expect(info.getWordOrder()).to.eql("vso");
+    expect(info.getWordOrder()).to.eql("svo");
   });
 
 });
