@@ -65,12 +65,30 @@
     };
   }
 
-  function transform (diff, charTestFunc) {
+  /**
+   * transformation Function, returns another function that transforms a text
+   * @private
+   * @method transform
+   * @param  {Array[object]}  opts a list of objects, where each object is:
+   *     {
+   *        offset: the offset of transformation
+   *        found: the function that verifies if the char can be transformed
+   *     }
+   * @return {function}     function witch transforms a text using the afforded offsets
+   */
+  function transform (opts) {
     return function(text) {
       let result = "";
       for (let i = 0; i < text.length; i++) {
         let u = text.charCodeAt(i);
-        if (charTestFunc(u)) u += diff;
+        for (let j=0;j<opts.length; j++) {
+          let opt = opts[j];
+          //console.log(opt);
+          if (opt.found(u)) {
+            u += opt.offset;
+            break;
+          }
+        }
         result += String.fromCharCode(u);
       }
       return result;
@@ -115,19 +133,42 @@
    * @static
    * @protected
    * @param {string} transName   transformation name (function name), for example: hiragana2Katakana
-   * @param {number} offset      the number we add to the char's unicodes to get the new character
-   * @param {string} origCharSet The name of the charset
+   * @param {array[object]} opts   Array of options such as
+   *    {//If the charset exists and we use all of it
+   *       setName: "<name of the charset",
+   *       offset: <number>
+   *    },
+   *    {//otherwise
+   *       begin: <number>,
+   *       end: <number>,
+   *       offset: <number>
+   *    }
    */
-  Lang.addTransform = function(transName, offset, origCharSet, begin, end) {
-    let charSetFunc = function() { return false; };
+  Lang.addTransform = function(transName, opts) {
 
-    if ((typeof begin != "undefined") &&  (typeof begin != "undefined")) {
+    let transOpts = [];
+
+    for(let i=0; i<opts.length; i++) {
+      let charSetFunc = function() { return false; };
+      let opt = opts[i];
+      //helpfull for code minification
+      let setName = opt.setName,
+      begin = opt.begin,
+      end = opt.end;
+      if (setName && setName in this.CS) {
+        charSetFunc = this.CS[setName];
+      }
+      else if (typeof begin === "number" && typeof end === "number") {
         charSetFunc = isBetween(begin, end);
-    }
-    else
-      if (origCharSet in this.CS) charSetFunc = this.CS[origCharSet];
+      }
 
-    this.TR[transName] = transform(offset, charSetFunc);
+      transOpts.push({
+        offset: opt.offset,
+        found: charSetFunc
+      });
+    }
+
+    this.TR[transName] = transform(transOpts);
   };
 
   //=========================================

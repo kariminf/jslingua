@@ -30,8 +30,8 @@
     Lang.addCharSet.call(this, "IndicNumeral", 0x0660, 0x0669);
     Lang.addCharSet.call(this, "ArabicNumeral", 0x0030, 0x0039);
 
-    Lang.addTransform.call(this, "indicToArabicNumeral", -0x0630, "IndicNumeral");
-    Lang.addTransform.call(this, "arabicToIndicNumeral", 0x0630, "ArabicNumeral");
+    Lang.addTransform.call(this, "indicToArabicNumeral", [{offset: -0x0630, setName:"IndicNumeral"}]);
+    Lang.addTransform.call(this, "arabicToIndicNumeral", [{offset: 0x0630, setName:"ArabicNumeral"}]);
   }
 
   AraLang.prototype = Object.create(Lang.prototype);

@@ -27,7 +27,7 @@ describe("French Lang", function(){
   it("Transform", function(){
     expect(lang.availableTransformations().length).to.eql(2);
     var min = "azertyçùéèà";
-    var maj = "AZERTY";
+    var maj = "AZERTYÇÙÉÈÀ";
     var func = lang.transformationFunction("minusculeToMajuscule");
     expect(func(min)).to.eql(maj);
     func = lang.transformationFunction("majusculeToMinuscule");

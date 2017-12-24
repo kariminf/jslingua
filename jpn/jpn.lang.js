@@ -26,8 +26,8 @@
     Lang.addCharSet.call(this, "Kanji", 0x4E00, 0x9FBF);
     Lang.addCharSet.call(this, "Punctuation", 0x3000, 0x303F);
 
-    Lang.addTransform.call(this, "hiraganaToKatakana", 0x0060, "Hiragana");
-    Lang.addTransform.call(this, "katakanaToHiragana", -0x0060, "Katakana");
+    Lang.addTransform.call(this, "hiraganaToKatakana", [{offset:0x0060, setName:"Hiragana"}]);
+    Lang.addTransform.call(this, "katakanaToHiragana", [{offset:-0x0060, setName:"Katakana"}]);
   }
 
   JpnLang.prototype = Object.create(Lang.prototype);

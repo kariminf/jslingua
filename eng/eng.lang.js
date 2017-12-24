@@ -24,8 +24,8 @@
     //
     Lang.addCharSet.call(this, "BasicLatin", 0x0000, 0x007F);
 
-    Lang.addTransform.call(this, "minusculeToMajuscule", -0x0020, "BasicLatin", 0x0061, 0x007A);
-    Lang.addTransform.call(this, "majusculeToMinuscule", 0x0020, "BasicLatin", 0x0041, 0x005A);
+    Lang.addTransform.call(this, "minusculeToMajuscule", [{offset:-0x0020, begin:0x0061, end:0x007A}]);
+    Lang.addTransform.call(this, "majusculeToMinuscule", [{offset:0x0020, begin:0x0041, end:0x005A}]);
   }
 
   EngLang.prototype = Object.create(Lang.prototype);
