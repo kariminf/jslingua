@@ -4,8 +4,8 @@
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
-    "codecov": "^2.2.0",
-    "eslint": "^4.7.0",
+    "codecov": "^2.3.1",
+    "eslint": "^4.14.0",
     "expect.js": "^0.3.1",
     "http-server": "^0.10.0",
     "inchjs": "^0.4.1",
@@ -13,7 +13,7 @@
     "jshint": "^2.9.3",
     "jslint": "^0.11.0",
     "mocha": "^3.5.3",
-    "uglify-es": "^3.1.1",
+    "uglify-es": "^3.3.1",
     "yuidoc-marviq-theme": "^0.1.5"
   },
   "scripts": {

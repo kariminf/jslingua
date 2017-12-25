@@ -73,7 +73,7 @@
 
   Me.getForms = function() {
     return  {
-      
+
     };
   };
 
@@ -95,11 +95,15 @@
   //                 STEMMERS
   //=========================================================
 
+  http://snowball.tartarus.org/algorithms/french/stemmer.html
   const vowels = "aeiouyâàëéêèïîôûù";
 
   //TODO complete snowball stemmer
   function snowballStemmer(word) {
+    //The word must be lower case
     word = word.toLowerCase();
+    //vowel marking: considering some vowels as cosonents
+    
     return word;
   }
 
