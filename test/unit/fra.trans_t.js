@@ -1,17 +1,17 @@
-var EngTrans = require('../../eng/eng.trans');
+var FraTrans = require('../../fra/fra.trans');
 var expect = require('expect.js');
 
-var src = "This is an example."
+var src = "ça, est un exemple."
 var exp = {
   "Morse": {
-    "rev": "THIS IS AN EXAMPLE.",
-    "dst": "- .... .. ...     .. ...     .- -.     . -..- .- -- .--. .-.. . .-.-.-"
+    "rev": "CA, EST UN EXEMPLE.",
+    "dst": "-.-. .- --..--     . ... -     ..- -.     . -..- . -- .--. .-.. . .-.-.-"
   }
 };
 
-var trans = new EngTrans();
+var trans = new FraTrans();
 
-describe("English Transliteration", function(){
+describe("French Transliteration", function(){
 
   it("Methods check", function(){
     var methods = trans.availableMethods();
