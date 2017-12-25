@@ -7,7 +7,7 @@
 
   "use strict";
 
-  let version = "0.5.0";
+  let version = "0.7.0";
 
   const rtls = ["ara", "heb"];
 
@@ -40,12 +40,14 @@
       "Trans": {
         "ara": require("./ara/ara.trans.js"),//Arabic transliteration class
         "jpn": require("./jpn/jpn.trans.js"),//Japanese transliteration class
-        "eng": require("./eng/eng.trans.js")//English transliteration class
+        "eng": require("./eng/eng.trans.js"),//English transliteration class
+        "fra": require("./fra/fra.trans.js")//French transliteration class
       },
       "Morpho": {
         "ara": require("./ara/ara.morpho.js"),//Arabic Morphology class
         "jpn": require("./jpn/jpn.morpho.js"),//Japanese Morphology class
-        "eng": require("./eng/eng.morpho.js")//English Morphology class
+        "eng": require("./eng/eng.morpho.js"),//English Morphology class
+        "fra": require("./fra/fra.morpho.js")//French Morphology class
       }
     };
 
