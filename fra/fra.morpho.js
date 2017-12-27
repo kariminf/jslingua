@@ -164,13 +164,13 @@
     let m, reg;
 
     //ance   iqUe   isme   able   iste   eux   ances   iqUes   ismes   ables   istes
-    reg = new RegExp("^.*(ance|iqUe|isme|able|iste|eux|ances|iqUes|ismes|ables|istes)$");
+    reg = new RegExp("^.*(eux|ances?|iqUes?|ismes?|ables?|istes?)$");
     if ((m = reg.exec(word)) != null) {
       if (r2.endsWith(m[1])) return {stem:word.slice(0, -m[1].length), next:false};
     }
 
     //atrice   ateur   ation   atrices   ateurs   ations
-    reg = new RegExp("^.*(atrice|ateur|ation|atrices|ateurs|ations)$");
+    reg = new RegExp("^.*(atrices?|ateurs?|ations?)$");
     if ((m = reg.exec(word)) != null) {
       if (r2.endsWith(m[1])) {
         word = word.slice(0, -m[1].length);
@@ -181,25 +181,25 @@
     }
 
     //logie   logies
-    reg = new RegExp("^.*log(ie|ies)$");
+    reg = new RegExp("^.*log(ies?)$");
     if ((m = reg.exec(word)) != null) {
       if (r2.endsWith("log" + m[1])) return {stem:word.slice(0, -m[1].length), next:false};
     }
 
     //usion   ution   usions   utions
-    reg = new RegExp("^.*u(sion|tion|sions|tions)$");
+    reg = new RegExp("^.*u(sions?|tions?)$");
     if ((m = reg.exec(word)) != null) {
       if (r2.endsWith("u" + m[1])) return {stem:word.slice(0, -m[1].length), next:false};
     }
 
     //ence   ences
-    reg = new RegExp("^.*en(ce|ces)$");
+    reg = new RegExp("^.*en(ces?)$");
     if ((m = reg.exec(word)) != null) {
       if (r2.endsWith("en" + m[1])) return {stem:word.slice(0, -m[1].length) + "t", next:false};
     }
 
     //ement   ements
-    reg = new RegExp("^.*(ement|ements)$");
+    reg = new RegExp("^.*(ements?)$");
     if ((m = reg.exec(word)) != null && rv.endsWith(m[1])) {
         //delete if in RV
         word = word.slice(0, -m[1].length);
@@ -227,7 +227,7 @@
     }//end ement(s)
 
     //ité   ités
-    reg = new RegExp("^.*(ité|ités)$");
+    reg = new RegExp("^.*(ités?)$");
     if ((m = reg.exec(word)) != null && r2.endsWith(m[1])) {
       //delete if in R2
       word = word.slice(0, -m[1].length);
@@ -248,8 +248,57 @@
       return {stem:word, next:false};
     }
 
+    //if ive ifs ives
+    reg = new RegExp("^.*(ifs?|ives?)$");
+    if ((m = reg.exec(word)) != null && r2.endsWith(m[1])) {
+      //delete if in R2
+      word = word.slice(0, -m[1].length);
+      //if preceded by at, delete if in R2
+      if (r2.endsWith("at" + m[1])) {
+        word = word.slice(0, 2);
+        if (! word.endsWith("ic")) return {stem:word, next:false};
+        //and if further preceded by ic, delete if in R2, else replace by iqU
+        word = word.slice(0, 2);
+        if (r2.endsWith("icat" + m[1])) return {stem:word, next:false};
+        return {stem:word + "iqU", next:false};
+      }
+    }
 
+    //eaux
+    if (word.endsWith("eaux")) return {stem:word.slice(0, -1), next:false};
 
+    //aux replace with al if in R1
+    if (r1.endsWith("aux")) return {stem:word.slice(0, -2) + "l", next:false};
+
+    //euse euses
+    reg = new RegExp("^.*(euses?)$");
+    if ((m = reg.exec(word)) != null) {
+      //delete if in R2
+      if (r2.endsWith(m[1])) return {stem:word.slice(0, -m[1].length), next:false};
+      //else replace by eux if in R1
+      if (r1.endsWith(m[1])) return {stem:word.slice(0, 2-m[1].length) + "x", next:false};
+    }
+
+    //issement issements
+    reg = new RegExp("^.*[^" + vowels + "](issements?)$");
+    if ((m = reg.exec(word)) != null) {
+      //delete if in R1 and preceded by a non-vowel
+      if (r1.endsWith(m[1])) return {stem:word.slice(0, -m[1].length), next:false};
+    }
+
+    // amment, emment
+    reg = new RegExp("^.*([ae])mment$");
+    if ((m = reg.exec(word)) != null) {
+      //replace with ant, ent if in RV
+      if (rv.endsWith(m[1] + "mment")) return {stem:word.slice(0, -5) + "nt", next:false};
+    }
+
+    // ment ments
+    reg = new RegExp("^.*(ments?)$");
+    if ((m = reg.exec(word)) != null) {
+      //delete if preceded by a vowel in RV
+      if ((new RegExp("^.*[" + vowels + "]" + m[1]) + "$").test(rv)) return {stem:word.slice(0, -m[1].length), next:false};
+    }
 
     return {stem:word, next:true};
   }
