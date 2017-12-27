@@ -147,12 +147,93 @@
     console.log("rv= " + rv + ", r1= " + r1 + ", r2= " + r2);
 
 
+    let pastWord = word;
     //Step 1
     let  processed = step1(word, rv, r1, r2);
     console.log(processed);
 
     if (processed.next) {
-      //processed = step2(processed.stem, rv);
+      word = step2(processed.stem, rv, r2);
+    }
+
+    if (word != pastWord) {
+      //step3
+      word = step3(word);
+    }
+
+    //The word hasn't been altered in any step
+    if (word === pastWord) {
+      //step4
+      word = step4(word, rv, r2);
+    }
+
+    //Step 5: Undouble
+    //If the word ends enn, onn, ett, ell or eill, delete the last letter
+    if (/(?:enn|onn|ett|ei?ll)$/.test(word)) word = word.slice(0, -1);
+
+    //Step 6: Un-accent
+    //If the words ends é or è followed by at least one non-vowel, remove the accent from the e.
+    word = word.replace(new RegExp("[éè]([^" + vowels + "]+)$"), "e$1");
+
+    return word.toLowerCase();
+  }
+
+  function step4(word, rv, r2) {
+    //ion
+    if (r2.endsWith("ion") && /ion[st]$/.test(rv)) return word.slice(0, -3);
+    //ier   ière   Ier   Ière
+    {
+      let m, reg = new RegExp("^.*([iI](?:er|ère))$");
+      if ((m = reg.exec(word)) != null && rv.endsWith(m[1])) return word.slice(0, -m[1].length) + "i";
+    }
+
+    if (rv.endsWith("e")) return word.slice(0, -1);
+
+    if (word.endsWith("gue") && rv.endsWith("e")) return word.slice(0, -1);
+
+
+    return word;
+
+  }
+
+  function step3(word) {
+    if (word.endsWith("Y")) return word.slice(0, -1) + "i";
+    if (word.endsWith("ç")) return word.slice(0, -1) + "c";
+    return word;
+  }
+
+  //Verb suffixes removal
+  function step2(word, rv, r2) {
+    let m, reg;
+
+    //Step 2a: Verb suffixes beginning i
+    //Search for the longest among the following suffixes and if found, delete if preceded by a non-vowel.
+    //îmes   ît   îtes   i   ie   ies   ir   ira   irai   iraIent   irais
+    //  irait   iras   irent   irez   iriez   irions   irons   iront   is
+    //  issaIent   issais   issait   issant   issante   issantes   issants
+    //   isse   issent   isses   issez   issiez   issions   issons   it
+    reg = new RegExp("^.*[^" + vowels + "](îmes|ît|îtes|i|ies?|i[rst]|ir(?:as?|ai|ont)|iss(?:ante?s?|es?)|(ir|iss)(?:ai[st]|aIent|i?ons|i?ez|ent))$");
+    if ((m = reg.exec(word)) != null) {
+      if ((new RegExp("^[^" + vowels + "]" + m[1])).test(rv)) return stem:word.slice(0, -m[1].length);
+    }
+
+    //Step 2b: Other verb suffixes
+    //ions: delete if in R2
+    if (word.endsWith("ions") && r2.endsWith("ions")) return word.slice(0, -4);
+    //é   ée   ées   és   èrent   er   era   erai   eraIent   erais   erait
+    //eras   erez   eriez   erions   erons   eront   ez   iez
+    reg = new RegExp("^.*(er|èrent|ée?s?|er(?:as?|ai[st]?|i?ez|i?ons|ont|aIent))$");
+    if ((m = reg.exec(word)) != null) {
+      if (rv.contains(m[1])) return stem:word.slice(0, -m[1].length);
+    }
+    //âmes   ât   âtes   a   ai   aIent   ais   ait   ant   ante   antes   ants
+    //as   asse   assent   asses   assiez   assions
+    reg = new RegExp("^.*(ât|â[tm]es|as?|ai[st]?|ante?s?|aIent|ass(?:es?|ent|iez|ions))$");
+    if ((m = reg.exec(word)) != null && rv.contains(m[1])) {
+      word = word.slice(0, -m[1].length);
+      //if preceded by e, delete
+      if (word.endsWith("e") && rv.contains("e" + m[1])) return word.slice(0, -1);
+      return word;
     }
 
 
