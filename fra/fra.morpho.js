@@ -107,7 +107,7 @@
 
     //vowel marking: considering some vowels as cosonents
     //===================================================
-    //TODO these are in conflect; fix may be using a loop rather than regexp
+    //TODO these are in conflict; fix may be using a loop rather than regexp
     word = word.replace("qu", "qU");
     word = word.replace(new RegExp("([" + vowels + "])([ui])([" + vowels + "])", "g"),
     function(match, p1, p2, p3, offset, string) {
@@ -144,28 +144,37 @@
     //or the end of the word if there is no such non-vowel
     if ((m = reg.exec(r1)) != null) r2 = m[1];
 
-    console.log("rv= " + rv + ", r1= " + r1 + ", r2= " + r2);
+    //console.log("rv= " + rv + ", r1= " + r1 + ", r2= " + r2);
 
 
     let pastWord = word;
     //Step 1
     let  processed = step1(word, rv, r1, r2);
-    console.log(processed);
+    //console.log(processed);
+    word = processed.stem;
+
+    //console.log("step1 word= " + word);
 
     if (processed.next) {
-      word = step2(processed.stem, rv, r2);
+      word = step2(word, rv, r2);
     }
+
+    //console.log("step2 word= " + word);
 
     if (word != pastWord) {
       //step3
       word = step3(word);
     }
 
+    //console.log("step3 word= " + word);
+
     //The word hasn't been altered in any step
     if (word === pastWord) {
       //step4
       word = step4(word, rv, r2);
     }
+
+    //console.log("step4 word= " + word);
 
     //Step 5: Undouble
     //If the word ends enn, onn, ett, ell or eill, delete the last letter
@@ -179,6 +188,9 @@
   }
 
   function step4(word, rv, r2) {
+    //If the word ends s, not preceded by a, i, o, u, è or s, delete it.
+    if(/[^aiouès]s$/.test(word)) word = word.slice(0, -1);
+
     //ion
     if (r2.endsWith("ion") && /ion[st]$/.test(rv)) return word.slice(0, -3);
     //ier   ière   Ier   Ière
@@ -187,9 +199,11 @@
       if ((m = reg.exec(word)) != null && rv.endsWith(m[1])) return word.slice(0, -m[1].length) + "i";
     }
 
-    if (rv.endsWith("e")) return word.slice(0, -1);
+    //e in rv too
+    if (word.endsWith("e")) return word.slice(0, -1);
 
-    if (word.endsWith("gue") && rv.endsWith("e")) return word.slice(0, -1);
+    //&& rv.endsWith("e")
+    if (word.endsWith("gue")) return word.slice(0, -1);
 
 
     return word;
@@ -212,9 +226,9 @@
     //  irait   iras   irent   irez   iriez   irions   irons   iront   is
     //  issaIent   issais   issait   issant   issante   issantes   issants
     //   isse   issent   isses   issez   issiez   issions   issons   it
-    reg = new RegExp("^.*[^" + vowels + "](îmes|ît|îtes|i|ies?|i[rst]|ir(?:as?|ai|ont)|iss(?:ante?s?|es?)|(ir|iss)(?:ai[st]|aIent|i?ons|i?ez|ent))$");
+    reg = new RegExp("(îmes|ît|it|îtes|ie?s?|i[rst]|ir(?:as?|ai|ont)|iss(?:ante?s?|es?)|(ir|iss)(?:ai[st]|aIent|i?ons|i?ez|ent))$");
     if ((m = reg.exec(word)) != null) {
-      if ((new RegExp("^[^" + vowels + "]" + m[1])).test(rv)) return stem:word.slice(0, -m[1].length);
+      if ((new RegExp("[^" + vowels + "]" + m[1])).test(rv)) return word.slice(0, -m[1].length);
     }
 
     //Step 2b: Other verb suffixes
@@ -222,17 +236,17 @@
     if (word.endsWith("ions") && r2.endsWith("ions")) return word.slice(0, -4);
     //é   ée   ées   és   èrent   er   era   erai   eraIent   erais   erait
     //eras   erez   eriez   erions   erons   eront   ez   iez
-    reg = new RegExp("^.*(er|èrent|ée?s?|er(?:as?|ai[st]?|i?ez|i?ons|ont|aIent))$");
+    reg = new RegExp("^.*(er|i?ez|èrent|ée?s?|er(?:as?|ai[st]?|i?ez|i?ons|ont|aIent))$");
     if ((m = reg.exec(word)) != null) {
-      if (rv.contains(m[1])) return stem:word.slice(0, -m[1].length);
+      if (rv.indexOf(m[1]) > -1) return word.slice(0, -m[1].length);
     }
     //âmes   ât   âtes   a   ai   aIent   ais   ait   ant   ante   antes   ants
     //as   asse   assent   asses   assiez   assions
     reg = new RegExp("^.*(ât|â[tm]es|as?|ai[st]?|ante?s?|aIent|ass(?:es?|ent|iez|ions))$");
-    if ((m = reg.exec(word)) != null && rv.contains(m[1])) {
+    if ((m = reg.exec(word)) != null && rv.indexOf(m[1]) > -1) {
       word = word.slice(0, -m[1].length);
       //if preceded by e, delete
-      if (word.endsWith("e") && rv.contains("e" + m[1])) return word.slice(0, -1);
+      if (word.endsWith("e") && rv.indexOf("e" + m[1]) > -1) return word.slice(0, -1);
       return word;
     }
 
