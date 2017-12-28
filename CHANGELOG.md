@@ -11,7 +11,12 @@ This will break the projects developed on precedent versions.
 * FIX: Fixing bugs
 * DEL: Delete or deprecate some functions
 
-## Version current
+## Version 0.7.0 (2018-01-01)
+* NEW: French support (Info, Lang, Trans, Morpho)
+* IMPROVE: adding transformation from charsets to others
+* ADD: Lancaster stemmer for English
+* ADD: English Noun declension (singular to plural): beta version
+* DEL: getVerbType from Morpho API (never been used)
 
 ## Version 0.6.x (2017-09-18)
 

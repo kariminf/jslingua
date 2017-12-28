@@ -70,9 +70,34 @@
     return "";
   };
 
-
+  //https://en.wikipedia.org/wiki/French_conjugation
   Me.getForms = function() {
     return  {
+      //Indicative
+      "Present (présent)": {
+
+      },
+      "Present perfect (passé composé)": {
+
+},
+"Imperfect (imparfait)": {
+
+},
+"Pluperfect (plus-que-parfait)": {
+
+},
+"Simple past (passé simple)": {
+
+},
+"Past perfect (passé antérieur)": {
+
+},
+"Simple future (futur simple)": {
+
+},
+"Future perfect (futur antérieur)": {
+
+}
 
     };
   };
@@ -83,11 +108,392 @@
   //Conjugation zone
   //=================
 
+  //Second group verbs
+  //https://en.wiktionary.org/w/index.php?title=Category:French_second_group_verbs&pageuntil=MURIR%0Amurir#mw-pages
+  const verbs2g = {
+    //     A
+    // ==========
+    "ab": {
+      "asourd": 1, "âtard": 1, "êt": 1, "ol": 1, "onn": 1,
+      "out": 1, "réag": 1, "rout": 1, "rut": 1
+    },
+    "ac": {
+      "calm": 1, "compl": 1, "courc": 1, "croup": 1
+    },
+    "ad": {
+      "ouc": 1, "vert": 1
+    },
+    "af": {
+      "fad": 1, "faibl": 1, "ferm": 1, "franch": 1
+    },
+    "ag": {
+      "": 1, "on": 1, "rand": 1, "uerr": 1
+    },
+    "ah": {
+      "ur": 1
+    },
+    "ai": {
+      "gr": 1
+    },
+    "al": {
+      "angu": 1, "ent": 1, "lot": 1, "ourd": 1, "un": 1
+    },
+    "am": {
+      "aigr": 1, "ars": 1, "at": 1, "enu": 1, "err": 1, "eubl": 1,
+      "inc": 1, "oindr": 1, "oll": 1, "ort": 1, "ui": 1
+    },
+    "an": {
+      "éant": 1, "obl": 1, "ord": 1
+    },
+    "ap": {
+      "lan": 1, "lat": 1, "pauvr": 1, "pesant": 1, "plaud": 1, "profond": 1
+    },
+    "ar": {
+      "rond": 1
+    },
+    "as": {
+      "sag": 1, "sain": 1, "serv": 1, "s": 1, "sombr": 1, "sort": 1,
+      "soup": 1, "soupl": 1, "sourd": 1, "souv": 1, "sujett": 1
+    },
+    "at": {
+      "tendr": 1, "tér": 1, "terr": 1, "tiéd": 1
+    },
+    "av": {
+      "ach": 1, "ert": 1, "eul": 1, "il": 1
+    },
+
+    //      B
+    // ============
+    "ba": {
+      "nn": 1, "rr": 1, "ud": 1
+    },
+    "bâ": {
+      "t": 1
+    },
+    "bé": {
+      "n": 1
+    },
+    "bl": {
+      "anch": 1, "êm": 1, "ett": 1, "eu": 1, "ond": 1, "ott": 1
+    },
+    "bo": {
+      "nd": 1, "uff": 1
+    },
+    "br": {
+      "and": 1, "un": 1
+      //"uire": 1,
+
+    },
+
+    //    C
+    // ========
+    "ca": {
+      "nd": 1
+    },
+    "ch": {
+      "auv": 1, "ér": 1, "ois": 1
+    },
+    "co": {
+      "mpat": 1, "nvert": 1, "sais": 1, "t": 1
+    },
+    "cr": {
+      "ép": 1, "oup": 1
+    },
+
+    //     D
+    // ==========
+    "dé": {
+      "crép": 1, "fin": 1, "fléch": 1, "fraîch": 1, "garn": 1, "gauch": 1,
+      "glut": 1, "gourd": 1, "gross": 1, "guerp": 1, "mol": 1, "mun": 1,
+      "pér": 1, "roug": 1, "sempl": 1, "sinvest": 1, "sobé": 1,
+      "sun": 1
+    },
+    "de": {
+      "ssais": 1, "ssert": 1
+    },
+    "di": {
+      "vert": 1
+    },
+    "du": {
+      "rc": 1
+    },
+
+    //     E
+    // ==========
+    "éb": {
+      "ah": 1, "aub": 1, "aud": 1, "lou": 1
+    },
+    "éc": {
+      "lairc": 1, "rapout": 1
+    },
+    "ef": {
+      "fleur": 1
+    },
+    "él": {
+      "arg": 1
+    },
+    "em": {
+      "bell": 1, "bout": 1, "pl": 1, "puant": 1
+    },
+    "en": {
+      "chér": 1, "durc": 1, "fou": 1, "glout": 1, "gourd": 1, "hard": 1,
+      "laid": 1, "nobl": 1, "orgueill": 1, "rich": 1, "sevel": 1, "vah": 1
+    },
+    "ép": {
+      "aiss": 1, "anou": 1
+    },
+    "éq": {
+      "uarr": 1
+    },
+    "es": {
+      "tourb": 1
+    },
+    "ét": {
+      "abl": 1, "ourd": 1, "réc": 1
+    },
+    "év": {
+      "anou": 1
+    },
+
+    //      F
+    // ===========
+    "fa": {
+      "ibl": 1, "ill": 1, "rc": 1
+    },
+    "fi": {
+      "n": 1
+    },
+    "fl": {
+      "éch": 1, "étr": 1, "eur": 1, "or": 1
+    },
+    "fo": {
+      "rc": 1, "u": 1, "urb": 1, "urn": 1
+    },
+    "fr": {
+      "aîch": 1, "anch": 1, "ém": 1, "oid": 1
+    },
+
+    //      G
+    // ============
+    "ga": {
+      "rant": 1, "rn": 1, "uch": 1, "ud": 1
+    },
+    "gé": {
+      "m": 1
+    },
+    "gl": {
+      "ap": 1
+    },
+    "gr": {
+      "and": 1, "av": 1, "oss": 1
+    },
+    "gu": {
+      "ér": 1
+    },
+
+    //     H
+    // ==========
+    "ha": {
+      "v": 1
+    },
+    "he": {
+      "nn": 1
+    },
+    "ho": {
+      "nn": 1
+    },
+
+    //    I
+    // =========
+    "im": {
+      "part": 1
+    },
+    "in": {
+      "fléch": 1, "terag": 1, "terconvert": 1, "tervert": 1, "vert": 1, "vest": 1
+    },
+
+    //     J
+    // =========
+    "ja": {
+      "ill": 1, "un": 1
+    },
+    "jo": {
+      "u": 1
+    },
+
+    //    L
+    // =========
+    "la": {
+      "id": 1, "ngu": 1
+    },
+    "lo": {
+      "t": 1
+    },
+
+    //   M
+    // ========
+    "ma": {
+      "igr": 1
+    },
+    "me": {
+      "urtr": 1
+    },
+    "mi": {
+      "nc": 1
+    },
+    "mo": {
+      "is": 1, "ll": 1
+    },
+    "mu": {
+      "g": 1, "n": 1, "r": 1
+    },
+    "mû": {
+      "r": 1
+    },
+    "na": {
+      "nt": 1
+    },
+    "no": {
+      "irc": 1, "urr": 1
+    },
+    "ob": {
+      "é": 1, "scurc": 1
+    },
+    "ou": {
+      "rd": 1
+    },
+
+    //    P
+    // =========
+    "pâ": {
+      "l": 1,
+      "t": 1
+    },
+    "pé": {
+      "r": 1,
+      "tr": 1
+    },
+    "pe": {
+      "rvert": 1
+    },
+    "po": {
+      "l": 1, "urr": 1
+    },
+    "pr": {
+      "æmun": 1, "édéfin": 1, "émun": 1
+    },
+    "pu": {
+      "n": 1
+    },
+
+    //     R
+    // =========
+    "ra": {
+      "ccourc": 1, "corn": 1, "douc": 1, "fferm": 1, "fraich": 1, "fraîch": 1,
+      "gaillard": 1, "id": 1, "jeun": 1, "lent": 1, "moll": 1, "nc": 1,
+      "ss": 1, "ssort": 1, "v": 1
+    },
+    "ré": {
+      "ag": 1, "assort": 1, "enchér": 1, "fléch": 1, "g": 1, "invest": 1,
+      "jou": 1, "part": 1, "tabl": 1, "tréc": 1, "un": 1, "uss": 1
+    },
+    "re": {
+      "bât": 1, "bond": 1, "ço": 1, "convert": 1, "crép": 1, "défin": 1,
+      "fleur": 1, "froid": 1, "garn": 1, "mbrun": 1, "mpl": 1, "nchér": 1,
+      "nforc": 1, "pétr": 1, "pun": 1, "splend": 1, "ssais": 1, "ssort": 1,
+      "ssurg": 1, "surg": 1, "tent": 1, "verd": 1, "vern": 1
+    },
+    "ro": {
+      "id": 1, "s": 1, "ug": 1, "uss": 1
+    },
+    "rô": {
+      "t": 1
+    },
+    "ru": {
+      "g": 1
+    },
+
+
+    //     S
+    // ===========
+    "sa": {
+      "is": 1, "l": 1, "ur": 1
+    },
+    "se": {
+      "rt": 1
+    },
+    "sé": {
+      "v": 1
+    },
+    "su": {
+      "b": 1, "bvert": 1, "renchér": 1, "rg": 1, "rinvest": 1
+    },
+
+    //    T
+    // =========
+    "ta": {
+      "p": 1, "r": 1
+    },
+    "te": {
+      "rn": 1
+    },
+    "ti": {
+      "éd": 1
+    },
+    "tr": {
+      "ah": 1, "ans": 1, "avest": 1
+    },
+
+    //  U
+    // =========
+    "un": {
+      "": 1
+    },
+
+    //    V
+    // =========
+    "va": {
+      "g": 1
+    },
+    "ve": {
+      "rd": 1, "rn": 1
+    },
+    "vi": {
+      "eill": 1
+    },
+    "vo": {
+      "m": 1
+    },
+    "vr": {
+      "omb": 1
+    }
+
+  };
+
+  /**
+   * Get the verbs group: 1, 2 or 3. You have to verify for irregular verbs:
+   * être, avoir, aller; Since they are not considered here.
+   * @method getVerbGroupe
+   * @param  {[type]}    verb [description]
+   * @return {[type]}         [description]
+   */
+  function getVerbGroupe(verb) {
+    if (verb.endsWith("er")) return 1;
+
+    if (verb.endsWith("ir") && verb.length > 3) {
+      let idx = verbs2g[verb.slice(0, 2)];
+      verb = verb.slice(2, -2);
+      if (idx && idx[verb]) return 2;
+    }
+
+    return 3;
+  }
+
   //Override conjugate function
   //TODO french conjugation
   Me.conjugate = function(verb, opts) {
 
-    return verb;
+    return getVerbGroupe(verb);
 
   };
 
