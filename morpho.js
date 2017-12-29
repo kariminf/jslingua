@@ -471,10 +471,8 @@
       case "Pronoun": return this.getPronounOpts();
       case "Negation": return this.getNegationOpts();
       case "Voice": return this.getVoiceOpts();
-      default:
-
+      default: return [{}];
     }
-    return [];
   };
 
   Me.getOptName = function(optLabel, opts){

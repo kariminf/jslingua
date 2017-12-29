@@ -171,6 +171,31 @@
     };
   };
 
+
+  /**
+  * Each language has a conjugation table model.
+  * For example, in English, Arabic and French, we put pronouns in rows.
+  * As for Japanese, the conjugation doesn't follow that pattern.
+  * @method getConjugModel
+  * @return {[type]}   [description]
+  */
+  Me.getConjugModel = function(){
+    //Past and Present are defaults
+    return {
+      rows: ["Pronoun"],
+      cols: ["Conj"]
+    };
+  };
+
+  Me.getOptName = function(optLabel, opts){
+    switch (optLabel) {
+      case "Pronoun": return this.getPronounName(opts);
+      case "Conj": return "Conjugation";
+      default:
+    }
+    return "";
+  };
+
   //let C = Object.freeze;
 
   //=================
@@ -587,12 +612,113 @@
   }
 
 
+  const g1Suffix = {
+    [Mood.Ind]: {
+      present: ["e", "es", "e", "ons", "ez", "ent"],
+      past: ["ai", "as", "a", "âmes", "âtes", "èrent"],
+      imperfect: ["ais", "ais", "ait", "ions", "iez", "aient"],
+      future: ["erai", "eras", "era", "erons", "erez", "eront"]
+    },
+    [Mood.Sub]: {
+      present: ["e", "es", "e", "ions", "iez", "ent"],
+      imperfect: ["asse", "asses", "ât", "assions", "assiez", "assent"]
+    },
+    [Mood.Cnd]: {
+      present: ["erais", "erais", "erait", "erions", "eriez", "eraient"]
+    },
+    [Mood.Imp]: {
+      present: ["$", "e", "", "ons", "ez", "$"]
+    }
+  },
+  g2Suffix = {
+    [Mood.Ind]: {
+      [Tense.Pr]: ["is", "is", "it", "issons", "issez", "issent"],
+      [Tense.Pa]: ["is", "is", "it", "îmes", "îtes", "irent"],
+      [Aspect.I]: ["issais", "issais", "issait", "issions", "issiez", "issaient"],
+      [Tense.Fu]: ["irai", "iras", "ira", "irons", "irez", "iront"]
+    },
+    [Mood.Sub]: {
+      [Tense.Pr]: ["isse", "isses", "isse", "issions", "issiez", "issent"],
+      [Aspect.I]: ["isse", "isses", "ît", "issions", "issiez", "issent"]
+    },
+    [Mood.Cnd]: {
+      [Tense.Pr]: ["irais", "irais", "irait", "irions", "iriez", "iraient"]
+    },
+    [Mood.Imp]: {
+      [Tense.Pr]: ["$", "is", "", "issons", "issez", "$"]
+    }
+  },
+  g3Suffix = {
+
+  };
+
+  /**
+   * A function that gives the pronoun index in conjugation table
+   * @method getPronounIndex
+   * @param  {object}        opts contains person and number
+   * @return {number}             a number from 0 to 5
+   */
+  function getPronounIndex(opts) {
+
+    let numberIdx = (opts.number === GNumber.S)? 0: 3;
+
+    let personIdx = Object.values(Person).indexOf(opts.person);
+
+
+    return personIdx + numberIdx;
+  }
+
+  function getSuffix(opts) {
+    let groupTab;
+
+    switch (verbInfo.group) {
+      case 1:
+      groupTab = g1Suffix;
+      break;
+
+      case 2:
+      groupTab = g2Suffix;
+      break;
+
+      case 2:
+      groupTab = g3Suffix;
+      break;
+
+      default:
+      return "$";
+
+    }
+
+    let moodTab = groupTab[opts.mood];
+
+    if (! moodTab) return "$";
+
+    if (opts.aspect === Aspect.P) return "$";
+
+    let key = (opts.aspect === Aspect.I)? Aspect.I: opts.tense;
+
+    let pronounTab = moodTab[key];
+
+    if (! pronounTab) return "$";
+
+    return pronounTab[getPronounIndex(opts)];
+
+  }
+
+
 
   //Override conjugate function
   //TODO french conjugation
   Me.conjugate = function(verb, opts) {
 
     verbGroup(verb);
+
+    if ([1, 2].indexOf(verbInfo.group) > -1) {
+      verb = verb.slice(0, -2);
+      let suffix = getSuffix(opts);
+      if (!suffix || suffix === "$") return "";
+      return verb + suffix;
+    }
 
     return "";
 
