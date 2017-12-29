@@ -74,31 +74,100 @@
   Me.getForms = function() {
     return  {
       //Indicative
-      "Present (présent)": {
-
+      "Indicative Present (présent)": {
+        mood: Mood.Ind,
+        tense: Tense.Pr,
+        aspect: Aspect.S
       },
-      "Present perfect (passé composé)": {
+      "Indicative Present perfect (passé composé)": {
+        mood: Mood.Ind,
+        tense: Tense.Pr,
+        aspect: Aspect.P
+      },
+      "Indicative Imperfect (imparfait)": {
+        mood: Mood.Ind,
+        tense: Tense.Pr,
+        aspect: Aspect.I
+      },
+      //Exprime une action passée, achevée, d'une durée plutôt longue et antérieure à une autre action passée:
+      //https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-8681.php
+      "Indicative Pluperfect (plus-que-parfait)": {
+        mood: Mood.Ind,
+        tense: Tense.Pa,
+        aspect: Aspect.P,
+        period: "long"
+      },
+      "Indicative Simple past (passé simple)": {
+        mood: Mood.Ind,
+        tense: Tense.Pa,
+        aspect: Aspect.S
+      },
+      //Exprime une action passée, achevée, d'une durée assez brève et antérieure à une autre action passée:
+      //https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-8681.php
+      "Indicative Past perfect (passé antérieur)": {
+        mood: Mood.Ind,
+        tense: Tense.Pa,
+        aspect: Aspect.P,
+        period: "short"
+      },
+      "Indicative Simple future (futur simple)": {
+        mood: Mood.Ind,
+        tense: Tense.Fu,
+        aspect: Aspect.S
+      },
+      "Indicative Future perfect (futur antérieur)": {
+        mood: Mood.Ind,
+        tense: Tense.Fu,
+        aspect: Aspect.P
+      },
 
-},
-"Imperfect (imparfait)": {
+      //Subjunctive
+      "Subjunctive Present": {
+        mood: Mood.Sub,
+        tense: Tense.Pr,
+        aspect: Aspect.S
+      },
+      "Subjunctive Past (passé)": {
+        mood: Mood.Sub,
+        tense: Tense.Pa,
+        aspect: Aspect.S
+      },
+      "Subjunctive Imperfect": {
+        mood: Mood.Sub,
+        tense: Tense.Pr,
+        aspect: Aspect.I
+      },
+      "Subjunctive Pluperfect": {
+        mood: Mood.Sub,
+        tense: Tense.Pa,
+        aspect: Aspect.P
+      },
 
-},
-"Pluperfect (plus-que-parfait)": {
+      //Imperative
+      "Imperative Present": {
+        mood: Mood.Imp,
+        tense: Tense.Pr
+      },
+      "Imperative Past": {
+        mood: Mood.Imp,
+        tense: Tense.Pa
+      },
 
-},
-"Simple past (passé simple)": {
-
-},
-"Past perfect (passé antérieur)": {
-
-},
-"Simple future (futur simple)": {
-
-},
-"Future perfect (futur antérieur)": {
-
-}
-
+      //Conditional
+      "Conditional Present": {
+        mood: Mood.Cnd,
+        tense: Tense.Pr
+      },
+      "Conditional Past (form 1)": {
+        mood: Mood.Cnd,
+        tense: Tense.Pa,
+        form: 1
+      },
+      "Conditional Past (form 2)": {
+        mood: Mood.Cnd,
+        tense: Tense.Pa,
+        form: 2
+      }
     };
   };
 
@@ -471,29 +540,61 @@
   };
 
   /**
+   * An object to be a midium between different functions
+   * @type {Object}
+   */
+  let verbInfo = {
+    /**
+     * The verb
+     * @type {String}
+     */
+    verb: "",
+    /**
+     * The group of the verb
+     * @type {Number}
+     */
+    group: 0
+  };
+
+  /**
    * Get the verbs group: 1, 2 or 3. You have to verify for irregular verbs:
    * être, avoir, aller; Since they are not considered here.
    * @method getVerbGroupe
-   * @param  {[type]}    verb [description]
-   * @return {[type]}         [description]
+   * @param  {string}    verb the verb
    */
-  function getVerbGroupe(verb) {
-    if (verb.endsWith("er")) return 1;
+  function verbGroup(verb) {
+
+    if (verbInfo.verb === verb) return;
+
+    verbInfo.verb = verb;
+
+    if (verb.endsWith("er")) {
+      verbInfo.group = 1;
+      return;
+    }
 
     if (verb.endsWith("ir") && verb.length > 3) {
       let idx = verbs2g[verb.slice(0, 2)];
       verb = verb.slice(2, -2);
-      if (idx && idx[verb]) return 2;
+      if (idx && idx[verb]) {
+        verbInfo.group = 2;
+        return;
+      }
     }
 
-    return 3;
+    verbInfo.group = 3;
+
   }
+
+
 
   //Override conjugate function
   //TODO french conjugation
   Me.conjugate = function(verb, opts) {
 
-    return getVerbGroupe(verb);
+    verbGroup(verb);
+
+    return "";
 
   };
 

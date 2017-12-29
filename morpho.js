@@ -89,7 +89,8 @@
     S: "simple",
     C: "continuous",
     P: "perfect",
-    PC: "perfect-continuous"
+    PC: "perfect-continuous",
+    I: "imperfect"
   },
 
   /**
