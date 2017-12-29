@@ -564,6 +564,25 @@
 
   };
 
+  //Verbs which are conjugated with auxilary verb: être
+  //https://en.wiktionary.org/wiki/Category:French_verbs_taking_être_as_auxiliary
+  const etreVerbs = {
+    "advenir": 1, "aller": 1, "apparaitre": 1, "apparaître": 1, "arriver": 1,
+    "bienvenir": 1,
+    "débrayer": 1, "décéder": 1, "descendre": 1, "devenir": 1, "disparaître": 1,
+    "entrer": 1,
+    "impartir": 1, "intervenir": 1,
+    "marrer": 1, "monter": 1, "mourir": 1,
+    "naitre": 1, "naître": 1,
+    "obvenir": 1,
+    "paraître": 1, "paralyser": 1, "partir": 1, "parvenir": 1, "passer": 1, "provenir": 1,
+    "réapparaître": 1, "redescendre": 1, "redevenir": 1, "remonter": 1, "renaitre": 1, "renaître": 1,
+    "rentrer": 1, "repartir": 1, "repasser": 1, "ressortir": 1, "ressusciter": 1, "rester": 1, "retomber": 1, "retourner": 1, "revenir": 1,
+    "sortir": 1, "surmener": 1, "survenir": 1,
+    "tomber": 1,
+    "vader": 1, "venir": 1
+  };
+
   /**
    * An object to be a midium between different functions
    * @type {Object}
@@ -650,7 +669,63 @@
   },
   g3Suffix = {
 
-  };
+  },
+  irregular = {
+    "être": {
+      [Mood.Ind]: {
+        [Tense.Pr]: ["suis", "es", "est", "sommes", "êtes", "sont"],
+        [Tense.Pa]: ["fus", "fus", "fut", "fûmes", "fûtes", "furent"],
+        [Aspect.I]: ["étais", "étais", "était", "étions", "étiez", "étaient"],
+        [Tense.Fu]: ["serai", "seras", "sera", "serons", "serez", "seront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["sois", "sois", "soit", "soyons", "soyez", "soient"],
+        [Aspect.I]: ["fusse", "fusses", "fût", "fussions", "fussiez", "fussent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["serais", "serais", "serait", "serions", "seriez", "seraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "sois", "", "soyons", "soyez", "$"]
+      }
+    },
+    "avoir": {
+      [Mood.Ind]: {
+        [Tense.Pr]: ["ai", "as", "a", "avons", "avez", "ont"],
+        [Tense.Pa]: ["eus", "eus", "eut", "eûmes", "eûtes", "eurent"],
+        [Aspect.I]: ["avais", "avais", "avait", "avions", "aviez", "avaient"],
+        [Tense.Fu]: ["aurai", "auras", "aura", "aurons", "aurez", "auront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["aie", "aies", "ait", "ayons", "ayez", "aient"],
+        [Aspect.I]: ["eusse", "eusses", "eût", "eussions", "eussiez", "eussent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["aurais", "aurais", "aurait", "aurions", "auriez", "auraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "aie", "", "ayons", "ayez", "$"]
+      }
+    },
+    "aller": {
+      [Mood.Ind]: {
+        [Tense.Pr]: ["vais", "vas", "va", "allons", "allez", "vont"],
+        [Tense.Pa]: ["allai", "allas", "alla", "allâmes", "allâtes", "allèrent"],
+        [Aspect.I]: ["allais", "allais", "allait", "allions", "alliez", "allaient"],
+        [Tense.Fu]: ["irai", "iras", "ira", "irons", "irez", "iront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["aille", "ailles", "aille", "allions", "alliez", "aillent"],
+        [Aspect.I]: ["allasse", "allasses", "allât", "allassions", "allassiez", "allassent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["irais", "irais", "irait", "irions", "iriez", "iraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "va", "", "allons", "allez", "$"]
+      }
+    }
+  }
 
   /**
    * A function that gives the pronoun index in conjugation table
@@ -668,9 +743,11 @@
     return personIdx + numberIdx;
   }
 
-  function getSuffix(opts) {
+  function getSuffix(opts, irrTab) {
     let groupTab;
 
+    if (irrTab) groupTab = irrTab;
+    else
     switch (verbInfo.group) {
       case 1:
       groupTab = g1Suffix;
@@ -686,8 +763,8 @@
 
       default:
       return "$";
-
     }
+
 
     let moodTab = groupTab[opts.mood];
 
@@ -705,7 +782,21 @@
 
   }
 
+  /**
+   * A function which returns the past infinitive of a verb <br>
+   * Function prerequisite: verbGroup(verb)
+   * @private
+   * @method getVerbPastParticipal
+   * @return {string}   the past infinitive of the verb
+   */
+  function getVerbPastParticipal() {
+    switch (verbInfo.group) {
+      case 1: return verbInfo.verb.slice(0, -2) + "é";
+      case 2: return verbInfo.verb.slice(0, -1);
+      default: return ""
 
+    }
+  }
 
   //Override conjugate function
   //TODO french conjugation
@@ -713,11 +804,47 @@
 
     verbGroup(verb);
 
+    let pastParticipal = "";
+
+    if (opts.aspect === Aspect.P ||
+      (opts.mood != Mood.Ind && opts.tense === Tense.Pa)) {
+        verb = (etreVerbs[verb])? "être": "avoir";
+        pastParticipal = " " + getVerbPastParticipal();
+        if (verb === "être") {
+          pastParticipal += (opts.gender === Gender.F)? "e": "";
+          pastParticipal += (opts.number === GNumber.S)? "": "s";
+        }
+
+        if (opts.aspect === Aspect.P) {
+          if (opts.period === "long" || opts.mood === Mood.Sub) opts.aspect = Aspect.I;
+          else opts.aspect = Aspect.S;
+        }
+        else {
+          opts.tense = Tense.Pr;
+
+          if (opts.mood === Mood.Cnd && opts.form === 2){
+            opts.aspect = Aspect.I;
+            opts.mood = Mood.Sub;
+          }
+        }
+    }
+
+    //Irregular verbs and composed conjugations
+    {
+      let irrTab = irregular[verb];
+      let conj = getSuffix(opts, irrTab);
+      if (irrTab) {
+        if (!conj || conj === "$") return "";
+        return conj + pastParticipal;
+      }
+    }
+
+
     if ([1, 2].indexOf(verbInfo.group) > -1) {
       verb = verb.slice(0, -2);
       let suffix = getSuffix(opts);
       if (!suffix || suffix === "$") return "";
-      return verb + suffix;
+      return verb + suffix + pastParticipal;
     }
 
     return "";
