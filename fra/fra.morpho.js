@@ -793,13 +793,13 @@
     switch (verbInfo.group) {
       case 1: return verbInfo.verb.slice(0, -2) + "é";
       case 2: return verbInfo.verb.slice(0, -1);
+      //TODO group 3 verbs past participle
       default: return ""
 
     }
   }
 
   //Override conjugate function
-  //TODO french conjugation
   Me.conjugate = function(verb, opts) {
 
     verbGroup(verb);
@@ -846,6 +846,8 @@
       if (!suffix || suffix === "$") return "";
       return verb + suffix + pastParticipal;
     }
+
+    //TODO group 3 verbs
 
     return "";
 
