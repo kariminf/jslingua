@@ -49,7 +49,8 @@ Javascript library to process languages:
 * Transliteration: different transliteration methods including Morse code.
 * Morphology: different morphological functions
   * Verb Conjugation
-  * Stemming
+  * Stemming: deleting affixes (suffixes, prefixes and infixes)
+  * Noun declension: from feminine to masculine and the inverse, from singular to plural, etc.
 
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 

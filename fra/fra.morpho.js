@@ -844,6 +844,16 @@
       verb = verb.slice(0, -2);
       let suffix = getSuffix(opts);
       if (!suffix || suffix === "$") return "";
+
+      //Group 1 verbs with -cer and -ger endings
+      if(/[cg]$/.test(verb) && /^[aoâ]/.test(suffix)) {
+        let ending = "e"; //in case of -ger
+        if (verb.endsWith("c")) {// in case of cer
+          verb = verb.slice(0, -1);
+          ending = "ç"
+        }
+        verb += ending;
+      }
       return verb + suffix + pastParticipal;
     }
 
