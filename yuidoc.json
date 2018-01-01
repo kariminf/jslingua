@@ -1,7 +1,7 @@
 {
   "name": "JsLingua API",
   "description": "Language processing API",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "url": "http://kariminf.github.io/jslingua/",
   "options": {
     "linkNatives": "true",

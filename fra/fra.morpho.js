@@ -584,6 +584,19 @@
   };
 
   /**
+   * Verbs of goup 1 which ends with either eler or eter; and don't
+   * double the t or l when meeting a silent e in conjugation \\
+   * Source: http://www.ortholud.com/code/les-verbes.php?terminaison=eler,%20eter
+   * @type {Object}
+   */
+  const notDoubleLT = {
+    "cel": 1, "décel": 1, "recel": 1, "cisel": 1, "démantel": 1, "écartel": 1,
+    "encastel": 1, "gel": 1, "dégel": 1, "congel": 1, "surgel": 1, "martel": 1,
+    "model": 1, "pel": 1, "achet": 1, "rachet": 1, "béguet": 1, "corset": 1,
+    "crochet": 1, "filet": 1, "furet": 1, "halet": 1
+  };
+
+  /**
    * An object to be a midium between different functions
    * @type {Object}
    */
@@ -846,14 +859,35 @@
       if (!suffix || suffix === "$") return "";
 
       //Group 1 verbs with -cer and -ger endings
-      if(/[cg]$/.test(verb) && /^[aoâ]/.test(suffix)) {
-        let ending = "e"; //in case of -ger
-        if (verb.endsWith("c")) {// in case of cer
-          verb = verb.slice(0, -1);
-          ending = "ç"
+      if (verbInfo.group === 1) {
+        if(/[cg]$/.test(verb) && /^[aoâ]/.test(suffix)) {
+          let ending = "e"; //in case of -ger
+          if (verb.endsWith("c")) {// in case of cer
+            verb = verb.slice(0, -1);
+            ending = "ç"
+          }
+          verb += ending;
         }
-        verb += ending;
-      }
+        else { // not ending with -cer|-ger OR suffix not starting with a|o
+          //Here we work just with silent endings (those suffixes starting with e)
+          if (/[ou]y$/.test(verb)) {//envoyer, payer
+            verb = verb.slice(0, -1) + "i";
+          }
+          else {
+            let m;
+            if ((m = /([eé])(.)$/.exec(verb))) { // e or é followed by a char then er
+              verb = verb.slice(0, -2);
+              if (m[1] === "é" || ! "lt".includes(m[2]) || notDoubleLT[verb + "e" + m[2]]) verb += "è";
+              //verb ends with "eter"|"eler" and double lt
+              //It can be ignored according to http://www.ortholud.com/code/les-verbes.php?terminaison=eler,%20eter
+              else verb += "e" + m[2];//double the l or t
+
+              verb += m[2];
+            }
+          }
+        }
+      }//verbs 1 irregularities
+
       return verb + suffix + pastParticipal;
     }
 
