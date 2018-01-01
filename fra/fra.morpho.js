@@ -868,8 +868,9 @@
           }
           verb += ending;
         }
-        else { // not ending with -cer|-ger OR suffix not starting with a|o
+        else if (/^e[^z]*$/.test(suffix)) { // not ending with -cer|-ger OR suffix not starting with a|o
           //Here we work just with silent endings (those suffixes starting with e)
+
           if (/[ou]y$/.test(verb)) {//envoyer, payer
             verb = verb.slice(0, -1) + "i";
           }
