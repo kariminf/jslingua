@@ -77,7 +77,7 @@ You can use a CDN (content-delivery network):
 <script type="text/javascript" src="https://unpkg.com/jslingua@version/file" ></script>
 ```
 if you want to use the last version, just replace "version" with "latest".
-For example, :
+For example:
 ```javascript
 <script type="text/javascript" src="https://unpkg.com/jslingua@latest/jslingua.min.js" ></script>
 <script type="text/javascript" src="https://unpkg.com/jslingua@latest/lang.min.js" ></script>
@@ -111,6 +111,9 @@ var EnLang = JsLingua.getService("Lang", "eng");
 
 //Get Arabic Morpho class
 var ArMorpho = JsLingua.getService("Morpho", "ara");
+
+//Get French Morpho class
+var FrMorpho = JsLingua.getService("Morpho", "fra");
 ```
 
 Or, you can just loop over the services and test available languages.
@@ -138,7 +141,7 @@ All the C's are here:
 
 ## License
 
-Copyright (C) 2016-2017 Abdelkrime Aries
+Copyright (C) 2016-2018 Abdelkrime Aries
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
