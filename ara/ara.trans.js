@@ -231,10 +231,9 @@
   ];
 
   /**
-   * Arabic transliteration
+   * Arabic transliteration class 
    * @class AraTrans
    * @extends Trans
-   * @constructor
    */
   function AraTrans() {
     Trans.call(this, "ara");

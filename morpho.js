@@ -10,10 +10,8 @@
   }
 
   /**
-  * Morphology of a specific language
-  *
+  * Morphology of a specified language
   * @class Morpho
-  * @constructor
   * @param {string} langCode Language ISO693-2 code: ara, jpn, eng, etc.
   */
   function Morpho(langCode) {
@@ -37,7 +35,7 @@
   function dummyDebug() {}
 
   /**
-  * A debugging function which pushes the arguments to the cosoles log
+  * A debugging function which pushes the arguments to the consoles log
   * @method realDebug
   * @private
   */
@@ -48,48 +46,68 @@
   /**
   * The part of speech: Noun, Verb, Adjective,
   * Adverb, Preposition, Pronoun
-  * @access Morpho.Feature.POS
+  * <br>access: Morpho.Feature.POS
   * @attribute PoS
   * @readOnly
+  * @private
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @enum {String}
   */
   const PoS = {
+    /** noun */
     N: "noun",
+    /** verb */
     V: "verb",
+    /** adjective */
     Adj: "adjective",
+    /** adverb */
     Adv: "adverb",
+    /** preposition */
     Prep: "preposition",
+    /** pronoun */
     Pron: "pronoun"
   },
 
   /**
   * The tense: Past, Present, Future
-  * @access Morpho.Feature.Tense
+  * <br>access: Morpho.Feature.Tense
   * @attribute Tense
   * @readOnly
+  * @private
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @enum {String}
   */
   Tense = {
+    /** past */
     Pa: "past",
+    /** present */
     Pr: "present",
+    /** future */
     Fu: "future"
   },
 
   /**
   * The aspect: Simple, Continuous, Perfect, PerfectContinuous
-  * @access Morpho.Feature.Aspect
+  * <br>access: Morpho.Feature.Aspect
   * @attribute Aspect
   * @readOnly
+  * @private
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @enum {String}
   */
   Aspect = {
+    /** simple */
     S: "simple",
+    /** continuous */
     C: "continuous",
+    /** perfect */
     P: "perfect",
+    /** perfect-continuous */
     PC: "perfect-continuous",
+    /** imperfect */
     I: "imperfect"
   },
 
@@ -97,28 +115,28 @@
   * The mood: indicative, subjunctive, conditional,
   * optative, imperative, jussive, potential,
   * hypothetical, inferential
-  *
+  * <br>access: Morpho.Feature.Mood
   * @see http://universaldependencies.org/u/feat/Mood.html
-  * @access Morpho.Feature.Mood
+  *
   * @attribute Mood
   * @readOnly
+  * @private
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @enum {String}
   */
   Mood = {
     /**
-     * The indicative can be considered the default mood.
+     * indicative: The indicative can be considered the default mood.
      * A verb in indicative merely states that something happens,
      * has happened or will happen, without adding any attitude of the speaker.
      * @example You study at the university
-     * @type {String}
      */
     Ind: "indicative",
 
     /**
-     * The speaker uses imperative to order or ask the addressee to do the action of the verb.
+     * imperative: The speaker uses imperative to order or ask the addressee to do the action of the verb.
      * @example Study at the university
-     * @type {String}
      */
     Imp: "imperative",
 
@@ -127,8 +145,8 @@
      * place under some circumstances but they actually did not / do not happen.
      * Grammars of some languages may classify conditional as tense (rather than mood)
      * but e.g. in Czech it combines with two different tenses (past and present).
-     * @example if she went home
-     * @type {String}
+     * @example
+     * // if she went home
      */
     Cnd: "conditional",
 
@@ -204,21 +222,26 @@
 
   /**
   * The voice: Active,Passive, Middle
-  * @access Morpho.Feature.Voice
+  * <br>access: Morpho.Feature.Voice
   * @attribute Voice
   * @readOnly
   * @static
-  * @type {object}
+  * @private
+  * @memberof Morpho
+  * @enum {String}
   */
   Voice = {
+    /** active */
     A: "active",
+    /** passive */
     P: "passive",
+    /** middle */
     M: "middle"
   },
 
   /**
   * The grammatical number: Singular, Dual, Plural
-  * @access Morpho.Feature.Number
+  * <br>access: Morpho.Feature.Number
   * @attribute GNumber
   * @readOnly
   * @static
@@ -232,7 +255,7 @@
 
   /**
   * The person: First, Second, Third.
-  * @access Morpho.Feature.Person
+  * <br>access: Morpho.Feature.Person
   * @attribute Person
   * @readOnly
   * @static
@@ -246,7 +269,7 @@
 
   /**
   * The gender: Masculine, Feminine, Neuter.
-  * @access Morpho.Feature.Gender
+  * <br>access: Morpho.Feature.Gender
   * @attribute Gender
   * @readOnly
   * @static
@@ -277,7 +300,7 @@
   * Morpho.Feature["feature_name"]
   *
   * @attribute Feature
-  * @access Morpho.Feature
+  * <br>access: Morpho.Feature
   * @readOnly
   * @static
   * @type {object}

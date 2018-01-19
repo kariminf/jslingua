@@ -1,0 +1,27 @@
+{
+  "source": {
+        "exclude": ["docs", "out", "test", ".git", "dist", "node_modules"]
+    },
+  "opts": {
+    "template": "node_modules/tui-jsdoc-template",
+    "encoding": "utf8",
+    "destination": "./docs/",
+    "recurse": true
+  },
+  "templates": {
+    "default": {
+      "staticFiles": {
+        "include": [
+            "./design/logo.png"
+        ]
+      }
+    },
+    "logo": {
+      "url": "logo.png",
+      "width": "50px",
+      "height": "50px",
+      "link": "https://kariminf.github.io/jslingua.web/"
+    },
+    "name": "JsLingua doc"
+  }
+}

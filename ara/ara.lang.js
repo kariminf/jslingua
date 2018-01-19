@@ -16,7 +16,6 @@
   * Contains Arabic charsets and transformations
   * @class AraLang
   * @extends Lang
-  * @constructor
   */
   function AraLang() {
     Lang.call(this, "ara");

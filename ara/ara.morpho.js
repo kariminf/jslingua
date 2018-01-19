@@ -23,6 +23,11 @@
   Person = F.Person;
 
   //var g;
+  /**
+   * Arabic language morphology
+   * @class AraMorpho
+   * @extends Morpho
+   */
   function AraMorpho() {
     Morpho.call(this, "ara");
     Morpho.newStemmer.call(this, "IsriAraStemmer", "ISRI Arabic stemmer", IsriAraStemmer);
@@ -102,6 +107,7 @@
   /**
    * A function that gives the pronoun index in conjugation table
    * @method getPronounIndex
+   * @private
    * @param  {object}        opts contains person, number and gender
    * @return {number}             a number from 0 to 13
    */
@@ -574,13 +580,7 @@
     return begin + imp;
   }
 
-  /**
-   * [conjugate description]
-   * @method conjugate
-   * @param  {[type]}  verb [description]
-   * @param  {[type]}  opts [description]
-   * @return {[type]}       [description]
-   */
+
   Me.conjugate = function(verb, opts) {
 
     if (opts.mood === Mood.Imp) return getImperative(verb, opts);

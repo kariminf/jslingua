@@ -100,7 +100,6 @@
 	/**
 	* translateration of the language words
 	* @class Trans
-	* @module JsLingua
 	* @constructor
 	* @param {string} langCode the code of the language: ara, jpn, etc.
 	*/

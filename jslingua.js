@@ -2,7 +2,6 @@
 * The main module
 * @module JsLingua
 */
-
 (function () {
 
   "use strict";
@@ -14,10 +13,6 @@
   //service name: [services for languages]
   let services = {};
 
-  /**
-  * The main class
-  * @class JsLingua
-  */
   let JsLingua = {};
 
   JsLingua.Cls = {};
@@ -56,7 +51,7 @@
     * for example, JsLingua.Cls.Info returns Info class
     * @attribute Cls
     * @static
-    * @type {Object}
+    * @type {object}
     */
     JsLingua.Cls = {
       Info: require("./info.js"),
@@ -75,9 +70,10 @@
 
   /**
   * Add a service for a specific language
+  *
+  * @method addService
   * @public
   * @static
-  * @method addService
   * @param {string} serviceID The services name: "Info", "Lang", etc.
   * @param {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
   * @param {object} theClass  The class that affords the service
@@ -93,11 +89,12 @@
 
   /**
   * Get the codes of available languages of a given service
+  *
+  * @method serviceLanguages
   * @public
   * @static
-  * @method serviceLanguages
   * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @return {array}   array of strings, with ISO639-2 codes
+  * @return {string[]}   array of strings, with ISO639-2 codes
   */
   JsLingua.serviceLanguages = function(serviceID) {
     if (services[serviceID] === undefined) return [];
@@ -107,12 +104,13 @@
   /**
   * Get the service class for a given language and service name.<br>
   * For example: JsLingua.getService("Info", "ara") Gives a class AraInfo
+  *
+  * @method getService
   * @public
   * @static
-  * @method getService
   * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
   * @param  {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
-  * @return {object}   The class that affords the service
+  * @return {class}   The class that affords the service
   */
   JsLingua.getService = function(serviceID, langCode) {
     if (services[serviceID] === undefined) return null;
@@ -121,11 +119,12 @@
   };
 
   /**
-   * [getVersion description]
+   * Returns the version of JsLingua
+   *
+   * @method getVersion
    * @public
    * @static
-   * @method getVersion
-   * @return {[type]}   [description]
+   * @return {string}   JsLingua version
    */
   JsLingua.getVersion = function() {
     return version;
@@ -137,11 +136,12 @@
    * But, the direction is used a lot for presentation, so a centralized
    * version is to be afforded, so we don't import the js file for each
    * language in each webpage.
+   *
+   * @method getDir
    * @public
    * @static
-   * @method getDir
    * @param  {string} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
-   * @return {String}     either "rtl" or "ltr"
+   * @return {string}     either "rtl" or "ltr"
    */
   JsLingua.getDir = function(langCode) {
 

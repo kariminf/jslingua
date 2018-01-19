@@ -16,7 +16,6 @@
    * Contains information about Arabic language
    * @class AraInfo
    * @extends Info
-   * @constructor
    */
   function AraInfo() {
 

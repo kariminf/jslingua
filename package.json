@@ -5,7 +5,7 @@
   "main": "jslingua.js",
   "devDependencies": {
     "codecov": "^2.3.1",
-    "eslint": "^4.14.0",
+    "eslint": "^4.15.0",
     "expect.js": "^0.3.1",
     "http-server": "^0.10.0",
     "inchjs": "^0.4.1",
@@ -13,8 +13,8 @@
     "jshint": "^2.9.3",
     "jslint": "^0.11.0",
     "mocha": "^3.5.3",
-    "uglify-es": "^3.3.4",
-    "yuidoc-marviq-theme": "^0.1.5"
+    "tui-jsdoc-template": "^1.2.2",
+    "uglify-es": "^3.3.7"
   },
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
