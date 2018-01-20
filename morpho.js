@@ -11,8 +11,9 @@
 
   /**
   * Morphology of a specified language
+  *
   * @class Morpho
-  * @param {string} langCode Language ISO693-2 code: ara, jpn, eng, etc.
+  * @param {String} langCode Language ISO693-2 code: ara, jpn, eng, etc.
   */
   function Morpho(langCode) {
 
@@ -27,14 +28,14 @@
     };
   }
 
-  /**
+  /*
   * A debugging function which do nothing
   * @method dummyDebug
   * @private
   */
   function dummyDebug() {}
 
-  /**
+  /*
   * A debugging function which pushes the arguments to the consoles log
   * @method realDebug
   * @private
@@ -141,80 +142,70 @@
     Imp: "imperative",
 
     /**
-     * The conditional mood is used to express actions that would have taken
+     * conditional: The conditional mood is used to express actions that would have taken
      * place under some circumstances but they actually did not / do not happen.
      * Grammars of some languages may classify conditional as tense (rather than mood)
      * but e.g. in Czech it combines with two different tenses (past and present).
-     * @example
-     * // if she went home
+     * @example if she went home
      */
     Cnd: "conditional",
 
     /**
-     * The action of the verb is possible but not certain.
+     * potential: The action of the verb is possible but not certain.
      * This mood corresponds to the modal verbs can, might, be able to. Used e.g. in Finnish.
      * @example she can go home
-     * @type {String}
      */
     Pot: "potential",
 
     /**
-     * The subjunctive mood is used under certain circumstances in subordinate clauses,
+     * subjunctive: The subjunctive mood is used under certain circumstances in subordinate clauses,
      * typically for actions that are subjective or otherwise uncertain.
      * In German, it may be also used to convey the conditional meaning.
      * @example "Je veux que tu le fasses": I want that you to do it
-     * @type {String}
      */
     Sub: "subjunctive",
 
     /**
-     * The jussive mood expresses the desire that the action happens;
+     * jussive: The jussive mood expresses the desire that the action happens;
      * it is thus close to both imperative and optative.
      * Unlike in desiderative, it is the speaker, not the subject who wishes that it happens.
      * Used e.g. in Arabic.
      * @example فليكن let it be
-     * @type {String}
      */
     Jus: "jussive",
 
     /**
-     * Means “in order to”, occurs in Amazonian languages.
-     * @type {String}
+     * purposive: Means “in order to”, occurs in Amazonian languages.
      */
     Prp: "purposive",
 
     /**
-     * The quotative mood is used e.g. in Estonian to denote direct speech.
-     * @type {String}
+     * quotative: The quotative mood is used e.g. in Estonian to denote direct speech.
      */
     Qot: "quotative",
 
     /**
-     * Expresses exclamations like “May you have a long life!” or
+     * optative: Expresses exclamations like “May you have a long life!” or
      * “If only I were rich!” In Turkish it also expresses suggestions.
      * @example let’s go home
-     * @type {String}
      */
     Opt: "optative",
 
     /**
-     * The desiderative mood corresponds to the modal verb “want to”:
+     * desiderative: The desiderative mood corresponds to the modal verb “want to”:
      * “He wants to come.” Used e.g. in Turkish.
-     * @type {String}
      */
     Des: "desiderative",
 
     /**
-     * The necessitative mood expresses necessity and corresponds to the modal
+     * necessitative: The necessitative mood expresses necessity and corresponds to the modal
      * verbs “must, should, have to”: “He must come.”
-     * @type {String}
      */
     Nec: "necessitative",
 
     /**
-     * Expresses surprise, irony or doubt. Occurs in Albanian,
+     * admirative: Expresses surprise, irony or doubt. Occurs in Albanian,
      * other Balkan languages, and in Caddo (Native American from Oklahoma).
-     * @type {String}
      */
     Adm: "admirative"
 
@@ -225,8 +216,8 @@
   * <br>access: Morpho.Feature.Voice
   * @attribute Voice
   * @readOnly
-  * @static
   * @private
+  * @static
   * @memberof Morpho
   * @enum {String}
   */
@@ -244,12 +235,17 @@
   * <br>access: Morpho.Feature.Number
   * @attribute GNumber
   * @readOnly
+  * @private
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @enum {String}
   */
   GNumber = {
+    /** singular */
     S: "singular",
+    /** dual */
     D: "dual",
+    /** plural */
     P: "plural"
   },
 
@@ -258,12 +254,17 @@
   * <br>access: Morpho.Feature.Person
   * @attribute Person
   * @readOnly
+  * @private
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @enum {String}
   */
   Person = {
+    /** first */
     F: "first",
+    /** second */
     S: "second",
+    /** third */
     T: "third"
   },
 
@@ -272,27 +273,31 @@
   * <br>access: Morpho.Feature.Gender
   * @attribute Gender
   * @readOnly
+  * @private
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @enum {String}
   */
   Gender = {
+    /** masculine */
     M: "masculine",
+    /** feminine */
     F: "feminine",
+    /** neuter */
     N: "neuter"
   };
 
   /**
   * This is a map to different morphology features:
   * <ul>
-  * <li>POS</li>
-  * <li>Tense</li>
-  * <li>Aspect</li>
-  * <li>Mood</li>
-  * <li>Voice</li>
-  * <li>Number: It returns <a href="#attr_Num">Num</a></li>
-  * <li>Case: It returns <a href="#attr_Case">Case</a></li>
-  * <li>Person: It returns <a href="#attr_Person">Person</a></li>
-  * <li>Gender: It returns <a href="#attr_Gender">Gender</a></li>
+  * <li>POS: It returns {@link Morpho.PoS}</li>
+  * <li>Tense: It returns {@link Morpho.Tense}</li>
+  * <li>Aspect: It returns {@link Morpho.Aspect}</li>
+  * <li>Mood: It returns {@link Morpho.Mood}</li>
+  * <li>Voice: It returns {@link Morpho.Voice}</li>
+  * <li>Number: It returns {@link Morpho.GNumber}</li>
+  * <li>Person: It returns {@link Morpho.Person}</li>
+  * <li>Gender: It returns {@link Morpho.Gender}</li>
   * </ul>
   * We can access these features either by:<br>
   * Morpho.Feature.feature_name <br>
@@ -300,10 +305,11 @@
   * Morpho.Feature["feature_name"]
   *
   * @attribute Feature
-  * <br>access: Morpho.Feature
   * @readOnly
+  * @public
   * @static
-  * @type {object}
+  * @memberof Morpho
+  * @type {Object}
   */
   Morpho.Feature = {
     POS: PoS,
@@ -330,17 +336,19 @@
   }
 
   //=========================================
-  // Protected Static methods
+  // Protected methods
   // ========================================
+
+
 
   /**
   * Add new stemmer method
   * @method newStemmer
   * @protected
-  * @static
-  * @param  {string} stemmerName the name of the stemmer
-  * @param  {string} stemmerDesc   the description of the stemmer
-  * @param  {function} stemmerFct   the function stem(word)
+  * @memberof Morpho
+  * @param  {String} stemmerName the name of the stemmer
+  * @param  {String} stemmerDesc   the description of the stemmer
+  * @param  {Function} stemmerFct   the function stem(word)
   */
   Morpho.newStemmer = function (stemmerName, stemmerDesc, stemmerFct) {
     if (typeof stemmerName === "string" && stemmerName.length > 0){
@@ -357,7 +365,10 @@
 
   /**
   * Enables the debugging messages
+  *
   * @method enableDebug
+  * @public
+  * @memberof Morpho
   */
   Me.enableDebug = function(){
     this.g.debugFunction = realDebug;
@@ -366,6 +377,8 @@
   /**
   * disables the debugging messages
   * @method disableDebug
+  * @public
+  * @memberof Morpho
   */
   Me.disableDebug = function(){
     this.g.debugFunction = dummyDebug;
@@ -374,9 +387,11 @@
   /**
   * Sets the current stemmer
   *
-  * @final
   * @method setCurrentStemmer
-  * @param {string} StemmerName stemmer method's name
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param {String} StemmerName stemmer method's name
   */
   Me.setCurrentStemmer = function (StemmerName) {
     if (StemmerName in this.stemmers){
@@ -386,9 +401,11 @@
 
   /**
   * Returns the list of available stemming methods
-  * @final
   * @method availableStemmers
-  * @return {array}  Array of Strings containing stemmers names
+  * @public
+  * @final
+  * @memberof Morpho
+  * @return {String[]}  Array of Strings containing stemmers names
   */
   Me.availableStemmers = function(){
     return Object.keys(this.stemmers);
@@ -396,7 +413,10 @@
 
   /**
   * This method is used to recover the name of the tense
-  * @param  {Tense} tense the tense which we want to get the name
+  * @method getTenseName
+  * @public
+  * @memberof Morpho
+  * @param  {String} tense the tense which we want to get the name (See {@link Morpho.Tense})
   * @return {String}       the name of the tense in the selected language
   */
   Me.getTenseName = function(tense){
@@ -414,10 +434,12 @@
 
   /**
    * Returns a list of verb types
-   * @abstract
-   * @public
+   *
    * @method getVerbTypes
-   * @return {Array}     [description]
+   * @public
+   * @abstract
+   * @memberof Morpho
+   * @return {String[]}     list of verb types
    */
   Me.getVerbTypes = function(){
     return [];
@@ -425,25 +447,28 @@
 
   /**
    * Given a verb, it detects its type
-   * @abstract
-   * @public
+   *
    * @method getVerbType
-   * @return {[type]}    [description]
+   * @public
+   * @abstract
+   * @memberof Morpho
+   * @return {String}    verb's type
    */
   Me.getVerbType = function(){
     return "";
   };
 
   /**
-  * This function returns an object of available conjugation forms
-  * ```
+  * This function returns an object of available conjugation forms for the current language
+  * @example
   * {
   *  "form_name": {opts}
   * }
-  * ```
-  * @public
+  *
   * @method getForms
-  * @return {array}  Array of tenses available for the language
+  * @public
+  * @memberof Morpho
+  * @return {Object[]}  Array of conjugation forms available for the language
   */
   Me.getForms = function(){
     //Past and Present are defaults
@@ -472,7 +497,9 @@
   * For example, in English, Arabic and French, we put pronouns in rows.
   * As for Japanese, the conjugation doesn't follow that pattern.
   * @method getConjugModel
-  * @return {[type]}   [description]
+  * @public
+  * @memberof Morpho
+  * @return {Object}   conjugation model with rows and cols
   */
   Me.getConjugModel = function(){
     //Past and Present are defaults
@@ -484,10 +511,12 @@
 
 
   /**
-   * [getOptLists description]
+   * Returns the available options for conjugation such as pronouns, negation, voice, etc.
    * @method getOptLists
-   * @param  {[type]}    optLabel [description]
-   * @return {[type]}             [description]
+   * @public
+   * @memberof Morpho
+   * @param  {String}    optLabel Can be: "Pronoun", "Negation", "Voice"
+   * @return {Object[]}             A list of parameters related to optLabel and the processed language
    */
   Me.getOptLists = function(optLabel){
     switch (optLabel) {
@@ -498,6 +527,24 @@
     }
   };
 
+  /**
+   * Returns the name of a conjugation parameter (Pronoun, Negation, Voice) given some options
+   * @example
+   *    var opts = {
+   *      person: "first", // Morpho.Feature.Person.F
+   *      number: "singular" // Morpho.Feature.Number.S
+   *    };
+   *    var I = getOptName("Pronoun", opts);
+   * // In English, it will give: "I"
+   * // In Arabic, it will give: "أنا"
+   *
+   * @method getOptName
+   * @public
+   * @memberof Morpho
+   * @param  {String}   optLabel can be: Pronoun, Negation, Voice
+   * @param  {Object}   opts     The parameters
+   * @return {String}            The label of this parameter in the current language
+   */
   Me.getOptName = function(optLabel, opts){
     switch (optLabel) {
       case "Pronoun": return this.getPronounName(opts);
@@ -510,10 +557,12 @@
   };
 
   /**
-   * [getNegationOpts description]
-   * @protected
+   * Returns the list of negation options for verb conjugation
+   *
    * @method getNegationOpts
-   * @return {[type]}        [description]
+   * @protected
+   * @memberof Morpho
+   * @return {Object[]}        The list of available negation options
    */
   Me.getNegationOpts = function(){
     return [
@@ -523,11 +572,13 @@
   };
 
   /**
-   * [getNegationName description]
-   * @protected
+   * Returns the label of the negation in the current language
+   *
    * @method getNegationName
-   * @param  {[type]}        opts [description]
-   * @return {[type]}             [description]
+   * @protected
+   * @memberof Morpho
+   * @param  {Object}        opts An object containing the attribute: negated: (0|1)
+   * @return {String}             the label of the negation in the current language
    */
   Me.getNegationName = function(opts){
     if (! opts) return "";
@@ -536,10 +587,12 @@
   };
 
   /**
-   * [getVoiceOpts description]
-   * @protected
+   * Returns the list of conjugation voice for the current language
+   *
    * @method getVoiceOpts
-   * @return {[type]}     [description]
+   * @protected
+   * @memberof Morpho
+   * @return {Object[]}     A list of conjugation voice parameters for the current language
    */
   Me.getVoiceOpts = function(){
     return [
@@ -549,11 +602,13 @@
   };
 
   /**
-   * [getVoiceName description]
-   * @protected
+   * Returns the conjugation voice's name in the current language
+   *
    * @method getVoiceName
-   * @param  {[type]}     opts [description]
-   * @return {[type]}          [description]
+   * @protected
+   * @memberof Morpho
+   * @param  {Object}     opts An object with one attribute: voice
+   * @return {String}          the label of the voice in the current language
    */
   Me.getVoiceName = function(opts){
     if (! opts) return "";
@@ -566,22 +621,32 @@
   };
 
   /**
-   * [getPronounOpts description]
-   * @protected
+   * Returns a list of options for pronouns in the current language
+   *
    * @method getPronounOpts
-   * @return {[type]}       [description]
+   * @protected
+   * @memberof Morpho
+   * @return {Object[]}       List of pronouns options
    */
   Me.getPronounOpts = function(){
     return [{}];
   };
 
   /**
-   * [getPronounName description]
-   * @protected
-   * @method getPronounName
-   * @param  {[type]}       opts [description]
-   * @return {[type]}            [description]
-   */
+  * Get the personal pronoun using options like: person, gender, etc.<br>
+  * for example, the parameters for the personal pronoun "I": <br>
+  * @example
+  *    {
+  *      person: Morpho.Feature.Person.F, // "first"
+  *      number: Morpho.Feature.Number.S // "singular"
+  *    }
+  *
+  * @method getPronounName
+  * @protected
+  * @memberof Morpho
+  * @param  {Object} opts An object containing parameters: person, gender, number.
+  * @return {String}      the pronoun
+  */
   Me.getPronounName = function(_opts){
     return "";
   };
@@ -589,39 +654,27 @@
 
   /**
   * This function is used for verb conjugation
+  *
   * @method conjugate
-  * @param  {string} verb the word to be conjugated
-  * @param  {object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
-  * @return {string}      inflected word
+  * @public
+  * @memberof Morpho
+  * @param  {String} verb the word to be conjugated
+  * @param  {Object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+  * @return {String}      Conjugated verb
   */
   Me.conjugate = function(verb, _opts){
     return verb;
   };
 
-
-
   /**
-  * Get the personal pronoun using options like: person, gender, etc.<br>
-  * for example, the parameters for the personal pronoun "I": <br>
-  * ```
-  *    {
-  *      person: Morpho.Feature.Person.First,
-  *      number: Morpho.Feature.Number.Singular
-  *    }
-  * ```
-  * @method getPronounName
-  * @param  {object} opts An object containing parameters: person, gender, number.
-  * @return {string}      the pronoun
-  */
-  Me.getPronounName = function(_opts){
-    return "";
-  };
-
-  /**
-   * Returns a function for declension
+   * Returns a function for noun declension
+   *
    * @method nounDeclensionFunction
-   * @param  {string}               declenseName the name of the function
-   * @return {function}  a function which takes a noun as a parameter
+   * @public
+   * @final
+   * @memberof Morpho
+   * @param  {String}               declenseName the name of the function
+   * @return {Function}  a function which takes a noun as a parameter
    */
   Me.nounDeclensionFunction = function(declenseName) {
     if (typeof declenseName !== "string") {
@@ -633,21 +686,26 @@
 
   /**
    * Add a noun declension function
+   *
    * @method addNounDeclension
-   * @static
    * @protected
-   * @param  {string}  name the name of the function
-   * @param  {function} func a function which takes a noun as parameter and returns a declensed one
+   * @memberof Morpho
+   * @param  {String}  name the name of the function
+   * @param  {Function} func a function which takes a noun as parameter and returns a declensed one
    */
   Morpho.addNounDeclension = function(name, func) {
-    //TODO not protected
+    //TODO not secure
     this.ndeclense[name] = func;
   }
 
   /**
    * Returns a list of noun declension functions
+   *
    * @method availableNounDeclensions
-   * @return {string}    A list of declense functions names
+   * @public
+   * @final
+   * @memberof Morpho
+   * @return {String}    A list of declense functions names
    */
   Me.availableNounDeclensions = function(){
     return Object.keys(this.ndeclense);
@@ -655,9 +713,13 @@
 
   /**
   * Stem a word: delete prefixes, suffixes and infixes
+  *
   * @method stem
-  * @param  {string} word the word to be stemmed
-  * @return {string}      stemmed word
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param  {String} word the word to be stemmed
+  * @return {String}      stemmed word
   */
   Me.stem = function(word){
     var stemmer = this.stemmers[this.currentStemmer];
@@ -668,11 +730,14 @@
 
   /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
+  *
   * @method normalize
-  * @param  {string} word the word to be normalized
-  * @param  {string} opts some options (optional) where each language defines its own
+  * @public
+  * @memberof Morpho
+  * @param  {String} word the word to be normalized
+  * @param  {String} opts some options (optional) where each language defines its own
   * normalization options
-  * @return {string}      normalized word
+  * @return {String}      normalized word
   */
   Me.normalize = function(word, _opts){
     return word;
@@ -683,13 +748,16 @@
   // =======================================================================
 
   /**
-   * [parseConjModelBranch description]
+   * Given a morpho object for a certain language, and a branch (row or col);
+   * This function returns an object containing its lables, spans and opts
+   *
+   * @method parseConjModelBranch
    * @private
    * @static
-   * @method parseConjModelBranch
-   * @param  {[type]}             morpho [description]
-   * @param  {[type]}             branch [description]
-   * @return {[type]}                    [description]
+   * @memberof Morpho
+   * @param  {Morpho}             morpho A Morpho object
+   * @param  {Object}             branch Can be a row or a
+   * @return {{labels: String[][], spans: Number[], opts: Object[]}} Presentation information about the branch
    */
   function parseConjModelBranch(morpho, branch){
     let result = {
@@ -726,12 +794,17 @@
   }
 
   /**
-   * [parseConjModel description]
-   * @static
-   * @public
+   * This method is a helper for presenting conjugation tables.
+   * It takes a Morpho object of a certain language, then creates
+   * rows labels and columns labels for this language
+   *
    * @method parseConjModel
-   * @param  {[type]}       morpho [description]
-   * @return {[type]}              [description]
+   * @public
+   * @static
+   * @memberof Morpho
+   * @param  {Morpho}       morpho A Morpho object specified for a given language
+   * @return {{rows: {labels: String[][], spans: Number[], opts: Object[]} ,
+   * cols: {labels: String[][], spans: Number[], opts: Object[]} }}  - Information about columns and rows in conjugation
    */
   Morpho.parseConjModel = function(morpho) {
 

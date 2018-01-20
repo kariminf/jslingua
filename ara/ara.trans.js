@@ -231,7 +231,8 @@
   ];
 
   /**
-   * Arabic transliteration class 
+   * Arabic transliteration class
+   *
    * @class AraTrans
    * @extends Trans
    */
@@ -249,10 +250,12 @@
 
   /**
    * Arabic to morse normalization
+   *
    * @method ar2morseNormalize
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      normalized text
+   * @memberof AraTrans
+   * @param  {String} text Arabic text
+   * @return {String}      normalized text
    */
   function ar2morseNormalize(text) {
     let result = text;
@@ -264,10 +267,12 @@
 
   /**
    * pre-transliteration for morse: cleaning non supported codes
+   *
    * @method morsePreTrans
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      processed text for morse transliteration
+   * @memberof AraTrans
+   * @param  {String} text Arabic text
+   * @return {String}      processed text for morse transliteration
    */
   function morsePreTrans(text) {
     let result = text;
@@ -282,10 +287,12 @@
 
   /**
    * post-transliteration for morse: clean non morse characters
+   *
    * @method morsePostTrans
    * @private
-   * @param  {string} text morse code
-   * @return {string}      filtered morse code
+   * @memberof AraTrans
+   * @param  {String} text morse code
+   * @return {String}      filtered morse code
    */
   function morsePostTrans(text) {
     let result = text;
@@ -301,10 +308,12 @@
 
   /**
    * pre-untransliteration for morse: clean non morse characters
+   *
    * @method morsePreUntrans
    * @private
-   * @param  {string} text morse code
-   * @return {string}      processed morse code for untransliteration
+   * @memberof AraTrans
+   * @param  {String} text morse code
+   * @return {String}      processed morse code for untransliteration
    */
   function morsePreUntrans(text) {
     let result = text;
@@ -319,10 +328,12 @@
 
   /**
    * post-untransliteration for morse
+   *
    * @method morsePostUntrans
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      filtered Arabic text
+   * @memberof AraTrans
+   * @param  {String} text Arabic text
+   * @return {String}      filtered Arabic text
    */
   function morsePostUntrans(text) {
     let result = text;

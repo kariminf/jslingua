@@ -14,9 +14,9 @@
 
   /**
   * Contains Japanese charsets and transformations
+  *
   * @class JpnLang
   * @extends Lang
-  * @constructor
   */
   function JpnLang() {
     Lang.call(this, "jpn");
@@ -48,14 +48,18 @@
 
   /*
   * Write the Arabic number in Japanese Kanjis
+  *
   * @method pronounceNumber
   * @override
   */
   Me.pronounceNumber = toJapaneseLetters;
+
   /**
   * Transform from Arabic numbers to Japanese letters
+  *
   * @method toJapaneseLetters
   * @private
+  * @memberof JpnLang
   * @param {Number} num the integer number
   * @return {String} Japanese writing of numbers
   */

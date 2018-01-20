@@ -283,9 +283,9 @@
 
   /**
    * Japanese transliteration
+   *
    * @class JpnTrans
    * @extends Trans
-   * @constructor
    */
   function JpnTrans() {
     Trans.call(this, "jpn");
@@ -448,10 +448,12 @@
 
   /**
    * kunreiShiki pre-transliteration function
+   *
    * @method kunreiShikiPreTrans
    * @private
-   * @param  {string} text Japanese text
-   * @return {string}      Pre-tranliterated text
+   * @memberof JpnTrans
+   * @param  {String} text Japanese text
+   * @return {String}      Pre-tranliterated text
    */
   function kunreiShikiPreTrans(text) {
     let result = shikiPreTrans(text);
@@ -462,10 +464,12 @@
 
   /**
    * kunreiShiki pre-untransliteration function
+   *
    * @method kunreiShikiPreUntrans
    * @private
-   * @param  {string} text Romanized text
-   * @return {string}      Pre-untranliterated text
+   * @memberof JpnTrans
+   * @param  {String} text Romanized text
+   * @return {String}      Pre-untranliterated text
    */
   function kunreiShikiPreUntrans(text) {
     var result = doubleReplace(text);
@@ -477,8 +481,10 @@
 
   /**
   * Replace the doubled characters with a little "tsu" if different from "n"
+  *
   * @method doubleReplace
   * @private
+  * @memberof JpnTrans
   * @param  {String} text The text to be replaced
   * @return {String} The same string but the repeated characters are replaced
   */
@@ -501,8 +507,10 @@
 
   /**
    * Transform xya to Japanese little 'tsu' followed by ya
+   *
    * @method xya2Jap
    * @private
+   * @memberof JpnTrans
    * @param  {string} text Romanized text
    * @return {string}      text with xya transformed to Japanese
    */
@@ -527,10 +535,12 @@
 
   /**
   * Replace the lone characters with their equivalent + "u"
+  *
   * @method loneCharReplace
   * @private
-  * @param  {string} text the text to be replaced
-  * @return {string}      The resulted text
+  * @memberof JpnTrans
+  * @param  {String} text the text to be replaced
+  * @return {String}      The resulted text
   */
   function loneCharReplace(text) {
     return text.replace(/[a-z][う]?/gi, function(x) {

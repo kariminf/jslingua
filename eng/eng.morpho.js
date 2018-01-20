@@ -24,6 +24,12 @@
 
   let g;
 
+  /**
+   * English language morphology
+   *
+   * @class EngMorpho
+   * @extends Morpho
+   */
   function EngMorpho() {
     Morpho.call(this, "eng");
     Morpho.newStemmer.call(this, "porterStemmer", "English proter stemmr", porterStemmer);
@@ -238,11 +244,15 @@
   }
 
   /**
-   * Not safe: must be used with isIrregular
+   * A method to conjugate irregular verbs.
+   * Before using it, the verb must be verified if irregular
+   *
    * @method irregularConj
-   * @param  {[type]}      verb [description]
-   * @param  {[type]}      idx  0 for past, 1 for past participle
-   * @return {[type]}           [description]
+   * @private
+   * @memberof EngMorpho
+   * @param  {String}      verb the irregular verb
+   * @param  {Number}      idx  0 for past, 1 for past participle
+   * @return {String}           the conjugation
    */
   function irregularConj(verb, idx) {
     if (irregular0[verb]) return verb;
@@ -853,9 +863,13 @@ function acceptable(value) {
 
   /**
    * Transforms a singular noun to plural
+   *
    * @method singular2plural
-   * @param  {[type]}        noun [description]
-   * @return {[type]}             [description]
+   * @private
+   * @static
+   * @memberof EngMorpho
+   * @param  {String}        noun The noun to be transformed to plural
+   * @return {String}             Plural form of the given noun
    */
   function singular2plural(noun){
     if (/^.*fe$/.test(noun)) return noun.slice(-2) + "ves";

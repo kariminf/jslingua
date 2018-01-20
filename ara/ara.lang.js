@@ -14,6 +14,7 @@
 
   /**
   * Contains Arabic charsets and transformations
+  *
   * @class AraLang
   * @extends Lang
   */
@@ -72,6 +73,7 @@
   * Transform from Arabic numbers to Arabic letters
   * @method toArabicLetters
   * @private
+  * @memberof AraLang
   * @param {Number} nbr the integer number
   * @return {String} Arabic writing of numbers
   */

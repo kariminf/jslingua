@@ -15,9 +15,9 @@
 
   /**
    * Contains information about Japanese language
+   *
    * @class JpnInfo
    * @extends Info
-   * @constructor
    */
   function JpnInfo() {
     Info.call(this, "jpn");

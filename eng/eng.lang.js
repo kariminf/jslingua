@@ -14,9 +14,9 @@
 
   /**
   * Contains English charsets and transformations
+  *
   * @class EngLang
   * @extends Lang
-  * @constructor
   */
   function EngLang() {
     Lang.call(this, "eng");
@@ -61,8 +61,10 @@
 
   /**
   * Transform from Arabic numbers to English letters
+  *
   * @method toEnglishLetters
   * @private
+  * @memberof EngLang
   * @param {Number} nbr the integer number
   * @return {String} English writing of numbers
   */
@@ -72,10 +74,12 @@
 
   /**
   * Transform from Arabic numbers to English letters
+  *
   * @method toEnglishLetters2
   * @private
+  * @memberof EngLang
   * @param {Number} nbr the integer number
-  * @param {boolean} comma put a comma or not
+  * @param {Boolean} comma put a comma or not
   * @return {String} English writing of numbers
   */
   function toEnglishLetters2(num, comma) {

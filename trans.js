@@ -79,11 +79,14 @@
 
 	/**
 	* This function returns another function which do the transformation
+	*
 	* @method getTransliterator
 	* @private
-	* @param  {array} srcTbl array which contains the source strings
-	* @param  {array} dstTbl array which contains the destination strings
-	* @return {function}        a function which takes a string and transforme it using
+	* @memberof Trans
+	* @memberof Trans
+	* @param  {String[]} srcTbl array which contains the source strings
+	* @param  {String[]} dstTbl array which contains the destination strings
+	* @return {Function}        a function which takes a string and transforme it using
 	* srcTbl and dstTbl
 	*/
 	function getTransliterator(srcTbl, dstTbl) {
@@ -99,9 +102,9 @@
 
 	/**
 	* translateration of the language words
+	*
 	* @class Trans
-	* @constructor
-	* @param {string} langCode the code of the language: ara, jpn, etc.
+	* @param {String} langCode the code of the language: ara, jpn, etc.
 	*/
 	function Trans(langCode) {
 		this.code = langCode;
@@ -121,12 +124,13 @@
 
 	/**
 	* Add new transliteration method using two parallele tables
+	*
 	* @method newMethod
 	* @protected
-	* @static
-	* @param  {string} methodName the name of the method
-	* @param  {array} langTbl    array of strigs, the languages characters
-	* @param  {array} transTbl   array of strigs, their respective representations
+	* @memberof Trans
+	* @param  {String} methodName the name of the method
+	* @param  {String[]} langTbl    array of strigs, the languages characters
+	* @param  {String[]} transTbl   array of strigs, their respective representations
 	*/
 	Trans.newMethod = function(methodName, langTbl, transTbl) {
 		if (typeof methodName === "string" && methodName.length > 0) {
@@ -146,12 +150,13 @@
 
 	/**
 	* Set transliteration methods directly
+	*
 	* @method setTransUntrasMethods
 	* @protected
-	* @static
-	* @param {string} methodName the name of the method
-	* @param {function} trans      function of transliteration
-	* @param {function} untrans    function of untransliteration
+	* @memberof Trans
+	* @param {String} methodName the name of the method
+	* @param {Function} trans      function of transliteration
+	* @param {Function} untrans    function of untransliteration
 	*/
 	Trans.setTransUntrasMethods = function(methodName, trans, untrans) {
 		if (methodName in this.methods){
@@ -169,13 +174,14 @@
 
 	/**
 	* add pre- and post-transliteration functions to a method
+	*
 	* @method addTransPrePostMethods
 	* @protected
-	* @static
-	* @param {string} methodName the name of the method
-	* @param {function} preFunc    function that executes before transliteration;
+	* @memberof Trans
+	* @param {String} methodName the name of the method
+	* @param {Function} preFunc    function that executes before transliteration;
 	* It takes a string and returns a string
-	* @param {function} postFunc   function that executes after transliteration;
+	* @param {Function} postFunc   function that executes after transliteration;
 	* It takes a string and returns a string
 	*/
 	Trans.addTransPrePostMethods = function(methodName, preFunc, postFunc) {
@@ -191,13 +197,14 @@
 
 	/**
 	* add pre- and post-untransliteration functions to a method
+	*
 	* @method addUntransPrePostMethods
 	* @protected
-	* @static
-	* @param {string} methodName the name of the method
-	* @param {function} preFunc    function that executes before untransliteration;
+	* @memberof Trans
+	* @param {String} methodName the name of the method
+	* @param {Function} preFunc    function that executes before untransliteration;
 	* It takes a string and returns a string
-	* @param {function} postFunc   function that executes after untransliteration;
+	* @param {Function} postFunc   function that executes after untransliteration;
 	* It takes a string and returns a string
 	*/
 	Trans.addUntransPrePostMethods = function(methodName, preFunc, postFunc) {
@@ -220,8 +227,12 @@
 
 	/**
 	* Sets the current method to be used for [un]transliteration
+	*
 	* @method setCurrentMethod
-	* @param {string} methodName method's name
+	* @public
+	* @final
+	* @memberof Trans
+	* @param {String} methodName method's name
 	*/
 	Me.setCurrentMethod = function(methodName) {
 		if (methodName in this.methods) {
@@ -231,8 +242,12 @@
 
 	/**
 	* Returns the list of available transliteration methods
+	*
 	* @method availableMethods
-	* @return {array}  Array of Strings containing methods names
+	* @public
+	* @final
+	* @memberof Trans
+	* @return {String[]}  methods names
 	*/
 	Me.availableMethods = function() {
 		return Object.keys(this.methods);
@@ -240,8 +255,12 @@
 
 	/**
 	* gets the language's code
+	*
 	* @method getCode
-	* @return {string}  the language's code
+	* @public
+	* @final
+	* @memberof Trans
+	* @return {String}  the language's code
 	*/
 	Me.getCode = function() {
 		return this.code;
@@ -249,9 +268,13 @@
 
 	/**
 	* transliterate the text using the current method
+	*
 	* @method transliterate
-	* @param  {string} text the untransliterated text (original)
-	* @return {string}      the transliterated text
+	* @public
+	* @final
+	* @memberof Trans
+	* @param  {String} text the untransliterated text (original)
+	* @return {String}      the transliterated text
 	*/
 	Me.transliterate = function(text) {
 		let result = text;
@@ -270,9 +293,13 @@
 
 	/**
 	* untransliterate the text using the current method
+	*
 	* @method untransliterate
-	* @param  {string} text translaterated text
-	* @return {string}      untranslaterated text (original text)
+	* @public
+	* @final
+	* @memberof Trans
+	* @param  {String} text translaterated text
+	* @return {String}      untranslaterated text (original text)
 	*/
 	Me.untransliterate = function(text) {
 		let result = text;

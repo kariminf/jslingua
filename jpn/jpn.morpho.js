@@ -21,18 +21,54 @@
   Gender = F.Gender,
   Person = F.Person;
 
-  let C = Object.freeze;
-  const Formality = C({
+  /**
+   * Formality in Japanese conjugation
+   *
+   * @attribute Formality
+   * @readOnly
+   * @private
+   * @static
+   * @memberof JpnMorpho
+   * @enum {String}
+   */
+  const Formality = {
+    /** plain */
     Pl: "plain",
+    /** polite */
     Po: "polite"
-  }),
-  VType = C({
+  },
+  /**
+   * Type of the Japanese verb
+   *
+   * @attribute VType
+   * @readOnly
+   * @private
+   * @static
+   * @memberof JpnMorpho
+   * @enum {String}
+   */
+  VType = {
+    /** ichidan */
     V1: "ichidan",
+    /** godan */
     V5: "godan",
+    /** suru-kuru */
     SK: "suru-kuru"
-  });
+  };
 
+  // Freeze objects
+  {
+    let C = Object.freeze;
+    C(Formality);
+    C(VType);
+  }
 
+  /**
+   * Japanese language morphology
+   *
+   * @class JpnMorpho
+   * @extends Morpho
+   */
   function JpnMorpho() {
     Morpho.call(this, "jpn");
     Morpho.newStemmer.call(this, "jslinguaJpnStemmer", "JsLingua Japanese stemmer", jslinguaJpnStemmer);
@@ -179,14 +215,17 @@
   aSound = "わらかさたまなばがじ";//verify ず
 
   /**
-   * [basicForm description]
-   * @static
-   * @private
+   * Gives the basic form of a verb
+   *
    * @method basicForm
-   * @param  {string}  verb  [description]
-   * @param  {Array}  sound [description]
-   * @param  {string}  vtype [description]
-   * @return {string}        [description]
+   * @private
+   * @static
+   * @memberof JpnMorpho
+   * @param  {String}  verb  [description]
+   * @param  {String}  sound containing the different endings of verbs with a sound.
+   * For example; uSound is "うるくすつむぬぶぐず"
+   * @param  {String}  vtype The type of the verb
+   * @return {String}        the basic form using the ending sound
    */
   function basicForm(verb, sound, vtype) {
 
@@ -555,10 +594,13 @@
 
   /**
    * Normalizes Japanese words
+   *
    * @method normalize
-   * @param  {string}  word a word to be normalized
-   * @param  {object}  opts For the time being, no options for Japanese
-   * @return {string}       normalized ord
+   * @override
+   * @memberof JpnMorpho
+   * @param  {String}  word a word to be normalized
+   * @param  {Object}  opts For the time being, no options for Japanese
+   * @return {String}       normalized ord
    */
   Me.normalize = function(word, _opts) {
     let m;

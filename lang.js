@@ -11,12 +11,13 @@
 
   /**
   * Returns unicode
+  *
   * @method getUnicode
   * @private
   * @static
   * @memberof Lang
-  * @param {(char|number)} c - a character or a unicode int
-  * @return {number} returns the same number or the unicode of the first character
+  * @param {(Char|Number)} c - a character or a unicode int
+  * @return {Number} returns the same number or the unicode of the first character
   */
   function getUnicode(char) {
     let type = typeof char;
@@ -32,8 +33,8 @@
   /**
    * A function which verifies if a character belongs to a charset
    * @callback isInCharset
-   * @param {(char|number)} c the character to be verified (a character or its unicode)
-   * @return {boolean} belongs true if it belongs, false otherwise
+   * @param {(Char|Number)} c the character to be verified (a character or its unicode)
+   * @return {Boolean} belongs true if it belongs, false otherwise
    */
 
  /**
@@ -43,8 +44,8 @@
   * @private
   * @static
   * @memberof Lang
-  * @param  {number}  min minimum unicode (included)
-  * @param  {number}  max maximum unicode (included)
+  * @param  {Number}  min minimum unicode (included)
+  * @param  {Number}  max maximum unicode (included)
   * @return {isInCharset}     function with char as parameter and returns a boolean
   */
   function isBetween(min,  max) {
@@ -62,7 +63,7 @@
    * @static
    * @memberof Lang
    * @param  {isInCharset} charTestFunc A function which tests if a character belongs to a charset
-   * @return {function}      function which tests if a text contains any charcater of the charset verified by charTestFunc
+   * @return {Function}      function which tests if a text contains any charcater of the charset verified by charTestFunc
    */
   function contains(charTestFunc) {
     return function(text) {
@@ -81,7 +82,7 @@
    * @static
    * @memberof Lang
    * @param  {isInCharset} charTestFunc A function which tests if a character belongs to a charset
-   * @return {function}      function which tests if a text is formed completly by charcaters of the charset verified by charTestFunc
+   * @return {Function}      function which tests if a text is formed completly by charcaters of the charset verified by charTestFunc
    */
   function all(charTestFunc) {
     return function(text) {
@@ -95,16 +96,17 @@
 
   /**
    * transformation Function, returns another function that transforms a text
+   *
    * @method transform
    * @private
    * @static
    * @memberof Lang
-   * @param  {object[]}  opts a list of objects, where each object is:
+   * @param  {Object[]}  opts a list of objects, where each object is:
    *     {
    *        offset: the offset of transformation
    *        found: the function that verifies if the char can be transformed
    *     }
-   * @return {function}     function witch transforms a text using the afforded offsets
+   * @return {Function}     function witch transforms a text using the afforded offsets
    */
   function transform (opts) {
     return function(text) {
@@ -127,8 +129,9 @@
 
   /**
    * Language class
+   *
    * @class Lang
-   * @param {string} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
+   * @param {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
    */
   function Lang(langCode) {
 
@@ -145,13 +148,14 @@
 
   /**
   * Add char sets of a language
+  *
   * @method addCharSet
   * @protected
   * @static
   * @memberof Lang
-  * @param  {string} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
-  * @param  {number} begin   integer value: begining of the charSet
-  * @param  {number} end     integer value: end of the charSet
+  * @param  {String} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
+  * @param  {Number} begin   integer value: begining of the charSet
+  * @param  {Number} end     integer value: end of the charSet
   */
   Lang.addCharSet = function(setName, begin, end) {
     this.CS[setName] = isBetween(begin, end);
@@ -159,12 +163,14 @@
 
   /**
    * Creates a new transformation method
+   *
    * @method addTransform
    * @protected
    * @static
    * @memberof Lang
-   * @param {string} transName   transformation name (function name), for example: hiragana2Katakana
-   * @param {object[]} opts   Array of options such as
+   * @param {String} transName   transformation name (function name), for example: hiragana2Katakana
+   * @param {Object[]} opts   Array of options
+   * @example
    *    {//If the charset exists and we use all of it
    *       setName: "<name of the charset",
    *       offset: <number>
@@ -209,10 +215,11 @@
 
   /**
    * Returns the available charsets for the current language
+   *
    * @method availableCharSets
    * @public
    * @memberof Lang
-   * @return {string[]} a set of strings containing the names of charsets
+   * @return {String[]} a set of strings containing the names of charsets
    */
   Me.availableCharSets = function() {
     return Object.keys(this.CS);
@@ -220,10 +227,11 @@
 
   /**
    * Returns the available transformations for the current language
+   *
    * @method availableTransformations
    * @public
    * @memberof Lang
-   * @return {string[]} a set of strings containing the names of transformation functions
+   * @return {String[]} a set of strings containing the names of transformation functions
    */
   Me.availableTransformations = function() {
     return Object.keys(this.TR);
@@ -231,11 +239,12 @@
 
   /**
    * Returns the transformation function
+   *
    * @method transformationFunction
    * @public
    * @memberof Lang
-   * @param  {string} transName transformation name (function name), for example: hiragana2Katakana
-   * @return {function}  a function which takes a string and transforme it to another string with different charset
+   * @param  {String} transName transformation name (function name), for example: hiragana2Katakana
+   * @return {Function}  a function which takes a string and transforme it to another string with different charset
    */
   Me.transformationFunction = function(transName) {
     if (typeof transName !== "string") {
@@ -247,11 +256,12 @@
 
   /**
    * Returns a function which verifies if a char belongs to a charset or not
+   *
    * @method verifyCharSetFunction
    * @public
    * @memberof Lang
-   * @param  {string} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
-   * @return {function}  A function which takes a char and returns true if it belongs to the charset
+   * @param  {String} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
+   * @return {Function}  A function which takes a char and returns true if it belongs to the charset
    */
   Me.verifyCharSetFunction = function(setName) {
     if (typeof setName !== "string") {
@@ -263,11 +273,12 @@
 
   /**
    * Returns a function which verifies if a string contains at least one character which belongs to a charset
+   *
    * @method containsCharSetFunction
    * @public
    * @memberof Lang
-   * @param  {string} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
-   * @return {function}  A function which takes a string and returns true if one of its characters belongs to the charset
+   * @param  {String} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
+   * @return {Function}  A function which takes a string and returns true if one of its characters belongs to the charset
    */
   Me.containsCharSetFunction = function(setName) {
     return contains(this.CS[setName]);
@@ -275,11 +286,12 @@
 
   /**
    * Returns a function which verifies if all string's characters belong to a charset
+   *
    * @method allCharSetFunction
    * @public
    * @memberof Lang
-   * @param  {string} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
-   * @return {function}  A function which takes a string and returns true if all of its characters belong to the charset
+   * @param  {String} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
+   * @return {Function}  A function which takes a string and returns true if all of its characters belong to the charset
    */
   Me.allCharSetFunction = function(setName) {
     return all(this.CS[setName]);
@@ -287,10 +299,11 @@
 
   /**
    * Returns the code of the language
+   *
    * @method getCode
    * @public
    * @memberof Lang
-   * @return {string}  The language ISO639-2 code: "ara", "jpn", "eng", etc.
+   * @return {String}  The language ISO639-2 code: "ara", "jpn", "eng", etc.
    */
   Me.getCode = function() {
     return this.code;
@@ -299,11 +312,12 @@
   /**
   * A function which returns the pronounciation of a number in the destination
   * language (this must be overriden)
+  *
   * @method pronounceNumber
   * @public
   * @memberof Lang
-  * @param  {number} num A number to be transformed into letters
-  * @return {string}  the pronounciation
+  * @param  {Number} num A number to be transformed into letters
+  * @return {String}  the pronounciation
   */
   Me.pronounceNumber = function(num) {
     return num;

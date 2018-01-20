@@ -15,6 +15,15 @@
 
   let JsLingua = {};
 
+  /**
+  * Contains the super-classes: Info, Lang, Trans, Morpho. <br>
+  * for example, JsLingua.Cls.Info returns Info class
+  *
+  * @attribute Cls
+  * @public
+  * @static
+  * @type {Object}
+  */
   JsLingua.Cls = {};
 
   if (typeof module === "object" && module && typeof module.exports === "object") {
@@ -46,13 +55,6 @@
       }
     };
 
-    /**
-    * Contains the super-classes: Info, Lang, Trans, Morpho. <br>
-    * for example, JsLingua.Cls.Info returns Info class
-    * @attribute Cls
-    * @static
-    * @type {object}
-    */
     JsLingua.Cls = {
       Info: require("./info.js"),
       Lang: require("./lang.js"),
@@ -74,9 +76,9 @@
   * @method addService
   * @public
   * @static
-  * @param {string} serviceID The services name: "Info", "Lang", etc.
-  * @param {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
-  * @param {object} theClass  The class that affords the service
+  * @param {String} serviceID The services name: "Info", "Lang", etc.
+  * @param {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
+  * @param {Object} theClass  The class that affords the service
   */
   JsLingua.addService = function(serviceID, langCode, theClass) {
     if (services[serviceID] === undefined){
@@ -93,8 +95,8 @@
   * @method serviceLanguages
   * @public
   * @static
-  * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @return {string[]}   array of strings, with ISO639-2 codes
+  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
+  * @return {String[]}   array of strings, with ISO639-2 codes
   */
   JsLingua.serviceLanguages = function(serviceID) {
     if (services[serviceID] === undefined) return [];
@@ -108,9 +110,9 @@
   * @method getService
   * @public
   * @static
-  * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @param  {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
-  * @return {class}   The class that affords the service
+  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
+  * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
+  * @return {Class}   The class that affords the service
   */
   JsLingua.getService = function(serviceID, langCode) {
     if (services[serviceID] === undefined) return null;
@@ -124,7 +126,7 @@
    * @method getVersion
    * @public
    * @static
-   * @return {string}   JsLingua version
+   * @return {String}   JsLingua version
    */
   JsLingua.getVersion = function() {
     return version;
@@ -140,8 +142,8 @@
    * @method getDir
    * @public
    * @static
-   * @param  {string} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
-   * @return {string}     either "rtl" or "ltr"
+   * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
+   * @return {String}     either "rtl" or "ltr"
    */
   JsLingua.getDir = function(langCode) {
 

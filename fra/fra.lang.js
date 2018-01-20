@@ -14,9 +14,9 @@
 
   /**
   * Contains French charsets and transformations
+  *
   * @class FraLang
   * @extends Lang
-  * @constructor
   */
   function FraLang() {
     Lang.call(this, "fra");
@@ -71,8 +71,10 @@
 
   /**
   * Transform from Arabic numbers to English letters
+  *
   * @method toFrenchLetters
   * @private
+  * @memberof FraLang
   * @param {Number} nbr the integer number
   * @return {String} French writing of numbers
   */

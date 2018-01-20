@@ -24,6 +24,12 @@
 
   let g;
 
+  /**
+   * French language morphology
+   *
+   * @class FraMorpho
+   * @extends Morpho
+   */
   function FraMorpho() {
     Morpho.call(this, "fra");
     Morpho.newStemmer.call(this, "snowballFrStemmer", "French Snowball stemmr", snowballStemmer);
@@ -176,8 +182,11 @@
   * Each language has a conjugation table model.
   * For example, in English, Arabic and French, we put pronouns in rows.
   * As for Japanese, the conjugation doesn't follow that pattern.
+  *
   * @method getConjugModel
-  * @return {[type]}   [description]
+  * @override
+  * @memberof FraMorpho
+  * @return {Object}   Conjugation model
   */
   Me.getConjugModel = function(){
     //Past and Present are defaults
@@ -616,8 +625,11 @@
   /**
    * Get the verbs group: 1, 2 or 3. You have to verify for irregular verbs:
    * être, avoir, aller; Since they are not considered here.
+   *
    * @method getVerbGroupe
-   * @param  {string}    verb the verb
+   * @private
+   * @memberof FraMorpho
+   * @param  {String}    verb the verb
    */
   function verbGroup(verb) {
 
@@ -742,9 +754,12 @@
 
   /**
    * A function that gives the pronoun index in conjugation table
+   *
    * @method getPronounIndex
-   * @param  {object}        opts contains person and number
-   * @return {number}             a number from 0 to 5
+   * @private
+   * @memberof FraMorpho
+   * @param  {Object}        opts contains person and number
+   * @return {Number}             a number from 0 to 5
    */
   function getPronounIndex(opts) {
 
@@ -798,9 +813,11 @@
   /**
    * A function which returns the past infinitive of a verb <br>
    * Function prerequisite: verbGroup(verb)
-   * @private
+   *
    * @method getVerbPastParticipal
-   * @return {string}   the past infinitive of the verb
+   * @private
+   * @memberof FraMorpho
+   * @return {String}   the past infinitive of the verb
    */
   function getVerbPastParticipal() {
     switch (verbInfo.group) {

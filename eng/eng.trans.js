@@ -71,9 +71,9 @@
 
   /**
    * English transliteration
+   *
    * @class EngTrans
    * @extends Trans
-   * @constructor
    */
   function EngTrans() {
     Trans.call(this, "eng");
@@ -87,10 +87,12 @@
 
   /**
    * pre-transliteration for morse: cleaning non supported codes
+   *
    * @method morsePreTrans
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      processed text for morse transliteration
+   * @memberof EngTrans
+   * @param  {String} text Arabic text
+   * @return {String}      processed text for morse transliteration
    */
   function morsePreTrans(text) {
     let result = text;
@@ -103,10 +105,12 @@
 
   /**
    * post-transliteration for morse: clean non morse characters
+   *
    * @method morsePostTrans
    * @private
-   * @param  {string} text morse code
-   * @return {string}      filtered morse code
+   * @memberof EngTrans
+   * @param  {String} text morse code
+   * @return {String}      filtered morse code
    */
   function morsePostTrans(text) {
     let result = text;
@@ -122,10 +126,12 @@
 
   /**
    * pre-untransliteration for morse: clean non morse characters
+   *
    * @method morsePreUntrans
    * @private
-   * @param  {string} text morse code
-   * @return {string}      processed morse code for untransliteration
+   * @memberof EngTrans
+   * @param  {String} text morse code
+   * @return {String}      processed morse code for untransliteration
    */
   function morsePreUntrans(text) {
     let result = text;
@@ -140,10 +146,12 @@
 
   /**
    * post-untransliteration for morse
+   * 
    * @method morsePostUntrans
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      filtered Arabic text
+   * @memberof EngTrans
+   * @param  {String} text Arabic text
+   * @return {String}      filtered Arabic text
    */
   function morsePostUntrans(text) {
     let result = text;

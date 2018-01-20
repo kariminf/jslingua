@@ -26,10 +26,11 @@
   const latinChars = "[" + Object.keys(latinRep).toString().replace(/,/g, "") + "]";
 
   /**
-   * English transliteration
+   * French transliteration
+   *
    * @class FraTrans
    * @extends Trans
-   * @constructor
+   * @uses EngTrans
    */
   function FraTrans() {
     if (EngTrans.prototype != null){
@@ -50,7 +51,6 @@
   }
   else {
     FraTrans.prototype = Object.create(Trans.prototype);
-    console.log("kkkkkkkk");
   }
 
   FraTrans.prototype.constructor = FraTrans;

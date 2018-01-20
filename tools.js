@@ -3,17 +3,16 @@
  * @module Tools
  */
 "use strict";
- /**
-  * The tools class
-  * @class Tools
-  * @static
-  */
 
 /**
  * Read morse code and output as sound <br>
- * Example: readMorse("..-. .--   ..-.");
+ * @example
+ * readMorse("..-. .--   ..-.");
+ *
  * @method readMorse
- * @param  {string} morse morse code written using ".", "-" and blacks " ".
+ * @public
+ * @static
+ * @param  {String} morse morse code written using ".", "-" and blacks " ".
  */
 function readMorse(morse) {
   let dotLength = 0.07,
@@ -61,9 +60,12 @@ function readMorse(morse) {
 /**
  * Transform HTML reserved characters to their equivalent codes in HTML.<br>
  * for example: "<" is transformed to "&lt;".
+ *
  * @method htmlEntities
- * @param  {string} str normal string
- * @return {string}     skip string
+ * @public
+ * @static
+ * @param  {String} str normal string
+ * @return {String}     skip string
  */
 function htmlEntities(str) {
   let result = String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;");

@@ -23,8 +23,10 @@
   Person = F.Person;
 
   //var g;
+
   /**
    * Arabic language morphology
+   *
    * @class AraMorpho
    * @extends Morpho
    */
@@ -106,10 +108,12 @@
 
   /**
    * A function that gives the pronoun index in conjugation table
+   *
    * @method getPronounIndex
    * @private
-   * @param  {object}        opts contains person, number and gender
-   * @return {number}             a number from 0 to 13
+   * @memberof AraMorpho
+   * @param  {Object}        opts contains person, number and gender
+   * @return {Number}             a number from 0 to 13
    */
   function getPronounIndex(opts) {
 
@@ -682,11 +686,13 @@
 
   /**
    * Normalizing alif after conjugation
-   * @static
-   * @private
+   *
    * @method conjNormakizeAlif
-   * @param  {string}          verb conjugated verb
-   * @return {string}               verb with alif normalization
+   * @private
+   * @static
+   * @memberof AraMorpho
+   * @param  {String}          verb conjugated verb
+   * @return {String}               verb with alif normalization
    */
   function conjNormakizeAlif(verb) {
     //order is important, don't change
@@ -827,12 +833,14 @@
 
   /**
    * Giving the type of weak middle verb
+   *
+   * @method weakMiddleOrigin
    * @private
    * @static
-   * @method weakMiddleOrigin
-   * @param  {string}         verb   the verb as introduced by user
-   * @param  {string}         noDiac the verb filtered from vocalization, split shadda and split alif madda
-   * @return {number}                an integer representing the origin of the middle alif:
+   * @memberof AraMorpho
+   * @param  {String}         verb   the verb as introduced by user
+   * @param  {String}         noDiac the verb filtered from vocalization, split shadda and split alif madda
+   * @return {Number}                an integer representing the origin of the middle alif:
    * <ul>
    * <li>0: alif itself</li>
    * <li>1: waw</li>
@@ -879,17 +887,21 @@
 
   /**
    * Normalization method for Arabic: it helps delete vocalization
-   * * voc: delete vocalization
-   * * alef: Replace all alef variants with the simple alef
-   * * ihamza: Replace all beginning hamza variants with the simple alef
-   * * yeh: Relace the alif maqsorah with yeh
-   * * teh: Replace teh marbuta with heh
-   * * _: Delete tatweel
+   * <ul>
+   * <li> voc: delete vocalization </li>
+   * <li> alef: Replace all alef variants with the simple alef </li>
+   * <li> ihamza: Replace all beginning hamza variants with the simple alef </li>
+   * <li> yeh: Relace the alif maqsorah with yeh </li>
+   * <li> teh: Replace teh marbuta with heh </li>
+   * <li> _: Delete tatweel </li>
+   * </ul>
    * @method normalize
-   * @param  {string} word the word to be normalized
-   * @param  {string} opts some options (optional) where each language defines its own
+   * @override
+   * @memberof AraMorpho
+   * @param  {String} word the word to be normalized
+   * @param  {String} opts some options (optional) where each language defines its own
    * normalization options
-   * @return {string}      normalized word
+   * @return {String}      normalized word
    **/
   Me.normalize = function(word, opts) {
     let norm = word.trim();
@@ -939,11 +951,13 @@
 
   /**
    * A method for Arabic stemming which aims to use regex as much as possible
+   *
+   * @method jslinguaAraStemmer
    * @private
    * @static
-   * @method jslinguaAraStemmer
-   * @param  {[type]}          word [description]
-   * @return {[type]}               [description]
+   * @memberof AraMorpho
+   * @param  {String}          word the word to be stemmed
+   * @return {String}               The stem
    */
   function jslinguaAraStemmer(word) {
     let stem = word;

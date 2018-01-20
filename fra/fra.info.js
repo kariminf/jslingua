@@ -14,9 +14,9 @@
 
   /**
    * Contains information about French language
+   *
    * @class FraInfo
    * @extends Info
-   * @constructor
    */
   function FraInfo() {
 

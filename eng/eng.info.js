@@ -16,7 +16,6 @@
    * Contains information about English language
    * @class EngInfo
    * @extends Info
-   * @constructor
    */
   function EngInfo() {
 
