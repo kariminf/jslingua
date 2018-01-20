@@ -114,7 +114,7 @@
 
 		this.currentMethod = "";
 
-	  //Trans.newMethod.call("def", otherMourseBef, otherMourseAft);
+		//Trans.newMethod.call("def", otherMourseBef, otherMourseAft);
 
 	}
 

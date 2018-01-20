@@ -696,7 +696,7 @@
   Morpho.addNounDeclension = function(name, func) {
     //TODO not secure
     this.ndeclense[name] = func;
-  }
+  };
 
   /**
    * Returns a list of noun declension functions

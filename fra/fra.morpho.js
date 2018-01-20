@@ -16,13 +16,13 @@
   let F = Morpho.Feature,
   Tense = F.Tense,
   Mood = F.Mood,
-  Voice = F.Voice,
+  //Voice = F.Voice,
   GNumber = F.Number,
   Aspect = F.Aspect,
   Gender = F.Gender,
   Person = F.Person;
 
-  let g;
+  //let g;
 
   /**
    * French language morphology
@@ -35,7 +35,7 @@
     Morpho.newStemmer.call(this, "snowballFrStemmer", "French Snowball stemmr", snowballStemmer);
 
     //Morpho.addNounDeclension.call(this, "singularToPlural", singular2plural);
-    g = this.g;
+    //g = this.g;
   }
 
   FraMorpho.prototype = Object.create(Morpho.prototype);
@@ -750,7 +750,7 @@
         [Tense.Pr]: ["$", "va", "", "allons", "allez", "$"]
       }
     }
-  }
+  };
 
   /**
    * A function that gives the pronoun index in conjugation table
@@ -785,7 +785,7 @@
       groupTab = g2Suffix;
       break;
 
-      case 2:
+      case 3:
       groupTab = g3Suffix;
       break;
 
@@ -824,7 +824,7 @@
       case 1: return verbInfo.verb.slice(0, -2) + "é";
       case 2: return verbInfo.verb.slice(0, -1);
       //TODO group 3 verbs past participle
-      default: return ""
+      default: return "";
 
     }
   }
@@ -881,7 +881,7 @@
           let ending = "e"; //in case of -ger
           if (verb.endsWith("c")) {// in case of cer
             verb = verb.slice(0, -1);
-            ending = "ç"
+            ending = "ç";
           }
           verb += ending;
         }
@@ -934,7 +934,7 @@
     //TODO these are in conflict; fix may be using a loop rather than regexp
     word = word.replace("qu", "qU");
     word = word.replace(new RegExp("([" + vowels + "])([ui])([" + vowels + "])", "g"),
-    function(match, p1, p2, p3, offset, string) {
+    function(match, p1, p2, p3) {
       return p1 + p2.toUpperCase() + p3;
     }
     );

@@ -102,7 +102,7 @@
       else pronounce = lookup[div];
 
       if (rem > 0) {
-        if (rem === 1 || rem === 11) res += " et ";
+        if (rem === 1 || rem === 11) pronounce += " et ";
         else pronounce += "-";
         pronounce += lookup[rem];
       }
