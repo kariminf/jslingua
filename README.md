@@ -140,7 +140,7 @@ All the C's are here:
 * [CREDITS](./CREDITS.md) : List of contributors
 
 If you are looking to have fun, you are welcome to contribute.
-If you think this project must have a business plan, please feel free to refer to [this project (click)](https://github.com/kariminf/tnbb)
+If you think this project must have a business plan, please feel free to refer to [this project (click)](https://github.com/kariminf/tnbp)
 
 ## License
 
