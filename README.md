@@ -139,6 +139,9 @@ All the C's are here:
 * [CHANGELOG](./CHANGELOG.md) : Changes in every version
 * [CREDITS](./CREDITS.md) : List of contributors
 
+If you are looking to have fun, you are welcome to contribute.
+If you think this project must have a business plan, please feel free to refer to [this project (click)](https://github.com/kariminf/tnbb)
+
 ## License
 
 Copyright (C) 2016-2018 Abdelkrime Aries
