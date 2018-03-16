@@ -150,7 +150,7 @@
     "y", // ya or "I"
 
     "a'", // hamza on alif
-    "i'", // hamza below alif
+    "'i", // hamza below alif
     "U'", // hamza on waw
     "'y", // hamza on ya
 
