@@ -149,10 +149,10 @@
     "w", // waw or "U"
     "y", // ya or "I"
 
-    "a'", // hamza on alif
+    "'", // hamza on alif
     "'i", // hamza below alif
-    "U'", // hamza on waw
-    "'y", // hamza on ya
+    "'", // hamza on waw
+    "'", // hamza on ya
 
     "'A", // madda on alif
     "|", // alif alwasla <<<<<<
