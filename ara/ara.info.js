@@ -22,6 +22,7 @@
 
     Info.call(this, "ara");
     this.name = "Arabic";
+    this.origName = "عربية";
     this.dir = "rtl";
     this.wordOrder = "vso";
     this.family = "Afro-Asiatic";

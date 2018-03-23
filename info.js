@@ -22,6 +22,8 @@
 
     //arabic, english, japanese
     this.name = "";
+    
+    this.origName = "";
 
     //writing direction: ltr (left to right)
     this.dir = "ltr"; //most are ltr
@@ -53,6 +55,19 @@
   Me.getName = function() {
     return this.name;
   };
+  
+  /**
+   * Get the name of the language in its own writing system
+   *
+   * @method getOrigName
+   * @public
+   * @memberof Info
+   * @return {String}  the language original name: عربية, english, 日本語, etc.
+   */
+  Me.getOrigName = function() {
+    return this.origName;
+  };
+
 
   /**
    * Get the code of the language

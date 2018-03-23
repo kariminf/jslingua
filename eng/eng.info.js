@@ -21,6 +21,7 @@
 
     Info.call(this, "eng");
     this.name = "English";
+    this.origName = "English";
     this.family = "Indo-European";
     this.branch = "Germanic";
   }

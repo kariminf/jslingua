@@ -16,7 +16,7 @@
 [![codebeat badge](https://codebeat.co/badges/dd8cf628-627a-42f3-8ae5-5bfa1a53d525)](https://codebeat.co/projects/github-com-kariminf-jslingua-master)
 [![Code Climate](https://img.shields.io/codeclimate/github/kariminf/jslingua.svg)](https://codeclimate.com/github/kariminf/jslingua/)
 
-This project aims to afford some of the tasks related to languages, such as;: detecting language, some transformations (majuscule to minuscule), verb conjugation, etc.
+This project aims to afford some of the tasks related to languages, such as: detecting language, some transformations (majuscule to minuscule), verb conjugation, etc.
 There are a lot of projects like this such as: [NLTK](https://github.com/nltk/nltk) (python), [OpenNLP](https://github.com/apache/opennlp) (Java), etc.
 But, mostly, they are server side and needs some configurations before being put in action.
 
@@ -37,7 +37,6 @@ The project's ambitions are:
 * To afford good resources for those who want to learn javascript programming.
 * **TO HAVE FUN**: programming is fun, spend time for useful things, happiness is when your work is helpful to others, more obstacles give more experience.
 
-You can test it on [https://kariminf.github.com/jslingua.web](https://kariminf.github.com/jslingua.web)
 
 ## Functionalities
 
@@ -53,8 +52,6 @@ Javascript library to process languages:
   * Noun declension: from feminine to masculine and the inverse, from singular to plural, etc.
 
 To get the list of available functionalities, check [FCT.md](./FCT.md)
-
-YuiDoc generated API is located in [https://kariminf.github.com/jslingua.web/docs/](https://kariminf.github.com/jslingua.web/docs/)
 
 ## How to use?
 
@@ -141,6 +138,22 @@ All the C's are here:
 
 If you are looking to have fun, you are welcome to contribute.
 If you think this project must have a business plan, please feel free to refer to [this project (click)](https://github.com/kariminf/tnbp)
+
+
+## More
+
+You can test the browser version on [https://kariminf.github.io/jslingua.web](https://kariminf.github.io/jslingua.web)
+
+You can test nodejs version online on [https://runkit.com/npm/jslingua](https://runkit.com/npm/jslingua)
+
+jsdoc generated API is located in [https://kariminf.github.io/jslingua.web/docs/](https://kariminf.github.io/jslingua.web/docs/)
+
+Examples on how to use JsLingua are located in [https://github.com/kariminf/jslingua_examples](https://github.com/kariminf/jslingua_examples)
+
+A tutorial on how to use JsLingua is located in [https://github.com/kariminf/jslingua_examples/blob/master/doc/index.md](https://github.com/kariminf/jslingua_examples/blob/master/doc/index.md)
+
+A Youtube tutorial for JsLingua and nodejs is located in this list: [https://www.youtube.com/watch?v=piAysG5W55A&list=PLMNbVokbNS0cIjZxF8AnmgDfmu3XXddeq](https://www.youtube.com/watch?v=piAysG5W55A&list=PLMNbVokbNS0cIjZxF8AnmgDfmu3XXddeq)
+
 
 ## License
 

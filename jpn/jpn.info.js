@@ -22,6 +22,7 @@
   function JpnInfo() {
     Info.call(this, "jpn");
     this.name = "Japanese";
+    this.origName = "日本語";
     //this.dir = "ltr";//already defined
     this.wordOrder = "sov";
     this.family = "Japonic";

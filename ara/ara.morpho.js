@@ -949,6 +949,35 @@
   //                 STEMMERS
   //=========================================================
 
+  let JsLinguaPS = {
+    //templates
+    "t": [
+      /^ل[أنتي](.*)ن$/,
+
+    ],
+    //prifixes
+    "p": [
+      //3 length prefix
+      isriP3,
+      
+    ]
+  };
+
+  function jsStem(word, startingList, endingList) {
+    let l = "^(" + startingList.join("|") + ")";
+    l = l + "(.*)(" + endingList.join("|") + ")$";
+    l = new RegExp(l);
+
+    let m;
+
+    if (notNull(m = l.exec(word))) {
+      let taa = m[3].startsWith("ت")? "ة": "";
+      return m[2] + taa;
+    }
+
+    return word;
+  }
+
   /**
    * A method for Arabic stemming which aims to use regex as much as possible
    *
@@ -961,7 +990,38 @@
    */
   function jslinguaAraStemmer(word) {
     let stem = word;
-    return stem;
+
+    stem = jsStem(stem, isriP3, isriS3);//6
+
+    stem = jsStem(stem, isriP3, isriS2);//5
+
+    stem = jsStem(stem, isriP2, isriS3);//5
+
+    stem = jsStem(stem, isriP2, isriS2);//4
+
+    stem = jsStem(stem, isriP3, isriS1);//4
+
+    stem = jsStem(stem, isriP1, isriS3);//4
+
+    stem = jsStem(stem, isriP2, isriS1);//3
+
+    stem = jsStem(stem, isriP1, isriS2);//3
+
+    stem = jsStem(stem, isriP3, []);//3
+
+    stem = jsStem(stem, [], isriS3);//3
+
+    stem = jsStem(stem, isriP1, isriS1);//2
+
+    stem = jsStem(stem, isriP2, []);//2
+
+    stem = jsStem(stem, [], isriS2);//2
+
+    stem = jsStem(stem, isriP1, []);//1
+
+    stem = jsStem(stem, [], isriS1);//1
+
+    return stem;//0
   }
 
 
