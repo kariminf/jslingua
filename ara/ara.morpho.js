@@ -566,6 +566,7 @@
     newOpts.tense = Tense.Pa;
     newOpts.voice = Voice.A;
     newOpts.negated = 1;
+    newOpts.noNegMark = 1;
     let imp = AraMorpho.prototype.conjugate(verb, newOpts);
     if (opts.negated) return "لَا " + imp;
     imp = imp.slice(2);
@@ -595,12 +596,11 @@
 
     //let filteredVerb = verbInfo.filter;
 
+    //save the original tense
+    let tense = opts.tense;
+
     //Future is prefix + present
-    let future = 0;
-    if (opts.tense === Tense.Fu) {
-      future = 1;
-      opts.tense = Tense.Pr;
-    }
+    if (opts.tense === Tense.Fu) opts.tense = Tense.Pr;
 
     let pronounIdx = getPronounIndex(opts);
 
@@ -651,12 +651,16 @@
 
     result = result.replace(/(.)ْ\1([َُِ])/, "$1ّ$2");
 
-    if (future) {
-      let begin = "سَوْفَ ";
-      if (opts.negated) begin = "لَنْ ";
+    if (! opts.noNegMark) {
+      let begin = "";
+
+      if (opts.negated) {
+        begin = "لَمْ "; //past
+        if (tense === Tense.Pr)  begin = "لَنْ ";
+      }
+      else if (tense === Tense.Fu) begin = "سَوْفَ ";
 
       result = begin  + result;
-
     }
 
 
@@ -959,7 +963,7 @@
     "p": [
       //3 length prefix
       isriP3,
-      
+
     ]
   };
 
