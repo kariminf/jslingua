@@ -11,6 +11,10 @@ This will break the projects developed on precedent versions.
 * FIX: Fixing bugs
 * DEL: Delete or deprecate some functions
 
+## Current
+* IMPROVE: Arabic conjugation; Add negation marks when negated
+* ADD: JsLingua Arabic stemmer; A starter try
+
 ## Version 0.7.0 (2018-01-01)
 * NEW: French support (Info, Lang, Trans, Morpho)
 * IMPROVE: adding transformation from charsets to others

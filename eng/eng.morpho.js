@@ -32,7 +32,7 @@
    */
   function EngMorpho() {
     Morpho.call(this, "eng");
-    Morpho.newStemmer.call(this, "porterStemmer", "English proter stemmr", porterStemmer);
+    Morpho.newStemmer.call(this, "porterStemmer", "English Porter stemmer", porterStemmer);
     Morpho.newStemmer.call(this, "lancasterStemmer", "English Lnacaster stemmer", lancasterStemmer);
 
     Morpho.addNounDeclension.call(this, "singularToPlural", singular2plural);

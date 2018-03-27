@@ -474,17 +474,17 @@
     //Past and Present are defaults
     return {
       "Indicative present": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.S
       },
       "Indicative past": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.S
       },
       "Indicative future": {
-        mood: Mood.Indi,
+        mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.S
       }

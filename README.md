@@ -148,9 +148,9 @@ You can test nodejs version online on [https://runkit.com/npm/jslingua](https://
 
 jsdoc generated API is located in [https://kariminf.github.io/jslingua.web/docs/](https://kariminf.github.io/jslingua.web/docs/)
 
-Examples on how to use JsLingua are located in [https://github.com/kariminf/jslingua_examples](https://github.com/kariminf/jslingua_examples)
+Examples on how to use JsLingua are located in [https://github.com/kariminf/jslingua_docs](https://github.com/kariminf/jslingua_docs)
 
-A tutorial on how to use JsLingua is located in [https://github.com/kariminf/jslingua_examples/blob/master/doc/index.md](https://github.com/kariminf/jslingua_examples/blob/master/doc/index.md)
+A tutorial on how to use JsLingua is located in [https://github.com/kariminf/jslingua_docs/blob/master/doc/index.md](https://github.com/kariminf/jslingua_docs/blob/master/doc/index.md)
 
 A Youtube tutorial for JsLingua and nodejs is located in this list: [https://www.youtube.com/watch?v=piAysG5W55A&list=PLMNbVokbNS0cIjZxF8AnmgDfmu3XXddeq](https://www.youtube.com/watch?v=piAysG5W55A&list=PLMNbVokbNS0cIjZxF8AnmgDfmu3XXddeq)
 

@@ -619,7 +619,11 @@
      * The group of the verb
      * @type {Number}
      */
-    group: 0
+    group: 0,
+
+    inf: "",
+
+    irr: {}
   };
 
   /**
@@ -639,19 +643,129 @@
 
     if (verb.endsWith("er")) {
       verbInfo.group = 1;
+      extractG1Irr();
       return;
     }
 
     if (verb.endsWith("ir") && verb.length > 3) {
       let idx = verbs2g[verb.slice(0, 2)];
-      verb = verb.slice(2, -2);
-      if (idx && idx[verb]) {
+      let ref = verb.slice(2, -2);
+      if (idx && idx[ref]) {
         verbInfo.group = 2;
+        verbInfo.inf = verb.slice(0, -2);
+        verbInfo.pp = verb.slice(0, -1);
+        verbInfo.irr = {};
         return;
       }
     }
 
     verbInfo.group = 3;
+    extractG3Irr();
+
+  }
+
+  function extractG1Irr() {
+
+    //infinitive
+    let inf = verbInfo.verb.slice(0, -2);
+
+    //infinitive replacement
+    let rep = inf;
+    //suffix test
+    let reg = /^$/;
+
+    if(/[cg]$/.test(inf)) {
+      if (inf.endsWith("c")) rep = inf.slice(0, -1) +  "ç";
+      else rep = inf + "e";
+      reg = /^[aoâ]/;
+    }
+    else {
+      // not ending with -cer|-ger OR suffix not starting with a|o
+      //Here we work just with silent endings (those suffixes starting with e)
+      reg = /^e[^z]*$/;
+
+      if (/[ou]y$/.test(inf)) rep = inf.slice(0, -1) + "i";
+      else {
+
+        let m;
+        if ((m = /([eé])(.)$/.exec(inf))) { // e or é followed by a char then er
+          rep = inf.slice(0, -2);
+          if (m[1] === "é" || ! "lt".includes(m[2]) || notDoubleLT[rep + "e" + m[2]]) rep += "è";
+          //verb ends with "eter"|"eler" and double lt
+          //It can be ignored according to http://www.ortholud.com/code/les-verbes.php?terminaison=eler,%20eter
+          else rep += "e" + m[2];//double the l or t
+
+          rep += m[2];
+        }
+      }
+    }
+
+    verbInfo.inf = inf;
+    verbInfo.pp = inf + "é";
+
+    verbInfo.irr = {};
+    verbInfo.irr.reg = reg;
+    verbInfo.irr.rep = rep;
+    //past participle
+
+  }
+
+  function extractG3Irr() {
+
+    let verb = verbInfo.verb;
+    //infinitive
+    let inf = verb;
+    let m;
+    if ((m = /^(.*)(er|ir|oir|re)$/.exec(inf)) != null) inf = m[1];
+
+    //First singular present indicative
+    let s1 = inf;
+    if ((m = /^(.*)(s|e)$/.exec(inf)) != null) s1 = m[1];
+
+    //First plural present indicative
+    let p1 = inf;
+    if ((m = /^(.*)ons$/.exec(inf)) != null) p1 = m[1];
+
+    //Third plural present indicative
+    let p3 = p1;
+    if ((m = /^(.*)ent$/.exec(p1)) != null) p3 = m[1];
+
+    //(First singular) future
+    let fut = verb;
+    if (fut.endsWith("e")) fut = fut.slice(0, -1);
+    if ((m = /^(.*)ai$/.exec(fut)) != null) fut = m[1];
+
+    //(Masculine singular) past participle
+    let pp = inf + (verb.endsWith("re")? "u": "i");
+
+    //(First singular) simple past
+    let past = pp;
+    if (/[ts]$/.test(pp)) past = pp.slice(0, -1);
+    if ((m = /^(.*)(ai|s)$/.exec(past)) != null) past = m[1];
+
+    if (verb.endsWith("re")) {
+      if (/[aeo]ind$/.test(inf)) {//craindre
+        pp = s1 = inf.slice(0, -1);
+        pp += "t";
+        p1 = p3 = past = inf.slice(0, -2) + "gn";
+      }
+      else past = inf;//vendre
+      past += "i";
+    }
+    else if (/[^o]ir$/.test(verb)) {
+      if (/[^ê]t$/.test(inf)) s1 = inf.slice(0, -1);
+    }
+
+    //create group 3 irregularities
+    verbInfo.irr = {};
+    verbInfo.irr.s1 = s1;
+    verbInfo.irr.p1 = p1;
+    verbInfo.irr.p3 = p3;
+    verbInfo.irr.f = fut;
+    verbInfo.irr.p = past;
+
+    verbInfo.inf = inf;
+    verbInfo.pp = pp;
 
   }
 
@@ -693,7 +807,23 @@
     }
   },
   g3Suffix = {
-
+    [Mood.Ind]: {
+      [Tense.Pr]: ["<s1>s", "<s1>s", "<s1>t", "<p1>ons", "<p1>ez", "<p3>ent"],
+      [Tense.Pa]: ["<p>s", "<p>s", "<p>t", "<p>^mes", "<p>^tes", "<p>rent"],
+      [Aspect.I]: ["<p1>ais", "<p1>ais", "<p1>ait", "<p1>ions", "<p1>iez", "<p1>aient"],
+      [Tense.Fu]: ["<f>ai", "<f>as", "<f>a", "<f>ons", "<f>ez", "<f>ont"]
+    },
+    [Mood.Sub]: {
+      [Tense.Pr]: ["<p3>e", "<p3>es", "<p3>e", "<p1>ions", "<p1>iez", "<p3>ent"],
+      [Aspect.I]: ["<p>sse", "<p>sses", "<p>^t", "<p>ssions", "<p>ssiez", "<p>ssent"]
+    },
+    [Mood.Cnd]: {
+      [Tense.Pr]: ["<f>ais", "<f>ais", "<f>ait", "<f>ions", "<f>iez", "<f>aient"]
+    },
+    [Mood.Imp]: {
+      [Tense.Pr]: ["$", "<s1>s", "", "<p1>ons", "<p1>ez", "$"]
+      //TODO Imperative: <s1>t if ends with vowel, else <s1>s
+    }
   },
   irregular = {
     "être": {
@@ -819,6 +949,7 @@
    * @memberof FraMorpho
    * @return {String}   the past infinitive of the verb
    */
+   /*
   function getVerbPastParticipal() {
     switch (verbInfo.group) {
       case 1: return verbInfo.verb.slice(0, -2) + "é";
@@ -828,21 +959,30 @@
 
     }
   }
+  */
+
+  const CHAPEAU = {
+    "a": "â",
+    "e": "ê",
+    "i": "î",
+    "o": "ô"
+  }
 
   //Override conjugate function
   Me.conjugate = function(verb, opts) {
 
     verbGroup(verb);
 
-    let pastParticipal = "";
+    //past past Participal
+    let pp = "";
 
     if (opts.aspect === Aspect.P ||
       (opts.mood != Mood.Ind && opts.tense === Tense.Pa)) {
         verb = (etreVerbs[verb])? "être": "avoir";
-        pastParticipal = " " + getVerbPastParticipal();
+        pp = " " + verbInfo.pp;
         if (verb === "être") {
-          pastParticipal += (opts.gender === Gender.F)? "e": "";
-          pastParticipal += (opts.number === GNumber.S)? "": "s";
+          pp += (opts.gender === Gender.F)? "e": "";
+          pp += (opts.number === GNumber.S)? "": "s";
         }
 
         if (opts.aspect === Aspect.P) {
@@ -865,53 +1005,39 @@
       let conj = getSuffix(opts, irrTab);
       if (irrTab) {
         if (!conj || conj === "$") return "";
-        return conj + pastParticipal;
+        return conj + pp;
       }
     }
 
+    let suffix = getSuffix(opts);
+    if (!suffix || suffix === "$") return "";
 
-    if ([1, 2].indexOf(verbInfo.group) > -1) {
-      verb = verb.slice(0, -2);
-      let suffix = getSuffix(opts);
-      if (!suffix || suffix === "$") return "";
+    let inf = verbInfo.inf;
 
-      //Group 1 verbs with -cer and -ger endings
-      if (verbInfo.group === 1) {
-        if(/[cg]$/.test(verb) && /^[aoâ]/.test(suffix)) {
-          let ending = "e"; //in case of -ger
-          if (verb.endsWith("c")) {// in case of cer
-            verb = verb.slice(0, -1);
-            ending = "ç";
-          }
-          verb += ending;
-        }
-        else if (/^e[^z]*$/.test(suffix)) { // not ending with -cer|-ger OR suffix not starting with a|o
-          //Here we work just with silent endings (those suffixes starting with e)
+    //verbs 1 irregularities
+    if (verbInfo.group === 1) {
+      if (verbInfo.irr.reg.test(suffix)) inf = verbInfo.irr.rep;
+    }
+    else if (verbInfo.group === 3) {
 
-          if (/[ou]y$/.test(verb)) {//envoyer, payer
-            verb = verb.slice(0, -1) + "i";
-          }
-          else {
-            let m;
-            if ((m = /([eé])(.)$/.exec(verb))) { // e or é followed by a char then er
-              verb = verb.slice(0, -2);
-              if (m[1] === "é" || ! "lt".includes(m[2]) || notDoubleLT[verb + "e" + m[2]]) verb += "è";
-              //verb ends with "eter"|"eler" and double lt
-              //It can be ignored according to http://www.ortholud.com/code/les-verbes.php?terminaison=eler,%20eter
-              else verb += "e" + m[2];//double the l or t
+      let m = /^<([^>]+)>(.*)$/.exec(suffix);
+      if (m != null && verbInfo.irr[m[1]]) {
+        inf = verbInfo.irr[m[1]];
+        suffix = m[2];
+        if (suffix === "t" && /[dt]$/.test(inf)) suffix = "";
+      }
 
-              verb += m[2];
-            }
-          }
-        }
-      }//verbs 1 irregularities
-
-      return verb + suffix + pastParticipal;
+      if (suffix.startsWith("^")) {
+        suffix = suffix.slice(1);
+        let end = inf.slice(-1);
+        if (CHAPEAU[end]) inf = inf.slice(0, -1) + CHAPEAU[end];
+      }
+      else if (/^(ons|ez)$/.test(suffix) && /[ao]i/.test(inf)) {
+        inf = inf.slice(0, -1) + "y";
+      }
     }
 
-    //TODO group 3 verbs
-
-    return "";
+    return inf + suffix + pp;
 
   };
 
