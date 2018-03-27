@@ -749,7 +749,12 @@
         pp += "t";
         p1 = p3 = past = inf.slice(0, -2) + "gn";
       }
+      else if (inf.endsWith("ui")) {
+        past = p1 = inf + "s";
+        pp = inf + "t";
+      }
       else past = inf;//vendre
+
       past += "i";
     }
     else if (/[^o]ir$/.test(verb)) {
