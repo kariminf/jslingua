@@ -710,39 +710,217 @@
 
   }
 
+  function extractG3IrrS1 (irr, ending) {
+
+    //=================================
+    //First singular present indicative
+    //=================================
+
+    let inf = verbInfo.inf;
+
+    if (ending === "re") { // ======== -re irregularities
+
+      if (/[aeo]ind$/.test(inf)) {//----- indre (craindre, etc.) ------
+        verbInfo.pp = irr.s1 = inf.slice(0, -1);
+        verbInfo.pp += "t";
+        irr.p1 = irr.p3 = irr.p = inf.slice(0, -2) + "gn";
+        irr.p += "i";
+      }
+
+    }
+    else if (ending === "oir") { // ======== -oir irregularities
+      /* Will be treated as irregular
+      let m;
+      if ((m = /^(.*)(val|pouv|voul)$/.exec(inf)) != null) {
+        irr.s1 = m[1] + m[2].charAt(0) + ((m[2].charAt(1) === "o")? "e": "a") + "u[x|t]";
+      }
+      */
+
+    }
+    else { // ======== -ir irregularities
+      if (/[^ê]t$/.test(inf)) irr.s1 = inf.slice(0, -1);
+    }
+
+    if ( ! irr.s1 ) { //regular s1
+      irr.s1 = inf;
+      let m;
+      if ((m = /^(.*)(s|e)$/.exec(inf)) != null) irr.s1 = m[1];
+    }
+
+  }
+
+
+  function extractG3IrrP1 (irr, ending) {
+
+    //=================================
+    //First plural present indicative
+    //=================================
+
+    //It has been set in S1
+    if ( irr.p1 ) return;
+
+    let inf = verbInfo.inf;
+
+    if (ending === "re") { // ======== -re irregularities
+
+      if (inf.endsWith("ui")) {
+        irr.p = irr.p1 = inf + "s";
+        verbInfo.pp = inf + "t";
+      }
+      else if (/^((?:contre|inter)?di|(?:dé|é|ins)cri|li|suffi|confi|circonci|fri|boi|[cm]oud|.*prend)$/.test(inf)) {
+
+        if (inf === "boi") { //boire
+          irr.p1 = "buv";
+          irr.p3 = "boiv";
+          verbInfo.pp = irr.p = "bu";
+        }
+        else if (inf.endsWith("cri")) { //écrire, décrire, inscrire
+          irr.p3 = irr.p1 = inf + "v";
+          verbInfo.pp = inf + "t";
+          irr.p = inf + "vi";
+        }
+        else if (inf.endsWith("d")) {
+          irr.p1 = inf.slice(0, -1);
+          if (inf.endsWith("ud")) {// coudre, moudre
+            irr.p3 = (irr.p1 += ((inf === "coud")? "s": "l"));
+            verbInfo.pp = irr.p1 + "u";
+            irr.p = irr.p1 +  (irr.p1.endsWith("l")? "u": "i");
+          }
+          else { // -prendre
+            irr.p3 = irr.p1 + "n";
+            verbInfo.pp = irr.p = irr.p1.slice(0, 1) + "i";
+          }
+        }
+        else { //dire contredire interdire; lire; suffire, confire, circoncire, frire
+          irr.p3 = irr.p1 = inf + "s";
+          if (inf.endsWith("di")) irr.p1 = inf + "[s|tes]";
+          irr.p = verbInfo.pp = (inf === "li")? "lu": inf;
+        }
+      }
+
+    }
+    //-oir -ir irregularities must've been treated in the previous step
+
+    if ( ! irr.p1 ) { //regular p1
+      irr.p1 = inf;
+      //let m;
+      //if ((m = /^(.*)ons$/.exec(inf)) != null) irr.p1 = m[1];
+    }
+
+  }
+
+  function extractG3IrrP3 (irr, ending) {
+
+    //================================
+    //Third plural present indicative
+    //================================
+
+    //all irregularities must've been treated earlier
+
+    if ( !irr.p3 ) {
+      irr.p3 = irr.p1;
+      //let m;
+      //if ((m = /^(.*)ent$/.exec(p1)) != null) p3 = m[1];
+    }
+
+  }
+
+  function extractG3IrrPP (irr, ending) {
+
+    //======================================
+    // (Masculine singular) past participle
+    //======================================
+
+    if (verbInfo.pp) return;
+
+    let inf = verbInfo.inf;
+
+    if (ending === "re") {
+      if (/^((?:sou)?ri|.*clu)$/) {
+        irr.p = verbInfo.pp = inf;
+      }
+      if (inf === "croi") irr.p = verbInfo.pp = (inf.slice(0, -2) + "u");
+      else if (/^(?:con|ex|sub)?trai/.test(inf)) {
+        verbInfo.pp = inf + "t";
+        irr.p = inf.slice(0, -1) + "y";
+      }
+    }
+    else if (ending === "ir") {
+      if (inf === "cour") irr.p = verbInfo.pp = (inf + "u");
+    }
+
+    if ( ! verbInfo.pp ) {
+      let pp = inf + ((ending === "re")? "u": "i");
+      if (pp.endsWith("uu")) pp = pp.slice(0, -1);
+      verbInfo.pp = pp;
+    }
+
+  }
+
+  function extractG3IrrPast (irr, ending) {
+
+    //================================
+    // (First singular) simple past
+    //================================
+
+    if (irr.p) return;
+
+    let inf = verbInfo.inf;
+
+    if (ending === "re") {
+      //indre has been treated earlier
+      if (inf.endsWith("d")) irr.p = inf + "i";
+    }
+
+    //all irregularities must've been treated earlier
+
+    if ( ! irr.p ) {
+      let past = pp;
+      if (/[ts]$/.test(pp)) past = pp.slice(0, -1);
+      if ((m = /^(.*)(ai|s)$/.exec(past)) != null) past = m[1];
+      irr.p = past;
+    }
+
+  }
+
+
+
   function extractG3Irr() {
 
     let verb = verbInfo.verb;
-    //infinitive
-    let inf = verb;
+    let inf = verb, ending = "ir";
     let m;
-    if ((m = /^(.*)(er|ir|oir|re)$/.exec(inf)) != null) inf = m[1];
+    if ((m = /^(.*)(oir|re)$/.exec(inf)) != null) {
+      inf = m[1];
+      ending = m[2];
+    }
+    else if (inf.endsWith("ir")) inf = inf.slice(0, -2);
 
-    //First singular present indicative
-    let s1 = inf;
-    if ((m = /^(.*)(s|e)$/.exec(inf)) != null) s1 = m[1];
+    verbInfo.inf = inf;
 
-    //First plural present indicative
-    let p1 = inf;
-    if ((m = /^(.*)ons$/.exec(inf)) != null) p1 = m[1];
+    let irr = {};
+    verbInfo.irr = irr;
 
-    //Third plural present indicative
-    let p3 = p1;
-    if ((m = /^(.*)ent$/.exec(p1)) != null) p3 = m[1];
+    extractG3IrrS1(irr, ending);
+
+    extractG3IrrP1(irr, ending);
+
+    extractG3IrrP3(irr, ending);
+
+    extractG3IrrPP(irr, ending);
 
     //(First singular) future
     let fut = verb;
+
     if (fut.endsWith("e")) fut = fut.slice(0, -1);
     if ((m = /^(.*)ai$/.exec(fut)) != null) fut = m[1];
 
-    //(Masculine singular) past participle
-    let pp = inf + (verb.endsWith("re")? "u": "i");
+    irr.f = fut;
 
-    //(First singular) simple past
-    let past = pp;
-    if (/[ts]$/.test(pp)) past = pp.slice(0, -1);
-    if ((m = /^(.*)(ai|s)$/.exec(past)) != null) past = m[1];
 
+
+
+    /*
     if (verb.endsWith("re")) {
       if (/[aeo]ind$/.test(inf)) {//craindre
         pp = s1 = inf.slice(0, -1);
@@ -755,22 +933,15 @@
       }
       else past = inf;//vendre
 
-      past += "i";
+      past += (/[ui]$/.test(past))? "": "i";
     }
     else if (/[^o]ir$/.test(verb)) {
       if (/[^ê]t$/.test(inf)) s1 = inf.slice(0, -1);
     }
+    */
 
     //create group 3 irregularities
-    verbInfo.irr = {};
-    verbInfo.irr.s1 = s1;
-    verbInfo.irr.p1 = p1;
-    verbInfo.irr.p3 = p3;
-    verbInfo.irr.f = fut;
-    verbInfo.irr.p = past;
 
-    verbInfo.inf = inf;
-    verbInfo.pp = pp;
 
   }
 
@@ -970,8 +1141,9 @@
     "a": "â",
     "e": "ê",
     "i": "î",
-    "o": "ô"
-  }
+    "o": "ô",
+    "u": "û"
+  };
 
   //Override conjugate function
   Me.conjugate = function(verb, opts) {
@@ -1029,6 +1201,10 @@
       if (m != null && verbInfo.irr[m[1]]) {
         inf = verbInfo.irr[m[1]];
         suffix = m[2];
+        m = /^(.*)\[(.*)\]$/.exec(inf);
+        if (m != null) {
+          inf = m[1];
+        }
         if (suffix === "t" && /[dt]$/.test(inf)) suffix = "";
       }
 
@@ -1037,9 +1213,10 @@
         let end = inf.slice(-1);
         if (CHAPEAU[end]) inf = inf.slice(0, -1) + CHAPEAU[end];
       }
-      else if (/^(ons|ez)$/.test(suffix) && /[ao]i/.test(inf)) {
+      else if (/^(ons|ez)$/.test(suffix) && /[ao]i$/.test(inf)) {
         inf = inf.slice(0, -1) + "y";
       }
+
     }
 
     return inf + suffix + pp;
