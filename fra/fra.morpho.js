@@ -647,6 +647,9 @@
       return;
     }
 
+    verbInfo.irr = {};
+    verbInfo.pp = null;
+
     if (verb.endsWith("ir") && verb.length > 3) {
       let idx = verbs2g[verb.slice(0, 2)];
       let ref = verb.slice(2, -2);
@@ -654,7 +657,6 @@
         verbInfo.group = 2;
         verbInfo.inf = verb.slice(0, -2);
         verbInfo.pp = verb.slice(0, -1);
-        verbInfo.irr = {};
         return;
       }
     }
@@ -663,7 +665,6 @@
       verbInfo.group = 2;
       verbInfo.inf = verb.slice(0, -1);
       verbInfo.pp = verb.slice(0, -1);
-      verbInfo.irr = {};
       return;
     }
 
@@ -781,27 +782,27 @@
         let inf2 = inf.slice(0, -2);
         if (inf2.endsWith("c")) inf2 = inf2.slice(0, -1) + "ç";
         irr.s1 = inf2 + "oi";
-        irr.s3 = inf2 + "oiv";
-        verbInfo.pp = inf2 + "u";
-        //TODO devoir pp = dû (sing. masculine)
+        irr.p3 = inf2 + "oiv";
+        irr.p = inf2 + "u";
+        verbInfo.pp = inf2 + (inf2.endsWith("c")? "u": "û");
+        //TODO devoir pp = dû (sing. masculine), others u
       }
       else if (/^(v|rev|ch|éch)$/.test(inf)) {//voir, revoir, choir, échoir
-        irr.s3 = irr.s1 = inf;
-        let inf2 = inf.slice(0, -1);
-        irr.s2 = inf2 + "y";
-        verbInfo.pp = inf2 + "u";
-        if (inf2.endsWith("v")) irr.p = inf2 + "i";
+        irr.p3 = irr.s1 = inf + "oi";
+        irr.p1 = inf + "oy";
+        verbInfo.pp = inf + "u";
+        if (inf.endsWith("v")) irr.p = inf + "i";
       }
-      else if (/^(é|pro)mouv$/.test(inf)) {//mouvoir, émouvoir, promouvoir
+      else if (/^(é|pro)?mouv$/.test(inf)) {//mouvoir, émouvoir, promouvoir
         let inf2 = inf.slice(0, -3);
-        irr.s1 = inf2 + "meu";
-        irr.s3 = irr.s1 + "v";
-        verbInfo.pp = inf2 + "u";
-        //TODO mevoir pp = mû (sing. masculine)
+        irr.s1 = inf2 + "eu";
+        irr.p3 = irr.s1 + "v";
+        verbInfo.pp = inf2 + "û";
+        //TODO mevoir pp = mû (sing. masculine) others u
       }
       else if (inf === "asse") { //aseoir
-        irr.s1 = "assied";
-        irr.p1 = "assey";
+        irr.p3 = irr.s1 = "assoi";
+        irr.p1 = "assoy";
         verbInfo.pp = "assis";
       }
       else if (inf === "pleuv") {
@@ -823,7 +824,7 @@
         let inf2 = inf.slice(0, -2);
         irr.s1 = inf2 + "ien";
         irr.p3 = irr.s1 + "n";
-        verbInfo.pp = inf2 + "u";
+        verbInfo.pp = inf + "u";
         irr.p = inf2 + "in";
       }
       else if (/^((dé|re)?part|(en|ren)?dorm|ment|dément|(con|pres|res)?sent|(des|res)?serv|(res)?sort|(dé|re)?vêt)$/.test(inf)) {
@@ -984,10 +985,49 @@
     //all irregularities must've been treated earlier
 
     if ( ! irr.p ) {
-      let past = pp;
-      if (/[ts]$/.test(pp)) past = pp.slice(0, -1);
+      let past = verbInfo.pp;
+      if (/[ts]$/.test(past)) past = past.slice(0, -1);
+      let m;
       if ((m = /^(.*)(ai|s)$/.exec(past)) != null) past = m[1];
       irr.p = past;
+    }
+
+  }
+
+  function extractG3IrrFut (irr, ending) {
+
+    //================================
+    // (First singular) simple past
+    //================================
+
+    if (irr.f) return;
+
+    let inf = verbInfo.inf;
+
+    if (ending === "oir") {
+
+      if (inf.endsWith("cev")) irr.f = inf + "r";
+      else if (/^(re)?v$/.test(inf)) irr.f = inf + "err";
+      else if (/^(dev|mouv|émouv|promouv|pleuv)$/.test(inf)) irr.f = inf + "r";
+      else if (/^asse$/.test(inf)) irr.f = inf.slice(0, -1) + "oir";
+    }
+    else if (ending === "ir") {//ir
+      if (inf === "requér") irr.f = "requerr";
+      else if (inf === "cueill") irr.f = "cueiller";
+      else if (/^.*[tv]en$/.test(inf)) irr.f = inf.slice(0, -2) + "iendr";
+      else if (/^[mc]our$/.test(inf)) irr.f = inf + "r";
+
+    }
+
+    if ( ! irr.f ) {
+      //(First singular) future
+      let fut = inf + ending;
+
+      if (fut.endsWith("e")) fut = fut.slice(0, -1);
+      //let m;
+      //if ((m = /^(.*)ai$/.exec(fut)) != null) fut = m[1];
+
+      irr.f = fut;
     }
 
   }
@@ -1018,36 +1058,9 @@
 
     extractG3IrrPP(irr, ending);
 
-    //(First singular) future
-    let fut = verb;
+    extractG3IrrPast(irr, ending);
 
-    if (fut.endsWith("e")) fut = fut.slice(0, -1);
-    if ((m = /^(.*)ai$/.exec(fut)) != null) fut = m[1];
-
-    irr.f = fut;
-
-
-    /*
-    if (verb.endsWith("re")) {
-      if (/[aeo]ind$/.test(inf)) {//craindre
-        pp = s1 = inf.slice(0, -1);
-        pp += "t";
-        p1 = p3 = past = inf.slice(0, -2) + "gn";
-      }
-      else if (inf.endsWith("ui")) {
-        past = p1 = inf + "s";
-        pp = inf + "t";
-      }
-      else past = inf;//vendre
-
-      past += (/[ui]$/.test(past))? "": "i";
-    }
-    else if (/[^o]ir$/.test(verb)) {
-      if (/[^ê]t$/.test(inf)) s1 = inf.slice(0, -1);
-    }
-    */
-
-    //create group 3 irregularities
+    extractG3IrrFut(irr, ending);
 
 
   }
@@ -1268,8 +1281,10 @@
     m = /^(.*)\[(.*)\]$/.exec(inf);
     if (m != null) {
       inf = m[1];
+      //console.log(inf);
       let rep = m[2].split(",");
-      for (let i = 0; i < rep.length; i++) {
+      let i = 0;
+      for (; i < rep.length; i++) {
         let rep2 = rep[i].split(":");
         if (rep2[0] === p) {
           if (rep2[1] === "G1") suff = getSuffix(opts, g1Suffix);
@@ -1333,7 +1348,11 @@
 
     //verbs 1 irregularities
     if (verbInfo.group === 1) {
-      if (verbInfo.irr.reg.test(suffix)) inf = verbInfo.irr.rep;
+      if (inf === "envoy" && opts.mood === Mood.Ind && opts.tense === Tense.Fu) {
+        inf = "enverr";
+        suffix = suffix.slice(2, );
+      }
+      else if (verbInfo.irr.reg.test(suffix)) inf = verbInfo.irr.rep;
     }
     else if (verbInfo.group === 3) {
 
@@ -1348,6 +1367,15 @@
         suffix = suffix.slice(1);
         let end = inf.slice(-1);
         if (CHAPEAU[end]) inf = inf.slice(0, -1) + CHAPEAU[end];
+        else {//venir //vînmes
+          for (let i = inf.length - 1; i > 0; i--) {
+            let idx = "aiuo".indexOf(inf.charAt(i));
+            if ( idx > -1 ) {
+              inf = inf.slice(0, idx) + CHAPEAU[inf.charAt(i)] + inf.slice(idx+1);
+              break;
+            }
+          }
+        }
       }
       else if (/^(ons|ez)$/.test(suffix) && /[ao]i$/.test(inf)) {
         inf = inf.slice(0, -1) + "y";

@@ -125,11 +125,25 @@ function conjugateFR (verb, form, resList) {
 }
 
 function conjugateFRFondamentalEndings(verb, conjs) {
+
+  let forms = morpho.getForms();
+
+  for (let formName in conjs) {
+    if (formName in forms) {
+      let form = forms[formName];
+      conjugateFR(verb, form, conjs[formName]);
+    }
+  }
+
+  /*
   let form = {
     mood: "indicative",
     tense: "present",
     aspect: "simple"
   };
+
+
+
 
   //present simple
   conjugateFR(verb, form, conjs[0]);
@@ -166,6 +180,7 @@ function conjugateFRFondamentalEndings(verb, conjs) {
   //imperative
   form.mood = "imperative";
   conjugateFR(verb, form, conjs[7]);
+  */
 
 }
 
@@ -430,6 +445,17 @@ describe("French Verb conjugation", function(){
       "appellent"
     ]);
 
+    //envoyer in future
+    form.tense = "future";
+    conjugateFR("envoyer", form, [
+      "enverrai",
+      "enverras",
+      "enverra",
+      "enverrons",
+      "enverrez",
+      "enverront"
+    ]);
+
   });
 
   it("Groupe 2", function() {
@@ -448,9 +474,9 @@ describe("French Verb conjugation", function(){
       "haïssent"
     ]);
 
-    conjugateFRFondamentalEndings("choisir", [
+    conjugateFRFondamentalEndings("choisir", {
 
-      //indicative present simple
+      "Indicative Present (présent)":
       [
         "choisis",
         "choisis",
@@ -460,7 +486,7 @@ describe("French Verb conjugation", function(){
         "choisissent"
       ],
 
-      //indicative past simple
+      "Indicative Simple past (passé simple)":
       [
         "choisis",
         "choisis",
@@ -470,7 +496,7 @@ describe("French Verb conjugation", function(){
         "choisirent"
       ],
 
-      //indicative imperfect
+      "Indicative Imperfect (imparfait)":
       [
         "choisissais",
         "choisissais",
@@ -480,7 +506,7 @@ describe("French Verb conjugation", function(){
         "choisissaient"
       ],
 
-      //indicative future simple
+      "Indicative Simple future (futur simple)":
       [
         "choisirai",
         "choisiras",
@@ -490,7 +516,7 @@ describe("French Verb conjugation", function(){
         "choisiront"
       ],
 
-      //subjunctive present
+      "Subjunctive Present":
       [
         "choisisse",
         "choisisses",
@@ -500,7 +526,7 @@ describe("French Verb conjugation", function(){
         "choisissent"
       ],
 
-      //subjunctive imparfait
+      "Subjunctive Imperfect":
       [
         "choisisse",
         "choisisses",
@@ -510,7 +536,7 @@ describe("French Verb conjugation", function(){
         "choisissent"
       ],
 
-      //conditional present
+      "Conditional Present":
       [
         "choisirais",
         "choisirais",
@@ -520,7 +546,7 @@ describe("French Verb conjugation", function(){
         "choisiraient"
       ],
 
-      //imperative
+      "Imperative Present":
       [
         "",
         "choisis",
@@ -530,12 +556,385 @@ describe("French Verb conjugation", function(){
         ""
       ]
 
-    ]);
+    });
+
+  });//group 2
+
+  it("Groupe 3 - ir", function() {
+
+    conjugateFRFondamentalEndings("partir", {
+
+      "Indicative Present (présent)":
+      [
+        "pars",
+        "pars",
+        "part",
+        "partons",
+        "partez",
+        "partent"
+      ],
+    });
+
+    conjugateFRFondamentalEndings("requérir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "requerrai",
+        "requerras",
+        "requerra",
+        "requerrons",
+        "requerrez",
+        "requerront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "requiers",
+        "requiers",
+        "requiert",
+        "requérons",
+        "requérez",
+        "requièrent"
+      ],
+
+      "Subjunctive Present":
+      [
+        "requière",
+        "requières",
+        "requière",
+        "requérions",
+        "requériez",
+        "requièrent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai requis",
+        "as requis",
+        "a requis",
+        "avons requis",
+        "avez requis",
+        "ont requis"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "requis",
+        "requis",
+        "requit",
+        "requîmes",
+        "requîtes",
+        "requirent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("ouvrir", {
+
+      "Indicative Present (présent)":
+      [
+        "ouvre",
+        "ouvres",
+        "ouvre",
+        "ouvrons",
+        "ouvrez",
+        "ouvrent"
+      ],
+
+      "Subjunctive Present":
+      [
+        "ouvre",
+        "ouvres",
+        "ouvre",
+        "ouvrions",
+        "ouvriez",
+        "ouvrent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai ouvert",
+        "as ouvert",
+        "a ouvert",
+        "avons ouvert",
+        "avez ouvert",
+        "ont ouvert"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("voir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "verrai",
+        "verras",
+        "verra",
+        "verrons",
+        "verrez",
+        "verront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "vois",
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ],
+
+      "Subjunctive Present":
+      [
+        "voie",
+        "voies",
+        "voie",
+        "voyions",
+        "voyiez",
+        "voient"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai vu",
+        "as vu",
+        "a vu",
+        "avons vu",
+        "avez vu",
+        "ont vu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "vis",
+        "vis",
+        "vit",
+        "vîmes",
+        "vîtes",
+        "virent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("devoir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "devrai",
+        "devras",
+        "devra",
+        "devrons",
+        "devrez",
+        "devront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "dois",
+        "dois",
+        "doit",
+        "devons",
+        "devez",
+        "doivent"
+      ],
+
+      "Subjunctive Present":
+      [
+        "doive",
+        "doives",
+        "doive",
+        "devions",
+        "deviez",
+        "doivent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai dû",
+        "as dû",
+        "a dû",
+        "avons dû",
+        "avez dû",
+        "ont dû"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("mouvoir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "mouvrai",
+        "mouvras",
+        "mouvra",
+        "mouvrons",
+        "mouvrez",
+        "mouvront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "meus",
+        "meus",
+        "meut",
+        "mouvons",
+        "mouvez",
+        "meuvent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai mû",
+        "as mû",
+        "a mû",
+        "avons mû",
+        "avez mû",
+        "ont mû"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("asseoir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "assoirai",
+        "assoiras",
+        "assoira",
+        "assoirons",
+        "assoirez",
+        "assoiront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "assois",
+        "assois",
+        "assoit",
+        "assoyons",
+        "assoyez",
+        "assoient"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai assis",
+        "as assis",
+        "a assis",
+        "avons assis",
+        "avez assis",
+        "ont assis"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("cueillir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "cueillerai",
+        "cueilleras",
+        "cueillera",
+        "cueillerons",
+        "cueillerez",
+        "cueilleront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "cueille",
+        "cueilles",
+        "cueille",
+        "cueillons",
+        "cueillez",
+        "cueillent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("venir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "viendrai",
+        "viendras",
+        "viendra",
+        "viendrons",
+        "viendrez",
+        "viendront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "viens",
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "suis venu",
+        "es venu",
+        "est venu",
+        "sommes venus",
+        "êtes venus",
+        "sont venues"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "vins",
+        "vins",
+        "vint",
+        "vînmes",
+        "vîntes",
+        "vinrent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("mourir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "mourrai",
+        "mourras",
+        "mourra",
+        "mourrons",
+        "mourrez",
+        "mourront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "meurs",
+        "meurs",
+        "meurt",
+        "mourons",
+        "mourez",
+        "meurent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "suis mort",
+        "es mort",
+        "est mort",
+        "sommes morts",
+        "êtes morts",
+        "sont mortes"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "mourus",
+        "mourus",
+        "mourut",
+        "mourûmes",
+        "mourûtes",
+        "moururent"
+      ]
+    });
 
 
 
-
-  });
+  }); // group 3 - ir
 
 
 
