@@ -727,10 +727,11 @@
         irr.p += "i";
       }
       else if (/^(?:n|conn|reconn|par|appar|repar|dispar)aît$/.test(inf)) {
-        let inf2 = inf.slice(0, -1);
+        console.log("naitre");
+        let inf2 = inf.slice(0, -2);
         irr.s1 = inf2 + "[<s1>s:is,<s1>t:ît]";
         irr.p1 = inf2 + "iss";
-        if (inf2 !== "n") irr.p = inf2.slice(0, -1) + "u";
+        if (inf2 !== "na") irr.p = inf2.slice(0, -1) + "u";
         else {
           verbInfo.pp = "né";
           irr.p = "naqui";
@@ -752,12 +753,12 @@
       else if (/^(plai|clo)$/) {//plaire, clore
         irr.p1 = inf + "s";
         if (inf === "clo") {
-          irr.s1 = "cl[<s1>os:s,<s1>t:ôt]";
+          irr.s1 = "cl[<s1>s:os,<s1>t:ôt]";
           verbInfo.pp = "clos";
           irr.p = "$";//clos doesn't have past
         }
         else {
-          irr.s1 = "pla[<s1>is:s,<s1>t:ît]";
+          irr.s1 = "pla[<s1>s:is,<s1>t:ît]";
           verbInfo.pp = "plu";
         }
       }
@@ -942,11 +943,19 @@
 
     extractG3IrrS1(irr, ending);
 
+    console.log(verbInfo.pp);
+
     extractG3IrrP1(irr, ending);
+
+    console.log(verbInfo.irr.s1);
 
     extractG3IrrP3(irr, ending);
 
+    console.log(verbInfo.irr.s1);
+
     extractG3IrrPP(irr, ending);
+
+    console.log(verbInfo.irr.s1);
 
     //(First singular) future
     let fut = verb;
@@ -955,8 +964,6 @@
     if ((m = /^(.*)ai$/.exec(fut)) != null) fut = m[1];
 
     irr.f = fut;
-
-
 
 
     /*
@@ -1184,6 +1191,39 @@
     "u": "û"
   };
 
+
+  function getG3IrregularInfSuff(inf, suff, opts) {
+
+    let res = {};
+
+    let p = suff;
+
+    let m = /^<([^>]+)>(.*)$/.exec(suff);
+    if (m != null && verbInfo.irr[m[1]]) {
+      inf = verbInfo.irr[m[1]];
+      suff = m[2];
+    }
+
+    m = /^(.*)\[(.*)\]$/.exec(inf);
+    if (m != null) {
+      inf = m[1];
+      let rep = m[2].split(",");
+      for (let i = 0; i < rep.length; i++) {
+        let rep2 = rep[i].split(":");
+        if (rep2[0] === p) {
+          if (rep2[1] === "G1") suff = getSuffix(opts, g1Suffix);
+          else suff = rep2[1];
+          break;
+        }
+      }
+    }
+
+    res.inf = inf;
+    res.suff = suff;
+
+    return res;
+  }
+
   //Override conjugate function
   Me.conjugate = function(verb, opts) {
 
@@ -1236,18 +1276,14 @@
     }
     else if (verbInfo.group === 3) {
 
-      let m = /^<([^>]+)>(.*)$/.exec(suffix);
-      if (m != null && verbInfo.irr[m[1]]) {
-        inf = verbInfo.irr[m[1]];
-        suffix = m[2];
-        m = /^(.*)\[(.*)\]$/.exec(inf);
-        if (m != null) {
-          inf = m[1];
-        }
-        if (suffix === "t" && /[dt]$/.test(inf)) suffix = "";
+      { //irregularities
+        let irr = getG3IrregularInfSuff(inf, suffix, opts);
+        suffix = irr.suff;
+        inf = irr.inf;
       }
 
-      if (suffix.startsWith("^")) {
+      if (suffix === "t" && /[dt]$/.test(inf)) suffix = "";
+      else if (suffix.startsWith("^")) {
         suffix = suffix.slice(1);
         let end = inf.slice(-1);
         if (CHAPEAU[end]) inf = inf.slice(0, -1) + CHAPEAU[end];
@@ -1255,7 +1291,6 @@
       else if (/^(ons|ez)$/.test(suffix) && /[ao]i$/.test(inf)) {
         inf = inf.slice(0, -1) + "y";
       }
-
     }
 
     return inf + suffix + pp;
