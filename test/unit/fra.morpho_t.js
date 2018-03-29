@@ -405,13 +405,13 @@ describe("French Verb conjugation", function(){
       "choisissent"
     ]);
 
-    conjugateFR("haîr", form, [
+    conjugateFR("haïr", form, [
       "hais",
       "hais",
       "hait",
-      "haîssons",
-      "haîssez",
-      "haîssent"
+      "haïssons",
+      "haïssez",
+      "haïssent"
     ]);
 
     form.tense = "past";

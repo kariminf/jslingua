@@ -659,6 +659,14 @@
       }
     }
 
+    if (verb === "haïr") {
+      verbInfo.group = 2;
+      verbInfo.inf = verb.slice(0, -1);
+      verbInfo.pp = verb.slice(0, -1);
+      verbInfo.irr = {};
+      return;
+    }
+
     verbInfo.group = 3;
     extractG3Irr();
 
@@ -1343,6 +1351,20 @@
       }
       else if (/^(ons|ez)$/.test(suffix) && /[ao]i$/.test(inf)) {
         inf = inf.slice(0, -1) + "y";
+      }
+    }
+    else {//group 2
+      if (inf === "haï") {
+        suffix = suffix.slice(1,);
+        if ( opts.mood === Mood.Ind
+          && opts.aspect === Aspect.S
+          && opts.tense === Tense.Pr
+          && opts.number === GNumber.S) {
+            inf = inf.slice(0, -1) + "i";
+        }
+        else if (opts.mood === Mood.Imp && opts.number === GNumber.S) {
+          if (inf.length > 0) inf = inf.slice(0, -1) + "i";
+        }
       }
     }
 
