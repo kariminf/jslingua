@@ -494,26 +494,26 @@ describe("Arabic Verb conjugation", function(){
     //وضع Waw
     //Active voice
     //past
-    expect(morpho.conjugate("وضع",$({}, pa, n, i))).to.eql("أَضعْ");
+    expect(morpho.conjugate("وضع",$({}, pa, n, i))).to.eql("لَمْ أَضعْ");
     //present
-    expect(morpho.conjugate("وضع",$({}, pr, n, youfd))).to.eql("تَضعَا");
+    expect(morpho.conjugate("وضع",$({}, pr, n, youfd))).to.eql("لَنْ تَضعَا");
     //Passive voice
     //past
-    expect(morpho.conjugate("وضع",$({}, pa, n, pv, i))).to.eql("أُوضَعْ");
+    expect(morpho.conjugate("وضع",$({}, pa, n, pv, i))).to.eql("لَمْ أُوضَعْ");
     //present
-    expect(morpho.conjugate("وضع",$({}, pr, n, pv, youfd))).to.eql("تُوضَعَا");
+    expect(morpho.conjugate("وضع",$({}, pr, n, pv, youfd))).to.eql("لَنْ تُوضَعَا");
 
     //ينع yaa
     //Active voice
     //past
-    expect(morpho.conjugate("ينع",$({}, pa, n, i))).to.eql("أَيْنعْ");
+    expect(morpho.conjugate("ينع",$({}, pa, n, i))).to.eql("لَمْ أَيْنعْ");
     //present
-    expect(morpho.conjugate("ينع",$({}, pr, n, youfd))).to.eql("تَيْنعَا");
+    expect(morpho.conjugate("ينع",$({}, pr, n, youfd))).to.eql("لَنْ تَيْنعَا");
     //Passive voice
     //past
-    expect(morpho.conjugate("ينع",$({}, pa, n, pv, i))).to.eql("أُيْنَعْ");
+    expect(morpho.conjugate("ينع",$({}, pa, n, pv, i))).to.eql("لَمْ أُيْنَعْ");
     //present
-    expect(morpho.conjugate("ينع",$({}, pr, n, pv, youfd))).to.eql("تُيْنَعَا");
+    expect(morpho.conjugate("ينع",$({}, pr, n, pv, youfd))).to.eql("لَنْ تُيْنَعَا");
 
 
     // Muatal Naqis
