@@ -106,16 +106,85 @@ describe("French Snowball stemmer ", function(){
 
 });
 
-/*
-var I = {person:"first", number:"singular"};
-var heSheIt = {person:"third", number:"singular"};
-var they = {person:"third", number:"plural"};
-var you = {person:"second"};
+
+var pronouns = [
+  {person:"first", number:"singular"},//je
+  {person:"second", number:"singular"},//tu
+  {person:"third", number:"singular", gender:"masculine"},//il
+  {person:"first", number:"plural"},//nous
+  {person:"second", number:"plural"},//vous
+  {person:"third", number:"plural", gender:"feminine"}//elles
+];
+
 var $ = Object.assign;//shorten the function
 
-describe("English Verb conjugation", function(){
+function conjugateFR (verb, form, resList) {
+  for (let i = 0; i< pronouns.length; i++) {
+    expect(morpho.conjugate(verb,$({}, form, pronouns[i]))).to.eql(resList[i]);
+  }
+}
 
-  it("Present simple", function() {
+describe("French Verb conjugation", function(){
+
+  it("Conjugation forms (conjuguer)", function() {
+
+    //Indicative Present (présent)
+    let form = {
+      mood: "indicative",
+      tense: "present",
+      aspect: "simple"
+    };
+    conjugateFR("conjuguer", form, [
+      "conjugue",//je
+      "conjugues", //tu
+      "conjugue", //il
+      "conjuguons", //nous
+      "conjuguez", //vous
+      "conjuguent" //elles
+    ]);
+
+    //Indicative Present perfect (passé composé)
+    form.aspect = "perfect";
+    conjugateFR("conjuguer", form, [
+      "ai conjugué",//je
+      "as conjugué", //tu
+      "a conjugué", //il
+      "avons conjugué", //nous
+      "avez conjugué", //vous
+      "ont conjugué" //elles
+    ]);
+
+    //Indicative Imperfect (imparfait)
+    form.aspect = "imperfect";
+    conjugateFR("conjuguer", form, [
+      "conjuguais",//je
+      "conjuguais", //tu
+      "conjuguait", //il
+      "conjuguions", //nous
+      "conjuguiez", //vous
+      "conjuguaient" //elles
+    ]);
+
+    //Indicative Pluperfect (plus-que-parfait)
+    form.tense = "past";
+    form.aspect = "perfect";
+    form.period = "long";
+    conjugateFR("conjuguer", form, [
+      "conjuguais",//je
+      "conjuguais", //tu
+      "conjuguait", //il
+      "conjuguions", //nous
+      "conjuguiez", //vous
+      "conjuguaient" //elles
+    ]);
+
+
+  });
+
+  /*
+  it("Groupe 1", function() {
+
+
     //Verbs end with o
     expect(morpho.conjugate("go",$({tense:"present"}, I))).to.eql("go");
     expect(morpho.conjugate("go",$({tense:"present"}, heSheIt))).to.eql("goes");
@@ -131,111 +200,8 @@ describe("English Verb conjugation", function(){
     expect(morpho.conjugate("be",$({tense:"present"}, they))).to.eql("are");
 
   });
-
-  it("Past simple", function() {
-    //Regular
-    expect(morpho.conjugate("dream",$({tense:"past"}, I))).to.eql("dreamed");
-    //Regular vowal + y
-    expect(morpho.conjugate("stay",$({tense:"past"}, I))).to.eql("stayed");
-    //Regular  cons. + y
-    expect(morpho.conjugate("try",$({tense:"past"}, I))).to.eql("tried");
-    //irregular0 No change
-    expect(morpho.conjugate("cut",$({tense:"past"}, I))).to.eql("cut");
-    //irregular1 past == past participle
-    expect(morpho.conjugate("buy",$({tense:"past"}, I))).to.eql("bought");
-    //irregular2 past != past participle
-    expect(morpho.conjugate("eat",$({tense:"past"}, I))).to.eql("ate");
-    //Be
-    expect(morpho.conjugate("be",$({tense:"past"}, I))).to.eql("was");
-    expect(morpho.conjugate("be",$({tense:"past"}, heSheIt))).to.eql("was");
-    expect(morpho.conjugate("be",$({tense:"past"}, they))).to.eql("were");
-    //Go
-    expect(morpho.conjugate("go",$({tense:"past"}, I))).to.eql("went");
-
-  });
-
-  //Past simple test
-  it("Past simple passive", function() {
-    //Regular
-    expect(morpho.conjugate("dream",$({tense:"past", voice: "passive"}, I))).to.eql("was dreamed");
-    //irregular0 No change
-    expect(morpho.conjugate("cut",$({tense:"past", voice: "passive"}, I))).to.eql("was cut");
-    //irregular1 past == past participle
-    expect(morpho.conjugate("buy",$({tense:"past", voice: "passive"}, I))).to.eql("was bought");
-    //irregular2 past != past participle
-    expect(morpho.conjugate("eat",$({tense:"past", voice: "passive"}, I))).to.eql("was eaten");
-    //Be
-    expect(morpho.conjugate("be",$({tense:"past", voice: "passive"}, I))).to.eql("was been");
-    //Go
-    expect(morpho.conjugate("go",$({tense:"past", voice: "passive"}, I))).to.eql("was gone");
-
-  });
-
-  //Past participle test
-  it("Present perfect", function() {
-    //Regular
-    expect(morpho.conjugate("dream",$({tense:"past", aspect: "perfect"}, I))).to.eql("had dreamed");
-    //irregular0 No change
-    expect(morpho.conjugate("cut",$({tense:"past", aspect: "perfect"}, I))).to.eql("had cut");
-    //irregular1 past == past participle
-    expect(morpho.conjugate("buy",$({tense:"past", aspect: "perfect"}, I))).to.eql("had bought");
-    //irregular2 past != past participle
-    expect(morpho.conjugate("eat",$({tense:"past", aspect: "perfect"}, I))).to.eql("had eaten");
-    //Be
-    expect(morpho.conjugate("be",$({tense:"past", aspect: "perfect"}, I))).to.eql("had been");
-    //Go
-    expect(morpho.conjugate("go",$({tense:"past", aspect: "perfect"}, I))).to.eql("had gone");
-
-  });
-
-  //Present participle test: -ing
-  it("Past perfect continuous", function() {
-    //Normal
-    expect(morpho.conjugate("dream",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dreaming");
-
-    //ends with a vowel + cons. (with no further vowels)
-    expect(morpho.conjugate("cut",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been cutting");
-    expect(morpho.conjugate("swim",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been swimming");
-    expect(morpho.conjugate("dream",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dreaming");
-
-    //ends with a vowel + y (with no further vowels)
-    expect(morpho.conjugate("buy",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been buying");
-
-    //Ends with e
-    expect(morpho.conjugate("be",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been being");
-    expect(morpho.conjugate("write",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been writing");
-
-    //lie and die
-    expect(morpho.conjugate("lie",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been lying");
-    expect(morpho.conjugate("die",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dying");
-
-  });
-
-  it("Negation", function() {
-    //Present, I, negated
-    expect(morpho.conjugate("dream",$({tense:"present", negated:1}, I))).to.eql("do not dream");
-
-    //Present, He She It, negated
-    expect(morpho.conjugate("dream",$({tense:"present", negated:1}, heSheIt))).to.eql("does not dream");
-
-    //Future, I, perfect continuous, negated
-    expect(morpho.conjugate("cut",$({tense:"future", aspect: "perfect-continuous", negated:1}, I)))
-    .to.eql("will not have been cutting");
-
-  });
-
-  it("Imperative mood", function() {
-    //No imperative with first person
-    expect(morpho.conjugate("drink", $({mood:"imperative"}, I))).to.eql("");
-
-    //No imperative with third person
-    expect(morpho.conjugate("eat", $({mood:"imperative"}, heSheIt))).to.eql("");
-
-    //Imperative with second person
-    expect(morpho.conjugate("buy", $({mood:"imperative"}, you))).to.eql("buy");
+  */
 
 
-  });
 
-
-});*/
+});

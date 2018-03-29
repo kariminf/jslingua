@@ -953,7 +953,7 @@
   //                 STEMMERS
   //=========================================================
 
-  let JsLinguaPS = {
+  /*let JsLinguaPS = {
     //templates
     "t": [
       /^ل[أنتي](.*)ن$/,
@@ -965,7 +965,7 @@
       isriP3,
 
     ]
-  };
+  };*/
 
   function jsStem(word, startingList, endingList) {
     let l = "^(" + startingList.join("|") + ")";
