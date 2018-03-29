@@ -128,6 +128,9 @@ describe("French Verb conjugation", function(){
 
   it("Conjugation forms (conjuguer)", function() {
 
+    //conjugation tested against
+    //https://leconjugueur.lefigaro.fr/conjugaison/verbe/conjuguer.html
+
     //Indicative Present (présent)
     let form = {
       mood: "indicative",
@@ -170,12 +173,162 @@ describe("French Verb conjugation", function(){
     form.aspect = "perfect";
     form.period = "long";
     conjugateFR("conjuguer", form, [
-      "conjuguais",//je
-      "conjuguais", //tu
-      "conjuguait", //il
-      "conjuguions", //nous
-      "conjuguiez", //vous
-      "conjuguaient" //elles
+      "avais conjugué",
+      "avais conjugué",
+      "avait conjugué",
+      "avions conjugué",
+      "aviez conjugué",
+      "avaient conjugué"
+    ]);
+
+    //Indicative Past perfect (passé antérieur)
+    form.period = "short";
+    conjugateFR("conjuguer", form, [
+      "eus conjugué",
+      "eus conjugué",
+      "eut conjugué",
+      "eûmes conjugué",
+      "eûtes conjugué",
+      "eurent conjugué"
+    ]);
+
+    //Indicative Simple past (passé simple)
+    form.aspect = "simple";
+    conjugateFR("conjuguer", form, [
+      "conjuguai",
+      "conjuguas",
+      "conjugua",
+      "conjuguâmes",
+      "conjuguâtes",
+      "conjuguèrent"
+    ]);
+
+    //Indicative Simple future (futur simple)
+    form.tense = "future";
+    conjugateFR("conjuguer", form, [
+      "conjuguerai",
+      "conjugueras",
+      "conjuguera",
+      "conjuguerons",
+      "conjuguerez",
+      "conjugueront"
+    ]);
+
+    //Indicative Future perfect (futur antérieur)
+    form.aspect = "perfect";
+    conjugateFR("conjuguer", form, [
+      "aurai conjugué",
+      "auras conjugué",
+      "aura conjugué",
+      "aurons conjugué",
+      "aurez conjugué",
+      "auront conjugué"
+    ]);
+
+    //Subjunctive Present
+    form.mood = "subjunctive";
+    form.tense = "present";
+    form.aspect = "simple";
+    conjugateFR("conjuguer", form, [
+      "conjugue",
+      "conjugues",
+      "conjugue",
+      "conjuguions",
+      "conjuguiez",
+      "conjuguent"
+    ]);
+
+    //Subjunctive Past (passé)
+    form.tense = "past";
+    conjugateFR("conjuguer", form, [
+      "aie conjugué",
+      "aies conjugué",
+      "ait conjugué",
+      "ayons conjugué",
+      "ayez conjugué",
+      "aient conjugué"
+    ]);
+
+    // Subjunctive Imperfect
+    form.tense = "present";
+    form.aspect = "imperfect";
+    conjugateFR("conjuguer", form, [
+      "conjuguasse",
+      "conjuguasses",
+      "conjuguât",
+      "conjuguassions",
+      "conjuguassiez",
+      "conjuguassent"
+    ]);
+
+    //Subjunctive Pluperfect
+    form.tense = "past";
+    form.aspect = "perfect";
+    conjugateFR("conjuguer", form, [
+      "eusse conjugué",
+      "eusses conjugué",
+      "eût conjugué",
+      "eussions conjugué",
+      "eussiez conjugué",
+      "eussent conjugué"
+    ]);
+
+
+    //Imperative Past
+    form.aspect = "simple";
+    form.mood = "imperative";
+    conjugateFR("conjuguer", form, [
+      "",
+      "aie conjugué",
+      "",
+      "ayons conjugué",
+      "ayez conjugué",
+      ""
+    ]);
+
+    //Imperative Present
+    form.tense = "present";
+    conjugateFR("conjuguer", form, [
+      "",
+      "conjugue",
+      "",
+      "conjuguons",
+      "conjuguez",
+      ""
+    ]);
+
+    //Conditional Present
+    form.mood = "conditional";
+    conjugateFR("conjuguer", form, [
+      "conjuguerais",
+      "conjuguerais",
+      "conjuguerait",
+      "conjuguerions",
+      "conjugueriez",
+      "conjugueraient"
+    ]);
+
+    //Conditional Past (form 1)
+    form.tense = "past";
+    form.form = 1;
+    conjugateFR("conjuguer", form, [
+      "aurais conjugué",
+      "aurais conjugué",
+      "aurait conjugué",
+      "aurions conjugué",
+      "auriez conjugué",
+      "auraient conjugué"
+    ]);
+
+    //Conditional Past (form 2)
+    form.form = 2;
+    conjugateFR("conjuguer", form, [
+      "eusse conjugué",
+      "eusses conjugué",
+      "eût conjugué",
+      "eussions conjugué",
+      "eussiez conjugué",
+      "eussent conjugué"
     ]);
 
 
