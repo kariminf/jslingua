@@ -727,7 +727,6 @@
         irr.p += "i";
       }
       else if (/^(?:n|conn|reconn|par|appar|repar|dispar)aît$/.test(inf)) {
-        console.log("naitre");
         let inf2 = inf.slice(0, -2);
         irr.s1 = inf2 + "[<s1>s:is,<s1>t:ît]";
         irr.p1 = inf2 + "iss";
@@ -750,7 +749,7 @@
         else irr.p = inf + i; //suivre, battre
       }
       else if ( inf === "viv") verbInfo.pp = "vécu";
-      else if (/^(plai|clo)$/) {//plaire, clore
+      else if (/^(plai|clo)$/.test(inf)) {//plaire, clore
         irr.p1 = inf + "s";
         if (inf === "clo") {
           irr.s1 = "cl[<s1>s:os,<s1>t:ôt]";
@@ -769,6 +768,40 @@
       }
     }
     else if (ending === "oir") { // ======== -oir irregularities
+
+      if (/^(dev|.*cev)$/.test(inf)) {//devoir, -cevoir
+        let inf2 = inf.slice(0, -2);
+        if (inf2.endsWith("c")) inf2 = inf2.slice(0, -1) + "ç";
+        irr.s1 = inf2 + "oi";
+        irr.s3 = inf2 + "oiv";
+        verbInfo.pp = inf2 + "u";
+        //TODO devoir pp = dû (sing. masculine)
+      }
+      else if (/^(v|rev|ch|éch)$/.test(inf)) {//voir, revoir, choir, échoir
+        irr.s3 = irr.s1 = inf;
+        let inf2 = inf.slice(0, -1);
+        irr.s2 = inf2 + "y";
+        verbInfo.pp = inf2 + "u";
+        if (inf2.endsWith("v")) irr.p = inf2 + "i";
+      }
+      else if (/^(é|pro)mouv$/.test(inf)) {//mouvoir, émouvoir, promouvoir
+        let inf2 = inf.slice(0, -3);
+        irr.s1 = inf2 + "meu";
+        irr.s3 = irr.s1 + "v";
+        verbInfo.pp = inf2 + "u";
+        //TODO mevoir pp = mû (sing. masculine)
+      }
+      else if (inf === "asse") { //aseoir
+        irr.s1 = "assied";
+        irr.p1 = "assey";
+        verbInfo.pp = "assis";
+      }
+      else if (inf === "pleuv") {
+        irr.s1 = "[<s1>s:$,<s1>t:pleut]";
+        irr.p3 = irr.p1 = "$";
+        verbInfo.pp = "plu";
+        //TODO fix pleuvoir
+      }
       /* Will be treated as irregular
       let m;
       if ((m = /^(.*)(val|pouv|voul)$/.exec(inf)) != null) {
@@ -778,7 +811,35 @@
 
     }
     else { // ======== -ir irregularities
-      if (/[^ê]t$/.test(inf)) irr.s1 = inf.slice(0, -1);
+      if (/^.*[tv]en$/.test(inf)){// -venir, -tenir
+        let inf2 = inf.slice(0, -2);
+        irr.s1 = inf2 + "ien";
+        irr.p3 = irr.s1 + "n";
+        verbInfo.pp = inf2 + "u";
+        irr.p = inf2 + "in";
+      }
+      else if (/^((dé|re)?part|(en|ren)?dorm|ment|dément|(con|pres|res)?sent|(des|res)?serv|(res)?sort|(dé|re)?vêt)$/.test(inf)) {
+        irr.s1 = inf.slice(0, -1);
+        if (inf.endsWith("êt")) verbInfo.pp = irr.s1 + "u";
+      }
+      else if (/^(cueill|(c|déc)?ouvr|offr|souffr)$/.test(inf)) {
+        irr.s1 = inf + "[<s1>s:G1,<s1>t:G1]";
+        if (inf !== "cueill") {
+          irr.p1 = inf;
+          verbInfo.pp = inf.slice(0, -1) + "ert";
+        }
+      }
+      else if (inf === "requér") {
+        irr.s1 = "requier";
+        irr.p3 = "requièr";
+        verbInfo.pp = "requis";
+      }
+      else if (inf === "mour") {
+        irr.p3 = irr.s1 = "meur";
+        verbInfo.pp = "mort";
+        irr.p = "mouru";
+      }
+
     }
 
     if ( ! irr.s1 ) { //regular s1
@@ -943,19 +1004,11 @@
 
     extractG3IrrS1(irr, ending);
 
-    console.log(verbInfo.pp);
-
     extractG3IrrP1(irr, ending);
-
-    console.log(verbInfo.irr.s1);
 
     extractG3IrrP3(irr, ending);
 
-    console.log(verbInfo.irr.s1);
-
     extractG3IrrPP(irr, ending);
-
-    console.log(verbInfo.irr.s1);
 
     //(First singular) future
     let fut = verb;
