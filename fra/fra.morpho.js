@@ -726,7 +726,46 @@
         irr.p1 = irr.p3 = irr.p = inf.slice(0, -2) + "gn";
         irr.p += "i";
       }
-
+      else if (/^(?:n|conn|reconn|par|appar|repar|dispar)aît$/.test(inf)) {
+        let inf2 = inf.slice(0, -1);
+        irr.s1 = inf2 + "[<s1>s:is,<s1>t:ît]";
+        irr.p1 = inf2 + "iss";
+        if (inf2 !== "n") irr.p = inf2.slice(0, -1) + "u";
+        else {
+          verbInfo.pp = "né";
+          irr.p = "naqui";
+        }
+      }
+      else if (/^(suiv|batt|(pro|per|compro|sou|trans)?mett|(ré|ab)soud)$/.test(inf)) {
+        irr.s1 = inf.slice(0, -1);
+        //mettre, permettre, etc.
+        if (inf.endsWith("mett")) verbInfo.pp = inf.slice(0, -3) + "is";
+        else if (inf.endsWith("d")) { //résoudre, absoudre
+          let inf2 = inf.slice(0, -2);
+          irr.p1 = inf2 + "lv";
+          verbInfo.pp = inf2 + ((inf.startsWith("r"))? "lu": "us");
+          if (inf.startsWith("a")) irr.p = "absolu";
+        }
+        else irr.p = inf + i; //suivre, battre
+      }
+      else if ( inf === "viv") verbInfo.pp = "vécu";
+      else if (/^(plai|clo)$/) {//plaire, clore
+        irr.p1 = inf + "s";
+        if (inf === "clo") {
+          irr.s1 = "cl[<s1>os:s,<s1>t:ôt]";
+          verbInfo.pp = "clos";
+          irr.p = "$";//clos doesn't have past
+        }
+        else {
+          irr.s1 = "pla[<s1>is:s,<s1>t:ît]";
+          verbInfo.pp = "plu";
+        }
+      }
+      else if (/^(con)?vainc$/) {//vaincre, convaincre
+        irr.s1 = inf + "[<s1>s:s,<s1>t:]";
+        irr.p1 = inf.slice(0, -1) + "qu";
+        irr.p = irr.p1 + "i";
+      }
     }
     else if (ending === "oir") { // ======== -oir irregularities
       /* Will be treated as irregular
