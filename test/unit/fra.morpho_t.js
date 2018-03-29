@@ -124,6 +124,51 @@ function conjugateFR (verb, form, resList) {
   }
 }
 
+function conjugateFRFondamentalEndings(verb, conjs) {
+  let form = {
+    mood: "indicative",
+    tense: "present",
+    aspect: "simple"
+  };
+
+  //present simple
+  conjugateFR(verb, form, conjs[0]);
+
+  form.tense = "past";
+  //past simple
+  conjugateFR(verb, form, conjs[1]);
+
+  //imparfait
+  form.tense = "present";
+  form.aspect = "imperfect";
+  conjugateFR(verb, form, conjs[2]);
+
+  //future simple
+  form.tense = "future";
+  form.aspect = "simple";
+  conjugateFR(verb, form, conjs[3]);
+
+  //sujunctive present
+  form.mood = "subjunctive";
+  form.tense = "present";
+  conjugateFR(verb, form, conjs[4]);
+
+  //subjunctive imperfect
+  form.aspect = "imperfect";
+  conjugateFR(verb, form, conjs[5]);
+
+  //conditional present
+  form.mood = "conditional";
+  form.tense = "present";
+  form.aspect= "simple";
+  conjugateFR(verb, form, conjs[6]);
+
+  //imperative
+  form.mood = "imperative";
+  conjugateFR(verb, form, conjs[7]);
+
+}
+
 describe("French Verb conjugation", function(){
 
   it("Conjugation forms (conjuguer)", function() {
@@ -394,17 +439,6 @@ describe("French Verb conjugation", function(){
       tense: "present",
       aspect: "simple"
     };
-
-    //present simple
-    conjugateFR("choisir", form, [
-      "choisis",
-      "choisis",
-      "choisit",
-      "choisissons",
-      "choisissez",
-      "choisissent"
-    ]);
-
     conjugateFR("haïr", form, [
       "hais",
       "hais",
@@ -414,16 +448,91 @@ describe("French Verb conjugation", function(){
       "haïssent"
     ]);
 
-    form.tense = "past";
-    //past simple
-    conjugateFR("bâtir", form, [
-      "bâtis",
-      "bâtis",
-      "bâtit",
-      "bâtîmes",
-      "bâtîtes",
-      "bâtirent"
+    conjugateFRFondamentalEndings("choisir", [
+
+      //indicative present simple
+      [
+        "choisis",
+        "choisis",
+        "choisit",
+        "choisissons",
+        "choisissez",
+        "choisissent"
+      ],
+
+      //indicative past simple
+      [
+        "choisis",
+        "choisis",
+        "choisit",
+        "choisîmes",
+        "choisîtes",
+        "choisirent"
+      ],
+
+      //indicative imperfect
+      [
+        "choisissais",
+        "choisissais",
+        "choisissait",
+        "choisissions",
+        "choisissiez",
+        "choisissaient"
+      ],
+
+      //indicative future simple
+      [
+        "choisirai",
+        "choisiras",
+        "choisira",
+        "choisirons",
+        "choisirez",
+        "choisiront"
+      ],
+
+      //subjunctive present
+      [
+        "choisisse",
+        "choisisses",
+        "choisisse",
+        "choisissions",
+        "choisissiez",
+        "choisissent"
+      ],
+
+      //subjunctive imparfait
+      [
+        "choisisse",
+        "choisisses",
+        "choisît",
+        "choisissions",
+        "choisissiez",
+        "choisissent"
+      ],
+
+      //conditional present
+      [
+        "choisirais",
+        "choisirais",
+        "choisirait",
+        "choisirions",
+        "choisiriez",
+        "choisiraient"
+      ],
+
+      //imperative
+      [
+        "",
+        "choisis",
+        "",
+        "choisissons",
+        "choisissez",
+        ""
+      ]
+
     ]);
+
+
 
 
   });
