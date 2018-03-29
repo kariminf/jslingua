@@ -334,26 +334,99 @@ describe("French Verb conjugation", function(){
 
   });
 
-  /*
+
   it("Groupe 1", function() {
 
+    //Regular form already tested
 
-    //Verbs end with o
-    expect(morpho.conjugate("go",$({tense:"present"}, I))).to.eql("go");
-    expect(morpho.conjugate("go",$({tense:"present"}, heSheIt))).to.eql("goes");
-    //Verbs end with vowal + y
-    expect(morpho.conjugate("stay",$({tense:"present"}, I))).to.eql("stay");
-    expect(morpho.conjugate("stay",$({tense:"present"}, heSheIt))).to.eql("stays");
-    //Verbs end with cons. + y
-    expect(morpho.conjugate("try",$({tense:"present"}, I))).to.eql("try");
-    expect(morpho.conjugate("try",$({tense:"present"}, heSheIt))).to.eql("tries");
-    //Be
-    expect(morpho.conjugate("be",$({tense:"present"}, I))).to.eql("am");
-    expect(morpho.conjugate("be",$({tense:"present"}, heSheIt))).to.eql("is");
-    expect(morpho.conjugate("be",$({tense:"present"}, they))).to.eql("are");
+    let form = {
+      mood: "indicative",
+      tense: "present",
+      aspect: "simple"
+    };
+
+    // -cer
+    conjugateFR("tracer", form, [
+      "trace",
+      "traces",
+      "trace",
+      "traçons", // c ==> ç
+      "tracez",
+      "tracent"
+    ]);
+
+    // -ger
+    conjugateFR("manger", form, [
+      "mange",
+      "manges",
+      "mange",
+      "mangeons",//mangons ==> mangeons
+      "mangez",
+      "mangent"
+    ]);
+
+    // -oyer and -uyer
+    conjugateFR("envoyer", form, [
+      "envoie", //y ==> i
+      "envoies", //y ==> i
+      "envoie", //y ==> i
+      "envoyons",
+      "envoyez",
+      "envoient" //y ==> i
+    ]);
+
+    // -eler
+    conjugateFR("appeler", form, [
+      "appelle",
+      "appelles",
+      "appelle",
+      "appelons",
+      "appelez",
+      "appellent"
+    ]);
 
   });
-  */
+
+  it("Groupe 2", function() {
+
+    let form = {
+      mood: "indicative",
+      tense: "present",
+      aspect: "simple"
+    };
+
+    //present simple
+    conjugateFR("choisir", form, [
+      "choisis",
+      "choisis",
+      "choisit",
+      "choisissons",
+      "choisissez",
+      "choisissent"
+    ]);
+
+    conjugateFR("haîr", form, [
+      "hais",
+      "hais",
+      "hait",
+      "haîssons",
+      "haîssez",
+      "haîssent"
+    ]);
+
+    form.tense = "past";
+    //past simple
+    conjugateFR("bâtir", form, [
+      "bâtis",
+      "bâtis",
+      "bâtit",
+      "bâtîmes",
+      "bâtîtes",
+      "bâtirent"
+    ]);
+
+
+  });
 
 
 
