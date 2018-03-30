@@ -133,6 +133,8 @@ function conjugateFRFondamentalEndings(verb, conjs) {
       let form = forms[formName];
       conjugateFR(verb, form, conjs[formName]);
     }
+    else expect("Don't exist: ").to.eql(formName);
+    //fail the test if the form is not in FraMorpho
   }
 
   /*
@@ -938,7 +940,87 @@ describe("French Verb conjugation", function(){
     });
 
 
-  }); // group 3 - ir
+  }); // group 3 - oir
+
+  it("Groupe 3 - re", function() {
+
+    conjugateFRFondamentalEndings("vendre", {
+
+      "Indicative Present (présent)":
+      [
+        "vends",
+        "vends",
+        "vend",
+        "vendons",
+        "vendez",
+        "vendent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai vendu",
+        "as vendu",
+        "a vendu",
+        "avons vendu",
+        "avez vendu",
+        "ont vendu"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("voir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "verrai",
+        "verras",
+        "verra",
+        "verrons",
+        "verrez",
+        "verront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "vois",
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ],
+
+      "Subjunctive Present":
+      [
+        "voie",
+        "voies",
+        "voie",
+        "voyions",
+        "voyiez",
+        "voient"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai vu",
+        "as vu",
+        "a vu",
+        "avons vu",
+        "avez vu",
+        "ont vu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "vis",
+        "vis",
+        "vit",
+        "vîmes",
+        "vîtes",
+        "virent"
+      ]
+    });
+
+  }); // group 3 - re
 
 
 

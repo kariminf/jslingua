@@ -770,12 +770,13 @@
           verbInfo.pp = "plu";
         }
       }
-      else if (/^(con)?vainc$/) {//vaincre, convaincre
+      else if (/^(con)?vainc$/.test(inf)) {//vaincre, convaincre
         irr.s1 = inf + "[<s1>s:s,<s1>t:]";
         irr.p1 = inf.slice(0, -1) + "qu";
         irr.p = irr.p1 + "i";
       }
     }
+
     else if (ending === "oir") { // ======== -oir irregularities
 
       if (/^(dev|.*cev)$/.test(inf)) {//devoir, -cevoir
@@ -946,7 +947,7 @@
     let inf = verbInfo.inf;
 
     if (ending === "re") {
-      if (/^((?:sou)?ri|.*clu)$/) {
+      if (/^((?:sou)?ri|.*clu)$/.test(inf)) {
         irr.p = verbInfo.pp = inf;
       }
       if (inf === "croi") irr.p = verbInfo.pp = (inf.slice(0, -2) + "u");
