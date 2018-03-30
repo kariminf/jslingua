@@ -739,25 +739,32 @@
         let inf2 = inf.slice(0, -2);
         irr.s1 = inf2 + "[<s1>s:is,<s1>t:ît]";
         irr.p1 = inf2 + "iss";
-        if (inf2 !== "na") irr.p = inf2.slice(0, -1) + "u";
+        if (inf2 !== "na") verbInfo.pp = inf2.slice(0, -1) + "u";
         else {
           verbInfo.pp = "né";
           irr.p = "naqui";
         }
       }
-      else if (/^(suiv|batt|(pro|per|compro|sou|trans)?mett|(ré|ab)soud)$/.test(inf)) {
+      else if (/^(viv|poursuiv|suiv|batt|(pro|per|compro|sou|trans)?mett|(ré|ab)soud)$/.test(inf)) {
         irr.s1 = inf.slice(0, -1);
         //mettre, permettre, etc.
         if (inf.endsWith("mett")) verbInfo.pp = inf.slice(0, -3) + "is";
         else if (inf.endsWith("d")) { //résoudre, absoudre
-          let inf2 = inf.slice(0, -2);
-          irr.p1 = inf2 + "lv";
-          verbInfo.pp = inf2 + ((inf.startsWith("r"))? "lu": "us");
-          if (inf.startsWith("a")) irr.p = "absolu";
+          irr.p1 = inf.slice(0, -2) + "lv";
+          if (inf.startsWith("r")) {//résoudre
+            irr.p = verbInfo.pp = "résolu";
+          }
+          else {
+            verbInfo.pp = "absous";
+            irr.p = "absolu";
+          }
         }
-        else irr.p = inf + i; //suivre, battre
+        else if ( inf === "viv") verbInfo.pp = "vécu";//vivre
+        else {//suivre, battre
+          irr.p = inf + "i";
+          if (inf.endsWith("v")) verbInfo.pp = irr.p;
+        }
       }
-      else if ( inf === "viv") verbInfo.pp = "vécu";
       else if (/^(plai|clo)$/.test(inf)) {//plaire, clore
         irr.p1 = inf + "s";
         if (inf === "clo") {
@@ -833,7 +840,7 @@
         if (inf.endsWith("êt")) verbInfo.pp = irr.s1 + "u";
       }
       else if (/^(cueill|(c|déc)?ouvr|offr|souffr)$/.test(inf)) {
-        irr.s1 = inf + "[<s1>s:G1,<s1>t:G1]";
+        irr.s1 = inf + "[<s1>.*:G1]";
         if (inf !== "cueill") {
           irr.p1 = inf;
           verbInfo.pp = inf.slice(0, -1) + "ert";
@@ -900,13 +907,26 @@
           }
           else { // -prendre
             irr.p3 = irr.p1 + "n";
-            verbInfo.pp = irr.p = irr.p1.slice(0, 1) + "i";
+            verbInfo.pp = (irr.p = irr.p1.slice(0, -2) + "i") + "s";
           }
         }
         else { //dire contredire interdire; lire; suffire, confire, circoncire, frire
           irr.p3 = irr.p1 = inf + "s";
-          if (inf.endsWith("di")) irr.p1 = inf + "[<p1>ons:sons,<p1>ez:tes]";
-          verbInfo.pp = ((inf === "li")? "lu": inf + (inf.endsWith("di")? "t": ""));
+          if (inf === "di") irr.p1 = inf + "[<p1>ons:sons,<p1>ez:tes]";
+          switch (inf) {
+            case "li":
+              verbInfo.pp = "lu";
+              break;
+            case "circonci":
+              verbInfo.pp = "circoncis";
+              break;
+            case "suffi":
+              verbInfo.pp = "suffi";
+              break;
+            default:
+              verbInfo.pp = inf + "t";
+          }
+          //verbInfo.pp = ((inf === "li")? "lu": inf + (inf.endsWith("di")? "t": ""));
         }
       }
 
@@ -954,7 +974,7 @@
       if (inf === "croi") irr.p = verbInfo.pp = (inf.slice(0, -2) + "u");
       else if (/^(?:con|ex|sub)?trai/.test(inf)) {
         verbInfo.pp = inf + "t";
-        irr.p = inf.slice(0, -1) + "y";
+        irr.p = inf.slice(0, -1) + "y[<p>.*:G1]";
       }
     }
     else if (ending === "ir") {
@@ -981,6 +1001,7 @@
 
     if (ending === "re") {
       //indre has been treated earlier
+      //vendre, -ndre may be, perdre
       if (inf.endsWith("d")) irr.p = inf + "i";
     }
 
@@ -1288,7 +1309,8 @@
       let i = 0;
       for (; i < rep.length; i++) {
         let rep2 = rep[i].split(":");
-        if (rep2[0] === p) {
+        let r = new RegExp(rep2[0]);
+        if (r.test(p)) {
           if (rep2[1] === "G1") suff = getSuffix(opts, g1Suffix);
           else suff = rep2[1];
           break;

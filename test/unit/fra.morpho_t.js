@@ -1068,6 +1068,613 @@ describe("French Verb conjugation", function(){
       ]
     });
 
+    conjugateFRFondamentalEndings("interdire", {
+
+      "Indicative Present (présent)":
+      [
+        "interdis",
+        "interdis",
+        "interdit",
+        "interdisons",
+        "interdisez",
+        "interdisent"
+      ]
+    });
+
+    //lire
+    conjugateFRFondamentalEndings("lire", {
+
+      "Indicative Present (présent)":
+      [
+        "lis",
+        "lis",
+        "lit",
+        "lisons",
+        "lisez",
+        "lisent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai lu",
+        "as lu",
+        "a lu",
+        "avons lu",
+        "avez lu",
+        "ont lu"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("décrire", {
+
+      "Indicative Present (présent)":
+      [
+        "décris",
+        "décris",
+        "décrit",
+        "décrivons",
+        "décrivez",
+        "décrivent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai décrit",
+        "as décrit",
+        "a décrit",
+        "avons décrit",
+        "avez décrit",
+        "ont décrit"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "décrivis",
+        "décrivis",
+        "décrivit",
+        "décrivîmes",
+        "décrivîtes",
+        "décrivirent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("confire", {
+
+      "Indicative Present (présent)":
+      [
+        "confis",
+        "confis",
+        "confit",
+        "confisons",
+        "confisez",
+        "confisent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai confit",
+        "as confit",
+        "a confit",
+        "avons confit",
+        "avez confit",
+        "ont confit"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("suffire", {
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai suffi",
+        "as suffi",
+        "a suffi",
+        "avons suffi",
+        "avez suffi",
+        "ont suffi"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("frire", {
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai frit",
+        "as frit",
+        "a frit",
+        "avons frit",
+        "avez frit",
+        "ont frit"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("circoncire", {
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai circoncis",
+        "as circoncis",
+        "a circoncis",
+        "avons circoncis",
+        "avez circoncis",
+        "ont circoncis"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("boire", {
+
+      "Indicative Present (présent)":
+      [
+        "bois",
+        "bois",
+        "boit",
+        "buvons",
+        "buvez",
+        "boivent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai bu",
+        "as bu",
+        "a bu",
+        "avons bu",
+        "avez bu",
+        "ont bu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "bus",
+        "bus",
+        "but",
+        "bûmes",
+        "bûtes",
+        "burent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("croire", {
+
+      "Indicative Present (présent)":
+      [
+        "crois",
+        "crois",
+        "croit",
+        "croyons",
+        "croyez",
+        "croient"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai cru",
+        "as cru",
+        "a cru",
+        "avons cru",
+        "avez cru",
+        "ont cru"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("plaire", {
+
+      "Indicative Present (présent)":
+      [
+        "plais",
+        "plais",
+        "plaît",
+        "plaisons",
+        "plaisez",
+        "plaisent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai plu",
+        "as plu",
+        "a plu",
+        "avons plu",
+        "avez plu",
+        "ont plu"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("surprendre", {
+
+      "Indicative Present (présent)":
+      [
+        "surprends",
+        "surprends",
+        "surprend",
+        "surprenons",
+        "surprenez",
+        "surprennent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai surpris",
+        "as surpris",
+        "a surpris",
+        "avons surpris",
+        "avez surpris",
+        "ont surpris"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "surpris",
+        "surpris",
+        "surprit",
+        "surprîmes",
+        "surprîtes",
+        "surprirent"
+      ]
+    });
+
+
+    conjugateFRFondamentalEndings("vivre", {
+
+      "Indicative Present (présent)":
+      [
+        "vis",
+        "vis",
+        "vit",
+        "vivons",
+        "vivez",
+        "vivent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai vécu",
+        "as vécu",
+        "a vécu",
+        "avons vécu",
+        "avez vécu",
+        "ont vécu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "vécus",
+        "vécus",
+        "vécut",
+        "vécûmes",
+        "vécûtes",
+        "vécurent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("poursuivre", {
+
+      "Indicative Present (présent)":
+      [
+        "poursuis",
+        "poursuis",
+        "poursuit",
+        "poursuivons",
+        "poursuivez",
+        "poursuivent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai poursuivi",
+        "as poursuivi",
+        "a poursuivi",
+        "avons poursuivi",
+        "avez poursuivi",
+        "ont poursuivi"
+      ]
+    });
+
+
+    conjugateFRFondamentalEndings("naître", {
+
+      "Indicative Present (présent)":
+      [
+        "nais",
+        "nais",
+        "naît",
+        "naissons",
+        "naissez",
+        "naissent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "suis né",
+        "es né",
+        "est né",
+        "sommes nés",
+        "êtes nés",
+        "sont nées"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "naquis",
+        "naquis",
+        "naquit",
+        "naquîmes",
+        "naquîtes",
+        "naquirent"
+      ]
+    });
+
+
+    conjugateFRFondamentalEndings("connaître", {
+
+      "Indicative Present (présent)":
+      [
+        "connais",
+        "connais",
+        "connaît",
+        "connaissons",
+        "connaissez",
+        "connaissent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai connu",
+        "as connu",
+        "a connu",
+        "avons connu",
+        "avez connu",
+        "ont connu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "connus",
+        "connus",
+        "connut",
+        "connûmes",
+        "connûtes",
+        "connurent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("promettre", {
+
+      "Indicative Present (présent)":
+      [
+        "promets",
+        "promets",
+        "promet",
+        "promettons",
+        "promettez",
+        "promettent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai promis",
+        "as promis",
+        "a promis",
+        "avons promis",
+        "avez promis",
+        "ont promis"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "promis",
+        "promis",
+        "promit",
+        "promîmes",
+        "promîtes",
+        "promirent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("convaincre", {
+
+      "Indicative Present (présent)":
+      [
+        "convaincs",
+        "convaincs",
+        "convainc",
+        "convainquons",
+        "convainquez",
+        "convainquent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai convaincu",
+        "as convaincu",
+        "a convaincu",
+        "avons convaincu",
+        "avez convaincu",
+        "ont convaincu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "convainquis",
+        "convainquis",
+        "convainquit",
+        "convainquîmes",
+        "convainquîtes",
+        "convainquirent"
+      ]
+    });
+
+    //simple past is not available in all these websites
+    //https://leconjugueur.lefigaro.fr/conjugaison/verbe/extraire.html
+    //http://conjugueur.reverso.net/conjugaison-francais-verbe-traire.html
+    //http://la-conjugaison.nouvelobs.com/du/verbe/extraire.php
+    //It is said to follow group 1 conjugation as in:
+    //https://fr.wiktionary.org/wiki/Annexe:Conjugaison_en_français/extraire
+    //So, we will follow this analogie
+    conjugateFRFondamentalEndings("extraire", {
+
+      "Indicative Present (présent)":
+      [
+        "extrais",
+        "extrais",
+        "extrait",
+        "extrayons",
+        "extrayez",
+        "extraient"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai extrait",
+        "as extrait",
+        "a extrait",
+        "avons extrait",
+        "avez extrait",
+        "ont extrait"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "extrayai",
+        "extrayas",
+        "extraya",
+        "extrayâmes",
+        "extrayâtes",
+        "extrayèrent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("coudre", {
+
+      "Indicative Present (présent)":
+      [
+        "couds",
+        "couds",
+        "coud",
+        "cousons",
+        "cousez",
+        "cousent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai cousu",
+        "as cousu",
+        "a cousu",
+        "avons cousu",
+        "avez cousu",
+        "ont cousu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "cousis",
+        "cousis",
+        "cousit",
+        "cousîmes",
+        "cousîtes",
+        "cousirent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("moudre", {
+
+      "Indicative Present (présent)":
+      [
+        "mouds",
+        "mouds",
+        "moud",
+        "moulons",
+        "moulez",
+        "moulent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai moulu",
+        "as moulu",
+        "a moulu",
+        "avons moulu",
+        "avez moulu",
+        "ont moulu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "moulus",
+        "moulus",
+        "moulut",
+        "moulûmes",
+        "moulûtes",
+        "moulurent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("résoudre", {
+
+      "Indicative Present (présent)":
+      [
+        "résous",
+        "résous",
+        "résout",
+        "résolvons",
+        "résolvez",
+        "résolvent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai résolu",
+        "as résolu",
+        "a résolu",
+        "avons résolu",
+        "avez résolu",
+        "ont résolu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "résolus",
+        "résolus",
+        "résolut",
+        "résolûmes",
+        "résolûtes",
+        "résolurent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("absoudre", {
+
+      "Indicative Present (présent)":
+      [
+        "absous",
+        "absous",
+        "absout",
+        "absolvons",
+        "absolvez",
+        "absolvent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai absous",
+        "as absous",
+        "a absous",
+        "avons absous",
+        "avez absous",
+        "ont absous"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "absolus",
+        "absolus",
+        "absolut",
+        "absolûmes",
+        "absolûtes",
+        "absolurent"
+      ]
+    });
+
 
     //=============================
     conjugateFRFondamentalEndings("voir", {
