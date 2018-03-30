@@ -479,14 +479,7 @@ describe("French Verb conjugation", function(){
     conjugateFRFondamentalEndings("choisir", {
 
       "Indicative Present (présent)":
-      [
-        "choisis",
-        "choisis",
-        "choisit",
-        "choisissons",
-        "choisissez",
-        "choisissent"
-      ],
+      ["choisis", "choisis", "choisit", "choisissons", "choisissez", "choisissent" ],
 
       "Indicative Simple past (passé simple)":
       [
@@ -1675,63 +1668,243 @@ describe("French Verb conjugation", function(){
       ]
     });
 
+  }); // group 3 - re
 
-    //=============================
-    conjugateFRFondamentalEndings("voir", {
+  it("Groupe 3 - irregular", function() {
+
+    conjugateFRFondamentalEndings("pouvoir", {
 
       "Indicative Simple future (futur simple)":
       [
-        "verrai",
-        "verras",
-        "verra",
-        "verrons",
-        "verrez",
-        "verront"
+        "pourrai",
+        "pourras",
+        "pourra",
+        "pourrons",
+        "pourrez",
+        "pourront"
       ],
 
       "Indicative Present (présent)":
       [
-        "vois",
-        "vois",
-        "voit",
-        "voyons",
-        "voyez",
-        "voient"
+        "peux",
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
       ],
 
       "Subjunctive Present":
       [
-        "voie",
-        "voies",
-        "voie",
-        "voyions",
-        "voyiez",
-        "voient"
+        "puisse",
+        "puisses",
+        "puisse",
+        "puissions",
+        "puissiez",
+        "puissent"
       ],
 
       "Indicative Present perfect (passé composé)":
       [
-        "ai vu",
-        "as vu",
-        "a vu",
-        "avons vu",
-        "avez vu",
-        "ont vu"
+        "ai pu",
+        "as pu",
+        "a pu",
+        "avons pu",
+        "avez pu",
+        "ont pu"
       ],
 
       "Indicative Simple past (passé simple)":
       [
-        "vis",
-        "vis",
-        "vit",
-        "vîmes",
-        "vîtes",
-        "virent"
+        "pus",
+        "pus",
+        "put",
+        "pûmes",
+        "pûtes",
+        "purent"
       ]
     });
 
-  }); // group 3 - re
+    conjugateFRFondamentalEndings("pouvoir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "pourrai",
+        "pourras",
+        "pourra",
+        "pourrons",
+        "pourrez",
+        "pourront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "peux",
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
+      ],
+
+      "Subjunctive Present":
+      [
+        "puisse",
+        "puisses",
+        "puisse",
+        "puissions",
+        "puissiez",
+        "puissent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai pu",
+        "as pu",
+        "a pu",
+        "avons pu",
+        "avez pu",
+        "ont pu"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "pus",
+        "pus",
+        "put",
+        "pûmes",
+        "pûtes",
+        "purent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("savoir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "saurai",
+        "sauras",
+        "saura",
+        "saurons",
+        "saurez",
+        "sauront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "sais",
+        "sais",
+        "sait",
+        "savons",
+        "savez",
+        "savent"
+      ],
+
+      "Subjunctive Present":
+      [
+        "sache",
+        "saches",
+        "sache",
+        "sachions",
+        "sachiez",
+        "sachent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai su",
+        "as su",
+        "a su",
+        "avons su",
+        "avez su",
+        "ont su"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "sus",
+        "sus",
+        "sut",
+        "sûmes",
+        "sûtes",
+        "surent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("valoir", {
+
+      "Indicative Simple future (futur simple)":
+      ["vaudrai", "vaudras", "vaudra", "vaudrons", "vaudrez", "vaudront"],
+
+      "Indicative Present (présent)":
+      ["vaux", "vaux", "vaut", "valons", "valez", "valent"],
+
+      "Subjunctive Present":
+      ["vaille", "vailles", "vaille", "valions", "valiez", "vaillent"],
+
+      "Indicative Present perfect (passé composé)":
+      ["ai valu", "as valu", "a valu", "avons valu", "avez valu", "ont valu"],
+
+      "Indicative Simple past (passé simple)":
+      ["valus", "valus", "valut", "valûmes", "valûtes", "valurent"]
+    });
+
+    conjugateFRFondamentalEndings("falloir", {
+
+      "Indicative Simple future (futur simple)":
+      ["", "", "faudra", "", "", ""],
+
+      "Indicative Present (présent)":
+      ["", "", "faut", "", "", ""],
+
+      "Subjunctive Present":
+      ["", "", "faille", "", "", ""],
+
+      "Indicative Present perfect (passé composé)":
+      ["", "", "a fallu", "", "", ""],
+
+      "Indicative Simple past (passé simple)":
+      ["", "", "falut", "", "", ""]
+    });
+
+    conjugateFRFondamentalEndings("faire", {
+
+      "Indicative Simple future (futur simple)":
+      ["ferai", "feras", "fera", "ferons", "ferez", "feront"],
+
+      "Indicative Present (présent)":
+      ["fais", "fais", "fait", "faisons", "faites", "font"],
+
+      "Subjunctive Present":
+      ["fasse", "fasses", "fasse", "fassions", "fassiez", "fassent"],
+
+      "Indicative Present perfect (passé composé)":
+      ["ai fait", "as fait", "a fait", "avons fait", "avez fait", "ont fait"],
+
+      "Indicative Simple past (passé simple)":
+      ["fis", "fis", "fit", "fîmes", "fîtes", "firent"]
+    });
+
+    conjugateFRFondamentalEndings("satisfaire", {
+
+      "Indicative Simple future (futur simple)":
+      ["satisferai", "satisferas", "satisfera", "satisferons", "satisferez", "satisferont"],
+
+      "Indicative Present (présent)":
+      ["satisfais", "satisfais", "satisfait", "satisfaisons", "satisfaites", "satisfont"],
+
+      "Subjunctive Present":
+      ["satisfasse", "satisfasses", "satisfasse", "satisfassions", "satisfassiez", "satisfassent"],
+
+      "Indicative Present perfect (passé composé)":
+      ["ai satisfait", "as satisfait", "a satisfait", "avons satisfait", "avez satisfait", "ont satisfait"],
+
+      "Indicative Simple past (passé simple)":
+      ["satisfis", "satisfis", "satisfit", "satisfîmes", "satisfîtes", "satisfirent"]
+    });
 
 
+
+  });//group 3 - irregular
 
 });

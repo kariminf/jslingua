@@ -627,28 +627,35 @@
   };
 
   /**
-   * Get the verbs group: 1, 2 or 3. You have to verify for irregular verbs:
-   * être, avoir, aller; Since they are not considered here.
+   * Get the verbs group: 1, 2 or 3.
    *
-   * @method getVerbGroupe
+   * @method preProcessVerb
    * @private
    * @memberof FraMorpho
    * @param  {String}    verb the verb
    */
-  function verbGroup(verb) {
+  function preProcessVerb(verb) {
 
     if (verbInfo.verb === verb) return;
 
     verbInfo.verb = verb;
+    verbInfo.irr = {};
+    verbInfo.pp = null;
+    //auxilary
+    verbInfo.aux = (etreVerbs[verb])? "être": "avoir";
+
+    if (irregular[verb]) {
+      verbInfo.irr = irregular[verb];
+      verbInfo.pp = verbInfo.irr.pp;
+      verbInfo.group = 4;//irregular
+      return;
+    }
 
     if (verb.endsWith("er")) {
       verbInfo.group = 1;
       extractG1Irr();
       return;
     }
-
-    verbInfo.irr = {};
-    verbInfo.pp = null;
 
     if (verb.endsWith("ir") && verb.length > 3) {
       let idx = verbs2g[verb.slice(0, 2)];
@@ -1146,6 +1153,7 @@
   },
   irregular = {
     "être": {
+      pp: "été",
       [Mood.Ind]: {
         [Tense.Pr]: ["suis", "es", "est", "sommes", "êtes", "sont"],
         [Tense.Pa]: ["fus", "fus", "fut", "fûmes", "fûtes", "furent"],
@@ -1164,6 +1172,7 @@
       }
     },
     "avoir": {
+      pp: "eu",
       [Mood.Ind]: {
         [Tense.Pr]: ["ai", "as", "a", "avons", "avez", "ont"],
         [Tense.Pa]: ["eus", "eus", "eut", "eûmes", "eûtes", "eurent"],
@@ -1182,6 +1191,7 @@
       }
     },
     "aller": {
+      pp: "allé",
       [Mood.Ind]: {
         [Tense.Pr]: ["vais", "vas", "va", "allons", "allez", "vont"],
         [Tense.Pa]: ["allai", "allas", "alla", "allâmes", "allâtes", "allèrent"],
@@ -1198,7 +1208,122 @@
       [Mood.Imp]: {
         [Tense.Pr]: ["$", "va", "", "allons", "allez", "$"]
       }
+    },
+    "pouvoir": {
+      pp: "pu",
+      [Mood.Ind]: {
+        [Tense.Pr]: ["peux", "peux", "peut", "pouvons", "pouvez", "peuvent"],
+        [Tense.Pa]: ["pus", "pus", "put", "pûmes", "pûtes", "purent"],
+        [Aspect.I]: ["pouvais", "pouvais", "pouvait", "pouvions", "pouviez", "pouvaient"],
+        [Tense.Fu]: ["pourrai", "pourras", "pourra", "pourrons", "pourrez", "pourront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["puisse", "puisses", "puisse", "puissions", "puissiez", "puissent"],
+        [Aspect.I]: ["pusse", "pusses", "pût", "pussions", "pussiez", "pussent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["pourrais", "pourrais", "pourrait", "pourrions", "pourriez", "pourraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "$", "$", "$", "$", "$"]
+      }
+    },
+    "savoir": {
+      pp: "su",
+      [Mood.Ind]: {
+        [Tense.Pr]: ["sais", "sais", "sait", "savons", "savez", "savent"],
+        [Tense.Pa]: ["sus", "sus", "sut", "sûmes", "sûtes", "surent"],
+        [Aspect.I]: ["savais", "savais", "savait", "savions", "saviez", "savaient"],
+        [Tense.Fu]: ["saurai", "sauras", "saura", "saurons", "saurez", "sauront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["sache", "saches", "sache", "sachions", "sachiez", "sachent"],
+        [Aspect.I]: ["susse", "susses", "sût", "sussions", "sussiez", "sussent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["saurais", "saurais", "saurait", "saurions", "sauriez", "sauraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "sache", "$", "sachons", "sachez", "$"]
+      }
+    },
+    "vouloir": {
+      pp: "voulu",
+      [Mood.Ind]: {
+        [Tense.Pr]: ["veux", "veux", "veut", "voulons", "voulez", "veulent"],
+        [Tense.Pa]: ["voulus", "voulus", "voulut", "voulûmes", "voulûtes", "voulurent"],
+        [Aspect.I]: ["voulais", "voulais", "voulait", "voulions", "vouliez", "voulaient"],
+        [Tense.Fu]: ["voudrai", "voudras", "voudra", "voudrons", "voudrez", "voudront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["veuille", "veuilles", "veuille", "veulions", "veuliez", "veuillent"],
+        [Aspect.I]: ["voulusse", "voulusses", "voulût", "voulussions", "voulussiez", "voulussent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["voudrais", "voudrais", "voudrait", "voudrions", "voudriez", "voudraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "veuille", "$", "voulons", "veuillez", "$"]
+      }
+    },
+    "valoir": {
+      pp: "valu",
+      [Mood.Ind]: {
+        [Tense.Pr]: ["vaux", "vaux", "vaut", "valons", "valez", "valent"],
+        [Tense.Pa]: ["valus", "valus", "valut", "valûmes", "valûtes", "valurent"],
+        [Aspect.I]: ["valais", "valais", "valait", "valions", "valiez", "valaient"],
+        [Tense.Fu]: ["vaudrai", "vaudras", "vaudra", "vaudrons", "vaudrez", "vaudront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["vaille", "vailles", "vaille", "valions", "valiez", "vaillent"],
+        [Aspect.I]: ["valusse", "valusses", "valût", "valussions", "valussiez", "valussent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["vaudrais", "vaudrais", "vaudrait", "vaudrions", "vaudriez", "vaudraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "vaux", "$", "valons", "valez", "$"]
+      }
+    },
+    "falloir": {
+      pp: "fallu",
+      [Mood.Ind]: {
+        [Tense.Pr]: ["$", "$", "faut", "$", "$", "$"],
+        [Tense.Pa]: ["$", "$", "falut", "$", "$", "$"],
+        [Aspect.I]: ["$", "$", "falait", "$", "$", "$"],
+        [Tense.Fu]: ["$", "$", "faudra", "$", "$", "$"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["$", "$", "faille", "$", "$", "$"],
+        [Aspect.I]: ["$", "$", "falût", "$", "$", "$"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["$", "$", "faudrait", "$", "$", "$"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "$", "$", "$", "$", "$"]
+      }
+    },
+    "faire": {
+      pp: "fait",
+      [Mood.Ind]: {
+        [Tense.Pr]: ["fais", "fais", "fait", "faisons", "faites", "font"],
+        [Tense.Pa]: ["fis", "fis", "fit", "fîmes", "fîtes", "firent"],
+        [Aspect.I]: ["faisais", "faisais", "faisait", "faisions", "faisiez", "faisaient"],
+        [Tense.Fu]: ["ferai", "feras", "fera", "ferons", "ferez", "feront"]
+      },
+      [Mood.Sub]: {
+        [Tense.Pr]: ["fasse", "fasses", "fasse", "fassions", "fassiez", "fassent"],
+        [Aspect.I]: ["fisse", "fisses", "fît", "fissions", "fissiez", "fissent"]
+      },
+      [Mood.Cnd]: {
+        [Tense.Pr]: ["ferais", "ferais", "ferait", "ferions", "feriez", "feraient"]
+      },
+      [Mood.Imp]: {
+        [Tense.Pr]: ["$", "fais", "$", "faisons", "faites", "$"]
+      }
     }
+
   };
 
   /**
@@ -1259,27 +1384,6 @@
 
   }
 
-  /**
-   * A function which returns the past infinitive of a verb <br>
-   * Function prerequisite: verbGroup(verb)
-   *
-   * @method getVerbPastParticipal
-   * @private
-   * @memberof FraMorpho
-   * @return {String}   the past infinitive of the verb
-   */
-   /*
-  function getVerbPastParticipal() {
-    switch (verbInfo.group) {
-      case 1: return verbInfo.verb.slice(0, -2) + "é";
-      case 2: return verbInfo.verb.slice(0, -1);
-      //TODO group 3 verbs past participle
-      default: return "";
-
-    }
-  }
-  */
-
   const CHAPEAU = {
     "a": "â",
     "e": "ê",
@@ -1327,15 +1431,28 @@
   //Override conjugate function
   Me.conjugate = function(verb, opts) {
 
-    verbGroup(verb);
+    let begin = "";
+
+    if (verb === "falloir") {
+      if (opts.person != Person.T || opts.number != GNumber.S) return "";
+    }
+    else if (/^(dé|re|satis)faire/.test(verb)) {
+      begin = verb.slice(0, -5);
+      verb = "faire";
+    }
+
+    preProcessVerb(verb);
 
     //past past Participal
-    let pp = "";
+    let pp = "",
+    conjTab;
 
     if (opts.aspect === Aspect.P ||
       (opts.mood != Mood.Ind && opts.tense === Tense.Pa)) {
-        verb = (etreVerbs[verb])? "être": "avoir";
-        pp = " " + verbInfo.pp;
+        pp = " " + begin + verbInfo.pp;
+        begin = "";
+        verb = verbInfo.aux;
+        conjTab = irregular[verb];
         if (verb === "être") {
           pp += (opts.gender === Gender.F)? "e": "";
           pp += (opts.number === GNumber.S)? "": "s";
@@ -1355,14 +1472,13 @@
         }
     }
 
+    if (!conjTab && verbInfo.group === 4) conjTab = verbInfo.irr;
+
     //Irregular verbs and composed conjugations
-    {
-      let irrTab = irregular[verb];
-      let conj = getSuffix(opts, irrTab);
-      if (irrTab) {
-        if (!conj || conj === "$") return "";
-        return conj + pp;
-      }
+    if (conjTab) {
+      let conj = getSuffix(opts, conjTab);
+      if (!conj || conj === "$") return "";
+      return begin + conj + pp;
     }
 
     let suffix = getSuffix(opts);
