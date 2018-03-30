@@ -875,7 +875,8 @@
     if (ending === "re") { // ======== -re irregularities
 
       if (inf.endsWith("ui")) {
-        irr.p = irr.p1 = inf + "s";
+        irr.p1 = inf + "s";
+        irr.p = inf + "si";
         verbInfo.pp = inf + "t";
       }
       else if (/^((?:contre|inter)?di|(?:dé|é|ins)cri|li|suffi|confi|circonci|fri|boi|[cm]oud|.*prend)$/.test(inf)) {

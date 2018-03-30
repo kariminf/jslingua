@@ -967,6 +967,74 @@ describe("French Verb conjugation", function(){
       ]
     });
 
+    conjugateFRFondamentalEndings("craindre", {
+
+      "Indicative Present (présent)":
+      [
+        "crains",
+        "crains",
+        "craint",
+        "craignons",
+        "craignez",
+        "craignent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai craint",
+        "as craint",
+        "a craint",
+        "avons craint",
+        "avez craint",
+        "ont craint"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "craignis",
+        "craignis",
+        "craignit",
+        "craignîmes",
+        "craignîtes",
+        "craignirent"
+      ]
+    });
+
+    //-uire verbs
+    conjugateFRFondamentalEndings("cuire", {
+
+      "Indicative Present (présent)":
+      [
+        "cuis",
+        "cuis",
+        "cuit",
+        "cuisons",
+        "cuisez",
+        "cuisent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai cuit",
+        "as cuit",
+        "a cuit",
+        "avons cuit",
+        "avez cuit",
+        "ont cuit"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "cuisis",
+        "cuisis",
+        "cuisit",
+        "cuisîmes",
+        "cuisîtes",
+        "cuisirent"
+      ]
+    });
+
+
     conjugateFRFondamentalEndings("voir", {
 
       "Indicative Simple future (futur simple)":
