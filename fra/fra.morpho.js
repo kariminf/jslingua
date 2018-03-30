@@ -192,10 +192,11 @@
     //Past and Present are defaults
     return {
       rows: ["Pronoun"],
-      cols: ["Conj"]
+      cols: ["Negation"] //Conj
     };
   };
 
+  /*
   Me.getOptName = function(optLabel, opts){
     switch (optLabel) {
       case "Pronoun": return this.getPronounName(opts);
@@ -204,6 +205,7 @@
     }
     return "";
   };
+  */
 
   //let C = Object.freeze;
 
@@ -1431,6 +1433,10 @@
   //Override conjugate function
   Me.conjugate = function(verb, opts) {
 
+    //will be used for dé-faire, re-faire, satis-faire
+    //to carry the first part before the hyphen
+    //-----------------------------------------
+    //Also, will be used for negation
     let begin = "";
 
     if (verb === "falloir") {
@@ -1443,13 +1449,17 @@
 
     preProcessVerb(verb);
 
-    //past past Participal
+    //past Participal
+    //also, will be used for negation; to carry the word "pas"
     let pp = "",
+    //conjugation table, in case of irrugular verbs
     conjTab;
+
+    if (opts.negated) pp = " pas";
 
     if (opts.aspect === Aspect.P ||
       (opts.mood != Mood.Ind && opts.tense === Tense.Pa)) {
-        pp = " " + begin + verbInfo.pp;
+        pp += " " + begin + verbInfo.pp;
         begin = "";
         verb = verbInfo.aux;
         conjTab = irregular[verb];
@@ -1472,12 +1482,15 @@
         }
     }
 
+    if (opts.negated) begin = "ne " + begin;
+
     if (!conjTab && verbInfo.group === 4) conjTab = verbInfo.irr;
 
     //Irregular verbs and composed conjugations
     if (conjTab) {
       let conj = getSuffix(opts, conjTab);
       if (!conj || conj === "$") return "";
+      if (begin === "ne " && /[haeuio]/.test(conj.charAt(0))) begin = "n'";
       return begin + conj + pp;
     }
 
@@ -1536,7 +1549,9 @@
       }
     }
 
-    return inf + suffix + pp;
+    if (begin === "ne " && /[haeuio]/.test(inf.charAt(0))) begin = "n'";
+
+    return begin + inf + suffix + pp;
 
   };
 

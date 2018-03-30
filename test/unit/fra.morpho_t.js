@@ -1907,4 +1907,50 @@ describe("French Verb conjugation", function(){
 
   });//group 3 - irregular
 
+  it("Negation", function() {
+    let form = {
+      mood: "indicative",
+      tense: "present",
+      aspect: "simple",
+      negated: 1
+    };
+    conjugateFR("haïr", form, [
+      "n'hais pas",
+      "n'hais pas",
+      "n'hait pas",
+      "n'haïssons pas",
+      "n'haïssez pas",
+      "n'haïssent pas"
+    ]);
+
+    conjugateFR("apprendre", form, [
+      "n'apprends pas",
+      "n'apprends pas",
+      "n'apprend pas",
+      "n'apprenons pas",
+      "n'apprenez pas",
+      "n'apprennent pas"
+    ]);
+
+    conjugateFR("parler", form, [
+      "ne parle pas",
+      "ne parles pas",
+      "ne parle pas",
+      "ne parlons pas",
+      "ne parlez pas",
+      "ne parlent pas"
+    ]);
+
+    form.aspect = "perfect";
+    conjugateFR("parler", form, [
+      "n'ai pas parlé",
+      "n'as pas parlé",
+      "n'a pas parlé",
+      "n'avons pas parlé",
+      "n'avez pas parlé",
+      "n'ont pas parlé"
+    ]);
+
+  });
+
 });
