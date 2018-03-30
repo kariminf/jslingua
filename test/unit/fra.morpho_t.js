@@ -1034,7 +1034,42 @@ describe("French Verb conjugation", function(){
       ]
     });
 
+    //dire, interdire, contredire
+    conjugateFRFondamentalEndings("dire", {
 
+      "Indicative Present (présent)":
+      [
+        "dis",
+        "dis",
+        "dit",
+        "disons",
+        "dites",//seulement dire
+        "disent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "ai dit",
+        "as dit",
+        "a dit",
+        "avons dit",
+        "avez dit",
+        "ont dit"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "dis",
+        "dis",
+        "dit",
+        "dîmes",
+        "dîtes",
+        "dirent"
+      ]
+    });
+
+
+    //=============================
     conjugateFRFondamentalEndings("voir", {
 
       "Indicative Simple future (futur simple)":

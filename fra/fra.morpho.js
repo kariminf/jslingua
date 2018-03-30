@@ -905,8 +905,8 @@
         }
         else { //dire contredire interdire; lire; suffire, confire, circoncire, frire
           irr.p3 = irr.p1 = inf + "s";
-          if (inf.endsWith("di")) irr.p1 = inf + "[s|tes]";
-          irr.p = verbInfo.pp = (inf === "li")? "lu": inf;
+          if (inf.endsWith("di")) irr.p1 = inf + "[<p1>ons:sons,<p1>ez:tes]";
+          verbInfo.pp = ((inf === "li")? "lu": inf + (inf.endsWith("di")? "t": ""));
         }
       }
 
