@@ -14,6 +14,7 @@ This will break the projects developed on precedent versions.
 ## Current
 * IMPROVE: Arabic conjugation; Add negation marks when negated
 * ADD: JsLingua Arabic stemmer; A starter try
+* IMPROVE: French conjugation; Group 3
 
 ## Version 0.7.0 (2018-01-01)
 * NEW: French support (Info, Lang, Trans, Morpho)

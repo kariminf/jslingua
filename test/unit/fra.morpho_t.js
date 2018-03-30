@@ -661,6 +661,120 @@ describe("French Verb conjugation", function(){
       ]
     });
 
+    conjugateFRFondamentalEndings("cueillir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "cueillerai",
+        "cueilleras",
+        "cueillera",
+        "cueillerons",
+        "cueillerez",
+        "cueilleront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "cueille",
+        "cueilles",
+        "cueille",
+        "cueillons",
+        "cueillez",
+        "cueillent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("venir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "viendrai",
+        "viendras",
+        "viendra",
+        "viendrons",
+        "viendrez",
+        "viendront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "viens",
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "suis venu",
+        "es venu",
+        "est venu",
+        "sommes venus",
+        "êtes venus",
+        "sont venues"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "vins",
+        "vins",
+        "vint",
+        "vînmes",
+        "vîntes",
+        "vinrent"
+      ]
+    });
+
+    conjugateFRFondamentalEndings("mourir", {
+
+      "Indicative Simple future (futur simple)":
+      [
+        "mourrai",
+        "mourras",
+        "mourra",
+        "mourrons",
+        "mourrez",
+        "mourront"
+      ],
+
+      "Indicative Present (présent)":
+      [
+        "meurs",
+        "meurs",
+        "meurt",
+        "mourons",
+        "mourez",
+        "meurent"
+      ],
+
+      "Indicative Present perfect (passé composé)":
+      [
+        "suis mort",
+        "es mort",
+        "est mort",
+        "sommes morts",
+        "êtes morts",
+        "sont mortes"
+      ],
+
+      "Indicative Simple past (passé simple)":
+      [
+        "mourus",
+        "mourus",
+        "mourut",
+        "mourûmes",
+        "mourûtes",
+        "moururent"
+      ]
+    });
+
+  }); // group 3 - ir
+
+
+  it("Groupe 3 - oir", function() {
+
     conjugateFRFondamentalEndings("voir", {
 
       "Indicative Simple future (futur simple)":
@@ -822,116 +936,6 @@ describe("French Verb conjugation", function(){
         "ont assis"
       ]
     });
-
-    conjugateFRFondamentalEndings("cueillir", {
-
-      "Indicative Simple future (futur simple)":
-      [
-        "cueillerai",
-        "cueilleras",
-        "cueillera",
-        "cueillerons",
-        "cueillerez",
-        "cueilleront"
-      ],
-
-      "Indicative Present (présent)":
-      [
-        "cueille",
-        "cueilles",
-        "cueille",
-        "cueillons",
-        "cueillez",
-        "cueillent"
-      ]
-    });
-
-    conjugateFRFondamentalEndings("venir", {
-
-      "Indicative Simple future (futur simple)":
-      [
-        "viendrai",
-        "viendras",
-        "viendra",
-        "viendrons",
-        "viendrez",
-        "viendront"
-      ],
-
-      "Indicative Present (présent)":
-      [
-        "viens",
-        "viens",
-        "vient",
-        "venons",
-        "venez",
-        "viennent"
-      ],
-
-      "Indicative Present perfect (passé composé)":
-      [
-        "suis venu",
-        "es venu",
-        "est venu",
-        "sommes venus",
-        "êtes venus",
-        "sont venues"
-      ],
-
-      "Indicative Simple past (passé simple)":
-      [
-        "vins",
-        "vins",
-        "vint",
-        "vînmes",
-        "vîntes",
-        "vinrent"
-      ]
-    });
-
-    conjugateFRFondamentalEndings("mourir", {
-
-      "Indicative Simple future (futur simple)":
-      [
-        "mourrai",
-        "mourras",
-        "mourra",
-        "mourrons",
-        "mourrez",
-        "mourront"
-      ],
-
-      "Indicative Present (présent)":
-      [
-        "meurs",
-        "meurs",
-        "meurt",
-        "mourons",
-        "mourez",
-        "meurent"
-      ],
-
-      "Indicative Present perfect (passé composé)":
-      [
-        "suis mort",
-        "es mort",
-        "est mort",
-        "sommes morts",
-        "êtes morts",
-        "sont mortes"
-      ],
-
-      "Indicative Simple past (passé simple)":
-      [
-        "mourus",
-        "mourus",
-        "mourut",
-        "mourûmes",
-        "mourûtes",
-        "moururent"
-      ]
-    });
-
 
 
   }); // group 3 - ir
