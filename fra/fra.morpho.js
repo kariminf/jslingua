@@ -1502,7 +1502,7 @@
     if (verbInfo.group === 1) {
       if (inf === "envoy" && opts.mood === Mood.Ind && opts.tense === Tense.Fu) {
         inf = "enverr";
-        suffix = suffix.slice(2, );
+        suffix = suffix.slice(2);
       }
       else if (verbInfo.irr.reg.test(suffix)) inf = verbInfo.irr.rep;
     }
