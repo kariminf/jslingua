@@ -1954,3 +1954,36 @@ describe("French Verb conjugation", function(){
   });
 
 });
+
+describe("French Morphology Pos Converter ", function(){
+
+  it("Singular to plural", function() {
+    morpho.setCurrentPosConverter("singularToPlural");
+
+    //-s, -x, -z
+    expect(morpho.convertPoS("souris")).to.eql("souris");
+    expect(morpho.convertPoS("croix")).to.eql("croix");
+    expect(morpho.convertPoS("nez")).to.eql("nez");
+
+    //-ou
+    expect(morpho.convertPoS("clou")).to.eql("clous");
+    expect(morpho.convertPoS("chou")).to.eql("choux");
+
+    // -al
+    expect(morpho.convertPoS("cheval")).to.eql("chevaux");
+    expect(morpho.convertPoS("chacal")).to.eql("chacals");
+
+    // -ail
+    expect(morpho.convertPoS("rail")).to.eql("rails");
+    expect(morpho.convertPoS("travail")).to.eql("travaux");
+
+    // -au, -eu
+    expect(morpho.convertPoS("bateau")).to.eql("bateaux");
+    expect(morpho.convertPoS("pneu")).to.eql("pneus");
+    expect(morpho.convertPoS("landau")).to.eql("landaus");
+
+    //the rest
+    expect(morpho.convertPoS("arbre")).to.eql("arbres");
+
+  });
+});

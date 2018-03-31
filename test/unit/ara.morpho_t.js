@@ -1059,20 +1059,36 @@ describe("Arabic Verb conjugation", function(){
 
   });
 
+});
 
-  /*
-  a port from NLTK ISRI stemmer
-  */
-  describe("Arabic Morphology ISRI stemmer ", function(){
+/*
+a port from NLTK ISRI stemmer
+*/
+describe("Arabic Morphology ISRI stemmer ", function(){
 
-    before(function() {
-      morpho.setCurrentStemmer("IsriAraStemmer");
-    });
-
-    it("Words have length <= 3", function() {
-      expect(morpho.stem("ذَهَبٌ")).to.eql("ذهب");
-      expect(morpho.stem("جرّ")).to.eql("جرّ");
-    });
+  before(function() {
+    morpho.setCurrentStemmer("IsriAraStemmer");
   });
+
+  it("Words have length <= 3", function() {
+    expect(morpho.stem("ذَهَبٌ")).to.eql("ذهب");
+    expect(morpho.stem("جرّ")).to.eql("جرّ");
+  });
+});
+
+describe("Arabic Morphology Pos Converter ", function(){
+
+  it("Singular to plural", function() {
+    morpho.setCurrentPosConverter("singularToPlural");
+    expect(morpho.convertPoS("معلمة")).to.eql("معلمات");
+    expect(morpho.convertPoS("معلم")).to.eql("معلمون");
+  });
+
+  it("Singular to dual", function() {
+    morpho.setCurrentPosConverter("singularToDual");
+    expect(morpho.convertPoS("معلمة")).to.eql("معلمتان");
+    expect(morpho.convertPoS("معلم")).to.eql("معلمان");
+  });
+
 
 });

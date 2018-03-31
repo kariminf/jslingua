@@ -273,3 +273,29 @@ describe("English Verb conjugation", function(){
   });
 
 });
+
+describe("English Morphology Pos Converter ", function(){
+
+  it("Singular to plural", function() {
+    morpho.setCurrentPosConverter("singularToPlural");
+
+    expect(morpho.convertPoS("address")).to.eql("addresses");
+    expect(morpho.convertPoS("box")).to.eql("boxes");
+    expect(morpho.convertPoS("match")).to.eql("matches");
+    expect(morpho.convertPoS("quiz")).to.eql("quizzes");
+    expect(morpho.convertPoS("ox")).to.eql("oxen");
+
+    expect(morpho.convertPoS("alley")).to.eql("alleys");
+    expect(morpho.convertPoS("ally")).to.eql("allies");
+
+    expect(morpho.convertPoS("life")).to.eql("lives");
+    expect(morpho.convertPoS("leaf")).to.eql("leaves");
+    expect(morpho.convertPoS("staff")).to.eql("staffs");
+
+
+    expect(morpho.convertPoS("cat")).to.eql("cats");
+    //TODO complete
+  });
+
+
+});

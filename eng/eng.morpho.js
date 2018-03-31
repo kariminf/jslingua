@@ -898,9 +898,23 @@ function acceptable(value) {
    */
   function singular2plural(noun){
     if (PL_SING[noun]) return noun;
-    if (/^.*fe$/.test(noun)) return noun.slice(-2) + "ves";
-    if (/^.*f$/.test(noun)) return noun.slice(-1) + "ves";
-    if (/^.*(s|sh|ch|x|z)$/.test(noun)) return noun + "es";
+    //http://www.enchantedlearning.com/grammar/partsofspeech/nouns/plurals/
+    //TODO treat exceptions
+    if (noun.endsWith("z")) noun += "z";
+    if (/^.*(s|sh|ch|x|z)$/.test(noun)) {
+      if (noun === "axis") return "axes";
+      if (noun === "ox") return "oxen";
+      return noun + "es";
+    }
+
+    if (noun.endsWith("y")) {
+      if (/[^aeuio]y$/.test(noun)) return noun.slice(0, -1) + "ies";
+      return noun + "s";
+    }
+
+    let m;
+    if (( m = /^(.*[^f])fe?$/.exec(noun))) return m[1] + "ves";
+
 
     return noun + "s";
   }
