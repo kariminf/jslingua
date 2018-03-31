@@ -789,7 +789,7 @@
    * @return {String[]}      a list of sentences
    */
   Me.splitToSentences = function (text) {
-    return text.split(/[\.\?\!]\s*/);
+    return text.split(/[.?!]\s*/).filter(Boolean);
   }
 
   /**
