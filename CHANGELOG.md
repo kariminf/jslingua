@@ -19,6 +19,8 @@ This will break the projects developed on precedent versions.
 * DEL: Morpho noun declension methods
 * ADD: Morpho PoS conveting methods (wider than noun declension)
 * ADD: getStemmerDesc, getPosConverterDesc to Morpho
+* ADD: singular 2 plural to Arabic, English and French (a testing function)
+* ADD: singular to dual to Arabic (a testing function)
 
 ## Version 0.7.0 (2018-01-01)
 * NEW: French support (Info, Lang, Trans, Morpho)

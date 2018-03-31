@@ -35,6 +35,9 @@
     Morpho.newStemmer.call(this, "IsriAraStemmer", "ISRI Arabic stemmer", IsriAraStemmer);
     Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
 
+    Morpho.newPosConverter.call(this, "singularToPlural", "Singular noun to Plural", singular2plural);
+    Morpho.newPosConverter.call(this, "singularToDual", "Singular noun to Dual", singular2plural);
+
     //g = this.g;
   }
 
@@ -1265,6 +1268,36 @@
 
   function notNull(obj) {
     return (obj != null);
+  }
+
+  /**
+   * Transforms a singular noun to plural
+   *
+   * @method singular2plural
+   * @private
+   * @static
+   * @memberof AraMorpho
+   * @param  {String}        noun The noun to be transformed to plural
+   * @return {String}             Plural form of the given noun
+   */
+  function singular2plural(noun){
+    if (noun.endsWith("ة")) return noun.slice(0, -1) + "ات";
+    return noun + "ون" ;
+  }
+
+  /**
+   * Transforms a singular noun to dual
+   *
+   * @method singular2dual
+   * @private
+   * @static
+   * @memberof AraMorpho
+   * @param  {String}        noun The noun to be transformed to dual
+   * @return {String}             Plural form of the given noun
+   */
+  function singular2dual(noun){
+    if (noun.endsWith("ة")) noun = noun.slice(0, -1) + "ت";
+    return noun + "ان" ;
   }
 
 }());

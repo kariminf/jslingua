@@ -33,7 +33,7 @@
     Morpho.call(this, "fra");
     Morpho.newStemmer.call(this, "snowballFrStemmer", "French Snowball stemmr", snowballStemmer);
 
-    //Morpho.addNounDeclension.call(this, "singularToPlural", singular2plural);
+    Morpho.newPosConverter.call(this, "singularToPlural", "Singular noun to Plural", singular2plural);
     //g = this.g;
   }
 
@@ -1865,6 +1865,29 @@
   Me.normalize = function(word, _opts){
     return word;
   };
+
+  /**
+   * Transforms a singular noun to plural
+   *
+   * @method singular2plural
+   * @private
+   * @static
+   * @memberof FraMorpho
+   * @param  {String}        noun The noun to be transformed to plural
+   * @return {String}             Plural form of the given noun
+   */
+  function singular2plural(noun){
+    //http://www.dummies.com/languages/french/how-to-make-french-nouns-plural/
+    if (noun.endsWith("au")
+        || /^(bij|caill|ch|gen|hib|jouj|p)ou^/.test(noun)) return noun + "x";
+        //https://fr.wikipedia.org/wiki/Pluriel_des_noms_communs_français_en_«_ou_»
+
+    if (noun.endsWith("al")) return noun.slice(0, -1) + "ux";
+
+    if (/[sxz]$/.test(noun)) return noun;
+
+    return noun + "s";
+  }
 
 
 }());
