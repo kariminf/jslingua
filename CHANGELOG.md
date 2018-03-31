@@ -12,6 +12,8 @@ This will break the projects developed on precedent versions.
 * DEL: Delete or deprecate some functions
 
 ## Current
+
+## Version 0.8.0 (2018-03-31)
 * IMPROVE: Arabic conjugation; Add negation marks when negated
 * ADD: JsLingua Arabic stemmer; A starter try
 * FIX: French conjugation; Group 3
@@ -23,12 +25,15 @@ This will break the projects developed on precedent versions.
 * ADD: singular to dual to Arabic (a testing function)
 * ADD: splitToSentences, tokenize and filterStopWords to Morpho  API
 
+
 ## Version 0.7.0 (2018-01-01)
+
 * NEW: French support (Info, Lang, Trans, Morpho)
 * IMPROVE: adding transformation from charsets to others
 * ADD: Lancaster stemmer for English
 * ADD: English Noun declension (singular to plural): beta version
 * DEL: getVerbType from Morpho API (never been used)
+
 
 ## Version 0.6.x (2017-09-18)
 
@@ -51,13 +56,16 @@ This will break the projects developed on precedent versions.
 * ADD: normalization function to Morpho
 * ADD: normalization to Arabic Morpho
 
+
 ## Version 0.4.4 (2017-07-31)
 
 * ADD: Porter Stemmer for English Morpho
 
+
 ## Version 0.4.0 (2017-07-29)
 * NEW: English Language
 * IMPROVE: Add unit tests and coverage reports
+
 
 ## Version 0.3.0 (2016-08-30)
 
@@ -80,6 +88,7 @@ This will break the projects developed on precedent versions.
 ## Version 0.1.1 (2016-08-27)
 
 * IMPROVE: Documentation
+
 
 ## Version 0.1.0 (2016-08-27)
 

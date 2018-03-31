@@ -6,7 +6,7 @@
 
   "use strict";
 
-  let version = "0.7.0";
+  let version = "0.8.0";
 
   const rtls = ["ara", "heb"];
 
