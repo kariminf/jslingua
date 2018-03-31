@@ -20,9 +20,12 @@
     this.code = langCode;
     //Contains stemmers
     this.stemmers = {};
-    this.currentStemmer = "";
+    this.cstemmer = "";//current stemmer
+    //Contains PoS conversions
+    this.conv = {};
+    this.cconverter = "";//current converter
     //noun declension
-    this.ndeclense = {};
+    this.ndeclense = {};//deprecated
     this.g = {
       debugFunction: dummyDebug
     };
@@ -352,9 +355,26 @@
   */
   Morpho.newStemmer = function (stemmerName, stemmerDesc, stemmerFct) {
     if (typeof stemmerName === "string" && stemmerName.length > 0){
-      this.stemmers[stemmerName] = {};
-      this.stemmers[stemmerName].desc = stemmerDesc;
-      this.stemmers[stemmerName].fct = stemmerFct;
+      let stem = this.stemmers[stemmerName] = {};
+      stem.desc = stemmerDesc;
+      stem.fct = stemmerFct;
+    }
+  };
+
+  /**
+  * Add new part of speach converter method
+  * @method newPosConverter
+  * @protected
+  * @memberof Morpho
+  * @param  {String} converterName the name of the converter
+  * @param  {String} converterDesc   the description of the converter
+  * @param  {Function} converterFct   the function convert(word)
+  */
+  Morpho.newPosConverter = function (converterName, converterDesc, converterFct) {
+    if (typeof converterName === "string" && converterName.length > 0){
+      let conv = this.converters[converterName] = {};
+      conv.desc = stemmerDesc;
+      conv.fct = stemmerFct;
     }
   };
 
@@ -395,7 +415,22 @@
   */
   Me.setCurrentStemmer = function (StemmerName) {
     if (StemmerName in this.stemmers){
-      this.currentStemmer = StemmerName;
+      this.cstemmer = StemmerName;
+    }
+  };
+
+  /**
+  * Sets the current PoS converter
+  *
+  * @method setCurrentPosConverter
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param {String} converterName converter method's name
+  */
+  Me.setCurrentPosConverter = function (converterName) {
+    if (converterName in this.converters){
+      this.cconverter = converterName;
     }
   };
 
@@ -409,6 +444,18 @@
   */
   Me.availableStemmers = function(){
     return Object.keys(this.stemmers);
+  };
+
+  /**
+  * Returns the list of available converting methods
+  * @method availablePosConverters
+  * @public
+  * @final
+  * @memberof Morpho
+  * @return {String[]}  Array of Strings containing converters names
+  */
+  Me.availablePosConverters = function(){
+    return Object.keys(this.converters);
   };
 
   /**
@@ -672,6 +719,8 @@
    * @method nounDeclensionFunction
    * @public
    * @final
+   * @deprecated since version 0.8.0 and will be removed in the next version.
+   * Use setCurrentPosConverter and convertPoS instead
    * @memberof Morpho
    * @param  {String}               declenseName the name of the function
    * @return {Function}  a function which takes a noun as a parameter
@@ -689,6 +738,8 @@
    *
    * @method addNounDeclension
    * @protected
+   * @deprecated since version 0.8.0 and will be removed in the next version.
+   * Use addPosConverters instead
    * @memberof Morpho
    * @param  {String}  name the name of the function
    * @param  {Function} func a function which takes a noun as parameter and returns a declensed one
@@ -704,6 +755,8 @@
    * @method availableNounDeclensions
    * @public
    * @final
+   * @deprecated since version 0.8.0 and will be removed in the next version.
+   * Use availablePosConverters instead
    * @memberof Morpho
    * @return {String}    A list of declense functions names
    */
@@ -722,10 +775,27 @@
   * @return {String}      stemmed word
   */
   Me.stem = function(word){
-    var stemmer = this.stemmers[this.currentStemmer];
+    var stemmer = this.stemmers[this.cstemmer];
     if (typeof stemmer !== "object") return word;
     if (typeof stemmer.fct !== "function") return word;
     return stemmer.fct(word);
+  };
+
+  /**
+  * Convert a word: singular to plural; verb to noun; etc
+  *
+  * @method convertPoS
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param  {String} word the word to be converted
+  * @return {String}      converted word
+  */
+  Me.convertPoS = function(word){
+    var converter = this.converters[this.cconverter];
+    if (typeof converter !== "object") return word;
+    if (typeof converter.fct !== "function") return word;
+    return converter.fct(word);
   };
 
   /**
