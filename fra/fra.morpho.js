@@ -2,7 +2,6 @@
 
   "use strict";
 
-  //TODO see https://en.wikipedia.org/wiki/English_irregular_verbs#List
   let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");

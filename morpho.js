@@ -22,10 +22,8 @@
     this.stemmers = {};
     this.cstemmer = "";//current stemmer
     //Contains PoS conversions
-    this.conv = {};
+    this.converters = {};
     this.cconverter = "";//current converter
-    //noun declension
-    this.ndeclense = {};//deprecated
     this.g = {
       debugFunction: dummyDebug
     };
@@ -373,8 +371,8 @@
   Morpho.newPosConverter = function (converterName, converterDesc, converterFct) {
     if (typeof converterName === "string" && converterName.length > 0){
       let conv = this.converters[converterName] = {};
-      conv.desc = stemmerDesc;
-      conv.fct = stemmerFct;
+      conv.desc = converterDesc;
+      conv.fct = converterFct;
     }
   };
 
@@ -434,6 +432,22 @@
     }
   };
 
+  Me.getPosConverterDesc = function (converterName) {
+    if (converterName in this.converters){
+      return this.converters[converterName].desc;
+    }
+    return "";
+  };
+
+  Me.getStemmerDesc = function (stemmerName) {
+    if (stemmerName in this.stemmers){
+      return this.stemmers[stemmerName].desc;
+    }
+    return "";
+  };
+
+
+
   /**
   * Returns the list of available stemming methods
   * @method availableStemmers
@@ -445,6 +459,8 @@
   Me.availableStemmers = function(){
     return Object.keys(this.stemmers);
   };
+
+
 
   /**
   * Returns the list of available converting methods
@@ -711,57 +727,6 @@
   */
   Me.conjugate = function(verb, _opts){
     return verb;
-  };
-
-  /**
-   * Returns a function for noun declension
-   *
-   * @method nounDeclensionFunction
-   * @public
-   * @final
-   * @deprecated since version 0.8.0 and will be removed in the next version.
-   * Use setCurrentPosConverter and convertPoS instead
-   * @memberof Morpho
-   * @param  {String}               declenseName the name of the function
-   * @return {Function}  a function which takes a noun as a parameter
-   */
-  Me.nounDeclensionFunction = function(declenseName) {
-    if (typeof declenseName !== "string") {
-      return function(text) { return text; };
-    }
-
-    return this.ndeclense[declenseName];
-  };
-
-  /**
-   * Add a noun declension function
-   *
-   * @method addNounDeclension
-   * @protected
-   * @deprecated since version 0.8.0 and will be removed in the next version.
-   * Use addPosConverters instead
-   * @memberof Morpho
-   * @param  {String}  name the name of the function
-   * @param  {Function} func a function which takes a noun as parameter and returns a declensed one
-   */
-  Morpho.addNounDeclension = function(name, func) {
-    //TODO not secure
-    this.ndeclense[name] = func;
-  };
-
-  /**
-   * Returns a list of noun declension functions
-   *
-   * @method availableNounDeclensions
-   * @public
-   * @final
-   * @deprecated since version 0.8.0 and will be removed in the next version.
-   * Use availablePosConverters instead
-   * @memberof Morpho
-   * @return {String}    A list of declense functions names
-   */
-  Me.availableNounDeclensions = function(){
-    return Object.keys(this.ndeclense);
   };
 
   /**

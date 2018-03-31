@@ -2,7 +2,6 @@
 
   "use strict";
 
-  //TODO see https://en.wikipedia.org/wiki/English_irregular_verbs#List
   let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
@@ -35,7 +34,7 @@
     Morpho.newStemmer.call(this, "porterStemmer", "English Porter stemmer", porterStemmer);
     Morpho.newStemmer.call(this, "lancasterStemmer", "English Lnacaster stemmer", lancasterStemmer);
 
-    Morpho.addNounDeclension.call(this, "singularToPlural", singular2plural);
+    Morpho.newPosConverter.call(this, "singularToPlural", "Singular noun to Plural", singular2plural);
     g = this.g;
   }
 

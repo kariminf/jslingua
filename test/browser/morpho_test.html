@@ -45,8 +45,8 @@
     $("conj").dir = dir;
     $("stemI").dir = dir;
     $("stemO").dir = dir;
-    $("ndecI").dir = dir;
-    $("ndecO").dir = dir;
+    $("convertI").dir = dir;
+    $("convertO").dir = dir;
 
     var stemmers = morpho.availableStemmers();
     var m = $("stemM");
@@ -55,18 +55,20 @@
 
     stemmers.forEach(function(element, index, array){
       var option = document.createElement("option");
-      option.text = element;
+      option.value = element;
+      option.text = morpho.getStemmerDesc(element);
       m.add(option);
     });
 
-    var declensers = morpho.availableNounDeclensions();
-    m = $("ndecM");
+    var converters = morpho.availablePosConverters();
+    m = $("convertM");
     i = m.options.length;
     while (i--) m.remove(i);
 
-    declensers.forEach(function(element, index, array){
+    converters.forEach(function(element, index, array){
       var option = document.createElement("option");
-      option.text = element;
+      option.value = element;
+      option.text = morpho.getPosConverterDesc(element);
       m.add(option);
     });
 
@@ -94,12 +96,20 @@
     });
     conjParams.colHtml = text;
 
-    setMethod();
+    setStemMethod();
+    setPosConvertMethod();
   }
 
-  function setMethod(){
+  function setStemMethod(){
     var sn = _($("stemM")).value;
     if (sn) morpho.setCurrentStemmer(sn);
+  }
+
+  function setPosConvertMethod(){
+    var opt = $("convertM");
+    if (opt.options.length < 1) return;
+    var cn = _(opt).value;
+    if (cn) morpho.setCurrentPosConverter(cn);
   }
 
   function htmlEntities(str) {
@@ -160,9 +170,8 @@ function stem(){
   $("stemO").innerHTML = morpho.stem($("stemI").value);
 }
 
-function ndeclense(){
-  var decFunc = morpho.nounDeclensionFunction(_($("ndecM")).value);
-  if (typeof decFunc === "function") $("ndecO").innerHTML = decFunc($("ndecI").value);
+function convertPoS(){
+  $("convertO").innerHTML = morpho.convertPoS($("convertI").value);
 }
 
 function norm(){
@@ -195,7 +204,7 @@ function norm(){
   </div>
   <div>
     <b>Stemming</b>
-    <select id="stemM" onchange="setMethod()">
+    <select id="stemM" onchange="setStemMethod()">
     </select>
     <input type="text" id="stemI" />
     <button onclick="stem()">Stem</button>
@@ -208,12 +217,12 @@ function norm(){
     <span id="normO"></span>
   </div>
   <div>
-    <b>Noun declension</b>
-    <select id="ndecM" onchange="ndecSetMethod()">
+    <b>PoS conversion</b>
+    <select id="convertM" onchange="setPosConvertMethod()">
     </select>
-    <input type="text" id="ndecI" />
-    <button onclick="ndeclense()">Declense</button>
-    <span id="ndecO"></span>
+    <input type="text" id="convertI" />
+    <button onclick="convertPoS()">Convert</button>
+    <span id="convertO"></span>
   </div>
   <div class="kfs" >
     <b>Verb Conjugation</b>

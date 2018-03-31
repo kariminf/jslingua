@@ -14,7 +14,11 @@ This will break the projects developed on precedent versions.
 ## Current
 * IMPROVE: Arabic conjugation; Add negation marks when negated
 * ADD: JsLingua Arabic stemmer; A starter try
-* IMPROVE: French conjugation; Group 3
+* FIX: French conjugation; Group 3
+* IMPROVE: French conjugation; add negation
+* DEL: Morpho noun declension methods
+* ADD: Morpho PoS conveting methods (wider than noun declension)
+* ADD: getStemmerDesc, getPosConverterDesc to Morpho
 
 ## Version 0.7.0 (2018-01-01)
 * NEW: French support (Info, Lang, Trans, Morpho)
