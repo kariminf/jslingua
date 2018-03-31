@@ -1535,7 +1535,7 @@
     }
     else {//group 2
       if (inf === "haï") {
-        suffix = suffix.slice(1,);
+        suffix = suffix.slice(1);
         if ( opts.mood === Mood.Ind
           && opts.aspect === Aspect.S
           && opts.tense === Tense.Pr
