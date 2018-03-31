@@ -859,6 +859,32 @@ function acceptable(value) {
     return word;
   };
 
+  //list of nouns that are plural and singular in the same time
+  //https://www.vappingo.com/word-blog/101-words-that-are-both-plural-and-singular/
+  const PL_SING = {
+    "accommodation": 1, "advice": 1, "alms": 1, "aircraft": 1, "aluminum": 1,
+    "barracks": 1, "bison": 1, "binoculars": 1, "bourgeois": 1, "breadfruit": 1,
+    "cannon": 1, "caribou": 1, "cattle": 1, "chalk": 1, "chassis": 1, "chinos": 1, "clippers": 1,
+    "clothing": 1, "cod": 1, "concrete": 1, "corps": 1, "correspondence": 1, "crossroads": 1,
+    "deer": 1, "dice": 1, "doldrums": 1, "dungarees": 1,
+    "education": 1, "eggfruit": 1, "elk": 1, "eyeglasses": 1,
+    "fish": 1, "flares": 1, "flour": 1, "food": 1, "fruit": 1, "furniture": 1,
+    "gallows": 1, "goldfish": 1, "grapefruit": 1, "greenfly": 1, "grouse": 1,
+    "haddock": 1, "halibut": 1, "head": 1, "headquarters": 1, "help": 1, "homework": 1, "hovercraft": 1,
+    "ides": 1, "insignia": 1, "jackfruit": 1, "jeans": 1,
+    "knickers": 1, "knowledge": 1, "kudos": 1,
+    "leggings": 1, "lego": 1, "luggage": 1,
+    "moose": 1, "monkfish": 1, "mullet": 1,
+    "nailclippers": 1, "news": 1,
+    "offspring": 1, "oxygen": 1,
+    "pants": 1, "pyjamas": 1, "passionfruit": 1, "pike": 1, "pliers": 1, "police": 1, "premises": 1,
+    "reindeer": 1, "rendezvous": 1,
+    "salmon": 1, "scissors": 1, "series": 1, "shambles": 1, "sheep": 1, "shellfish": 1, "shorts": 1,
+    "shrimp": 1, "smithereens": 1, "spacecraft": 1, "species": 1, "squid": 1, "starfruit": 1,
+    "stone": 1, "sugar": 1, "swine": 1,
+    "tongs": 1, "trousers": 1, "trout": 1, "tuna": 1, "tweezers": 1,
+    "you": 1, "wheat": 1, "whitebait": 1, "wood": 1
+  };
 
   /**
    * Transforms a singular noun to plural
@@ -871,6 +897,7 @@ function acceptable(value) {
    * @return {String}             Plural form of the given noun
    */
   function singular2plural(noun){
+    if (PL_SING[noun]) return noun;
     if (/^.*fe$/.test(noun)) return noun.slice(-2) + "ves";
     if (/^.*f$/.test(noun)) return noun.slice(-1) + "ves";
     if (/^.*(s|sh|ch|x|z)$/.test(noun)) return noun + "es";
