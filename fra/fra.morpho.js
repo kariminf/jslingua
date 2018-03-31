@@ -1882,7 +1882,11 @@
         || /^(bij|caill|ch|gen|hib|jouj|p)ou^/.test(noun)) return noun + "x";
         //https://fr.wikipedia.org/wiki/Pluriel_des_noms_communs_français_en_«_ou_»
 
-    if (noun.endsWith("al")) return noun.slice(0, -1) + "ux";
+    if (noun.endsWith("al")
+      && ! /^(b|carnav|festiv|chac|rég|c)al$/.test(noun)) return noun.slice(0, -1) + "ux";
+
+    //https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-12827.php
+    if (/^(b|cor|ém|soupir|trav|vent|vitr)ail$/.test(noun)) return noun.slice(0, -2) + "ux";
 
     if (/[sxz]$/.test(noun)) return noun;
 

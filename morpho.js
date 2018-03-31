@@ -778,6 +778,38 @@
     return word;
   };
 
+
+  //========================================================================
+  // Segmentation methods
+  //========================================================================
+
+  /**
+   * Segment a given text
+   * @param  {String} text the text to be segmennted into sentences
+   * @return {String[]}      a list of sentences
+   */
+  Me.splitToSentences = function (text) {
+    return text.split(/[\.\?\!]\s*/);
+  }
+
+  /**
+   * Tokenize a given text (mostly, a sentence)
+   * @param  {String} text the sentence to be tokenized
+   * @return {String[]}      a list of words
+   */
+  Me.tokenize = function (text) {
+    return text.split(/\s+/);
+  }
+
+  /**
+   * Delete stop words from a list of words
+   * @param  {String[]} words list of words
+   * @return {String[]}       filtered list of words
+   */
+  Me.filterStopWords = function (words) {
+    return words;
+  }
+
   //========================================================================
   // HELPERS
   // =======================================================================

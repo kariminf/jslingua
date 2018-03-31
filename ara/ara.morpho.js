@@ -36,7 +36,7 @@
     Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
 
     Morpho.newPosConverter.call(this, "singularToPlural", "Singular noun to Plural", singular2plural);
-    Morpho.newPosConverter.call(this, "singularToDual", "Singular noun to Dual", singular2plural);
+    Morpho.newPosConverter.call(this, "singularToDual", "Singular noun to Dual", singular2dual);
 
     //g = this.g;
   }
