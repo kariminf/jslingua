@@ -59,16 +59,16 @@
     Lang.call(this, "ara");
 
     //https://en.wikipedia.org/wiki/Arabic_script_in_Unicode
-    Lang.addCharSet.call(this, "MainArabic", 0x0600, 0x06FF);
-    Lang.addCharSet.call(this, "ArabicSupplement", 0x0750, 0x077F);
-    Lang.addCharSet.call(this, "ArabicExtendedA", 0x08A0, 0x08FF);
-    Lang.addCharSet.call(this, "ArabicPresentationA", 0xFB50, 0xFDFF);
-    Lang.addCharSet.call(this, "ArabicPresentationB", 0xFE70, 0xFEFF);
-    Lang.addCharSet.call(this, "IndicNumeral", 0x0660, 0x0669);
-    Lang.addCharSet.call(this, "ArabicNumeral", 0x0030, 0x0039);
+    Lang._nChs.call(this, "MainArabic", 0x0600, 0x06FF);
+    Lang._nChs.call(this, "ArabicSupplement", 0x0750, 0x077F);
+    Lang._nChs.call(this, "ArabicExtendedA", 0x08A0, 0x08FF);
+    Lang._nChs.call(this, "ArabicPresentationA", 0xFB50, 0xFDFF);
+    Lang._nChs.call(this, "ArabicPresentationB", 0xFE70, 0xFEFF);
+    Lang._nChs.call(this, "IndicNumeral", 0x0660, 0x0669);
+    Lang._nChs.call(this, "ArabicNumeral", 0x0030, 0x0039);
 
-    Lang.addTransform.call(this, "indicToArabicNumeral", [{offset: -0x0630, setName:"IndicNumeral"}]);
-    Lang.addTransform.call(this, "arabicToIndicNumeral", [{offset: 0x0630, setName:"ArabicNumeral"}]);
+    Lang._nTrans.call(this, "ind2ara", [{offset: -0x0630, setName:"IndicNumeral"}]);
+    Lang._nTrans.call(this, "ara2ind", [{offset: 0x0630, setName:"ArabicNumeral"}]);
   }
 
   AraLang.prototype = Object.create(Lang.prototype);
@@ -99,7 +99,7 @@
   * Write the Arabic number into Arabic letters
   * @override
   */
-  Me.pronounceNumber = toArabicLetters;
+  Me.pronounceNumber = __toArabicLetters;
 
   /**
   * Transform from Arabic numbers to Arabic letters
@@ -109,13 +109,13 @@
   * @param {Number} nbr the integer number
   * @return {String} Arabic writing of numbers
   */
-  function toArabicLetters(num) {
+  function __toArabicLetters(num) {
 
     if (isNaN(num))
     return "";
 
     if(num < 0)
-    return "ناقص " + toArabicLetters(-num);
+    return "ناقص " + __toArabicLetters(-num);
 
     if (num == 0)
     return lookup[num];
@@ -140,7 +140,7 @@
         return "أحد " + lookup[10];
         if (rem == 2)
         return "إثنا " + lookup[10];
-        return toArabicLetters(rem) + " " + lookup[10];
+        return __toArabicLetters(rem) + " " + lookup[10];
       }
 
       let tenth = lookup[div] + "ون";
@@ -152,7 +152,7 @@
 
       let suff = " و";
 
-      return toArabicLetters(rem) + suff + tenth;
+      return __toArabicLetters(rem) + suff + tenth;
 
     }
 
@@ -175,7 +175,7 @@
           pref += "ة ";
           pron = lookupPl[lessBig];
         } else {
-          pref = toArabicLetters(div) + " ";
+          pref = __toArabicLetters(div) + " ";
           var rem100 = ~~(div % 100);
           if (rem100 < 11){ // for example 103000
             pron = lookupPl[lessBig];
@@ -190,7 +190,7 @@
 
 
         if (rem > 0)
-        suff = " و" + toArabicLetters(rem);
+        suff = " و" + __toArabicLetters(rem);
 
         return pref + pron + suff;
 
@@ -213,11 +213,11 @@
       pref += "ة ";
       pron = lookupPl[lessBig];
     } else {
-      pref = toArabicLetters(div) + " ";
+      pref = __toArabicLetters(div) + " ";
     }
 
     if (rem > 0)
-    suff = " و" + toArabicLetters(rem);
+    suff = " و" + __toArabicLetters(rem);
 
     return pref + pron + suff;
 

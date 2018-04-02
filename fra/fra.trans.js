@@ -7,7 +7,7 @@
   //==========================================
 
   let Trans = null;
-  let EngTrans = {};
+  let EngTrans = null;
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = FraTrans;
@@ -46,8 +46,8 @@
   function FraTrans() {
     if (EngTrans.prototype != null){
       EngTrans.call(this);
-      let oldPreTrans = this.methods["Morse"].preTrans;
-      this.methods["Morse"].preTrans = function(text) {
+      let oldPreTrans = this.methods["morse"].preTrans;
+      this.methods["morse"].preTrans = function(text) {
         let result = text.toLowerCase();
         text = text.replace(new RegExp(latinChars, "g"), c => latinRep[c]);
         return oldPreTrans(text);

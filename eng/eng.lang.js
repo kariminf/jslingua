@@ -39,7 +39,7 @@
     100, 1000, 1000000, 1000000000
     //1000000000, 1000000, 1000, 100, 10
   ];
-  
+
   //==========================================
   // CLASS CONSTRUCTOR
   //==========================================
@@ -54,10 +54,10 @@
     Lang.call(this, "eng");
 
     //
-    Lang.addCharSet.call(this, "BasicLatin", 0x0000, 0x007F);
+    Lang._nChs.call(this, "BasicLatin", 0x0000, 0x007F);
 
-    Lang.addTransform.call(this, "minusculeToMajuscule", [{offset:-0x0020, begin:0x0061, end:0x007A}]);
-    Lang.addTransform.call(this, "majusculeToMinuscule", [{offset:0x0020, begin:0x0041, end:0x005A}]);
+    Lang._nTrans.call(this, "min2maj", [{offset:-0x0020, begin:0x0061, end:0x007A}]);
+    Lang._nTrans.call(this, "maj2min", [{offset:0x0020, begin:0x0041, end:0x005A}]);
   }
 
   EngLang.prototype = Object.create(Lang.prototype);
@@ -88,37 +88,37 @@
   * Write the Arabic number into English letters
   * @override
   */
-  Me.pronounceNumber = toEnglishLetters;
+  Me.pronounceNumber = __toEnglishLetters;
 
 
   /**
   * Transform from Arabic numbers to English letters
   *
-  * @method toEnglishLetters
+  * @method __toEnglishLetters
   * @private
   * @memberof EngLang
   * @param {Number} nbr the integer number
   * @return {String} English writing of numbers
   */
-  function toEnglishLetters(num) {
-    return toEnglishLetters2(num, true);
+  function __toEnglishLetters(num) {
+    return __toEnglishLetters2(num, true);
   }
 
   /**
   * Transform from Arabic numbers to English letters
   *
-  * @method toEnglishLetters2
+  * @method __toEnglishLetters2
   * @private
   * @memberof EngLang
   * @param {Number} nbr the integer number
   * @param {Boolean} comma put a comma or not
   * @return {String} English writing of numbers
   */
-  function toEnglishLetters2(num, comma) {
+  function __toEnglishLetters2(num, comma) {
 
     if (isNaN(num)) return "";
 
-    if(num < 0) return "minus " + toEnglishLetters2(-num, true);
+    if(num < 0) return "minus " + __toEnglishLetters2(-num, true);
 
     if (num < 10) return lookup[num];
 
@@ -150,13 +150,13 @@
     let div = ~~(num/bigNbr[bigIdx]),
     rem = ~~(num % bigNbr[bigIdx]);
 
-    let pronounce = toEnglishLetters2(div, false) + " " + lookup[bigNbr[bigIdx]];
+    let pronounce = __toEnglishLetters2(div, false) + " " + lookup[bigNbr[bigIdx]];
 
     //if (div > 1) pronounce += "s"; //plural
 
     if (rem > 0){
-      if (comma) pronounce += ", " + toEnglishLetters2(rem, comma);
-      else pronounce += " " + toEnglishLetters2(rem, comma);
+      if (comma) pronounce += ", " + __toEnglishLetters2(rem, comma);
+      else pronounce += " " + __toEnglishLetters2(rem, comma);
     }
 
     return pronounce;

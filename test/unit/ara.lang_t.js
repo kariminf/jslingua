@@ -28,9 +28,9 @@ describe("Arabic Lang", function(){
     expect(lang.availableTransformations().length).to.eql(2);
     var arabicNum = "1234567890";
     var indicNum = "١٢٣٤٥٦٧٨٩٠";
-    var func = lang.transformationFunction("indicToArabicNumeral");
+    var func = lang.transformationFunction("ind2ara");
     expect(func(indicNum)).to.eql(arabicNum);
-    func = lang.transformationFunction("arabicToIndicNumeral");
+    func = lang.transformationFunction("ara2ind");
     expect(func(arabicNum)).to.eql(indicNum);
   });
 

@@ -3,7 +3,7 @@ var expect = require('expect.js');
 
 var src = "This is an example."
 var exp = {
-  "Morse": {
+  "morse": {
     "rev": "THIS IS AN EXAMPLE.",
     "dst": "- .... .. ...     .. ...     .- -.     . -..- .- -- .--. .-.. . .-.-.-"
   }

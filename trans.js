@@ -116,14 +116,14 @@
 	/**
 	* Add new transliteration method using two parallele tables
 	*
-	* @method nTrans
+	* @method _nTrans
 	* @protected
 	* @memberof Trans
 	* @param  {String} methodName the name of the method
 	* @param  {String[]} langTbl    array of strigs, the languages characters
 	* @param  {String[]} transTbl   array of strigs, their respective representations
 	*/
-	Trans.nTrans = function(methodName, langTbl, transTbl) {
+	Trans._nTrans = function(methodName, langTbl, transTbl) {
 		if (typeof methodName === "string" && methodName.length > 0) {
 			this.methods[methodName] = {};
 			if (this.defMethod.length < 1)
@@ -149,7 +149,7 @@
 	* @param {Function} trans      function of transliteration
 	* @param {Function} untrans    function of untransliteration
 	*/
-	Trans.sTrans = function(methodName, trans, untrans) {
+	Trans._sTrans = function(methodName, trans, untrans) {
 		if (methodName in this.methods){
 
 			if (typeof trans === "function") {
@@ -166,7 +166,7 @@
 	/**
 	* add pre- and post-transliteration functions to a method
 	*
-	* @method sTransCond
+	* @method _sTransCond
 	* @protected
 	* @memberof Trans
 	* @param {String} methodName the name of the method
@@ -175,7 +175,7 @@
 	* @param {Function} postFunc   function that executes after transliteration;
 	* It takes a string and returns a string
 	*/
-	Trans.sTransCnd = function(methodName, preFunc, postFunc) {
+	Trans._sTransCnd = function(methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preTrans = preFunc;
@@ -189,7 +189,7 @@
 	/**
 	* add pre- and post-untransliteration functions to a method
 	*
-	* @method sUntransCnd
+	* @method _sUntransCnd
 	* @protected
 	* @memberof Trans
 	* @param {String} methodName the name of the method
@@ -198,7 +198,7 @@
 	* @param {Function} postFunc   function that executes after untransliteration;
 	* It takes a string and returns a string
 	*/
-	Trans.sUntransCnd = function(methodName, preFunc, postFunc) {
+	Trans._sUntransCnd = function(methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preUntrans = preFunc;

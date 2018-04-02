@@ -43,13 +43,13 @@
   function JpnLang() {
     Lang.call(this, "jpn");
 
-    Lang.addCharSet.call(this, "Hiragana", 0x3040, 0x309F);
-    Lang.addCharSet.call(this, "Katakana", 0x30A0, 0x30FF);
-    Lang.addCharSet.call(this, "Kanji", 0x4E00, 0x9FBF);
-    Lang.addCharSet.call(this, "Punctuation", 0x3000, 0x303F);
+    Lang._nChs.call(this, "Hiragana", 0x3040, 0x309F);
+    Lang._nChs.call(this, "Katakana", 0x30A0, 0x30FF);
+    Lang._nChs.call(this, "Kanji", 0x4E00, 0x9FBF);
+    Lang._nChs.call(this, "Punctuation", 0x3000, 0x303F);
 
-    Lang.addTransform.call(this, "hiraganaToKatakana", [{offset:0x0060, setName:"Hiragana"}]);
-    Lang.addTransform.call(this, "katakanaToHiragana", [{offset:-0x0060, setName:"Katakana"}]);
+    Lang._nTrans.call(this, "hira2kata", [{offset:0x0060, setName:"Hiragana"}]);
+    Lang._nTrans.call(this, "kata2hira", [{offset:-0x0060, setName:"Katakana"}]);
   }
 
   JpnLang.prototype = Object.create(Lang.prototype);
@@ -82,18 +82,18 @@
   * @method pronounceNumber
   * @override
   */
-  Me.pronounceNumber = toJapaneseLetters;
+  Me.pronounceNumber = __toJapaneseLetters;
 
   /**
   * Transform from Arabic numbers to Japanese letters
   *
-  * @method toJapaneseLetters
+  * @method __toJapaneseLetters
   * @private
   * @memberof JpnLang
   * @param {Number} num the integer number
   * @return {String} Japanese writing of numbers
   */
-  function toJapaneseLetters (num) {
+  function __toJapaneseLetters (num) {
 
     if (isNaN(num)) return "";
 
@@ -118,9 +118,9 @@
     let rem = ~~(num % max),
     result = "";
     if (div > 0)
-    if (div > 1 || max > 1000)  result += toJapaneseLetters(div);
+    if (div > 1 || max > 1000)  result += __toJapaneseLetters(div);
     result += lookup[max];
-    if (rem > 0) result += toJapaneseLetters(rem);
+    if (rem > 0) result += __toJapaneseLetters(rem);
 
     if (neg) result = "マイナス" + result;
 

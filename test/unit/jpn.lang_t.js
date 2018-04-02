@@ -28,9 +28,9 @@ describe("Japanese Lang", function(){
     expect(lang.availableTransformations().length).to.eql(2);
     var hiragana = "こんにちは";
     var katakana = "コンニチハ";
-    var func = lang.transformationFunction("hiraganaToKatakana");
+    var func = lang.transformationFunction("hira2kata");
     expect(func(hiragana)).to.eql(katakana);
-    func = lang.transformationFunction("katakanaToHiragana");
+    func = lang.transformationFunction("kata2hira");
     expect(func(katakana)).to.eql(hiragana);
   });
 

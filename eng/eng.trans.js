@@ -89,9 +89,9 @@
    */
   function EngTrans() {
     Trans.call(this, "eng");
-    Trans.nTrans.call(this,"Morse", english, enmorse);
-    Trans.sTransCnd.call(this, "Morse", morsePreTrans, morsePostTrans);
-    Trans.sUntransCnd.call(this, "Morse", morsePreUntrans, morsePostUntrans);
+    Trans._nTrans.call(this,"morse", english, enmorse);
+    Trans._sTransCnd.call(this, "morse", __morsePreTrans, __morsePostTrans);
+    Trans._sUntransCnd.call(this, "morse", __morsePreUntrans, __morsePostUntrans);
   }
 
   EngTrans.prototype = Object.create(Trans.prototype);
@@ -104,13 +104,13 @@
   /**
    * pre-transliteration for morse: cleaning non supported codes
    *
-   * @method morsePreTrans
+   * @method __morsePreTrans
    * @private
    * @memberof EngTrans
    * @param  {String} text Arabic text
    * @return {String}      processed text for morse transliteration
    */
-  function morsePreTrans(text) {
+  function __morsePreTrans(text) {
     let result = text;
     //cleaning non supported codes
     result = result.replace(/[\^#]/gi, "");
@@ -122,13 +122,13 @@
   /**
    * post-transliteration for morse: clean non morse characters
    *
-   * @method morsePostTrans
+   * @method __morsePostTrans
    * @private
    * @memberof EngTrans
    * @param  {String} text morse code
    * @return {String}      filtered morse code
    */
-  function morsePostTrans(text) {
+  function __morsePostTrans(text) {
     let result = text;
     result = Trans.specialCharTrans(result);
     result = result.replace(/ +/gi, " ");
@@ -143,13 +143,13 @@
   /**
    * pre-untransliteration for morse: clean non morse characters
    *
-   * @method morsePreUntrans
+   * @method __morsePreUntrans
    * @private
    * @memberof EngTrans
    * @param  {String} text morse code
    * @return {String}      processed morse code for untransliteration
    */
-  function morsePreUntrans(text) {
+  function __morsePreUntrans(text) {
     let result = text;
     //clean non morse characters
     result = result.replace(/[^ .-]/gi, "");
@@ -163,13 +163,13 @@
   /**
    * post-untransliteration for morse
    *
-   * @method morsePostUntrans
+   * @method __morsePostUntrans
    * @private
    * @memberof EngTrans
    * @param  {String} text Arabic text
    * @return {String}      filtered Arabic text
    */
-  function morsePostUntrans(text) {
+  function __morsePostUntrans(text) {
     let result = text;
     result = Trans.specialCharUntrans(result);
     result = result.replace(/#/gi, ".").replace(/\^/gi, "-");

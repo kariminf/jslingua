@@ -46,7 +46,7 @@
   /**
   * Add char sets of a language
   *
-  * @method addCharSet
+  * @method _nChs
   * @protected
   * @static
   * @memberof Lang
@@ -54,14 +54,14 @@
   * @param  {Number} begin   integer value: begining of the charSet
   * @param  {Number} end     integer value: end of the charSet
   */
-  Lang.addCharSet = function(setName, begin, end) {
+  Lang._nChs = function(setName, begin, end) {
     this.CS[setName] = isBetween(begin, end);
   };
 
   /**
    * Creates a new transformation method
    *
-   * @method addTransform
+   * @method _nTrans
    * @protected
    * @static
    * @memberof Lang
@@ -78,7 +78,7 @@
    *       offset: <number>
    *    }
    */
-  Lang.addTransform = function(transName, opts) {
+  Lang._nTrans = function(transName, opts) {
 
     let transOpts = [];
 

@@ -57,14 +57,14 @@
     Lang.call(this, "fra");
 
     //
-    Lang.addCharSet.call(this, "BasicLatin", 0x0000, 0x007F);
-    Lang.addCharSet.call(this, "Latin-1Supplement", 0x00A0, 0x00FF);
+    Lang._nChs.call(this, "BasicLatin", 0x0000, 0x007F);
+    Lang._nChs.call(this, "Latin-1Supplement", 0x00A0, 0x00FF);
 
-    Lang.addTransform.call(this, "minusculeToMajuscule", [
+    Lang._nTrans.call(this, "min2maj", [
       {offset:-0x0020, begin:0x0061, end:0x007A},
       {offset:-0x0020, begin:0x00E0, end:0x00FF}
     ]);
-    Lang.addTransform.call(this, "majusculeToMinuscule", [
+    Lang._nTrans.call(this, "maj2min", [
       {offset:0x0020, begin:0x0041, end:0x005A},
       {offset:0x0020, begin:0x00C0, end:0x00DF}
     ]);
@@ -98,23 +98,23 @@
   * Write the Arabic number into French letters
   * @override
   */
-  Me.pronounceNumber = toFrenchLetters;
+  Me.pronounceNumber = __toFrenchLetters;
 
 
   /**
   * Transform from Arabic numbers to English letters
   *
-  * @method toFrenchLetters
+  * @method __toFrenchLetters
   * @private
   * @memberof FraLang
   * @param {Number} nbr the integer number
   * @return {String} French writing of numbers
   */
-  function toFrenchLetters(num) {
+  function __toFrenchLetters(num) {
 
     if (isNaN(num)) return "";
 
-    if(num < 0) return "moins " + toFrenchLetters(-num);
+    if(num < 0) return "moins " + __toFrenchLetters(-num);
 
     if (num === 81) return "quatre-vingt-un";
     if (num === 80) return "quatre-vingts";
@@ -150,13 +150,13 @@
     let div = ~~(num/bigNbr[bigIdx]),
     rem = ~~(num % bigNbr[bigIdx]);
 
-    let pronounce = (div === 1)? "": toFrenchLetters(div) + " ";
+    let pronounce = (div === 1)? "": __toFrenchLetters(div) + " ";
     pronounce += lookup[bigNbr[bigIdx]];
 
     //if (div > 1) pronounce += "s"; //plural
 
     if (rem > 0){
-      pronounce += " " + toFrenchLetters(rem);
+      pronounce += " " + __toFrenchLetters(rem);
     }
 
     return pronounce;

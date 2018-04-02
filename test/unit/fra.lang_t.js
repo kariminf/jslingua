@@ -28,9 +28,9 @@ describe("French Lang", function(){
     expect(lang.availableTransformations().length).to.eql(2);
     var min = "azertyçùéèà";
     var maj = "AZERTYÇÙÉÈÀ";
-    var func = lang.transformationFunction("minusculeToMajuscule");
+    var func = lang.transformationFunction("min2maj");
     expect(func(min)).to.eql(maj);
-    func = lang.transformationFunction("majusculeToMinuscule");
+    func = lang.transformationFunction("maj2min");
     expect(func(maj)).to.eql(min);
   });
 

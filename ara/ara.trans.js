@@ -253,11 +253,11 @@
    */
   function AraTrans() {
     Trans.call(this, "ara");
-    Trans.nTrans.call(this, "Buckwalter", arabic, buckwalter);
-    Trans.nTrans.call(this,"ArabTeX", arabic, arabtex);
-    Trans.nTrans.call(this,"Morse", arabic, armorse);
-    Trans.sTransCnd.call(this, "Morse", morsePreTrans, morsePostTrans);
-    Trans.sUntransCnd.call(this, "Morse", morsePreUntrans, morsePostUntrans);
+    Trans._nTrans.call(this, "buckwalter", arabic, buckwalter);
+    Trans._nTrans.call(this,"arabtex", arabic, arabtex);
+    Trans._nTrans.call(this,"morse", arabic, armorse);
+    Trans._sTransCnd.call(this, "morse", __morsePreTrans, __morsePostTrans);
+    Trans._sUntransCnd.call(this, "morse", __morsePreUntrans, __morsePostUntrans);
   }
 
   AraTrans.prototype = Object.create(Trans.prototype);
@@ -271,13 +271,13 @@
   /**
    * Arabic to morse normalization
    *
-   * @method morseNorm
+   * @method __morseNorm
    * @private
    * @memberof AraTrans
    * @param  {String} text Arabic text
    * @return {String}      normalized text
    */
-  function morseNorm(text) {
+  function __ar2morseNorm(text) {
     let result = text;
     result = result.replace(/[أإئؤ]/gi, "ء");
     result = result.replace(/[ىآ]/gi, "ا");
@@ -288,33 +288,33 @@
   /**
    * pre-transliteration for morse: cleaning non supported codes
    *
-   * @method morsePreTrans
+   * @method __morsePreTrans
    * @private
    * @memberof AraTrans
    * @param  {String} text Arabic text
    * @return {String}      processed text for morse transliteration
    */
-  function morsePreTrans(text) {
+  function __morsePreTrans(text) {
     let result = text;
     //cleaning non supported codes
     result = result.replace(/[\^#]/gi, "");
     result = result.replace(/\./gi, "#").replace(/-/gi, "^");
     result = result.replace(/[ ]+/gi, "\t");
     //result = result.replace(/([^\t])([^\t])/gi, "$1 $2");
-    result = morseNorm(result);
+    result = __ar2morseNorm(result);
     return result;
   }
 
   /**
    * post-transliteration for morse: clean non morse characters
    *
-   * @method morsePostTrans
+   * @method __morsePostTrans
    * @private
    * @memberof AraTrans
    * @param  {String} text morse code
    * @return {String}      filtered morse code
    */
-  function morsePostTrans(text) {
+  function __morsePostTrans(text) {
     let result = text;
     result = Trans.specialCharTrans(result);
     result = result.replace(/ +/gi, " ");
@@ -329,13 +329,13 @@
   /**
    * pre-untransliteration for morse: clean non morse characters
    *
-   * @method morsePreUntrans
+   * @method __morsePreUntrans
    * @private
    * @memberof AraTrans
    * @param  {String} text morse code
    * @return {String}      processed morse code for untransliteration
    */
-  function morsePreUntrans(text) {
+  function __morsePreUntrans(text) {
     let result = text;
     //clean non morse characters
     result = result.replace(/[^ .-]/gi, "");
@@ -349,13 +349,13 @@
   /**
    * post-untransliteration for morse
    *
-   * @method morsePostUntrans
+   * @method __morsePostUntrans
    * @private
    * @memberof AraTrans
    * @param  {String} text Arabic text
    * @return {String}      filtered Arabic text
    */
-  function morsePostUntrans(text) {
+  function __morsePostUntrans(text) {
     let result = text;
     result = Trans.specialCharUntrans(result);
     result = result.replace(/#/gi, ".").replace(/\^/gi, "-");
