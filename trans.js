@@ -110,8 +110,8 @@
   // STATIC FUNCTIONS
   //==========================================
 
-	Trans.specialCharTrans = cTrans(specialBef, specialAft);
-	Trans.specialCharUntrans = cTrans(specialAft, specialBef);
+	Trans.specialCharTrans = __createTrans(specialBef, specialAft);
+	Trans.specialCharUntrans = __createTrans(specialAft, specialBef);
 
 	/**
 	* Add new transliteration method using two parallele tables
@@ -133,8 +133,8 @@
 			};
 			if (Array.isArray(langTbl)  && Array.isArray(transTbl))
 			if (langTbl.length  === transTbl.length) {
-				this.methods[methodName].trans = cTrans(langTbl, transTbl);
-				this.methods[methodName].untrans = cTrans(transTbl, langTbl);
+				this.methods[methodName].trans = __createTrans(langTbl, transTbl);
+				this.methods[methodName].untrans = __createTrans(transTbl, langTbl);
 			}
 		}
 	};
@@ -216,13 +216,13 @@
 	/**
 	* Sets the current method to be used for [un]transliteration
 	*
-	* @method setCurrentMethod
+	* @method s
 	* @public
 	* @final
 	* @memberof Trans
 	* @param {String} methodName method's name
 	*/
-	Me.setCurrentMethod = function(methodName) {
+	Me.s = function(methodName) {
 		if (methodName in this.methods) {
 			this.currentMethod = methodName;
 		}
@@ -231,20 +231,20 @@
 	/**
 	* Returns the list of available transliteration methods
 	*
-	* @method availableMethods
+	* @method l
 	* @public
 	* @final
 	* @memberof Trans
 	* @return {String[]}  methods names
 	*/
-	Me.availableMethods = function() {
+	Me.l = function() {
 		return Object.keys(this.methods);
 	};
 
 	/**
 	* This function returns another function which do the transformation
 	*
-	* @method cTrans
+	* @method __createTrans
 	* @private
 	* @memberof Trans
 	* @memberof Trans
@@ -253,7 +253,7 @@
 	* @return {Function}        a function which takes a string and transforme it using
 	* srcTbl and dstTbl
 	*/
-	function cTrans(srcTbl, dstTbl) {
+	function __createTrans(srcTbl, dstTbl) {
 		return function(text) {
 			let result = text;
 			for (let i=0; i< srcTbl.length; i++) {
@@ -271,14 +271,14 @@
 	/**
 	* transliterate the text using the current method
 	*
-	* @method transliterate
+	* @method trans
 	* @public
 	* @final
 	* @memberof Trans
 	* @param  {String} text the untransliterated text (original)
 	* @return {String}      the transliterated text
 	*/
-	Me.transliterate = function(text) {
+	Me.trans = function(text) {
 		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preTrans === "function") {
@@ -300,14 +300,14 @@
 	/**
 	* untransliterate the text using the current method
 	*
-	* @method untransliterate
+	* @method untrans
 	* @public
 	* @final
 	* @memberof Trans
 	* @param  {String} text translaterated text
 	* @return {String}      untranslaterated text (original text)
 	*/
-	Me.untransliterate = function(text) {
+	Me.untrans = function(text) {
 		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preUntrans === "function") {
@@ -320,6 +320,71 @@
 			result = this.methods[this.currentMethod].postUntrans(result);
 		}
 		return result;
+	};
+
+
+	//==========================================
+  // DEPRECATED FUNCTIONS
+  //==========================================
+
+	/**
+	 * untransliterate the text using the current method
+	 * @deprecated use untrans(text) instead
+	 * @public
+ 	 * @final
+ 	 * @memberof Trans
+ 	 * @param  {String} text translaterated text
+ 	 * @return {String}      untranslaterated text (original text)
+	 */
+	Me.untransliterate = function(text) {
+		console.warn("untransliterate(text) is deprecated; use untrans(text)");
+		return this.untrans(text);
+	}
+
+	/**
+	* transliterate the text using the current method
+	*
+	* @method transliterate
+	* @deprecated use trans() instead
+	* @public
+	* @final
+	* @memberof Trans
+	* @param  {String} text the untransliterated text (original)
+	* @return {String}      the transliterated text
+	*/
+	Me.transliterate = function(text) {
+		console.warn("transliterate(text) is deprecated; use trans(text)");
+		return this.trans(text);
+	}
+
+	/**
+	* Sets the current method to be used for [un]transliteration
+	*
+	* @method setCurrentMethod
+	* @deprecated use s() instead
+	* @public
+	* @final
+	* @memberof Trans
+	* @param {String} methodName method's name
+	*/
+	Me.setCurrentMethod = function(methodName) {
+		console.warn("setCurrentMethod(methodName) is deprecated; use sTrans(methodName)");
+		this.s(methodName);
+	};
+
+	/**
+	* Returns the list of available transliteration methods
+	*
+	* @method availableMethods
+	* @deprecated use l() instead
+	* @public
+	* @final
+	* @memberof Trans
+	* @return {String[]}  methods names
+	*/
+	Me.availableMethods = function() {
+		console.warn("availableMethods() is deprecated; use l()");
+		return this.l();
 	};
 
 
