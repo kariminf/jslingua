@@ -14,7 +14,7 @@
   else {
     Trans = window.JsLingua.Cls.Trans;
     //window.JpnTrans = JpnTrans;
-    window.JsLingua.addService("Trans", "jpn", JpnTrans);
+    window.JsLingua.aserv("trans", "jpn", JpnTrans);
   }
 
   let hiragana = [

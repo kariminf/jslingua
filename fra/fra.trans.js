@@ -15,8 +15,8 @@
   }
   else {
     Trans = window.JsLingua.Cls.Trans;
-    window.JsLingua.addService("Trans", "fra", FraTrans);
-    EngTrans = window.JsLingua.getService("Trans", "eng");
+    window.JsLingua.aserv("trans", "fra", FraTrans);
+    EngTrans = window.JsLingua.gserv("trans", "eng");
   }
 
   //==========================================

@@ -13,7 +13,7 @@
   }
   else {
     Info = window.JsLingua.Cls.Info;
-    window.JsLingua.addService("Info", "ara", AraInfo);
+    window.JsLingua.aserv("info", "ara", AraInfo);
   }
 
   /**

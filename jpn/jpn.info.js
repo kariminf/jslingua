@@ -14,7 +14,7 @@
   else {
     Info = window.JsLingua.Cls.Info;
     //window.JpnInfo = JpnInfo;
-    window.JsLingua.addService("Info", "jpn", JpnInfo);
+    window.JsLingua.aserv("info", "jpn", JpnInfo);
   }
 
   /**

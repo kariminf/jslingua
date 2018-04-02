@@ -13,7 +13,7 @@
   }
   else {
     Info = window.JsLingua.Cls.Info;
-    window.JsLingua.addService("Info", "fra", FraInfo);
+    window.JsLingua.aserv("info", "fra", FraInfo);
   }
 
   /**

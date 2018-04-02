@@ -13,7 +13,7 @@
   }
   else {
     Lang = window.JsLingua.Cls.Lang;
-    window.JsLingua.addService("Lang", "eng", EngLang);
+    window.JsLingua.aserv("lang", "eng", EngLang);
   }
 
   //==========================================

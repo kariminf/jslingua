@@ -12,7 +12,7 @@
     module.exports = JpnMorpho;
   } else {
     Morpho = window.JsLingua.Cls.Morpho;
-    window.JsLingua.addService("Morpho", "jpn", JpnMorpho);
+    window.JsLingua.aserv("morpho", "jpn", JpnMorpho);
   }
 
   //==========================================

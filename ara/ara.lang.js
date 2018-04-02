@@ -13,7 +13,7 @@
   }
   else {
     Lang = window.JsLingua.Cls.Lang;
-    window.JsLingua.addService("Lang", "ara", AraLang);
+    window.JsLingua.aserv("lang", "ara", AraLang);
   }
 
   //==========================================

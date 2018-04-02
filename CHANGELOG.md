@@ -12,6 +12,8 @@ This will break the projects developed on precedent versions.
 * DEL: Delete or deprecate some functions
 
 ## Current
+* REFACTORING
+* MODIFY: functions names; using more abbreviated ones 
 
 ## Version 0.8.0 (2018-03-31)
 * IMPROVE: Arabic conjugation; Add negation marks when negated

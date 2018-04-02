@@ -13,7 +13,7 @@
   }
   else {
     Trans = window.JsLingua.Cls.Trans;
-    window.JsLingua.addService("Trans", "ara", AraTrans);
+    window.JsLingua.aserv("trans", "ara", AraTrans);
   }
 
   //==========================================

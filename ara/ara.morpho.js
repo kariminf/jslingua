@@ -13,7 +13,7 @@
   }
   else {
     Morpho = window.JsLingua.Cls.Morpho;
-    window.JsLingua.addService("Morpho", "ara", AraMorpho);
+    window.JsLingua.aserv("morpho", "ara", AraMorpho);
   }
 
   //==========================================

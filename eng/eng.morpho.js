@@ -12,7 +12,7 @@
     module.exports = EngMorpho;
   } else {
     Morpho = window.JsLingua.Cls.Morpho;
-    window.JsLingua.addService("Morpho", "eng", EngMorpho);
+    window.JsLingua.aserv("morpho", "eng", EngMorpho);
   }
 
   //==========================================

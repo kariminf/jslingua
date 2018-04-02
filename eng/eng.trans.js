@@ -13,7 +13,7 @@
   }
   else {
     Trans = window.JsLingua.Cls.Trans;
-    window.JsLingua.addService("Trans", "eng", EngTrans);
+    window.JsLingua.aserv("trans", "eng", EngTrans);
   }
 
   //==========================================

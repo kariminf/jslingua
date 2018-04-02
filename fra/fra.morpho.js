@@ -12,7 +12,7 @@
     module.exports = FraMorpho;
   } else {
     Morpho = window.JsLingua.Cls.Morpho;
-    window.JsLingua.addService("Morpho", "fra", FraMorpho);
+    window.JsLingua.aserv("morpho", "fra", FraMorpho);
   }
 
   //==========================================
