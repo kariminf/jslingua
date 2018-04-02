@@ -1,5 +1,9 @@
 (function() {
 
+  //==========================================
+  // MODULE & CONSTRUCTOR
+  //==========================================
+
   "use strict";
 
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
@@ -22,7 +26,7 @@
 
     //arabic, english, japanese
     this.name = "";
-    
+
     this.origName = "";
 
     //writing direction: ltr (left to right)
@@ -38,11 +42,15 @@
     this.branch = "";
   }
 
+  //==========================================
+  // DATA
+  //==========================================
 
-  //===========================
-  //functions
-  //===========================
   let Me = Info.prototype;
+
+  //==========================================
+  // GETTER FUNCTIONS
+  //==========================================
 
   /**
    * Get the name of the language
@@ -55,7 +63,7 @@
   Me.getName = function() {
     return this.name;
   };
-  
+
   /**
    * Get the name of the language in its own writing system
    *

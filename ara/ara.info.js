@@ -1,5 +1,9 @@
 (function() {
 
+  //==========================================
+  // MODULE & CONSTRUCTOR
+  //==========================================
+
   "use strict";
 
   let Info = {};
@@ -14,7 +18,7 @@
 
   /**
    * Contains information about Arabic language
-   * 
+   *
    * @class AraInfo
    * @extends Info
    */
@@ -32,5 +36,15 @@
 
   AraInfo.prototype = Object.create(Info.prototype);
   AraInfo.prototype.constructor = AraInfo;
+
+  //==========================================
+  // DATA
+  //==========================================
+
+
+  //==========================================
+  // GETTER FUNCTIONS
+  //==========================================
+
 
 }());
