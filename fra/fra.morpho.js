@@ -699,7 +699,7 @@
    */
   function FraMorpho() {
     Morpho.call(this, "fra");
-    Morpho._nStem.call(this, "snowballFr", "French Snowball stemmr", __snowballStemmer);
+    Morpho._nStem.call(this, "snowball", "French Snowball stemmr", __snowballStemmer);
 
     Morpho._nConv.call(this, "sing2pl", "Singular noun to Plural", __singular2plural);
     //g = this.g;
@@ -1239,7 +1239,7 @@
         let rep2 = rep[i].split(":");
         let r = new RegExp(rep2[0]);
         if (r.test(p)) {
-          if (rep2[1] === "G1") suff = getSuffix(opts, g1Suffix);
+          if (rep2[1] === "G1") suff = __getSuffix(opts, g1Suffix);
           else suff = rep2[1];
           break;
         }

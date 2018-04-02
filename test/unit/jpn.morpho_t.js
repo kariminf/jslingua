@@ -3,7 +3,6 @@ var expect = require('expect.js');
 
 var morpho = new JpnMorpho();
 
-morpho.setCurrentStemmer("porterStemmer");
 morpho.enableDebug();
 
 
@@ -219,8 +218,11 @@ describe("Japanese Verb conjugation", function(){
 });
 
 
-morpho.setCurrentStemmer("jslinguaJpnStemmer");
 describe("Japanese JsLingua Stemmer", function(){
+
+  before(function(){
+    morpho.setCurrentStemmer("jslingua");
+  });
 
   it("Verbs stemming", function() {
     expect(morpho.stem("用いられている")).to.eql("用い");

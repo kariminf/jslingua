@@ -9,7 +9,7 @@ var morpho = new FraMorpho();
 describe("French Snowball stemmer ", function(){
 
   before(function(){
-    morpho.setCurrentStemmer("snowballFrStemmer");
+    morpho.setCurrentStemmer("snowball");
   });
 
 
@@ -1958,7 +1958,7 @@ describe("French Verb conjugation", function(){
 describe("French Morphology Pos Converter ", function(){
 
   it("Singular to plural", function() {
-    morpho.setCurrentPosConverter("singularToPlural");
+    morpho.setCurrentPosConverter("sing2pl");
 
     //-s, -x, -z
     expect(morpho.convertPoS("souris")).to.eql("souris");

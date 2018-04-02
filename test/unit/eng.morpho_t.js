@@ -1,13 +1,15 @@
-var EnglMorpho = require('../../eng/eng.morpho');
+var EngMorpho = require('../../eng/eng.morpho');
 var expect = require('expect.js');
 
-var morpho = new EnglMorpho();
+var morpho = new EngMorpho();
 
-morpho.setCurrentStemmer("porterStemmer");
 //morpho.enableDebug();
 
 describe("English Morphology porter stemmer ", function(){
 
+  before(function(){
+    morpho.setCurrentStemmer("porter");
+  });
 
   /*
   inspired from http://snowballstem.org/algorithms/porter/stemmer.html
@@ -119,7 +121,7 @@ describe("English Morphology porter stemmer ", function(){
 describe("English Morphology Lancaster Stemmer", function(){
 
         before(function(){
-          morpho.setCurrentStemmer("lancasterStemmer");
+          morpho.setCurrentStemmer("lancaster");
         });
 
         it("Strip suffixes", function(){
@@ -277,7 +279,7 @@ describe("English Verb conjugation", function(){
 describe("English Morphology Pos Converter ", function(){
 
   it("Singular to plural", function() {
-    morpho.setCurrentPosConverter("singularToPlural");
+    morpho.setCurrentPosConverter("sing2pl");
 
     expect(morpho.convertPoS("address")).to.eql("addresses");
     expect(morpho.convertPoS("box")).to.eql("boxes");

@@ -1067,7 +1067,7 @@ a port from NLTK ISRI stemmer
 describe("Arabic Morphology ISRI stemmer ", function(){
 
   before(function() {
-    morpho.setCurrentStemmer("IsriAraStemmer");
+    morpho.setCurrentStemmer("isri");
   });
 
   it("Words have length <= 3", function() {
@@ -1079,13 +1079,13 @@ describe("Arabic Morphology ISRI stemmer ", function(){
 describe("Arabic Morphology Pos Converter ", function(){
 
   it("Singular to plural", function() {
-    morpho.setCurrentPosConverter("singularToPlural");
+    morpho.setCurrentPosConverter("sing2pl");
     expect(morpho.convertPoS("معلمة")).to.eql("معلمات");
     expect(morpho.convertPoS("معلم")).to.eql("معلمون");
   });
 
   it("Singular to dual", function() {
-    morpho.setCurrentPosConverter("singularToDual");
+    morpho.setCurrentPosConverter("sing2dual");
     expect(morpho.convertPoS("معلمة")).to.eql("معلمتان");
     expect(morpho.convertPoS("معلم")).to.eql("معلمان");
   });

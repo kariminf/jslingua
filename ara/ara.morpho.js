@@ -236,8 +236,8 @@
    */
   function AraMorpho() {
     Morpho.call(this, "ara");
-    Morpho._nStem.call(this, "Isri", "ISRI Arabic stemmer", __IsriAraStemmer);
-    Morpho._nStem.call(this, "jslAra", "JsLingua Arabic stemmer", __jslinguaAraStemmer);
+    Morpho._nStem.call(this, "isri", "ISRI Arabic stemmer", __IsriAraStemmer);
+    Morpho._nStem.call(this, "jslingua", "JsLingua Arabic stemmer", __jslinguaAraStemmer);
 
     Morpho._nConv.call(this, "sing2pl", "Singular noun to Plural", __singular2plural);
     Morpho._nConv.call(this, "sing2dual", "Singular noun to Dual", __singular2dual);

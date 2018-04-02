@@ -187,7 +187,7 @@
    */
   function JpnMorpho() {
     Morpho.call(this, "jpn");
-    Morpho._nStem.call(this, "jslJpn", "JsLingua Japanese stemmer", __jslinguaJpnStemmer);
+    Morpho._nStem.call(this, "jslingua", "JsLingua Japanese stemmer", __jslinguaJpnStemmer);
   }
 
   JpnMorpho.prototype = Object.create(Morpho.prototype);
