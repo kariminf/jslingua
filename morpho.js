@@ -17,7 +17,6 @@
   // CONSTANTS
   //==========================================
 
-
   /**
   * The tense: Past, Present, Future
   * <br>access: Morpho.Feature.Tense
@@ -272,7 +271,6 @@
 
   {//Freezing all constants so their values won't be modified
     let C = Object.freeze;
-    C(PoS);
     C(Tense);
     C(Aspect);
     C(Mood);
@@ -331,14 +329,14 @@
 
   /**
   * Add new stemmer method
-  * @method nStem
+  * @method _nStem
   * @protected
   * @memberof Morpho
   * @param  {String} stemmerName the name of the stemmer
   * @param  {String} stemmerDesc   the description of the stemmer
   * @param  {Function} stemmerFct   the function stem(word)
   */
-  Morpho.nStem = function (stemmerName, stemmerDesc, stemmerFct) {
+  Morpho._nStem = function (stemmerName, stemmerDesc, stemmerFct) {
     if (typeof stemmerName === "string" && stemmerName.length > 0){
       let stem = this.stemmers[stemmerName] = {};
       stem.desc = stemmerDesc;
@@ -348,14 +346,14 @@
 
   /**
   * Add new part of speach converter method
-  * @method nConv
+  * @method _nConv
   * @protected
   * @memberof Morpho
   * @param  {String} converterName the name of the converter
   * @param  {String} converterDesc   the description of the converter
   * @param  {Function} converterFct   the function convert(word)
   */
-  Morpho.nConv = function (converterName, converterDesc, converterFct) {
+  Morpho._nConv = function (converterName, converterDesc, converterFct) {
     if (typeof converterName === "string" && converterName.length > 0){
       let conv = this.converters[converterName] = {};
       conv.desc = converterDesc;
@@ -393,6 +391,35 @@
   //==========================================
 
   /**
+  * Stem a word: delete prefixes, suffixes and infixes
+  *
+  * @method stem
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param  {String} word the word to be stemmed
+  * @return {String}      stemmed word
+  */
+  Me.stem = function(word){
+    var stemmer = this.stemmers[this.cstemmer];
+    if (typeof stemmer !== "object") return word;
+    if (typeof stemmer.fct !== "function") return word;
+    return stemmer.fct(word);
+  };
+
+  /**
+  * Returns the list of available stemming methods
+  * @method availableStemmers
+  * @public
+  * @final
+  * @memberof Morpho
+  * @return {String[]}  Array of Strings containing stemmers names
+  */
+  Me.availableStemmers = function(){
+    return Object.keys(this.stemmers);
+  };
+
+  /**
   * Sets the current stemmer
   *
   * @method setCurrentStemmer
@@ -405,6 +432,47 @@
     if (StemmerName in this.stemmers){
       this.cstemmer = StemmerName;
     }
+  };
+
+  Me.getStemmerDesc = function (stemmerName) {
+    if (stemmerName in this.stemmers){
+      return this.stemmers[stemmerName].desc;
+    }
+    return "";
+  };
+
+
+  //==========================================
+  // CONVERTION FUNCTIONS
+  //==========================================
+
+  /**
+  * Convert a word: singular to plural; verb to noun; etc
+  *
+  * @method convertPoS
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param  {String} word the word to be converted
+  * @return {String}      converted word
+  */
+  Me.convertPoS = function(word){
+    var converter = this.converters[this.cconverter];
+    if (typeof converter !== "object") return word;
+    if (typeof converter.fct !== "function") return word;
+    return converter.fct(word);
+  };
+
+  /**
+  * Returns the list of available converting methods
+  * @method availablePosConverters
+  * @public
+  * @final
+  * @memberof Morpho
+  * @return {String[]}  Array of Strings containing converters names
+  */
+  Me.availablePosConverters = function(){
+    return Object.keys(this.converters);
   };
 
   /**
@@ -429,40 +497,27 @@
     return "";
   };
 
-  Me.getStemmerDesc = function (stemmerName) {
-    if (stemmerName in this.stemmers){
-      return this.stemmers[stemmerName].desc;
-    }
-    return "";
-  };
-
-
+  //==========================================
+  // CONJUGATION FUNCTIONS
+  //==========================================
 
   /**
-  * Returns the list of available stemming methods
-  * @method availableStemmers
+  * This function is used for verb conjugation
+  *
+  * @method conjugate
   * @public
-  * @final
   * @memberof Morpho
-  * @return {String[]}  Array of Strings containing stemmers names
+  * @param  {String} verb the word to be conjugated
+  * @param  {Object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+  * @return {String}      Conjugated verb
   */
-  Me.availableStemmers = function(){
-    return Object.keys(this.stemmers);
+  Me.conjugate = function(verb, _opts){
+    return verb;
   };
 
-
-
-  /**
-  * Returns the list of available converting methods
-  * @method availablePosConverters
-  * @public
-  * @final
-  * @memberof Morpho
-  * @return {String[]}  Array of Strings containing converters names
-  */
-  Me.availablePosConverters = function(){
-    return Object.keys(this.converters);
-  };
+  //==========================================
+  // CONJUGATION OPTIONS PUBLIC FUNCTIONS
+  //==========================================
 
   /**
   * This method is used to recover the name of the tense
@@ -573,9 +628,9 @@
    */
   Me.getOptLists = function(optLabel){
     switch (optLabel) {
-      case "Pronoun": return this.getPronounOpts();
-      case "Negation": return this.getNegationOpts();
-      case "Voice": return this.getVoiceOpts();
+      case "Pronoun": return this._gPpOpts();
+      case "Negation": return this._gNegOpts();
+      case "Voice": return this._gVoiceOpts();
       default: return [{}];
     }
   };
@@ -600,24 +655,28 @@
    */
   Me.getOptName = function(optLabel, opts){
     switch (optLabel) {
-      case "Pronoun": return this.getPronounName(opts);
-      case "Negation": return this.getNegationName(opts);
-      case "Voice": return this.getVoiceName(opts);
+      case "Pronoun": return this._gPpName(opts);
+      case "Negation": return this._gNegName(opts);
+      case "Voice": return this._gVoiceName(opts);
       default:
 
     }
     return "";
   };
 
+  //==========================================
+  // CONJUGATION OPTIONS PROTECTED FUNCTIONS
+  //==========================================
+
   /**
    * Returns the list of negation options for verb conjugation
    *
-   * @method getNegationOpts
+   * @method _gNegOpts
    * @protected
    * @memberof Morpho
    * @return {Object[]}        The list of available negation options
    */
-  Me.getNegationOpts = function(){
+  Me._gNegOpts = function(){
     return [
         {negated:0}, //Positive
         {negated:1}//negative
@@ -627,13 +686,13 @@
   /**
    * Returns the label of the negation in the current language
    *
-   * @method getNegationName
+   * @method _gNegName
    * @protected
    * @memberof Morpho
    * @param  {Object}        opts An object containing the attribute: negated: (0|1)
    * @return {String}             the label of the negation in the current language
    */
-  Me.getNegationName = function(opts){
+  Me._gNegName = function(opts){
     if (! opts) return "";
     if (opts.negated) return "negative";
     return "affirmative";
@@ -642,12 +701,12 @@
   /**
    * Returns the list of conjugation voice for the current language
    *
-   * @method getVoiceOpts
+   * @method _gVoiceOpts
    * @protected
    * @memberof Morpho
    * @return {Object[]}     A list of conjugation voice parameters for the current language
    */
-  Me.getVoiceOpts = function(){
+  Me._gVoiceOpts = function(){
     return [
         {voice: Voice.A}, //Active voice
         {voice: Voice.P} //Passive voice
@@ -657,13 +716,13 @@
   /**
    * Returns the conjugation voice's name in the current language
    *
-   * @method getVoiceName
+   * @method _gVoiceName
    * @protected
    * @memberof Morpho
    * @param  {Object}     opts An object with one attribute: voice
    * @return {String}          the label of the voice in the current language
    */
-  Me.getVoiceName = function(opts){
+  Me._gVoiceName = function(opts){
     if (! opts) return "";
     if (! opts.voice) return "";
     switch (opts.voice) {
@@ -676,12 +735,12 @@
   /**
    * Returns a list of options for pronouns in the current language
    *
-   * @method getPronounOpts
+   * @method _gPpOpts
    * @protected
    * @memberof Morpho
    * @return {Object[]}       List of pronouns options
    */
-  Me.getPronounOpts = function(){
+  Me._gPpOpts = function(){
     return [{}];
   };
 
@@ -694,64 +753,20 @@
   *      number: Morpho.Feature.Number.S // "singular"
   *    }
   *
-  * @method getPronounName
+  * @method _gPpName
   * @protected
   * @memberof Morpho
   * @param  {Object} opts An object containing parameters: person, gender, number.
   * @return {String}      the pronoun
   */
-  Me.getPronounName = function(_opts){
+  Me._gPpName = function(_opts){
     return "";
   };
 
 
-  /**
-  * This function is used for verb conjugation
-  *
-  * @method conjugate
-  * @public
-  * @memberof Morpho
-  * @param  {String} verb the word to be conjugated
-  * @param  {Object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
-  * @return {String}      Conjugated verb
-  */
-  Me.conjugate = function(verb, _opts){
-    return verb;
-  };
-
-  /**
-  * Stem a word: delete prefixes, suffixes and infixes
-  *
-  * @method stem
-  * @public
-  * @final
-  * @memberof Morpho
-  * @param  {String} word the word to be stemmed
-  * @return {String}      stemmed word
-  */
-  Me.stem = function(word){
-    var stemmer = this.stemmers[this.cstemmer];
-    if (typeof stemmer !== "object") return word;
-    if (typeof stemmer.fct !== "function") return word;
-    return stemmer.fct(word);
-  };
-
-  /**
-  * Convert a word: singular to plural; verb to noun; etc
-  *
-  * @method convertPoS
-  * @public
-  * @final
-  * @memberof Morpho
-  * @param  {String} word the word to be converted
-  * @return {String}      converted word
-  */
-  Me.convertPoS = function(word){
-    var converter = this.converters[this.cconverter];
-    if (typeof converter !== "object") return word;
-    if (typeof converter.fct !== "function") return word;
-    return converter.fct(word);
-  };
+  //==========================================
+  // NORMALIZATION FUNCTIONS
+  //==========================================
 
   /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
@@ -769,9 +784,9 @@
   };
 
 
-  //========================================================================
-  // Segmentation methods
-  //========================================================================
+  //==========================================
+  // SEGMENTATION FUNCTIONS
+  //==========================================
 
   /**
    * Segment a given text
@@ -800,9 +815,9 @@
     return words;
   }
 
-  //========================================================================
-  // HELPERS
-  // =======================================================================
+  //==========================================
+  // CONJUGATION HELPER FUNCTIONS
+  //==========================================
 
   /**
    * Given a morpho object for a certain language, and a branch (row or col);

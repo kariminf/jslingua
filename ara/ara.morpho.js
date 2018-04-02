@@ -2,6 +2,10 @@
 
   "use strict";
 
+  //==========================================
+  // EXPORTING MODULE
+  //==========================================
+
   let Morpho = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Morpho = require("../morpho.js");
@@ -12,8 +16,12 @@
     window.JsLingua.addService("Morpho", "ara", AraMorpho);
   }
 
+  //==========================================
+  // CONSTANTS
+  //==========================================
+
   //Different global features
-  let F = Morpho.Feature,
+  const F = Morpho.Feature,
   Tense = F.Tense,
   Mood = F.Mood,
   Voice = F.Voice,
@@ -22,81 +30,17 @@
   Gender = F.Gender,
   Person = F.Person;
 
-  //var g;
-
   /**
-   * Arabic language morphology
-   *
-   * @class AraMorpho
-   * @extends Morpho
+   * List of Arabic personal pronouns
+   * @private
+   * @static
+   * @type {Array}
    */
-  function AraMorpho() {
-    Morpho.call(this, "ara");
-    Morpho.newStemmer.call(this, "IsriAraStemmer", "ISRI Arabic stemmer", IsriAraStemmer);
-    Morpho.newStemmer.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
-
-    Morpho.newPosConverter.call(this, "singularToPlural", "Singular noun to Plural", singular2plural);
-    Morpho.newPosConverter.call(this, "singularToDual", "Singular noun to Dual", singular2dual);
-
-    //g = this.g;
-  }
-
-  AraMorpho.prototype = Object.create(Morpho.prototype);
-  let Me = AraMorpho.prototype;
-
-  Me.constructor = AraMorpho;
-
-  Me.getTenseName = function(tense) {
-    switch (tense) {
-      case Tense.Pa:
-        return "الماضي";
-      case Tense.Pr:
-        return "المضارع";
-      case Tense.Fu:
-        return "المستقبل";
-    }
-
-    return "";
-  };
-
-  Me.getPronounOpts = function() {
-    return [
-        {person:Person.F, number: GNumber.S},
-        {person:Person.F, number: GNumber.P},
-
-        {person:Person.S, number: GNumber.S, gender: Gender.M},
-        {person:Person.S, number: GNumber.S, gender: Gender.F},
-        {person:Person.S, number: GNumber.D, gender: Gender.M},
-        {person:Person.S, number: GNumber.D, gender: Gender.F},
-        {person:Person.S, number: GNumber.P, gender: Gender.M},
-        {person:Person.S, number: GNumber.P, gender: Gender.F},
-
-        {person:Person.T, number: GNumber.S, gender: Gender.M},
-        {person:Person.T, number: GNumber.S, gender: Gender.F},
-        {person:Person.T, number: GNumber.D, gender: Gender.M},
-        {person:Person.T, number: GNumber.D, gender: Gender.F},
-        {person:Person.T, number: GNumber.P, gender: Gender.M},
-        {person:Person.T, number: GNumber.P, gender: Gender.F}
-    ];
-  };
-
-  Me.getForms = function() {
-    //super doesn't work here
-    let superFrm = Morpho.prototype.getForms.call(this);
-    const araForms =  {
-      "Imperative": {
-        mood: Mood.Imp
-      }
-    };
-
-    return Object.assign({}, superFrm, araForms);
-  };
-
-  //var C = Object.freeze;
-
-  //=================
-  //Conjugation zone
-  //=================
+  const pronouns = [
+    "أَنَا", "نَحْنُ",
+    "أَنْتَ", "أَنْتِ", "أَنْتُمَا", "أَنْتُمَا", "أَنْتُمْ", "أَنْتُنَّ",
+    "هُوَ", "هِيَ", "هُمَا", "هُمَا", "هُمْ", "هُنَّ"
+  ];
 
   const conjAffix = {
     [Tense.Pr]: {
@@ -108,615 +52,6 @@
       suffix: ["ْتُ", "ْنَا", "ْتَ", "ْتِ", "ْتُمَا", "ْتُمَا", "ْتُمْ", "ْتُنَّ", "َ", "َتْ", "َا", "َتَا", "ُوا", "ْنَ"]
     }
   };
-
-  /**
-   * A function that gives the pronoun index in conjugation table
-   *
-   * @method getPronounIndex
-   * @private
-   * @memberof AraMorpho
-   * @param  {Object}        opts contains person, number and gender
-   * @return {Number}             a number from 0 to 13
-   */
-  function getPronounIndex(opts) {
-
-    if (opts.person === Person.F) {
-      if (opts.number === GNumber.S) return 0;
-      else return 1;
-    }
-
-    let personIdx = (Object.values(Person).indexOf(opts.person)-1) * 6;
-    let numberIdx = Object.values(GNumber).indexOf(opts.number) * 2;
-    let genderIdx = Object.values(Gender).indexOf(opts.gender);
-
-    return personIdx + numberIdx + genderIdx + 2;
-  }
-
-
-  /**
-   * An object to be a midium between different functions
-   * @type {Object}
-   */
-  let verbInfo = {
-    /**
-     * The verb
-     * @type {String}
-     */
-    verb: "",
-    /**
-     * The filtered verb
-     * @type {String}
-     */
-    filter: "",
-    /**
-     * The length of the verb
-     * @type {Number}
-     */
-    len: 0,
-    /**
-     * Weak beginning
-     * @type {Boolean}
-     */
-    wb: false,
-    /**
-     * Weak middle
-     * @type {Boolean}
-     */
-    wm: false,
-    /**
-     * Weak ending
-     * @type {Boolean}
-     */
-    we: false,
-    /**
-     * Mudaaf
-     * @type {Boolean}
-     */
-    m: false
-  };
-
-  function verbTypes(verb) {
-    //delete spaces
-    verb = verb.trim();
-
-    verb = verb.replace(/^(.َ?.)َ?$/, "$1َّ");//if the verb has two chars add shadda in the end
-
-    //verb = verb.replace(/^([^ا])[َُِ]?/, "$1َ"); //add fatha to the first char if not alif
-
-    if (verb === verbInfo.verb) return;
-
-    verbInfo.verb = verb;
-
-    //replace Alif madda
-    let filteredVerb = verb.replace("آ", "أا");
-    //Muda33af
-    filteredVerb = (/َ?ّ$/.test(verb))? filteredVerb + filteredVerb.slice(-1): filteredVerb;
-    //delete diacretics
-    filteredVerb = filteredVerb.replace(/[َُِّْ]/gi, "");//fat,dam,kas,shad,sukun
-
-    verbInfo.filter = filteredVerb;
-
-
-    verbInfo.len = filteredVerb.length + verb.replace(/[^ّ]/g, "").length;
-
-    //detect if the verb with weak begining
-    verbInfo.wb = /^[أاو]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
-    //yaa is ommited since it will not be deleted
-
-    //detect if the verb has a weak middle
-    verbInfo.wm = /[اآ].$/.test(filteredVerb);
-
-    //detect if the verb has a weak ending
-    verbInfo.we = /[اى]$/.test(filteredVerb);
-
-    //detect if muda33af
-    verbInfo.m = /َّ?$/.test(verb);
-
-    //console.log(verbInfo);
-
-  }
-
-  function affixHandler(conjVerb, opts, pronounIdx) {
-    let suffix = "";
-    if (opts.negated) {
-      let end = (opts.tense === Tense.Pa)? "ْ": "َ";
-      suffix = conjAffix[Tense.Pr].suffix[pronounIdx];
-      if (/[^ْ]ن[َِ]$/.test(suffix)) {//delete nuun with negation when not preceded by sukuun
-        suffix = suffix.slice(0, -2);
-        if (suffix.endsWith("و")) suffix += "ا";
-      } //Otherwise add fatha for present, sukuun for past
-      else if (! /ن[َِ]$/.test(suffix)) suffix = suffix.slice(0, -1) + end;
-      opts.tense = Tense.Pr;
-      conjVerb.dV = "ْ";
-      conjVerb.dR = "ِ";
-    }
-    else {
-      suffix = conjAffix[opts.tense].suffix[pronounIdx];
-    }
-    conjVerb.s = suffix;
-
-    let prefix = conjAffix[opts.tense].prefix[pronounIdx];
-    if(! prefix) prefix = "";
-    conjVerb.p = prefix;
-  }
-
-
-  function weakBeginHandler(conjVerb, opts) {
-    let verb = conjVerb.v,
-    filteredVerb = verbInfo.filter,
-    len = verbInfo.len;
-
-    if (opts.tense === Tense.Pr) {
-      verb = (opts.voice === Voice.P && len ===3 && !filteredVerb.startsWith("أ"))? verb.replace(/^(.)[َُِْ]/, "$1"): verb.slice(1);
-      //TODO verify verbs like akala
-      /*if (len > 3 || !filteredVerb.startsWith("أ")) verb = verb.slice(1);
-      if (opts.voice === Voice.P) {
-        if (/^أ.{2}$/.test(filteredVerb)) verb += "أو"; //
-      }*/
-
-
-      if (/^ا.ت..$/.test(filteredVerb)) {
-        conjVerb.dV = "َ";
-      }
-
-    }
-
-    if (/^ا.{3}$/.test(filteredVerb)) {
-      conjVerb.dV = "ْ";
-    }
-
-    conjVerb.v = verb;
-  }
-
-  function weakMiddleHandler(conjVerb, opts, pronounIdx) {
-
-    let verb = conjVerb.v,
-    weakType = weakMiddleOrigin(verb, verbInfo.filter),
-    diacV = "َُِ"[weakType],
-    diacR = "";
-
-
-    if (opts.tense === Tense.Pa) {
-      diacR = (verbInfo.len === 3)? "ُ": "َ";
-
-      if (pronounIdx === 13 || pronounIdx < 8) {
-        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
-        if (verb.startsWith("آ")) verb = "أ" + verb.slice(1);
-        if (weakType === 0) diacV = "ِ";
-      }
-      else {
-        diacR = "";
-        diacV = "َ";
-      }
-    }
-    else {//Present
-
-      let weakChar = "اوي"[weakType];
-      if (opts.voice !== Voice.P) {//weakType === 2 ||
-        //with plural feminine; delete the weakChar
-        if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
-
-        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weakChar + "$2");
-      }
-      else {
-        diacV = "َ";
-        diacR = "X";
-      }
-
-    }
-
-    conjVerb.v = verb;
-    conjVerb.dV = diacV;
-    conjVerb.dR = diacR;
-
-  }
-
-  function weakEndHandler(conjVerb, opts, pronounIdx) {
-    let verb = conjVerb.v,
-    diacR = conjVerb.dR;
-    //if (opts.tense === Tense.Pa) conjVerb.dR = "َ";
-    diacR = "َ";
-    verb = verb.slice(0, -1);
-
-    if (opts.voice === Voice.P) { //
-      if (opts.tense === Tense.Pa || [4, 5, 7, 10, 11, 13].indexOf(pronounIdx) > -1) {
-        verb +=  "ي";
-        diacR = "ِ";
-      }
-      else verb += "ى";
-      //verb += (opts.tense === Tense.Pa || [4, 5, 7, 10, 11, 13].indexOf(pronounIdx) > -1)? "ي": "ى";
-    }
-    else {
-      if (verbInfo.filter.endsWith("ى")) {
-        verb += "ي";//TODO fix
-        if (opts.tense !== Tense.Pa) diacR = "ِ";
-      }
-      else {
-        verb += "و";//TODO fix
-        if (opts.tense !== Tense.Pa) diacR = "ُ";
-      }
-
-      //Sometimes it is not a
-    }
-    conjVerb.v = verb;
-    conjVerb.dR = diacR;
-
-    weakEndNormalization(conjVerb, pronounIdx, opts);
-  }
-
-  function weakEndNormalization(conjVerb, pronounIdx, opts) {
-
-    let verb = conjVerb.v,
-    prefix = conjVerb.p,
-    suffix = conjVerb.s,
-    tense = opts.tense;
-
-    if (tense === Tense.Pa) {
-      if (opts.voice !== Voice.P)
-      if (pronounIdx === 8) {
-        prefix = suffix = "";
-        let ending = verb.slice(-1);
-        verb = verb.slice(0, -1);
-        if (ending === "ي") verb += "ى";
-        else verb += "ا";
-      }
-      else if ([9, 11, 12].indexOf(pronounIdx) > -1 ) {
-        verb = verb.slice(0, -1);
-        if (/[وي]$/.test(verb)) verb = verb.slice(0, -1);
-      }
-    }
-    else {//present
-
-      if ([0, 1, 2, 8, 9].indexOf(pronounIdx) > -1) {
-        if (opts.negated && conjVerb.t === Tense.Pa) verb = verb.slice(0, -1);
-        if (opts.voice === Voice.P || !opts.negated || conjVerb.t === Tense.Pa) suffix = "";
-      }
-      else if ([3, 6, 12].indexOf(pronounIdx) > -1) {
-        verb = verb.slice(0, -1);
-        if (/[وي]$/.test(verb)) verb = verb.slice(0, -1);
-      }
-    }
-
-    conjVerb.v = verb;
-    conjVerb.p = prefix;
-    conjVerb.s = suffix;
-
-  }
-
-  function mudaafHandler(conjVerb, opts, pronounIdx) {
-    let verb = conjVerb.v;
-    if (opts.tense === Tense.Pr) {
-      if ([7, 13].indexOf(pronounIdx) > -1) {
-        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
-        conjVerb.dR = (verbInfo.len < 4)? "ُ": "ِ";
-      }
-      else {
-        verb = verb.replace(/َ$/, "");
-        if (verbInfo.len > 4) {
-          conjVerb.dV = "ْ";
-          conjVerb.dR = "َ";
-        }
-        else {
-          conjVerb.dV = "ُ";
-          conjVerb.dR = "";
-        }
-      }
-
-    }
-    else { //past
-      if (pronounIdx === 13 || pronounIdx < 8) {
-        conjVerb.dR = "َ";
-        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
-      }
-      else conjVerb.dR = "";
-
-    }
-
-    conjVerb.v = verb;
-
-  }
-
-  function voiceHandler(conjVerb, opts) {
-
-    if (opts.voice !== Voice.P) return;
-
-    let suffix = conjVerb.s,
-    verb = conjVerb.v;
-
-    if (opts.tense === Tense.Pa) {
-      conjVerb.dV = (verbInfo.wm)? "ِ": "ُ";
-      conjVerb.dR = (verbInfo.wm)? "X": "ِ";
-
-      if (/^أ.{3}$/.test(verbInfo.filter)) {
-        conjVerb.dV = "ْ";//sukuun
-        verb = verb.replace(/^أ[َُِْ]?/, "أُ");
-      }
-    }
-    else { //present
-      conjVerb.p = conjVerb.p.slice(0, -1) + "ُ";
-      conjVerb.dR = (verbInfo.wm)? "X": "َ";
-      if(verbInfo.we  && suffix.startsWith("ْ")) suffix = suffix.slice(1);
-    }
-
-    conjVerb.s = suffix;
-    conjVerb.v = verb;
-
-  }
-
-  function verbLengthHandler(conjVerb, opts) {
-    let verb = conjVerb.v,
-    filteredVerb = verbInfo.filter,
-    diacV = conjVerb.dV,
-    diacR = conjVerb.dR,
-    prefix = conjVerb.p;
-
-    if (verbInfo.len === 3) {
-      diacR = "X"; //delete the vocal due to dictionary dependency
-      if (! /[^أعحه][^أعحه]$/g.test(filteredVerb)) {
-        if (/.ُ.[َُِ]?$/g.test(verb)) diacR = ""; //no change
-        //explanation: verbs with three letters and have a dhamma
-        //don't change the dhamma in present
-      }
-
-    }
-    else if (filteredVerb.startsWith("ت")) diacR = "َ"; //no change
-
-    if (opts.tense === Tense.Pr) {
-
-      /*if (verbInfo.len < 4 || ! filteredVerb.startsWith("ت")) {
-        //sukuun
-      }*/
-
-      if (verbInfo.len === 4) {
-        //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
-        //verb = verb.replace(/^.َ?/, "");
-        prefix = prefix.slice(0, -1) + "ُ";
-        diacV = (/^.َ?(ا|.ّ)/.test(verb))? "َ": "ْ";
-        //console.log(verb, diacV);
-      }
-    }
-    else { //past
-      //verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
-      //TODO passive
-
-      if (verbInfo.len === 4) {
-        diacR = "َ";
-        if (filteredVerb.startsWith("أ")) diacV = "ْ";
-      }
-    }
-
-    //past or present
-    if (/^ان.{3}$/.test(filteredVerb)) {
-      diacV = "َ"; //fatha for V vocalization
-      //console.log(verb);
-    }
-
-    conjVerb.v = verb;
-    verbInfo.filter = filteredVerb;
-    conjVerb.dV = diacV;
-    conjVerb.dR = diacR;
-    conjVerb.p = prefix;
-  }
-
-  function diacreticsHandler(conjVerb) {
-    let diacV = conjVerb.dV,
-    diacR = conjVerb.dR,
-    verb = conjVerb.v,
-    filteredVerb = verbInfo.filter,
-    fverb = verb.replace(/[َُِّْ]/g, ""),
-    len = verbInfo.len;
-
-    let  noR = (verbInfo.wm && (fverb.length === 2));
-
-
-    if (diacV) {
-      if (diacV === "X") diacV = "";//delete current one
-
-      if (fverb.length < 4 || /^.ا../.test(fverb)) verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
-      else if (fverb.startsWith("است")) verb = verb.replace(/(ا[َُِْ]?س[َُِْ]?ت)[َُِْ]?/, "$1" + diacV);
-      else if (len === 5 && /^ا.{3}$/.test(filteredVerb)) verb = verb.replace(/^(ا?[َُِْ]?.)[َُِْ]?/, "$1" + diacV);
-      else if (/ت.{3}/.test(fverb)) verb = verb.replace(/(.ّ?)[َُِْ]?(.[َُِْ]?)$/, "$1" + diacV + "$2");
-      else verb = verb.replace(/(.*[^َُِْ])[َُِْ]?([^َُِْ][َُِْ]?[^َُِْ][َُِْ]?)$/, "$1" + diacV + "$2");
-    }
-
-    if (diacR && !noR) {
-      if (diacR === "X") diacR = "";//delete current one
-      //if (/^(تَ?.َ?.َ)َ?(.َ?)$/.test(verb)) verb = verb.replace(/^(تَ?.َ?.َ)َ?(.َ?)$/, "$1" + diacR + "$2");
-      //if it is not muda33af with two chars
-      if (verbInfo.we && fverb.length === 2) verb = verb.replace(/^(.[َُِْ]?.)[َُِْ]?/, "$1" + diacR);
-      else if (! (verbInfo.m && fverb.length === 2)) verb = verb.replace(/(.ّ?)[َُِْ]?(.ّ?)[َُِْ]?$/, "$1" + diacR + "$2");
-
-    }
-
-    /*if (diacB) {
-      if (diacV === "X") diacV = "";//delete current one
-      verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
-    }*/
-
-    conjVerb.v = verb;
-  }
-
-
-  function noConjugation(opts) {
-
-    //Some verbs don't have a passive voice since they are not transitive
-    //In Arabic, you can detect some of them using patterns
-    if (opts.voice === Voice.P) {
-
-      if (opts.mood === Mood.Imp) return true;
-
-      if (verbInfo.len > 4) {
-        let filteredVerb = verbInfo.filter;
-        if (filteredVerb.startsWith("ت")) return true;
-        if (/^ان.{3}$/.test(filteredVerb)) return true;
-        if (/^ا.{3}$/.test(filteredVerb)) return true;
-      }
-    }
-
-    //Imperative
-    if (opts.mood === Mood.Imp) {
-      if (opts.person !== Person.S) return true;
-    }
-
-    return false;
-  }
-
-  function getImperative(verb, opts) {
-    if (noConjugation(opts)) return "";
-
-    let newOpts = Object.assign({}, opts);
-    newOpts.mood = Mood.Ind;
-    newOpts.tense = Tense.Pa;
-    newOpts.voice = Voice.A;
-    newOpts.negated = 1;
-    newOpts.noNegMark = 1;
-    let imp = AraMorpho.prototype.conjugate(verb, newOpts);
-    if (opts.negated) return "لَا " + imp;
-    imp = imp.slice(2);
-
-    let begin = "";
-
-
-    if (verbInfo.wb) {
-      if (/^أ.{3}$/.test(verbInfo.filter)) begin = "أَ";
-      else if (verbInfo.filter.startsWith("ا")) begin = "ا";
-    }
-    else if (!/[َُِ]/.test(imp[1]) && !/^ت.(ا.|.).$/.test(verbInfo.filter)) {
-      begin = "ا";
-    }
-
-    return begin + imp;
-  }
-
-
-  Me.conjugate = function(verb, opts) {
-
-    if (opts.mood === Mood.Imp) return getImperative(verb, opts);
-
-    verbTypes(verb);
-
-    if (noConjugation(opts)) return "";
-
-    //let filteredVerb = verbInfo.filter;
-
-    //save the original tense
-    let tense = opts.tense;
-
-    //Future is prefix + present
-    if (opts.tense === Tense.Fu) opts.tense = Tense.Pr;
-
-    let pronounIdx = getPronounIndex(opts);
-
-    let conjVerb = {
-      v: verb,
-      t: opts.tense, //original tense
-      s: "",
-      p: "",
-      dV: (opts.tense === Tense.Pr)? "ْ": "َ",
-      dR: (opts.tense === Tense.Pr)? "ِ": "َ" /*,
-      dB: ""*/
-    };
-
-    affixHandler(conjVerb, opts, pronounIdx);
-
-    verbLengthHandler(conjVerb, opts);
-
-    if (verbInfo.wb) weakBeginHandler(conjVerb, opts);
-
-    if (verbInfo.wm) weakMiddleHandler(conjVerb, opts, pronounIdx);
-
-    if (verbInfo.we) weakEndHandler(conjVerb, opts, pronounIdx);
-
-    if (verbInfo.m) mudaafHandler(conjVerb, opts, pronounIdx);
-
-    voiceHandler(conjVerb, opts);
-
-    //detect if the verb has a weak middle
-    //let weakMiddle = false;
-
-    diacreticsHandler(conjVerb);
-
-    //naqis normalization
-    //if (verbInfo.we) weakEndNormalization(conjVerb, pronounIdx, opts.tense);
-
-
-    let result = conjVerb.p;
-    //The ending of a verb must not have diacritics; they are handled by suffix
-    result += (/^[َُِْ]/.test(conjVerb.s))? conjVerb.v.replace(/[َُِْ]$/, ""): conjVerb.v;
-    result += conjVerb.s;
-
-    //Normalization of alif
-    result = conjNormakizeAlif(result);
-
-    result = conjNormakizeWaw(result);
-
-    result = conjNormakizeYaa(result);
-
-    result = result.replace(/(.)ْ\1([َُِ])/, "$1ّ$2");
-
-    if (! opts.noNegMark) {
-      let begin = "";
-
-      if (opts.negated) {
-        begin = "لَمْ "; //past
-        if (tense === Tense.Pr)  begin = "لَنْ ";
-      }
-      else if (tense === Tense.Fu) begin = "سَوْفَ ";
-
-      result = begin  + result;
-    }
-
-
-    return result.trim();
-
-  };
-
-
-  function conjNormakizeYaa(verb) {
-    //delete waw followed by sukun
-    verb = verb.replace(/ِي(.ْ)/, "ِ$1");
-    //delete sukuun on top of Yaa if preceeded by a kasra
-    verb = verb.replace("ِيْ", "ِي");
-
-    return verb;
-  }
-
-
-  function conjNormakizeWaw(verb) {
-    //delete waw followed by sukun
-    verb = verb.replace(/ُو(.ْ)/, "ُ$1");
-    //delete sukuun on top of waw if preceeded by a dhamma
-    verb = verb.replace("ُوْ", "ُو");
-
-    return verb;
-  }
-
-  /**
-   * Normalizing alif after conjugation
-   *
-   * @method conjNormakizeAlif
-   * @private
-   * @static
-   * @memberof AraMorpho
-   * @param  {String}          verb conjugated verb
-   * @return {String}               verb with alif normalization
-   */
-  function conjNormakizeAlif(verb) {
-    //order is important, don't change
-    verb = verb.replace(/أْوِ/, "ؤُو");
-    verb = verb.replace(/أَأْ/, "آ");
-    verb = verb.replace(/أَا/, "آ");
-    verb = verb.replace("أِي", "ئِي");
-    verb = verb.replace(/ِأ(.?)/, "ئ$1");
-    verb = verb.replace(/(.)أُو/, "$1ؤُو"); //alif followed by waw, but not first
-    verb = verb.replace(/([ِي])ء([َُِْ].)/, "$1ئ$2");
-    verb = verb.replace(/اءُ?و/, "اؤُو");
-    verb = verb.replace("ِا", "ِي");
-    verb = verb.replace(/َا(.ْ)/, "َ$1");
-    verb = verb.replace("ُا", "ُو");
-
-    return verb;
-  }
 
   //verbs taken from Shereen Khoja stemmer
   //http://zeus.cs.pacificu.edu/shereen/research.htm
@@ -825,136 +160,108 @@
     "وب": 1, "ول": 1
   };
 
+  //length one prefixes
+  const isriP1 = ["ل", "ب", "ف", "س", "و", "ي", "ت", "ن", "ا"],
+  //length two prefixes
+  isriP2 = ["ال", "لل"],
+  //length three prefixes
+  isriP3 = ["كال", "بال", "ولل", "وال"],
+  //length one suffixes
+  isriS1 = ["ة", "ه", "ي", "ك", "ت", "ا", "ن"],
+  //length two suffixes
+  isriS2 = ["ون", "ات", "ان", "ين", "تن", "كم", "هن", "نا", "يا", "ها", "تم",
+  "كن", "ني", "وا", "ما", "هم"],
+  //length three suffixes
+  isriS3 = ["تمل", "همل", "تان", "تين", "كمل"];
+
+
+
+  //==========================================
+  // INNER VARIABLES
+  //==========================================
+
   /**
-   * This object is used to save the last weak middle verb and its type.
-   * This will optimize the process time when looking for the type of the
-   * same used verb.
-   * @private
-   * @static
+   * An object to be a medium between different functions
    * @type {Object}
    */
-  let weakMiddleStack = {
+  let verbInfo = {
+    /**
+     * The verb
+     * @type {String}
+     */
     verb: "",
-    res: ""
+    /**
+     * The filtered verb
+     * @type {String}
+     */
+    filter: "",
+    /**
+     * The length of the verb
+     * @type {Number}
+     */
+    len: 0,
+    /**
+     * Weak beginning
+     * @type {Boolean}
+     */
+    wb: false,
+    /**
+     * Weak middle
+     * @type {Boolean}
+     */
+    wm: false,
+    /**
+     * Weak ending
+     * @type {Boolean}
+     */
+    we: false,
+    /**
+     * Mudaaf
+     * @type {Boolean}
+     */
+    m: false
   };
 
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
+
+  //var g;
+
   /**
-   * Giving the type of weak middle verb
+   * Arabic language morphology
    *
-   * @method weakMiddleOrigin
-   * @private
-   * @static
-   * @memberof AraMorpho
-   * @param  {String}         verb   the verb as introduced by user
-   * @param  {String}         noDiac the verb filtered from vocalization, split shadda and split alif madda
-   * @return {Number}                an integer representing the origin of the middle alif:
-   * <ul>
-   * <li>0: alif itself</li>
-   * <li>1: waw</li>
-   * <li>2: Yaa</li>
-   * </ul>
+   * @class AraMorpho
+   * @extends Morpho
    */
-  function weakMiddleOrigin(verb, noDiac) {
+  function AraMorpho() {
+    Morpho.call(this, "ara");
+    Morpho._nStem.call(this, "IsriAraStemmer", "ISRI Arabic stemmer", IsriAraStemmer);
+    Morpho._nStem.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
 
-    //This is used for optimization
-    if (weakMiddleStack.verb === verb) return weakMiddleStack.res;
+    Morpho._nConv.call(this, "singularToPlural", "Singular noun to Plural", singular2plural);
+    Morpho._nConv.call(this, "singularToDual", "Singular noun to Dual", singular2dual);
 
-    weakMiddleStack.verb = verb;
-
-    if (noDiac.length > 3) {//Always yaa
-      weakMiddleStack.res = 2;
-      return 2;
-    }
-
-    let noWeek = noDiac[0] + noDiac[2];
-    let res = 0;
-
-    if (midWaw[noWeek]) res = 1;
-    else if (midYaa[noWeek]) res = 2;
-
-    weakMiddleStack.res = res;
-    return res;
+    //g = this.g;
   }
 
-  /**
-   * List of Arabic personal pronouns
-   * @private
-   * @static
-   * @type {Array}
-   */
-  const pronouns = [
-    "أَنَا", "نَحْنُ",
-    "أَنْتَ", "أَنْتِ", "أَنْتُمَا", "أَنْتُمَا", "أَنْتُمْ", "أَنْتُنَّ",
-    "هُوَ", "هِيَ", "هُمَا", "هُمَا", "هُمْ", "هُنَّ"
-  ];
+  AraMorpho.prototype = Object.create(Morpho.prototype);
+  let Me = AraMorpho.prototype;
+  Me.constructor = AraMorpho;
 
-  Me.getPronounName = function(opts) {
-    return pronouns[getPronounIndex(opts)];
-  };
+  //==========================================
+  // STATIC FUNCTIONS
+  //==========================================
 
-  /**
-   * Normalization method for Arabic: it helps delete vocalization
-   * <ul>
-   * <li> voc: delete vocalization </li>
-   * <li> alef: Replace all alef variants with the simple alef </li>
-   * <li> ihamza: Replace all beginning hamza variants with the simple alef </li>
-   * <li> yeh: Relace the alif maqsorah with yeh </li>
-   * <li> teh: Replace teh marbuta with heh </li>
-   * <li> _: Delete tatweel </li>
-   * </ul>
-   * @method normalize
-   * @override
-   * @memberof AraMorpho
-   * @param  {String} word the word to be normalized
-   * @param  {String} opts some options (optional) where each language defines its own
-   * normalization options
-   * @return {String}      normalized word
-   **/
-  Me.normalize = function(word, opts) {
-    let norm = word.trim();
 
-    //If no options are afforded, do all
-    if (! opts || opts.length < 1) {
-      opts = "voc,alef,yeh,teh,_";
-    }
+  //==========================================
+  // STEMMING FUNCTIONS
+  //==========================================
 
-    //Delete vocals: fathah, kasrah, etc.
-    if (opts.includes("voc")) {
-      norm = norm.replace(/[َ ً ُ ٍ ْ ِ ٌ]/g, "");
-    }
 
-    //Replace all alef variants with the simple alef
-    if (opts.includes("alef")) {
-      norm = norm.replace(/[أإآ]/g, "ا");
-    }
-
-    //Replace initial hamza with alef
-    if (opts.includes("ihamza")) {
-      norm = norm.replace(/^[أإآ]/g, "ا");
-    }
-
-    //Relace the alif maqsorah with yeh
-    if (opts.includes("yeh")) {
-      norm = norm.replace(/[ى]/g, "ي");
-    }
-
-    //Replace teh marbuta with heh
-    if (opts.includes("teh")) {
-      norm = norm.replace(/[ة]/g, "ه");
-    }
-
-    //Delete tatweel
-    if (opts.includes("_")) {
-      norm = norm.replace(/[ـ]+/g, "");
-    }
-
-    return norm;
-
-  };
-
-  //=========================================================
-  //                 STEMMERS
-  //=========================================================
+  //==========================================
+  // JSLINGUA STEMMER FUNCTIONS
+  //==========================================
 
   /*let JsLinguaPS = {
     //templates
@@ -968,7 +275,7 @@
       isriP3,
 
     ]
-  };*/
+  };
 
   function jsStem(word, startingList, endingList) {
     let l = "^(" + startingList.join("|") + ")";
@@ -984,6 +291,7 @@
 
     return word;
   }
+  */
 
   /**
    * A method for Arabic stemming which aims to use regex as much as possible
@@ -1032,19 +340,9 @@
   }
 
 
-  //length one prefixes
-  let isriP1 = ["ل", "ب", "ف", "س", "و", "ي", "ت", "ن", "ا"],
-  //length two prefixes
-  isriP2 = ["ال", "لل"],
-  //length three prefixes
-  isriP3 = ["كال", "بال", "ولل", "وال"],
-  //length one suffixes
-  isriS1 = ["ة", "ه", "ي", "ك", "ت", "ا", "ن"],
-  //length two suffixes
-  isriS2 = ["ون", "ات", "ان", "ين", "تن", "كم", "هن", "نا", "يا", "ها", "تم",
-  "كن", "ني", "وا", "ما", "هم"],
-  //length three suffixes
-  isriS3 = ["تمل", "همل", "تان", "تين", "كمل"];
+  //==========================================
+  // ISRI STEMMER FUNCTIONS
+  //==========================================
 
   function IsriAraStemmer(word) {
     let stem = word,
@@ -1266,9 +564,9 @@
     return word;
   }
 
-  function notNull(obj) {
-    return (obj != null);
-  }
+  //==========================================
+  // CONVERTION FUNCTIONS
+  //==========================================
 
   /**
    * Transforms a singular noun to plural
@@ -1299,5 +597,771 @@
     if (noun.endsWith("ة")) noun = noun.slice(0, -1) + "ت";
     return noun + "ان" ;
   }
+
+  //==========================================
+  // CONJUGATION FUNCTIONS
+  //==========================================
+
+  Me.conjugate = function(verb, opts) {
+
+    if (opts.mood === Mood.Imp) return __getImperative(verb, opts);
+
+    __verbTypes(verb);
+
+    if (__noConjugation(opts)) return "";
+
+    //let filteredVerb = verbInfo.filter;
+
+    //save the original tense
+    let tense = opts.tense;
+
+    //Future is prefix + present
+    if (opts.tense === Tense.Fu) opts.tense = Tense.Pr;
+
+    let pronounIdx = __getPronounIndex(opts);
+
+    let conjVerb = {
+      v: verb,
+      t: opts.tense, //original tense
+      s: "",
+      p: "",
+      dV: (opts.tense === Tense.Pr)? "ْ": "َ",
+      dR: (opts.tense === Tense.Pr)? "ِ": "َ" /*,
+      dB: ""*/
+    };
+
+    __affixHandler(conjVerb, opts, pronounIdx);
+
+    __verbLengthHandler(conjVerb, opts);
+
+    if (verbInfo.wb) __weakBeginHandler(conjVerb, opts);
+
+    if (verbInfo.wm) __weakMiddleHandler(conjVerb, opts, pronounIdx);
+
+    if (verbInfo.we) __weakEndHandler(conjVerb, opts, pronounIdx);
+
+    if (verbInfo.m) __mudaafHandler(conjVerb, opts, pronounIdx);
+
+    __voiceHandler(conjVerb, opts);
+
+    //detect if the verb has a weak middle
+    //let weakMiddle = false;
+
+    __diacreticsHandler(conjVerb);
+
+    //naqis normalization
+    //if (verbInfo.we) weakEndNormalization(conjVerb, pronounIdx, opts.tense);
+
+    let result = conjVerb.p;
+    //The ending of a verb must not have diacritics; they are handled by suffix
+    result += (/^[َُِْ]/.test(conjVerb.s))? conjVerb.v.replace(/[َُِْ]$/, ""): conjVerb.v;
+    result += conjVerb.s;
+
+    //Normalization of alif
+    result = __conjNormalizeAlif(result);
+
+    result = __conjNormalizeWaw(result);
+
+    result = __conjNormalizeYaa(result);
+
+    result = result.replace(/(.)ْ\1([َُِ])/, "$1ّ$2");
+
+    if (! opts.noNegMark) {
+      let begin = "";
+
+      if (opts.negated) {
+        begin = "لَمْ "; //past
+        if (tense === Tense.Pr)  begin = "لَنْ ";
+      }
+      else if (tense === Tense.Fu) begin = "سَوْفَ ";
+
+      result = begin  + result;
+    }
+
+
+    return result.trim();
+
+  };
+
+  function __getImperative(verb, opts) {
+    if (__noConjugation(opts)) return "";
+
+    let newOpts = Object.assign({}, opts);
+    newOpts.mood = Mood.Ind;
+    newOpts.tense = Tense.Pa;
+    newOpts.voice = Voice.A;
+    newOpts.negated = 1;
+    newOpts.noNegMark = 1;
+    let imp = AraMorpho.prototype.conjugate(verb, newOpts);
+    if (opts.negated) return "لَا " + imp;
+    imp = imp.slice(2);
+
+    let begin = "";
+
+
+    if (verbInfo.wb) {
+      if (/^أ.{3}$/.test(verbInfo.filter)) begin = "أَ";
+      else if (verbInfo.filter.startsWith("ا")) begin = "ا";
+    }
+    else if (!/[َُِ]/.test(imp[1]) && !/^ت.(ا.|.).$/.test(verbInfo.filter)) {
+      begin = "ا";
+    }
+
+    return begin + imp;
+  }
+
+  //==========================================
+  // CONJUGATION HANDLER FUNCTIONS
+  //==========================================
+
+  function __affixHandler(conjVerb, opts, pronounIdx) {
+    let suffix = "";
+    if (opts.negated) {
+      let end = (opts.tense === Tense.Pa)? "ْ": "َ";
+      suffix = conjAffix[Tense.Pr].suffix[pronounIdx];
+      if (/[^ْ]ن[َِ]$/.test(suffix)) {//delete nuun with negation when not preceded by sukuun
+        suffix = suffix.slice(0, -2);
+        if (suffix.endsWith("و")) suffix += "ا";
+      } //Otherwise add fatha for present, sukuun for past
+      else if (! /ن[َِ]$/.test(suffix)) suffix = suffix.slice(0, -1) + end;
+      opts.tense = Tense.Pr;
+      conjVerb.dV = "ْ";
+      conjVerb.dR = "ِ";
+    }
+    else {
+      suffix = conjAffix[opts.tense].suffix[pronounIdx];
+    }
+    conjVerb.s = suffix;
+
+    let prefix = conjAffix[opts.tense].prefix[pronounIdx];
+    if(! prefix) prefix = "";
+    conjVerb.p = prefix;
+  }
+
+
+  function __weakBeginHandler(conjVerb, opts) {
+    let verb = conjVerb.v,
+    filteredVerb = verbInfo.filter,
+    len = verbInfo.len;
+
+    if (opts.tense === Tense.Pr) {
+      verb = (opts.voice === Voice.P && len ===3 && !filteredVerb.startsWith("أ"))? verb.replace(/^(.)[َُِْ]/, "$1"): verb.slice(1);
+      //TODO verify verbs like akala
+      /*if (len > 3 || !filteredVerb.startsWith("أ")) verb = verb.slice(1);
+      if (opts.voice === Voice.P) {
+        if (/^أ.{2}$/.test(filteredVerb)) verb += "أو"; //
+      }*/
+
+
+      if (/^ا.ت..$/.test(filteredVerb)) {
+        conjVerb.dV = "َ";
+      }
+
+    }
+
+    if (/^ا.{3}$/.test(filteredVerb)) {
+      conjVerb.dV = "ْ";
+    }
+
+    conjVerb.v = verb;
+  }
+
+  function __weakMiddleHandler(conjVerb, opts, pronounIdx) {
+
+    let verb = conjVerb.v,
+    weakType = __weakMiddleOrigin(verb, verbInfo.filter),
+    diacV = "َُِ"[weakType],
+    diacR = "";
+
+
+    if (opts.tense === Tense.Pa) {
+      diacR = (verbInfo.len === 3)? "ُ": "َ";
+
+      if (pronounIdx === 13 || pronounIdx < 8) {
+        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1$2");
+        if (verb.startsWith("آ")) verb = "أ" + verb.slice(1);
+        if (weakType === 0) diacV = "ِ";
+      }
+      else {
+        diacR = "";
+        diacV = "َ";
+      }
+    }
+    else {//Present
+
+      let weakChar = "اوي"[weakType];
+      if (opts.voice !== Voice.P) {//weakType === 2 ||
+        //with plural feminine; delete the weakChar
+        if ([7, 13].indexOf(pronounIdx) > -1) weakChar = "";
+
+        verb = verb.replace(/^(.+)ا(.َ?)$/, "$1" + weakChar + "$2");
+      }
+      else {
+        diacV = "َ";
+        diacR = "X";
+      }
+
+    }
+
+    conjVerb.v = verb;
+    conjVerb.dV = diacV;
+    conjVerb.dR = diacR;
+
+  }
+
+  function __weakEndHandler(conjVerb, opts, pronounIdx) {
+    let verb = conjVerb.v,
+    diacR = conjVerb.dR;
+    //if (opts.tense === Tense.Pa) conjVerb.dR = "َ";
+    diacR = "َ";
+    verb = verb.slice(0, -1);
+
+    if (opts.voice === Voice.P) { //
+      if (opts.tense === Tense.Pa || [4, 5, 7, 10, 11, 13].indexOf(pronounIdx) > -1) {
+        verb +=  "ي";
+        diacR = "ِ";
+      }
+      else verb += "ى";
+      //verb += (opts.tense === Tense.Pa || [4, 5, 7, 10, 11, 13].indexOf(pronounIdx) > -1)? "ي": "ى";
+    }
+    else {
+      if (verbInfo.filter.endsWith("ى")) {
+        verb += "ي";//TODO fix
+        if (opts.tense !== Tense.Pa) diacR = "ِ";
+      }
+      else {
+        verb += "و";//TODO fix
+        if (opts.tense !== Tense.Pa) diacR = "ُ";
+      }
+
+      //Sometimes it is not a
+    }
+    conjVerb.v = verb;
+    conjVerb.dR = diacR;
+
+    __conjNormalizeWeakEnd(conjVerb, pronounIdx, opts);
+  }
+
+  function __mudaafHandler(conjVerb, opts, pronounIdx) {
+    let verb = conjVerb.v;
+    if (opts.tense === Tense.Pr) {
+      if ([7, 13].indexOf(pronounIdx) > -1) {
+        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
+        conjVerb.dR = (verbInfo.len < 4)? "ُ": "ِ";
+      }
+      else {
+        verb = verb.replace(/َ$/, "");
+        if (verbInfo.len > 4) {
+          conjVerb.dV = "ْ";
+          conjVerb.dR = "َ";
+        }
+        else {
+          conjVerb.dV = "ُ";
+          conjVerb.dR = "";
+        }
+      }
+
+    }
+    else { //past
+      if (pronounIdx === 13 || pronounIdx < 8) {
+        conjVerb.dR = "َ";
+        verb = verb.replace(/^(.*)(.)َّ?$/, "$1$2َ$2ْ");
+      }
+      else conjVerb.dR = "";
+
+    }
+
+    conjVerb.v = verb;
+
+  }
+
+  function __voiceHandler(conjVerb, opts) {
+
+    if (opts.voice !== Voice.P) return;
+
+    let suffix = conjVerb.s,
+    verb = conjVerb.v;
+
+    if (opts.tense === Tense.Pa) {
+      conjVerb.dV = (verbInfo.wm)? "ِ": "ُ";
+      conjVerb.dR = (verbInfo.wm)? "X": "ِ";
+
+      if (/^أ.{3}$/.test(verbInfo.filter)) {
+        conjVerb.dV = "ْ";//sukuun
+        verb = verb.replace(/^أ[َُِْ]?/, "أُ");
+      }
+    }
+    else { //present
+      conjVerb.p = conjVerb.p.slice(0, -1) + "ُ";
+      conjVerb.dR = (verbInfo.wm)? "X": "َ";
+      if(verbInfo.we  && suffix.startsWith("ْ")) suffix = suffix.slice(1);
+    }
+
+    conjVerb.s = suffix;
+    conjVerb.v = verb;
+
+  }
+
+  function __verbLengthHandler(conjVerb, opts) {
+    let verb = conjVerb.v,
+    filteredVerb = verbInfo.filter,
+    diacV = conjVerb.dV,
+    diacR = conjVerb.dR,
+    prefix = conjVerb.p;
+
+    if (verbInfo.len === 3) {
+      diacR = "X"; //delete the vocal due to dictionary dependency
+      if (! /[^أعحه][^أعحه]$/g.test(filteredVerb)) {
+        if (/.ُ.[َُِ]?$/g.test(verb)) diacR = ""; //no change
+        //explanation: verbs with three letters and have a dhamma
+        //don't change the dhamma in present
+      }
+
+    }
+    else if (filteredVerb.startsWith("ت")) diacR = "َ"; //no change
+
+    if (opts.tense === Tense.Pr) {
+
+      /*if (verbInfo.len < 4 || ! filteredVerb.startsWith("ت")) {
+        //sukuun
+      }*/
+
+      if (verbInfo.len === 4) {
+        //verb = verb.replace(/^(.)[َُِْ]?/, "$1ْ");
+        //verb = verb.replace(/^.َ?/, "");
+        prefix = prefix.slice(0, -1) + "ُ";
+        diacV = (/^.َ?(ا|.ّ)/.test(verb))? "َ": "ْ";
+        //console.log(verb, diacV);
+      }
+    }
+    else { //past
+      //verb = verb.replace(/^(.)[َُِْ]?/, "$1َ");//This, for indicative active
+      //TODO passive
+
+      if (verbInfo.len === 4) {
+        diacR = "َ";
+        if (filteredVerb.startsWith("أ")) diacV = "ْ";
+      }
+    }
+
+    //past or present
+    if (/^ان.{3}$/.test(filteredVerb)) {
+      diacV = "َ"; //fatha for V vocalization
+      //console.log(verb);
+    }
+
+    conjVerb.v = verb;
+    verbInfo.filter = filteredVerb;
+    conjVerb.dV = diacV;
+    conjVerb.dR = diacR;
+    conjVerb.p = prefix;
+  }
+
+  function __diacreticsHandler(conjVerb) {
+    let diacV = conjVerb.dV,
+    diacR = conjVerb.dR,
+    verb = conjVerb.v,
+    filteredVerb = verbInfo.filter,
+    fverb = verb.replace(/[َُِّْ]/g, ""),
+    len = verbInfo.len;
+
+    let  noR = (verbInfo.wm && (fverb.length === 2));
+
+
+    if (diacV) {
+      if (diacV === "X") diacV = "";//delete current one
+
+      if (fverb.length < 4 || /^.ا../.test(fverb)) verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
+      else if (fverb.startsWith("است")) verb = verb.replace(/(ا[َُِْ]?س[َُِْ]?ت)[َُِْ]?/, "$1" + diacV);
+      else if (len === 5 && /^ا.{3}$/.test(filteredVerb)) verb = verb.replace(/^(ا?[َُِْ]?.)[َُِْ]?/, "$1" + diacV);
+      else if (/ت.{3}/.test(fverb)) verb = verb.replace(/(.ّ?)[َُِْ]?(.[َُِْ]?)$/, "$1" + diacV + "$2");
+      else verb = verb.replace(/(.*[^َُِْ])[َُِْ]?([^َُِْ][َُِْ]?[^َُِْ][َُِْ]?)$/, "$1" + diacV + "$2");
+    }
+
+    if (diacR && !noR) {
+      if (diacR === "X") diacR = "";//delete current one
+      //if (/^(تَ?.َ?.َ)َ?(.َ?)$/.test(verb)) verb = verb.replace(/^(تَ?.َ?.َ)َ?(.َ?)$/, "$1" + diacR + "$2");
+      //if it is not muda33af with two chars
+      if (verbInfo.we && fverb.length === 2) verb = verb.replace(/^(.[َُِْ]?.)[َُِْ]?/, "$1" + diacR);
+      else if (! (verbInfo.m && fverb.length === 2)) verb = verb.replace(/(.ّ?)[َُِْ]?(.ّ?)[َُِْ]?$/, "$1" + diacR + "$2");
+
+    }
+
+    /*if (diacB) {
+      if (diacV === "X") diacV = "";//delete current one
+      verb = verb.replace(/^(.)[َُِْ]?/, "$1" + diacV);
+    }*/
+
+    conjVerb.v = verb;
+  }
+
+  //==========================================
+  // CONJUGATION PREPROCESSOR FUNCTIONS
+  //==========================================
+
+  function __verbTypes(verb) {
+    //delete spaces
+    verb = verb.trim();
+
+    verb = verb.replace(/^(.َ?.)َ?$/, "$1َّ");//if the verb has two chars add shadda in the end
+
+    //verb = verb.replace(/^([^ا])[َُِ]?/, "$1َ"); //add fatha to the first char if not alif
+
+    if (verb === verbInfo.verb) return;
+
+    verbInfo.verb = verb;
+
+    //replace Alif madda
+    let filteredVerb = verb.replace("آ", "أا");
+    //Muda33af
+    filteredVerb = (/َ?ّ$/.test(verb))? filteredVerb + filteredVerb.slice(-1): filteredVerb;
+    //delete diacretics
+    filteredVerb = filteredVerb.replace(/[َُِّْ]/gi, "");//fat,dam,kas,shad,sukun
+
+    verbInfo.filter = filteredVerb;
+
+
+    verbInfo.len = filteredVerb.length + verb.replace(/[^ّ]/g, "").length;
+
+    //detect if the verb with weak begining
+    verbInfo.wb = /^[أاو]/.test(filteredVerb);//alif does not belong to mithal, but it has the same
+    //yaa is ommited since it will not be deleted
+
+    //detect if the verb has a weak middle
+    verbInfo.wm = /[اآ].$/.test(filteredVerb);
+
+    //detect if the verb has a weak ending
+    verbInfo.we = /[اى]$/.test(filteredVerb);
+
+    //detect if muda33af
+    verbInfo.m = /َّ?$/.test(verb);
+
+    //console.log(verbInfo);
+
+  }
+
+  /**
+   * This object is used to save the last weak middle verb and its type.
+   * This will optimize the process time when looking for the type of the
+   * same used verb.
+   * @private
+   * @static
+   * @type {Object}
+   */
+  let weakMiddleStack = {
+    verb: "",
+    res: ""
+  };
+
+  /**
+   * Giving the type of weak middle verb
+   *
+   * @method __weakMiddleOrigin
+   * @private
+   * @static
+   * @memberof AraMorpho
+   * @param  {String}         verb   the verb as introduced by user
+   * @param  {String}         noDiac the verb filtered from vocalization, split shadda and split alif madda
+   * @return {Number}                an integer representing the origin of the middle alif:
+   * <ul>
+   * <li>0: alif itself</li>
+   * <li>1: waw</li>
+   * <li>2: Yaa</li>
+   * </ul>
+   */
+  function __weakMiddleOrigin(verb, noDiac) {
+
+    //This is used for optimization
+    if (weakMiddleStack.verb === verb) return weakMiddleStack.res;
+
+    weakMiddleStack.verb = verb;
+
+    if (noDiac.length > 3) {//Always yaa
+      weakMiddleStack.res = 2;
+      return 2;
+    }
+
+    let noWeek = noDiac[0] + noDiac[2];
+    let res = 0;
+
+    if (midWaw[noWeek]) res = 1;
+    else if (midYaa[noWeek]) res = 2;
+
+    weakMiddleStack.res = res;
+    return res;
+  }
+
+  function __noConjugation(opts) {
+
+    //Some verbs don't have a passive voice since they are not transitive
+    //In Arabic, you can detect some of them using patterns
+    if (opts.voice === Voice.P) {
+
+      if (opts.mood === Mood.Imp) return true;
+
+      if (verbInfo.len > 4) {
+        let filteredVerb = verbInfo.filter;
+        if (filteredVerb.startsWith("ت")) return true;
+        if (/^ان.{3}$/.test(filteredVerb)) return true;
+        if (/^ا.{3}$/.test(filteredVerb)) return true;
+      }
+    }
+
+    //Imperative
+    if (opts.mood === Mood.Imp) {
+      if (opts.person !== Person.S) return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * A function that gives the pronoun index in conjugation table
+   *
+   * @method __getPronounIndex
+   * @private
+   * @memberof AraMorpho
+   * @param  {Object}        opts contains person, number and gender
+   * @return {Number}             a number from 0 to 13
+   */
+  function __getPronounIndex(opts) {
+
+    if (opts.person === Person.F) {
+      if (opts.number === GNumber.S) return 0;
+      else return 1;
+    }
+
+    let personIdx = (Object.values(Person).indexOf(opts.person)-1) * 6;
+    let numberIdx = Object.values(GNumber).indexOf(opts.number) * 2;
+    let genderIdx = Object.values(Gender).indexOf(opts.gender);
+
+    return personIdx + numberIdx + genderIdx + 2;
+  }
+
+  //==========================================
+  // CONJUGATION NORMALIZATION FUNCTIONS
+  //==========================================
+
+  function __conjNormalizeYaa(verb) {
+    //delete waw followed by sukun
+    verb = verb.replace(/ِي(.ْ)/, "ِ$1");
+    //delete sukuun on top of Yaa if preceeded by a kasra
+    verb = verb.replace("ِيْ", "ِي");
+
+    return verb;
+  }
+
+
+  function __conjNormalizeWaw(verb) {
+    //delete waw followed by sukun
+    verb = verb.replace(/ُو(.ْ)/, "ُ$1");
+    //delete sukuun on top of waw if preceeded by a dhamma
+    verb = verb.replace("ُوْ", "ُو");
+
+    return verb;
+  }
+
+  /**
+   * Normalizing alif after conjugation
+   *
+   * @method __conjNormalizeAlif
+   * @private
+   * @static
+   * @memberof AraMorpho
+   * @param  {String}          verb conjugated verb
+   * @return {String}               verb with alif normalization
+   */
+  function __conjNormalizeAlif(verb) {
+    //order is important, don't change
+    verb = verb.replace(/أْوِ/, "ؤُو");
+    verb = verb.replace(/أَأْ/, "آ");
+    verb = verb.replace(/أَا/, "آ");
+    verb = verb.replace("أِي", "ئِي");
+    verb = verb.replace(/ِأ(.?)/, "ئ$1");
+    verb = verb.replace(/(.)أُو/, "$1ؤُو"); //alif followed by waw, but not first
+    verb = verb.replace(/([ِي])ء([َُِْ].)/, "$1ئ$2");
+    verb = verb.replace(/اءُ?و/, "اؤُو");
+    verb = verb.replace("ِا", "ِي");
+    verb = verb.replace(/َا(.ْ)/, "َ$1");
+    verb = verb.replace("ُا", "ُو");
+
+    return verb;
+  }
+
+  function __conjNormalizeWeakEnd(conjVerb, pronounIdx, opts) {
+
+    let verb = conjVerb.v,
+    prefix = conjVerb.p,
+    suffix = conjVerb.s,
+    tense = opts.tense;
+
+    if (tense === Tense.Pa) {
+      if (opts.voice !== Voice.P)
+      if (pronounIdx === 8) {
+        prefix = suffix = "";
+        let ending = verb.slice(-1);
+        verb = verb.slice(0, -1);
+        if (ending === "ي") verb += "ى";
+        else verb += "ا";
+      }
+      else if ([9, 11, 12].indexOf(pronounIdx) > -1 ) {
+        verb = verb.slice(0, -1);
+        if (/[وي]$/.test(verb)) verb = verb.slice(0, -1);
+      }
+    }
+    else {//present
+
+      if ([0, 1, 2, 8, 9].indexOf(pronounIdx) > -1) {
+        if (opts.negated && conjVerb.t === Tense.Pa) verb = verb.slice(0, -1);
+        if (opts.voice === Voice.P || !opts.negated || conjVerb.t === Tense.Pa) suffix = "";
+      }
+      else if ([3, 6, 12].indexOf(pronounIdx) > -1) {
+        verb = verb.slice(0, -1);
+        if (/[وي]$/.test(verb)) verb = verb.slice(0, -1);
+      }
+    }
+
+    conjVerb.v = verb;
+    conjVerb.p = prefix;
+    conjVerb.s = suffix;
+
+  }
+
+  //==========================================
+  // CONJUGATION OPTIONS PUBLIC FUNCTIONS
+  //==========================================
+
+  Me.getTenseName = function(tense) {
+    switch (tense) {
+      case Tense.Pa:
+        return "الماضي";
+      case Tense.Pr:
+        return "المضارع";
+      case Tense.Fu:
+        return "المستقبل";
+    }
+
+    return "";
+  };
+
+  Me.getForms = function() {
+    //super doesn't work here
+    let superFrm = Morpho.prototype.getForms.call(this);
+    const araForms =  {
+      "Imperative": {
+        mood: Mood.Imp
+      }
+    };
+
+    return Object.assign({}, superFrm, araForms);
+  };
+
+  //==========================================
+  // CONJUGATION OPTIONS PROTECTED FUNCTIONS
+  //==========================================
+
+  Me._gPpOpts = function() {
+    return [
+        {person:Person.F, number: GNumber.S},
+        {person:Person.F, number: GNumber.P},
+
+        {person:Person.S, number: GNumber.S, gender: Gender.M},
+        {person:Person.S, number: GNumber.S, gender: Gender.F},
+        {person:Person.S, number: GNumber.D, gender: Gender.M},
+        {person:Person.S, number: GNumber.D, gender: Gender.F},
+        {person:Person.S, number: GNumber.P, gender: Gender.M},
+        {person:Person.S, number: GNumber.P, gender: Gender.F},
+
+        {person:Person.T, number: GNumber.S, gender: Gender.M},
+        {person:Person.T, number: GNumber.S, gender: Gender.F},
+        {person:Person.T, number: GNumber.D, gender: Gender.M},
+        {person:Person.T, number: GNumber.D, gender: Gender.F},
+        {person:Person.T, number: GNumber.P, gender: Gender.M},
+        {person:Person.T, number: GNumber.P, gender: Gender.F}
+    ];
+  };
+
+  Me._gPpName = function(opts) {
+    return pronouns[__getPronounIndex(opts)];
+  };
+
+  //==========================================
+  // NORMALIZATION FUNCTIONS
+  //==========================================
+
+  /**
+   * Normalization method for Arabic: it helps delete vocalization
+   * <ul>
+   * <li> voc: delete vocalization </li>
+   * <li> alef: Replace all alef variants with the simple alef </li>
+   * <li> ihamza: Replace all beginning hamza variants with the simple alef </li>
+   * <li> yeh: Relace the alif maqsorah with yeh </li>
+   * <li> teh: Replace teh marbuta with heh </li>
+   * <li> _: Delete tatweel </li>
+   * </ul>
+   * @method normalize
+   * @override
+   * @memberof AraMorpho
+   * @param  {String} word the word to be normalized
+   * @param  {String} opts some options (optional) where each language defines its own
+   * normalization options
+   * @return {String}      normalized word
+   **/
+  Me.normalize = function(word, opts) {
+    let norm = word.trim();
+
+    //If no options are afforded, do all
+    if (! opts || opts.length < 1) {
+      opts = "voc,alef,yeh,teh,_";
+    }
+
+    //Delete vocals: fathah, kasrah, etc.
+    if (opts.includes("voc")) {
+      norm = norm.replace(/[َ ً ُ ٍ ْ ِ ٌ]/g, "");
+    }
+
+    //Replace all alef variants with the simple alef
+    if (opts.includes("alef")) {
+      norm = norm.replace(/[أإآ]/g, "ا");
+    }
+
+    //Replace initial hamza with alef
+    if (opts.includes("ihamza")) {
+      norm = norm.replace(/^[أإآ]/g, "ا");
+    }
+
+    //Relace the alif maqsorah with yeh
+    if (opts.includes("yeh")) {
+      norm = norm.replace(/[ى]/g, "ي");
+    }
+
+    //Replace teh marbuta with heh
+    if (opts.includes("teh")) {
+      norm = norm.replace(/[ة]/g, "ه");
+    }
+
+    //Delete tatweel
+    if (opts.includes("_")) {
+      norm = norm.replace(/[ـ]+/g, "");
+    }
+
+    return norm;
+
+  };
+
+  //==========================================
+  // SEGMENTATION FUNCTIONS
+  //==========================================
+
+
+  //==========================================
+  // HELPER FUNCTIONS
+  //==========================================
+
+  function notNull(obj) {
+    return (obj != null);
+  }
+
+
 
 }());
