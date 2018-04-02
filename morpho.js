@@ -2,6 +2,10 @@
 
   "use strict";
 
+  //==========================================
+  // EXPORTING MODULE
+  //==========================================
+
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     module.exports = Morpho;
   }
@@ -9,67 +13,10 @@
     window.JsLingua.Cls.Morpho = Morpho;
   }
 
-  /**
-  * Morphology of a specified language
-  *
-  * @class Morpho
-  * @param {String} langCode Language ISO693-2 code: ara, jpn, eng, etc.
-  */
-  function Morpho(langCode) {
+  //==========================================
+  // CONSTANTS
+  //==========================================
 
-    this.code = langCode;
-    //Contains stemmers
-    this.stemmers = {};
-    this.cstemmer = "";//current stemmer
-    //Contains PoS conversions
-    this.converters = {};
-    this.cconverter = "";//current converter
-    this.g = {
-      debugFunction: dummyDebug
-    };
-  }
-
-  /*
-  * A debugging function which do nothing
-  * @method dummyDebug
-  * @private
-  */
-  function dummyDebug() {}
-
-  /*
-  * A debugging function which pushes the arguments to the consoles log
-  * @method realDebug
-  * @private
-  */
-  function realDebug() {
-    console.log(Array.prototype.slice.call(arguments).join(" "));
-  }
-
-  /**
-  * The part of speech: Noun, Verb, Adjective,
-  * Adverb, Preposition, Pronoun
-  * <br>access: Morpho.Feature.POS
-  * @attribute PoS
-  * @readOnly
-  * @private
-  * @static
-  * @memberof Morpho
-  * @enum {String}
-  */
-  const PoS = {
-    /** noun */
-    N: "noun",
-    /** verb */
-    V: "verb",
-    /** adjective */
-    Adj: "adjective",
-    /** adverb */
-    Adv: "adverb",
-    /** preposition */
-    Prep: "preposition",
-    /** pronoun */
-    Pron: "pronoun"
-  },
 
   /**
   * The tense: Past, Present, Future
@@ -81,7 +28,7 @@
   * @memberof Morpho
   * @enum {String}
   */
-  Tense = {
+  const Tense = {
     /** past */
     Pa: "past",
     /** present */
@@ -313,7 +260,7 @@
   * @type {Object}
   */
   Morpho.Feature = {
-    POS: PoS,
+    //POS: PoS,
     Tense: Tense,
     Aspect: Aspect,
     Mood: Mood,
@@ -336,22 +283,62 @@
     C(Morpho.Feature);
   }
 
-  //=========================================
-  // Protected methods
-  // ========================================
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
 
+  /**
+  * Morphology of a specified language
+  *
+  * @class Morpho
+  * @param {String} langCode Language ISO693-2 code: ara, jpn, eng, etc.
+  */
+  function Morpho(langCode) {
 
+    this.code = langCode;
+    //Contains stemmers
+    this.stemmers = {};
+    this.cstemmer = "";//current stemmer
+    //Contains PoS conversions
+    this.converters = {};
+    this.cconverter = "";//current converter
+    this.g = {
+      debugFunction: dummyDebug
+    };
+  }
+
+  /*
+  * A debugging function which do nothing
+  * @method dummyDebug
+  * @private
+  */
+  function dummyDebug() {}
+
+  /*
+  * A debugging function which pushes the arguments to the consoles log
+  * @method realDebug
+  * @private
+  */
+  function realDebug() {
+    console.log(Array.prototype.slice.call(arguments).join(" "));
+  }
+
+  let Me = Morpho.prototype;
+
+  //==========================================
+  // STATIC FUNCTIONS
+  //==========================================
 
   /**
   * Add new stemmer method
-  * @method newStemmer
+  * @method nStem
   * @protected
   * @memberof Morpho
   * @param  {String} stemmerName the name of the stemmer
   * @param  {String} stemmerDesc   the description of the stemmer
   * @param  {Function} stemmerFct   the function stem(word)
   */
-  Morpho.newStemmer = function (stemmerName, stemmerDesc, stemmerFct) {
+  Morpho.nStem = function (stemmerName, stemmerDesc, stemmerFct) {
     if (typeof stemmerName === "string" && stemmerName.length > 0){
       let stem = this.stemmers[stemmerName] = {};
       stem.desc = stemmerDesc;
@@ -361,14 +348,14 @@
 
   /**
   * Add new part of speach converter method
-  * @method newPosConverter
+  * @method nConv
   * @protected
   * @memberof Morpho
   * @param  {String} converterName the name of the converter
   * @param  {String} converterDesc   the description of the converter
   * @param  {Function} converterFct   the function convert(word)
   */
-  Morpho.newPosConverter = function (converterName, converterDesc, converterFct) {
+  Morpho.nConv = function (converterName, converterDesc, converterFct) {
     if (typeof converterName === "string" && converterName.length > 0){
       let conv = this.converters[converterName] = {};
       conv.desc = converterDesc;
@@ -376,10 +363,9 @@
     }
   };
 
-  //===================================================
-  // Prototypes
-  //===================================================
-  let Me = Morpho.prototype;
+  //==========================================
+  // DEBUGGING FUNCTIONS
+  //==========================================
 
   /**
   * Enables the debugging messages
@@ -401,6 +387,10 @@
   Me.disableDebug = function(){
     this.g.debugFunction = dummyDebug;
   };
+
+  //==========================================
+  // STEMMING FUNCTIONS
+  //==========================================
 
   /**
   * Sets the current stemmer
