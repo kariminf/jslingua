@@ -172,7 +172,7 @@
 
 
   //========================================
-  // DEPRECATED FUNCTIONS
+  // LONG FUNCTIONS
   //========================================
 
   /**
@@ -180,7 +180,6 @@
   * For example: JsLingua.getService("Info", "ara") Gives a class AraInfo
   *
   * @method getService
-  * @deprecated use gserv() instead
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
@@ -195,7 +194,6 @@
   * Get the codes of available languages of a given service
   *
   * @method serviceLanguages
-  * @deprecated use llang() instead
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
@@ -213,7 +211,6 @@
    * language in each webpage.
    *
    * @method getDir
-   * @deprecated use gdir() instead
    * @public
    * @static
    * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
@@ -227,7 +224,6 @@
    * Returns the version of JsLingua
    *
    * @method getVersion
-   * @deprecated use gversion() instead
    * @public
    * @static
    * @return {String}   JsLingua version

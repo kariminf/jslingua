@@ -324,12 +324,11 @@
 
 
 	//==========================================
-  // DEPRECATED FUNCTIONS
+  // LONG FUNCTIONS
   //==========================================
 
 	/**
 	 * untransliterate the text using the current method
-	 * @deprecated use untrans(text) instead
 	 * @public
  	 * @final
  	 * @memberof Trans
@@ -337,7 +336,6 @@
  	 * @return {String}      untranslaterated text (original text)
 	 */
 	Me.untransliterate = function(text) {
-		console.warn("untransliterate(text) is deprecated; use untrans(text)");
 		return this.untrans(text);
 	}
 
@@ -345,7 +343,6 @@
 	* transliterate the text using the current method
 	*
 	* @method transliterate
-	* @deprecated use trans() instead
 	* @public
 	* @final
 	* @memberof Trans
@@ -353,7 +350,6 @@
 	* @return {String}      the transliterated text
 	*/
 	Me.transliterate = function(text) {
-		console.warn("transliterate(text) is deprecated; use trans(text)");
 		return this.trans(text);
 	}
 
@@ -361,14 +357,12 @@
 	* Sets the current method to be used for [un]transliteration
 	*
 	* @method setCurrentMethod
-	* @deprecated use s() instead
 	* @public
 	* @final
 	* @memberof Trans
 	* @param {String} methodName method's name
 	*/
 	Me.setCurrentMethod = function(methodName) {
-		console.warn("setCurrentMethod(methodName) is deprecated; use sTrans(methodName)");
 		this.s(methodName);
 	};
 
@@ -376,14 +370,12 @@
 	* Returns the list of available transliteration methods
 	*
 	* @method availableMethods
-	* @deprecated use l() instead
 	* @public
 	* @final
 	* @memberof Trans
 	* @return {String[]}  methods names
 	*/
 	Me.availableMethods = function() {
-		console.warn("availableMethods() is deprecated; use l()");
 		return this.l();
 	};
 
