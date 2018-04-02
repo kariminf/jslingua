@@ -305,22 +305,6 @@
     };
   }
 
-  /*
-  * A debugging function which do nothing
-  * @method dummyDebug
-  * @private
-  */
-  function dummyDebug() {}
-
-  /*
-  * A debugging function which pushes the arguments to the consoles log
-  * @method realDebug
-  * @private
-  */
-  function realDebug() {
-    console.log(Array.prototype.slice.call(arguments).join(" "));
-  }
-
   let Me = Morpho.prototype;
 
   //==========================================
@@ -816,7 +800,7 @@
   }
 
   //==========================================
-  // CONJUGATION HELPER FUNCTIONS
+  // HELPER FUNCTIONS
   //==========================================
 
   /**
@@ -895,5 +879,25 @@
     return result;
 
   };
+
+  //==========================================
+  // HELPER FUNCTIONS
+  //==========================================
+
+  /*
+  * A debugging function which do nothing
+  * @method dummyDebug
+  * @private
+  */
+  function dummyDebug() {}
+
+  /*
+  * A debugging function which pushes the arguments to the consoles log
+  * @method realDebug
+  * @private
+  */
+  function realDebug() {
+    console.log(Array.prototype.slice.call(arguments).join(" "));
+  }
 
 }());

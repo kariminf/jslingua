@@ -236,11 +236,11 @@
    */
   function AraMorpho() {
     Morpho.call(this, "ara");
-    Morpho._nStem.call(this, "IsriAraStemmer", "ISRI Arabic stemmer", IsriAraStemmer);
-    Morpho._nStem.call(this, "jslinguaAraStemmer", "JsLingua Arabic stemmer", jslinguaAraStemmer);
+    Morpho._nStem.call(this, "Isri", "ISRI Arabic stemmer", __IsriAraStemmer);
+    Morpho._nStem.call(this, "jslAra", "JsLingua Arabic stemmer", __jslinguaAraStemmer);
 
-    Morpho._nConv.call(this, "singularToPlural", "Singular noun to Plural", singular2plural);
-    Morpho._nConv.call(this, "singularToDual", "Singular noun to Dual", singular2dual);
+    Morpho._nConv.call(this, "sing2pl", "Singular noun to Plural", __singular2plural);
+    Morpho._nConv.call(this, "sing2dual", "Singular noun to Dual", __singular2dual);
 
     //g = this.g;
   }
@@ -296,14 +296,14 @@
   /**
    * A method for Arabic stemming which aims to use regex as much as possible
    *
-   * @method jslinguaAraStemmer
+   * @method __jslinguaAraStemmer
    * @private
    * @static
    * @memberof AraMorpho
    * @param  {String}          word the word to be stemmed
    * @return {String}               The stem
    */
-  function jslinguaAraStemmer(word) {
+  function __jslinguaAraStemmer(word) {
     let stem = word;
 
     stem = jsStem(stem, isriP3, isriS3);//6
@@ -344,7 +344,7 @@
   // ISRI STEMMER FUNCTIONS
   //==========================================
 
-  function IsriAraStemmer(word) {
+  function __IsriAraStemmer(word) {
     let stem = word,
     norm = AraMorpho.prototype.normalize;
     //normalization
@@ -571,14 +571,14 @@
   /**
    * Transforms a singular noun to plural
    *
-   * @method singular2plural
+   * @method __singular2plural
    * @private
    * @static
    * @memberof AraMorpho
    * @param  {String}        noun The noun to be transformed to plural
    * @return {String}             Plural form of the given noun
    */
-  function singular2plural(noun){
+  function __singular2plural(noun){
     if (noun.endsWith("ة")) return noun.slice(0, -1) + "ات";
     return noun + "ون" ;
   }
@@ -586,14 +586,14 @@
   /**
    * Transforms a singular noun to dual
    *
-   * @method singular2dual
+   * @method __singular2dual
    * @private
    * @static
    * @memberof AraMorpho
    * @param  {String}        noun The noun to be transformed to dual
    * @return {String}             Plural form of the given noun
    */
-  function singular2dual(noun){
+  function __singular2dual(noun){
     if (noun.endsWith("ة")) noun = noun.slice(0, -1) + "ت";
     return noun + "ان" ;
   }
