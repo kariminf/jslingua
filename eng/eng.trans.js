@@ -2,6 +2,10 @@
 
   "use strict";
 
+  //==========================================
+  // EXPORTING MODULE
+  //==========================================
+
   let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
@@ -11,6 +15,10 @@
     Trans = window.JsLingua.Cls.Trans;
     window.JsLingua.addService("Trans", "eng", EngTrans);
   }
+
+  //==========================================
+  // CONSTANTS
+  //==========================================
 
   const english = [
     "A",
@@ -69,6 +77,10 @@
     " --.. " // Z
   ];
 
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
+
   /**
    * English transliteration
    *
@@ -77,13 +89,17 @@
    */
   function EngTrans() {
     Trans.call(this, "eng");
-    Trans.newMethod.call(this,"Morse", english, enmorse);
-    Trans.addTransPrePostMethods.call(this, "Morse", morsePreTrans, morsePostTrans);
-    Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
+    Trans.nTrans.call(this,"Morse", english, enmorse);
+    Trans.sTransCnd.call(this, "Morse", morsePreTrans, morsePostTrans);
+    Trans.sUntransCnd.call(this, "Morse", morsePreUntrans, morsePostUntrans);
   }
 
   EngTrans.prototype = Object.create(Trans.prototype);
   EngTrans.prototype.constructor = EngTrans;
+
+  //==========================================
+  // MORSE FUNCTIONS
+  //==========================================
 
   /**
    * pre-transliteration for morse: cleaning non supported codes
@@ -146,7 +162,7 @@
 
   /**
    * post-untransliteration for morse
-   * 
+   *
    * @method morsePostUntrans
    * @private
    * @memberof EngTrans

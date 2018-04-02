@@ -2,12 +2,20 @@
 
 	"use strict";
 
+	//==========================================
+  // EXPORTING MODULE
+  //==========================================
+
 	if ( typeof module === "object" && module && typeof module.exports === "object" ) {
 		module.exports = Trans;
 	}
 	else {
 		window.JsLingua.Cls.Trans = Trans;
 	}
+
+	//==========================================
+  // CONSTANTS
+  //==========================================
 
 	const specialBef = [
 		//numbers,
@@ -74,31 +82,9 @@
 		" .--.-. "
 	];
 
-	Trans.specialCharTrans = getTransliterator(specialBef, specialAft);
-	Trans.specialCharUntrans = getTransliterator(specialAft, specialBef);
-
-	/**
-	* This function returns another function which do the transformation
-	*
-	* @method getTransliterator
-	* @private
-	* @memberof Trans
-	* @memberof Trans
-	* @param  {String[]} srcTbl array which contains the source strings
-	* @param  {String[]} dstTbl array which contains the destination strings
-	* @return {Function}        a function which takes a string and transforme it using
-	* srcTbl and dstTbl
-	*/
-	function getTransliterator(srcTbl, dstTbl) {
-		return function(text) {
-			let result = text;
-			for (let i=0; i< srcTbl.length; i++) {
-				let keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|[\]/\\])/g, "\\$1");
-				result = result.replace(new RegExp(keyEscaped, "g"), dstTbl[i]);
-			}
-			return result;
-		};
-	}
+	//==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
 
 	/**
 	* translateration of the language words
@@ -118,21 +104,26 @@
 
 	}
 
-	//=========================================
-	// Protected Static methods
-	// ========================================
+	let Me = Trans.prototype;
+
+	//==========================================
+  // STATIC FUNCTIONS
+  //==========================================
+
+	Trans.specialCharTrans = cTrans(specialBef, specialAft);
+	Trans.specialCharUntrans = cTrans(specialAft, specialBef);
 
 	/**
 	* Add new transliteration method using two parallele tables
 	*
-	* @method newMethod
+	* @method nTrans
 	* @protected
 	* @memberof Trans
 	* @param  {String} methodName the name of the method
 	* @param  {String[]} langTbl    array of strigs, the languages characters
 	* @param  {String[]} transTbl   array of strigs, their respective representations
 	*/
-	Trans.newMethod = function(methodName, langTbl, transTbl) {
+	Trans.nTrans = function(methodName, langTbl, transTbl) {
 		if (typeof methodName === "string" && methodName.length > 0) {
 			this.methods[methodName] = {};
 			if (this.defMethod.length < 1)
@@ -142,8 +133,8 @@
 			};
 			if (Array.isArray(langTbl)  && Array.isArray(transTbl))
 			if (langTbl.length  === transTbl.length) {
-				this.methods[methodName].trans = getTransliterator(langTbl, transTbl);
-				this.methods[methodName].untrans = getTransliterator(transTbl, langTbl);
+				this.methods[methodName].trans = cTrans(langTbl, transTbl);
+				this.methods[methodName].untrans = cTrans(transTbl, langTbl);
 			}
 		}
 	};
@@ -151,14 +142,14 @@
 	/**
 	* Set transliteration methods directly
 	*
-	* @method setTransUntrasMethods
+	* @method sTrans
 	* @protected
 	* @memberof Trans
 	* @param {String} methodName the name of the method
 	* @param {Function} trans      function of transliteration
 	* @param {Function} untrans    function of untransliteration
 	*/
-	Trans.setTransUntrasMethods = function(methodName, trans, untrans) {
+	Trans.sTrans = function(methodName, trans, untrans) {
 		if (methodName in this.methods){
 
 			if (typeof trans === "function") {
@@ -175,7 +166,7 @@
 	/**
 	* add pre- and post-transliteration functions to a method
 	*
-	* @method addTransPrePostMethods
+	* @method sTransCond
 	* @protected
 	* @memberof Trans
 	* @param {String} methodName the name of the method
@@ -184,7 +175,7 @@
 	* @param {Function} postFunc   function that executes after transliteration;
 	* It takes a string and returns a string
 	*/
-	Trans.addTransPrePostMethods = function(methodName, preFunc, postFunc) {
+	Trans.sTransCnd = function(methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preTrans = preFunc;
@@ -198,7 +189,7 @@
 	/**
 	* add pre- and post-untransliteration functions to a method
 	*
-	* @method addUntransPrePostMethods
+	* @method sUntransCnd
 	* @protected
 	* @memberof Trans
 	* @param {String} methodName the name of the method
@@ -207,7 +198,7 @@
 	* @param {Function} postFunc   function that executes after untransliteration;
 	* It takes a string and returns a string
 	*/
-	Trans.addUntransPrePostMethods = function(methodName, preFunc, postFunc) {
+	Trans.sUntransCnd = function(methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preUntrans = preFunc;
@@ -218,12 +209,9 @@
 		}
 	};
 
-
-	//=============================================
-	// Prototypes
-	// ============================================
-	let Me = Trans.prototype;
-
+	//==========================================
+  // TRANSLITERATION MANAGEMENT FUNCTIONS
+  //==========================================
 
 	/**
 	* Sets the current method to be used for [un]transliteration
@@ -254,17 +242,31 @@
 	};
 
 	/**
-	* gets the language's code
+	* This function returns another function which do the transformation
 	*
-	* @method getCode
-	* @public
-	* @final
+	* @method cTrans
+	* @private
 	* @memberof Trans
-	* @return {String}  the language's code
+	* @memberof Trans
+	* @param  {String[]} srcTbl array which contains the source strings
+	* @param  {String[]} dstTbl array which contains the destination strings
+	* @return {Function}        a function which takes a string and transforme it using
+	* srcTbl and dstTbl
 	*/
-	Me.getCode = function() {
-		return this.code;
-	};
+	function cTrans(srcTbl, dstTbl) {
+		return function(text) {
+			let result = text;
+			for (let i=0; i< srcTbl.length; i++) {
+				let keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|[\]/\\])/g, "\\$1");
+				result = result.replace(new RegExp(keyEscaped, "g"), dstTbl[i]);
+			}
+			return result;
+		};
+	}
+
+	//==========================================
+  // TRANSLITERATE FUNCTIONS
+  //==========================================
 
 	/**
 	* transliterate the text using the current method
@@ -291,6 +293,10 @@
 		return result;
 	};
 
+	//==========================================
+  // UNTRANSLITERATE FUNCTIONS
+  //==========================================
+
 	/**
 	* untransliterate the text using the current method
 	*
@@ -315,5 +321,6 @@
 		}
 		return result;
 	};
+
 
 }());

@@ -2,6 +2,10 @@
 
   "use strict";
 
+  //==========================================
+  // EXPORTING MODULE
+  //==========================================
+
   let Trans = null;
   let EngTrans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
@@ -15,15 +19,22 @@
     EngTrans = window.JsLingua.getService("Trans", "eng");
   }
 
+  //==========================================
+  // CONSTANTS
+  //==========================================
+
   const latinRep = {
     "ç": "c",
     "à": "a",
     "è": "e",
     "é": "e",
     "ù": "u"
-  }
+  },
+  latinChars = "[" + Object.keys(latinRep).toString().replace(/,/g, "") + "]";
 
-  const latinChars = "[" + Object.keys(latinRep).toString().replace(/,/g, "") + "]";
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
 
   /**
    * French transliteration

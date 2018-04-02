@@ -1,4 +1,11 @@
 (function() {
+
+  "use strict";
+
+	//==========================================
+  // EXPORTING MODULE
+  //==========================================
+
   let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
@@ -8,6 +15,10 @@
     Trans = window.JsLingua.Cls.Trans;
     window.JsLingua.addService("Trans", "ara", AraTrans);
   }
+
+  //==========================================
+  // CONSTANTS
+  //==========================================
 
   const arabic = [
     "ث", // tha
@@ -230,6 +241,10 @@
     " .- " // alif
   ];
 
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
+
   /**
    * Arabic transliteration class
    *
@@ -238,26 +253,31 @@
    */
   function AraTrans() {
     Trans.call(this, "ara");
-    Trans.newMethod.call(this, "Buckwalter", arabic, buckwalter);
-    Trans.newMethod.call(this,"ArabTeX", arabic, arabtex);
-    Trans.newMethod.call(this,"Morse", arabic, armorse);
-    Trans.addTransPrePostMethods.call(this, "Morse", morsePreTrans, morsePostTrans);
-    Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
+    Trans.nTrans.call(this, "Buckwalter", arabic, buckwalter);
+    Trans.nTrans.call(this,"ArabTeX", arabic, arabtex);
+    Trans.nTrans.call(this,"Morse", arabic, armorse);
+    Trans.sTransCnd.call(this, "Morse", morsePreTrans, morsePostTrans);
+    Trans.sUntransCnd.call(this, "Morse", morsePreUntrans, morsePostUntrans);
   }
 
   AraTrans.prototype = Object.create(Trans.prototype);
   AraTrans.prototype.constructor = AraTrans;
 
+
+  //==========================================
+  // MORSE FUNCTIONS
+  //==========================================
+
   /**
    * Arabic to morse normalization
    *
-   * @method ar2morseNormalize
+   * @method morseNorm
    * @private
    * @memberof AraTrans
    * @param  {String} text Arabic text
    * @return {String}      normalized text
    */
-  function ar2morseNormalize(text) {
+  function morseNorm(text) {
     let result = text;
     result = result.replace(/[أإئؤ]/gi, "ء");
     result = result.replace(/[ىآ]/gi, "ا");
@@ -281,7 +301,7 @@
     result = result.replace(/\./gi, "#").replace(/-/gi, "^");
     result = result.replace(/[ ]+/gi, "\t");
     //result = result.replace(/([^\t])([^\t])/gi, "$1 $2");
-    result = ar2morseNormalize(result);
+    result = morseNorm(result);
     return result;
   }
 
