@@ -2,6 +2,10 @@
 
   "use strict";
 
+  //==========================================
+  // EXPORTING MODULE
+  //==========================================
+
   let Lang = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Lang = require("../lang.js");
@@ -11,6 +15,37 @@
     Lang = window.JsLingua.Cls.Lang;
     window.JsLingua.addService("Lang", "fra", FraLang);
   }
+
+  //==========================================
+  // CONSTANTS
+  //==========================================
+
+  //https://fr.wikipedia.org/wiki/Liste_de_nombres
+  //https://openclassrooms.com/courses/nombres-et-operations-1/prononcer-et-ecrire-les-nombres-en-francais
+  const lookup = {
+    0: "zéro", 1: "un", 2: "deux", 3:"trois", 4: "quatre",
+    5: "cinq", 6: "six", 7: "sept", 8: "huit", 9: "neuf",
+
+    10: "dix", 11: "onze", 12: "douze", 13: "treize",
+    14: "quatorze", 15: "quinze", 16: "seize",
+    17: "dix-sept", 18: "dix-huit", 19: "dix-neuf",
+
+    20: "vingt", 30: "trente", 40: "quarante", 50: "cinquante",
+    60: "soixante", 80: "quatre-vingt", //70 and 90 can be deduced from 60 and 80
+
+    100: "cent",
+    1000: "mille",
+    1000000: "million",
+    1000000000: "billion"
+  },
+  bigNbr = [
+    100, 1000, 1000000, 1000000000
+    //1000000000, 1000000, 1000, 100, 10
+  ];
+
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
 
   /**
   * Contains French charsets and transformations
@@ -39,28 +74,25 @@
   let Me = FraLang.prototype;
   Me.constructor = FraLang;
 
-  //https://fr.wikipedia.org/wiki/Liste_de_nombres
-  //https://openclassrooms.com/courses/nombres-et-operations-1/prononcer-et-ecrire-les-nombres-en-francais
-  const lookup = {
-    0: "zéro", 1: "un", 2: "deux", 3:"trois", 4: "quatre",
-    5: "cinq", 6: "six", 7: "sept", 8: "huit", 9: "neuf",
+  //==========================================
+  // STATIC FUNCTIONS
+  //==========================================
 
-    10: "dix", 11: "onze", 12: "douze", 13: "treize",
-    14: "quatorze", 15: "quinze", 16: "seize",
-    17: "dix-sept", 18: "dix-huit", 19: "dix-neuf",
+  //==========================================
+  // CHARSETS FUNCTIONS
+  //==========================================
 
-    20: "vingt", 30: "trente", 40: "quarante", 50: "cinquante",
-    60: "soixante", 80: "quatre-vingt", //70 and 90 can be deduced from 60 and 80
+  //Inhereted: no override
 
-    100: "cent",
-    1000: "mille",
-    1000000: "million",
-    1000000000: "billion"
-  },
-  bigNbr = [
-    100, 1000, 1000000, 1000000000
-    //1000000000, 1000000, 1000, 100, 10
-  ];
+  //==========================================
+  // TRANSFORMATION FUNCTIONS
+  //==========================================
+
+  //The transformations are added in the constructor
+
+  //==========================================
+  // PRONOUNCE FUNCTIONS
+  //==========================================
 
   /*
   * Write the Arabic number into French letters
