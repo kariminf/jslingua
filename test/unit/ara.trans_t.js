@@ -23,7 +23,6 @@ describe("Arabic Transliteration", function(){
 
   it("Methods check", function(){
     var methods = trans.availableMethods();
-    console.log(methods);
     expect(methods.length).to.eql(3);//number of methods
     var j;
     for (j = 0; j < methods.length; j++){

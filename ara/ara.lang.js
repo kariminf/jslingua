@@ -69,6 +69,7 @@
 
     Lang._nTrans.call(this, "ind2ara", [{offset: -0x0630, setName:"IndicNumeral"}]);
     Lang._nTrans.call(this, "ara2ind", [{offset: 0x0630, setName:"ArabicNumeral"}]);
+
   }
 
   AraLang.prototype = Object.create(Lang.prototype);

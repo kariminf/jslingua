@@ -17,6 +17,9 @@
   // CONSTANTS
   //==========================================
 
+  //==========================================
+  // VARIABLES
+  //==========================================
 
   //==========================================
   // CLASS CONSTRUCTOR
@@ -42,6 +45,33 @@
     this.charFcts = this.charFctsDef;
 
     this.transFct = function(text) {return text;};
+
+    this.convList = [];
+    this.pronList = [];
+
+    this.s = {
+      clear: () => {
+        this.convList = [];
+        this.pronList = [];
+        return this.s;
+      },
+
+      strans: transName => {
+        this.strans(transName);
+        return this.s;
+      },
+
+      trans: text => {
+        this.convList.push(this.trans(text));
+        return this.s;
+      },
+
+      ltrans: text => {
+        return this.convList;
+      }
+
+    };
+
   }
 
   let Me = Lang.prototype;
@@ -440,6 +470,8 @@
 
     return this.TR[transName];
   };
+
+
 
 
 }());

@@ -58,6 +58,7 @@
 
     Lang._nTrans.call(this, "min2maj", [{offset:-0x0020, begin:0x0061, end:0x007A}]);
     Lang._nTrans.call(this, "maj2min", [{offset:0x0020, begin:0x0041, end:0x005A}]);
+
   }
 
   EngLang.prototype = Object.create(Lang.prototype);
