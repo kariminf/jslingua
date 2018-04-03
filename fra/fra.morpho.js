@@ -1597,7 +1597,7 @@
 
   }
 
-  function __extractG3IrrP3 (irr, ending) {
+  function __extractG3IrrP3 (irr, _ending) {
 
     //================================
     //Third plural present indicative
