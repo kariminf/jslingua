@@ -1054,7 +1054,7 @@
   // CONJUGATION FUNCTIONS
   //==========================================
 
-  Me.conjugate = function(verb, opts) {
+  Me.conj = function(verb, opts) {
 
     //will be used for dé-faire, re-faire, satis-faire
     //to carry the first part before the hyphen
@@ -1746,7 +1746,7 @@
   //==========================================
 
   //https://en.wikipedia.org/wiki/French_conjugation
-  Me.getForms = function() {
+  Me.lform = function() {
     return  {
       //Indicative
       "Indicative Present (présent)": {
@@ -1852,12 +1852,12 @@
   * For example, in English, Arabic and French, we put pronouns in rows.
   * As for Japanese, the conjugation doesn't follow that pattern.
   *
-  * @method getConjugModel
+  * @method jconjmod
   * @override
   * @memberof FraMorpho
   * @return {Object}   Conjugation model
   */
-  Me.getConjugModel = function(){
+  Me.jconjmod = function(){
     //Past and Present are defaults
     return {
       rows: ["Pronoun"],
@@ -1918,7 +1918,7 @@
   //==========================================
 
   //TODO normalization of words
-  Me.normalize = function(word, _opts){
+  Me.norm = function(word, _opts){
     return word;
   };
 

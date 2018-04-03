@@ -348,7 +348,7 @@
 
   function __IsriAraStemmer(word) {
     let stem = word,
-    norm = AraMorpho.prototype.normalize;
+    norm = AraMorpho.prototype.norm;
     //normalization
     stem = norm(stem, "voc");
     //Stop words: ignore
@@ -604,7 +604,7 @@
   // CONJUGATION FUNCTIONS
   //==========================================
 
-  Me.conjugate = function(verb, opts) {
+  Me.conj = function(verb, opts) {
 
     if (opts.mood === Mood.Imp) return __getImperative(verb, opts);
 
@@ -1301,7 +1301,7 @@
    * <li> teh: Replace teh marbuta with heh </li>
    * <li> _: Delete tatweel </li>
    * </ul>
-   * @method normalize
+   * @method norm
    * @override
    * @memberof AraMorpho
    * @param  {String} word the word to be normalized
@@ -1309,7 +1309,7 @@
    * normalization options
    * @return {String}      normalized word
    **/
-  Me.normalize = function(word, opts) {
+  Me.norm = function(word, opts) {
     let norm = word.trim();
 
     //If no options are afforded, do all

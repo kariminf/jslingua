@@ -703,7 +703,7 @@
   //==========================================
 
   //Override conjugate function
-  Me.conjugate = function(verb, opts) {
+  Me.conj = function(verb, opts) {
 
     if((opts.mood) && (opts.mood === Mood.Imp)) {
       if(opts.person === Person.S) return verb;
@@ -849,7 +849,7 @@
   // CONJUGATION OPTIONS PUBLIC FUNCTIONS
   //==========================================
 
-  Me.getForms = function() {
+  Me.lform = function() {
     //super doesn't work here
     let superFrm = Morpho.prototype.getForms.call(this);
     const engForms =  {
@@ -946,7 +946,7 @@
   // NORMALIZATION FUNCTIONS
   //==========================================
 
-  Me.normalize = function(word, _opts){
+  Me.norm = function(word, _opts){
     let result = norm[word];
     if(result) return result;
     return word;

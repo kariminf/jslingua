@@ -393,32 +393,32 @@
 
   /**
   * Returns the list of available stemming methods
-  * @method availableStemmers
+  * @method lstem
   * @public
   * @final
   * @memberof Morpho
   * @return {String[]}  Array of Strings containing stemmers names
   */
-  Me.availableStemmers = function(){
+  Me.lstem = function(){
     return Object.keys(this.stemmers);
   };
 
   /**
   * Sets the current stemmer
   *
-  * @method setCurrentStemmer
+  * @method sstem
   * @public
   * @final
   * @memberof Morpho
   * @param {String} StemmerName stemmer method's name
   */
-  Me.setCurrentStemmer = function (StemmerName) {
+  Me.sstem = function (StemmerName) {
     if (StemmerName in this.stemmers){
       this.cstemmer = StemmerName;
     }
   };
 
-  Me.getStemmerDesc = function (stemmerName) {
+  Me.gstemdesc = function (stemmerName) {
     if (stemmerName in this.stemmers){
       return this.stemmers[stemmerName].desc;
     }
@@ -433,14 +433,14 @@
   /**
   * Convert a word: singular to plural; verb to noun; etc
   *
-  * @method convertPoS
+  * @method conv
   * @public
   * @final
   * @memberof Morpho
   * @param  {String} word the word to be converted
   * @return {String}      converted word
   */
-  Me.convertPoS = function(word){
+  Me.conv = function(word){
     var converter = this.converters[this.cconverter];
     if (typeof converter !== "object") return word;
     if (typeof converter.fct !== "function") return word;
@@ -449,32 +449,32 @@
 
   /**
   * Returns the list of available converting methods
-  * @method availablePosConverters
+  * @method lconv
   * @public
   * @final
   * @memberof Morpho
   * @return {String[]}  Array of Strings containing converters names
   */
-  Me.availablePosConverters = function(){
+  Me.lconv = function(){
     return Object.keys(this.converters);
   };
 
   /**
   * Sets the current PoS converter
   *
-  * @method setCurrentPosConverter
+  * @method sconv
   * @public
   * @final
   * @memberof Morpho
   * @param {String} converterName converter method's name
   */
-  Me.setCurrentPosConverter = function (converterName) {
+  Me.sconv = function (converterName) {
     if (converterName in this.converters){
       this.cconverter = converterName;
     }
   };
 
-  Me.getPosConverterDesc = function (converterName) {
+  Me.gconvdesc = function (converterName) {
     if (converterName in this.converters){
       return this.converters[converterName].desc;
     }
@@ -488,14 +488,14 @@
   /**
   * This function is used for verb conjugation
   *
-  * @method conjugate
+  * @method conj
   * @public
   * @memberof Morpho
   * @param  {String} verb the word to be conjugated
   * @param  {Object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
   * @return {String}      Conjugated verb
   */
-  Me.conjugate = function(verb, _opts){
+  Me.conj = function(verb, _opts){
     return verb;
   };
 
@@ -505,13 +505,13 @@
 
   /**
   * This method is used to recover the name of the tense
-  * @method getTenseName
+  * @method gtensename
   * @public
   * @memberof Morpho
   * @param  {String} tense the tense which we want to get the name (See {@link Morpho.Tense})
   * @return {String}       the name of the tense in the selected language
   */
-  Me.getTenseName = function(tense){
+  Me.gtensename = function(tense){
     switch (tense) {
       case Tense.Pa:
       return "past";
@@ -527,13 +527,13 @@
   /**
    * Returns a list of verb types
    *
-   * @method getVerbTypes
+   * @method gverbtype
    * @public
    * @abstract
    * @memberof Morpho
    * @return {String[]}     list of verb types
    */
-  Me.getVerbTypes = function(){
+  Me.lvtype = function(){
     return [];
   };
 
@@ -546,7 +546,7 @@
    * @memberof Morpho
    * @return {String}    verb's type
    */
-  Me.getVerbType = function(){
+  Me.gvtype = function(){
     return "";
   };
 
@@ -557,12 +557,12 @@
   *  "form_name": {opts}
   * }
   *
-  * @method getForms
+  * @method gform
   * @public
   * @memberof Morpho
   * @return {Object[]}  Array of conjugation forms available for the language
   */
-  Me.getForms = function(){
+  Me.gform = function(){
     //Past and Present are defaults
     return {
       "Indicative present": {
@@ -588,12 +588,12 @@
   * Each language has a conjugation table model.
   * For example, in English, Arabic and French, we put pronouns in rows.
   * As for Japanese, the conjugation doesn't follow that pattern.
-  * @method getConjugModel
+  * @method gconjmod
   * @public
   * @memberof Morpho
   * @return {Object}   conjugation model with rows and cols
   */
-  Me.getConjugModel = function(){
+  Me.gconjmod = function(){
     //Past and Present are defaults
     return {
       rows: ["Pronoun"],
@@ -604,13 +604,13 @@
 
   /**
    * Returns the available options for conjugation such as pronouns, negation, voice, etc.
-   * @method getOptLists
+   * @method lopt
    * @public
    * @memberof Morpho
    * @param  {String}    optLabel Can be: "Pronoun", "Negation", "Voice"
    * @return {Object[]}             A list of parameters related to optLabel and the processed language
    */
-  Me.getOptLists = function(optLabel){
+  Me.lopt = function(optLabel){
     switch (optLabel) {
       case "Pronoun": return this._gPpOpts();
       case "Negation": return this._gNegOpts();
@@ -630,14 +630,14 @@
    * // In English, it will give: "I"
    * // In Arabic, it will give: "أنا"
    *
-   * @method getOptName
+   * @method goptname
    * @public
    * @memberof Morpho
    * @param  {String}   optLabel can be: Pronoun, Negation, Voice
    * @param  {Object}   opts     The parameters
    * @return {String}            The label of this parameter in the current language
    */
-  Me.getOptName = function(optLabel, opts){
+  Me.goptname = function(optLabel, opts){
     switch (optLabel) {
       case "Pronoun": return this._gPpName(opts);
       case "Negation": return this._gNegName(opts);
@@ -755,7 +755,7 @@
   /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
   *
-  * @method normalize
+  * @method norm
   * @public
   * @memberof Morpho
   * @param  {String} word the word to be normalized
@@ -763,7 +763,7 @@
   * normalization options
   * @return {String}      normalized word
   */
-  Me.normalize = function(word, _opts){
+  Me.norm = function(word, _opts){
     return word;
   };
 
@@ -777,7 +777,7 @@
    * @param  {String} text the text to be segmennted into sentences
    * @return {String[]}      a list of sentences
    */
-  Me.splitToSentences = function (text) {
+  Me.gsents = function (text) {
     return text.split(/[.?!]\s*/).filter(Boolean);
   }
 
@@ -795,7 +795,7 @@
    * @param  {String[]} words list of words
    * @return {String[]}       filtered list of words
    */
-  Me.filterStopWords = function (words) {
+  Me.filter = function (words) {
     return words;
   }
 
@@ -899,5 +899,231 @@
   function realDebug() {
     console.log(Array.prototype.slice.call(arguments).join(" "));
   }
+
+  //==========================================
+  // LONG FUNCTIONS
+  //==========================================
+
+  /**
+   * Segment a given text
+   * @param  {String} text the text to be segmennted into sentences
+   * @return {String[]}      a list of sentences
+   */
+  Me.splitToSentences = function (text) {
+    return this.gsents(text);
+  }
+
+  /**
+   * Delete stop words from a list of words
+   * @param  {String[]} words list of words
+   * @return {String[]}       filtered list of words
+   */
+  Me.filterStopWords = function (words) {
+    return this.filter(words);
+  }
+
+  /**
+  * Normalization method, used to delete non used chars or to replace some with others, etc.
+  *
+  * @method normalize
+  * @public
+  * @memberof Morpho
+  * @param  {String} word the word to be normalized
+  * @param  {String} opts some options (optional) where each language defines its own
+  * normalization options
+  * @return {String}      normalized word
+  */
+  Me.normalize = function(word, _opts){
+    return this.norm(word, _opts);
+  };
+
+  /**
+  * Returns the list of available stemming methods
+  * @method availableStemmers
+  * @public
+  * @final
+  * @memberof Morpho
+  * @return {String[]}  Array of Strings containing stemmers names
+  */
+  Me.availableStemmers = function(){
+    return this.lstem();
+  };
+
+/**
+  * Sets the current stemmer
+  *
+  * @method setCurrentStemmer
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param {String} StemmerName stemmer method's name
+  */
+  Me.setCurrentStemmer = function (StemmerName) {
+    this.sstem(StemmerName);
+  };
+
+  Me.getStemmerDesc = function (stemmerName) {
+    return this.gstemdesc(stemmerName);
+  }
+
+  /**
+  * Convert a word: singular to plural; verb to noun; etc
+  *
+  * @method convertPoS
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param  {String} word the word to be converted
+  * @return {String}      converted word
+  */
+  Me.convertPoS = function(word){
+    return this.conv(word);
+  };
+
+  /**
+  * Returns the list of available converting methods
+  * @method availablePosConverters
+  * @public
+  * @final
+  * @memberof Morpho
+  * @return {String[]}  Array of Strings containing converters names
+  */
+  Me.availablePosConverters = function(){
+    return this.lconv();
+  };
+
+  /**
+  * Sets the current PoS converter
+  *
+  * @method setCurrentPosConverter
+  * @public
+  * @final
+  * @memberof Morpho
+  * @param {String} converterName converter method's name
+  */
+  Me.setCurrentPosConverter = function (converterName) {
+    this.sconv(converterName);
+  };
+
+  Me.getPosConverterDesc = function (converterName) {
+    return this.gconvdesc(converterName);
+  };
+
+  /**
+  * This function is used for verb conjugation
+  *
+  * @method conjugate
+  * @public
+  * @memberof Morpho
+  * @param  {String} verb the word to be conjugated
+  * @param  {Object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+  * @return {String}      Conjugated verb
+  */
+  Me.conjugate = function(verb, _opts){
+    return this.conj(verb, _opts);
+  };
+
+  /**
+  * This method is used to recover the name of the tense
+  * @method getTenseName
+  * @public
+  * @memberof Morpho
+  * @param  {String} tense the tense which we want to get the name (See {@link Morpho.Tense})
+  * @return {String}       the name of the tense in the selected language
+  */
+  Me.getTenseName = function(tense){
+    return this.gtensename();
+  };
+
+  /**
+  * Returns a list of verb types
+  *
+  * @method getVerbTypes
+  * @public
+  * @abstract
+  * @memberof Morpho
+  * @return {String[]}     list of verb types
+  */
+  Me.getVerbTypes = function(){
+    return this.lvtype();
+  };
+
+  /**
+  * Given a verb, it detects its type
+  *
+  * @method getVerbType
+  * @public
+  * @abstract
+  * @memberof Morpho
+  * @return {String}    verb's type
+  */
+  Me.getVerbType = function(){
+    return this.gvtype();
+  };
+
+  /**
+  * This function returns an object of available conjugation forms for the current language
+  * @example
+  * {
+  *  "form_name": {opts}
+  * }
+  *
+  * @method getForms
+  * @public
+  * @memberof Morpho
+  * @return {Object[]}  Array of conjugation forms available for the language
+  */
+  Me.getForms = function(){
+    return this.lform();
+  };
+
+
+  /**
+  * Each language has a conjugation table model.
+  * For example, in English, Arabic and French, we put pronouns in rows.
+  * As for Japanese, the conjugation doesn't follow that pattern.
+  * @method getConjugModel
+  * @public
+  * @memberof Morpho
+  * @return {Object}   conjugation model with rows and cols
+  */
+  Me.getConjugModel = function(){
+    return this.gconjmod();
+  };
+
+
+  /**
+  * Returns the available options for conjugation such as pronouns, negation, voice, etc.
+  * @method getOptLists
+  * @public
+  * @memberof Morpho
+  * @param  {String}    optLabel Can be: "Pronoun", "Negation", "Voice"
+  * @return {Object[]}             A list of parameters related to optLabel and the processed language
+  */
+  Me.getOptLists = function(optLabel){
+    return this.lopt(optLabel);
+  };
+
+  /**
+  * Returns the name of a conjugation parameter (Pronoun, Negation, Voice) given some options
+  * @example
+  *    var opts = {
+  *      person: "first", // Morpho.Feature.Person.F
+  *      number: "singular" // Morpho.Feature.Number.S
+  *    };
+  *    var I = getOptName("Pronoun", opts);
+  * // In English, it will give: "I"
+  * // In Arabic, it will give: "أنا"
+  *
+  * @method getOptName
+  * @public
+  * @memberof Morpho
+  * @param  {String}   optLabel can be: Pronoun, Negation, Voice
+  * @param  {Object}   opts     The parameters
+  * @return {String}            The label of this parameter in the current language
+  */
+  Me.getOptName = function(optLabel, opts){
+    return this.goptname(optLabel, opts);
+  };
 
 }());
