@@ -26,7 +26,7 @@ var trans = new JpnTrans();
 describe("Japanese Transliteration", function(){
 
   it("Methods check", function(){
-    var methods = trans.availableMethods();
+    let methods = trans.availableMethods();
     expect(methods.length).to.eql(4);//number of methods
   });
 
@@ -52,6 +52,20 @@ describe("Japanese Transliteration", function(){
     trans.setCurrentMethod("morse");
     expect(trans.transliterate(src)).to.eql(exp["morse"].dst);//transliterate
     expect(trans.untransliterate(exp["morse"].dst)).to.eql(exp["morse"].rev);//untransliterate
+  });
+
+  it("short version", function(){
+    let methods = trans.l();
+    expect(methods.length).to.eql(4);//number of methods
+
+    //Methods
+    trans.s("nihonshiki");
+    expect(trans.trans(src)).to.eql(exp["nihonshiki"].dst);//transliterate
+    expect(trans.untrans(exp["nihonshiki"].dst)).to.eql(exp["nihonshiki"].rev);//untransliterate
+    trans.s("hepburn");
+    expect(trans.trans(src)).to.eql(exp["hepburn"].dst);//transliterate
+    expect(trans.untrans(exp["hepburn"].dst)).to.eql(exp["hepburn"].rev);//untransliterate
+
   });
 
 });

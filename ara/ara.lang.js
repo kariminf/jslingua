@@ -99,7 +99,7 @@
   * Write the Arabic number into Arabic letters
   * @override
   */
-  Me.pronounceNumber = __toArabicLetters;
+  Me.nbr2str = __toArabicLetters;
 
   /**
   * Transform from Arabic numbers to Arabic letters

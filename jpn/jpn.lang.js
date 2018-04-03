@@ -82,7 +82,7 @@
   * @method pronounceNumber
   * @override
   */
-  Me.pronounceNumber = __toJapaneseLetters;
+  Me.nbr2str = __toJapaneseLetters;
 
   /**
   * Transform from Arabic numbers to Japanese letters

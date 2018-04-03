@@ -88,7 +88,7 @@
   * Write the Arabic number into English letters
   * @override
   */
-  Me.pronounceNumber = __toEnglishLetters;
+  Me.nbr2str = __toEnglishLetters;
 
 
   /**

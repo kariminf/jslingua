@@ -98,7 +98,7 @@
   * Write the Arabic number into French letters
   * @override
   */
-  Me.pronounceNumber = __toFrenchLetters;
+  Me.nbr2str = __toFrenchLetters;
 
 
   /**
