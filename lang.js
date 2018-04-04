@@ -46,13 +46,13 @@
 
     this.transFct = function(text) {return text;};
 
-    this.convList = [];
-    this.pronList = [];
+    let transList = [];
+    let pronList = [];
 
     this.s = {
       clear: () => {
-        this.convList = [];
-        this.pronList = [];
+        transList = [];
+        pronList = [];
         return this.s;
       },
 
@@ -62,13 +62,22 @@
       },
 
       trans: text => {
-        this.convList.push(this.trans(text));
+        transList.push(this.trans(text));
         return this.s;
       },
 
-      ltrans: text => {
-        return this.convList;
-      }
+      ltrans: () => {
+        return transList;
+      },
+
+      nbr2str: num => {
+        pronList.push(this.nbr2str(num));
+        return this.s;
+      },
+
+      lnbr2str: () => {
+        return pronList;
+      },
 
     };
 
