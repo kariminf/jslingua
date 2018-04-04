@@ -92,51 +92,66 @@ npm install jslingua
 ```
 Then in your test file, call the main module "jslingua".
 ```javascript
-var JsLingua = require("jslingua");
+let JsLingua = require("jslingua");
 ```
 
 ### Get the services (Browser & Node)
 
 You can call them one by one, if you know the services and their implemented languages.
+For example, if you want to use Arabic implementation of "Morpho":
+
 ```javascript
-//Get Arabic Info class
-var ArInfo = JsLingua.getService("Info", "ara");
-
-//Get Japanese Trans class
-var JaTrans = JsLingua.getService("Trans", "jpn");
-
-//Get English Lang class
-var EnLang = JsLingua.getService("Lang", "eng");
-
 //Get Arabic Morpho class
-var ArMorpho = JsLingua.getService("Morpho", "ara");
+let AraMorpho = JsLingua.getService("morpho", "ara");
+//Instantiate the class
+let aramorpho = new AraMorpho();
+//Then you can use all available functions such as conj(verb, options)
+```
 
-//Get French Morpho class
-var FrMorpho = JsLingua.getService("Morpho", "fra");
+A more compact way:
+
+```javascript
+//Get Arabic Morpho class
+let AraMorpho = JsLingua.gserv("morpho", "ara");
+//Instantiate the class
+let aramorpho = new AraMorpho();
+//Then you can use all available functions such as conj(verb, options)
+```
+
+An even compact one, which instantiates the class and return an object
+(P.S. the class is an object in javascript, but if you don't instantiate it in our case, some functions won't work):
+
+```javascript
+let aramorpho = JsLingua.nserv("morpho", "ara");
+//Then you can use all available functions such as conj(verb, options)
 ```
 
 Or, you can just loop over the services and test available languages.
 For example, the "Info" service:
 ```javascript
 //Get the list of languages codes which support the Info service
-var langIDs = JsLingua.serviceLanguages("Info");
-var result = "";
-var i;
-for (i = 0; i < langIDs; i++){
-  var infoClass = JsLingua.getService("Info", langIDs[i]);
-  var info = new infoClass();
+let langIDs = JsLingua.serviceLanguages("info");
+//Or: let langIDs = JsLingua.llang("info"); //list languages
+let result = "";
+for (let i = 0; i < langIDs.length; i++){
+  let infoClass = JsLingua.getService("info", langIDs[i]);
+  let info = new infoClass();
   result += i + "- " + info.getName() + "\n";
 }
 ```
+
+Check (More)[#More] section for more tutorials.
 
 ## Community
 
 All the C's are here:
 
+* [CREDITS](./CREDITS.md) : List of contributors
 * [CONTRIBUTING](./CONTRIBUTING.md) : How to contribute to this project
 * [CODE OF CONDUCT](./CODE_OF_CONDUCT.md) : Some recommendations must be followed for a healthy development environment.
+* [CODE CONVENTION](./CODE_CONVENTION.md) : Some rules to follow while coding 
 * [CHANGELOG](./CHANGELOG.md) : Changes in every version
-* [CREDITS](./CREDITS.md) : List of contributors
+
 
 If you are looking to have fun, you are welcome to contribute.
 If you think this project must have a business plan, please feel free to refer to [this project (click)](https://github.com/kariminf/tnbp)
