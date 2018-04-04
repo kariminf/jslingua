@@ -301,26 +301,3 @@ describe("English Morphology Pos Converter ", function(){
 
 
 });
-
-describe("Morphology abbreviated functions ", function(){
-
-  it("stemming", function() {
-    morpho.sstem("porter");
-    expect(morpho.stem("analogousli")).to.eql("analog");
-    expect(morpho.stem("vietnamization")).to.eql("vietnam");
-    morpho.sstem("lancaster");
-    expect(morpho.stem("maximum")).to.eql("maxim"); // Remove "-um" when word is intact 'maxim'
-    expect(morpho.stem("presumably")).to.eql("presum");
-  });
-
-  it("conjugation", function() {
-    expect(morpho.conj("go",$({tense:"present"}, heSheIt))).to.eql("goes");
-  });
-
-  it("pos converter", function() {
-    morpho.sconv("sing2pl");
-    expect(morpho.conv("alley")).to.eql("alleys");
-    expect(morpho.conv("ally")).to.eql("allies");
-  });
-
-});

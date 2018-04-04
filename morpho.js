@@ -303,6 +303,68 @@
     this.g = {
       debugFunction: dummyDebug
     };
+
+    let conjList = [];
+    let convList = [];
+    let stemList = [];
+    let conjOpt = {};
+
+    this.s = {
+      clear: () => {
+        conjList = [];
+        convList = [];
+        stemList = [];
+        conjOpt = {};
+        return this.s;
+      },
+
+      //Setters
+
+      sconv: convName => {
+        this.sconv(convName);
+        return this.s;
+      },
+
+      sstem: stemName => {
+        this.sstem(stemName);
+        return this.s;
+      },
+
+      //Storers
+
+      conj: (verb, opt) => {
+        let opt2 = opt || conjOpt;
+        conjOpt = opt2;
+        conjList.push(this.conj(verb, opt2));
+        return this.s;
+      },
+
+			stem: word => {
+        stemList.push(this.stem(word));
+        return this.s;
+      },
+
+      conv: word => {
+        convList.push(this.conv(word));
+        return this.s;
+      },
+
+      //List getters
+
+      lconj: () => {
+        return conjList;
+      },
+
+      lconv: () => {
+        return convList;
+      },
+
+      lstem: () => {
+        return stemList;
+      }
+
+    };
+
   }
 
   let Me = Morpho.prototype;
