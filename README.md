@@ -55,6 +55,8 @@ Javascript library to process languages:
 
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 
+To get tutorials [Click here](https://github.com/kariminf/jslingua_docs/blob/master/doc/index.md)
+
 ## How to use?
 
 ### Use in Browser
@@ -149,7 +151,7 @@ All the C's are here:
 * [CREDITS](./CREDITS.md) : List of contributors
 * [CONTRIBUTING](./CONTRIBUTING.md) : How to contribute to this project
 * [CODE OF CONDUCT](./CODE_OF_CONDUCT.md) : Some recommendations must be followed for a healthy development environment.
-* [CODE CONVENTION](./CODE_CONVENTION.md) : Some rules to follow while coding 
+* [CODE CONVENTION](./CODE_CONVENTION.md) : Some rules to follow while coding
 * [CHANGELOG](./CHANGELOG.md) : Changes in every version
 
 
