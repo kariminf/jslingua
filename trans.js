@@ -102,6 +102,40 @@
 
 		//Trans.newMethod.call("def", otherMourseBef, otherMourseAft);
 
+		let transList = [];
+
+    this.s = {
+      clear: () => {
+        transList = [];
+        return this.s;
+      },
+
+      strans: transName => {
+        this.strans(transName);
+        return this.s;
+      },
+
+      trans: text => {
+        transList.push(this.trans(text));
+        return this.s;
+      },
+
+			untrans: text => {
+        transList.push(this.untrans(text));
+        return this.s;
+      },
+
+      ltrans: () => {
+        return transList;
+      },
+
+      nbr2str: num => {
+        pronList.push(this.nbr2str(num));
+        return this.s;
+      }
+
+    };
+
 	}
 
 	let Me = Trans.prototype;
@@ -222,7 +256,7 @@
 	* @memberof Trans
 	* @param {String} methodName method's name
 	*/
-	Me.s = function(methodName) {
+	Me.strans = function(methodName) {
 		if (methodName in this.methods) {
 			this.currentMethod = methodName;
 		}
@@ -237,7 +271,7 @@
 	* @memberof Trans
 	* @return {String[]}  methods names
 	*/
-	Me.l = function() {
+	Me.ltrans = function() {
 		return Object.keys(this.methods);
 	};
 
@@ -363,7 +397,7 @@
 	* @param {String} methodName method's name
 	*/
 	Me.setCurrentMethod = function(methodName) {
-		this.s(methodName);
+		this.strans(methodName);
 	};
 
 	/**
@@ -376,7 +410,7 @@
 	* @return {String[]}  methods names
 	*/
 	Me.availableMethods = function() {
-		return this.l();
+		return this.ltrans();
 	};
 
 

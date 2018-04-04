@@ -54,18 +54,4 @@ describe("Japanese Transliteration", function(){
     expect(trans.untransliterate(exp["morse"].dst)).to.eql(exp["morse"].rev);//untransliterate
   });
 
-  it("short version", function(){
-    let methods = trans.l();
-    expect(methods.length).to.eql(4);//number of methods
-
-    //Methods
-    trans.s("nihonshiki");
-    expect(trans.trans(src)).to.eql(exp["nihonshiki"].dst);//transliterate
-    expect(trans.untrans(exp["nihonshiki"].dst)).to.eql(exp["nihonshiki"].rev);//untransliterate
-    trans.s("hepburn");
-    expect(trans.trans(src)).to.eql(exp["hepburn"].dst);//transliterate
-    expect(trans.untrans(exp["hepburn"].dst)).to.eql(exp["hepburn"].rev);//untransliterate
-
-  });
-
 });

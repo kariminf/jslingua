@@ -57,6 +57,4 @@ describe("Lang Storage", function(){
     expect(eng.s.lnbr2str()).to.eql(res);
   });
 
-
-
 });
