@@ -124,7 +124,7 @@
    *       offset: <number>
    *    }
    */
-  Lang._nTrans = function(transName, opts) {
+  Lang._nTrans = function(transName, transDesc, opts) {
 
     let transOpts = [];
 
@@ -148,7 +148,10 @@
       });
     }
 
-    this.TR[transName] = __createTransform(transOpts);
+    let trans = this.TR[transName] = {};
+    trans.fct =  __createTransform(transOpts);
+    trans.desc = transDesc;
+
   };
 
 
@@ -309,7 +312,7 @@
   };
 
   Me.strans = function(transName) {
-    this.transFct = (transName in this.TR)? this.TR[transName]: function(text){return text};
+    this.transFct = (transName in this.TR)? this.TR[transName].fct: function(text){return text};
   };
 
   /**
@@ -323,6 +326,13 @@
    */
   Me.trans = function(text) {
     return this.transFct(text);
+  };
+
+  Me.gtransdesc = function (transName) {
+    if (transName in this.TR){
+      return this.TR[transName].desc;
+    }
+    return "";
   };
 
   /**
@@ -477,7 +487,11 @@
       return function(text) { return text; };
     }
 
-    return this.TR[transName];
+    return this.TR[transName].fct;
+  };
+
+  Me.getTransDesc = function (transName) {
+    return this.gtransdesc(transName);
   };
 
 

@@ -715,7 +715,7 @@
     if ((opts.voice) && (opts.voice === Voice.P)) {
       if (beHave[verb]) end = " " + __beHaveConj(verb, "Pp", opts);
       else if (__isIrregular(verb)) end = " " + __irregularConj(verb, 1);
-      else end = " " + this.conjugate(verb, {tense:Tense.Pa});
+      else end = " " + this.conj(verb, {tense:Tense.Pa});
       verb = "be";
     }
 
@@ -734,7 +734,7 @@
       if ([Aspect.P, Aspect.PC].includes(opts.aspect)) {
         if (beHave[verb]) end = " " + __beHaveConj(verb, "Pp", opts) + end;
         else if (__isIrregular(verb)) end = " " + __irregularConj(verb, 1) + end;
-        else end = " " + this.conjugate(verb, {tense:Tense.Pa}) + end;
+        else end = " " + this.conj(verb, {tense:Tense.Pa}) + end;
         verb = "have";
       }
     }
@@ -851,7 +851,7 @@
 
   Me.lform = function() {
     //super doesn't work here
-    let superFrm = Morpho.prototype.getForms.call(this);
+    let superFrm = Morpho.prototype.lform.call(this);
     const engForms =  {
       "Indicative present perfect": {
         mood: Mood.Ind,

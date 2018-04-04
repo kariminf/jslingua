@@ -370,7 +370,7 @@
   let Me = Morpho.prototype;
 
   //==========================================
-  // STATIC FUNCTIONS
+  // PROTECTED FUNCTIONS
   //==========================================
 
   /**
@@ -619,12 +619,12 @@
   *  "form_name": {opts}
   * }
   *
-  * @method gform
+  * @method lform
   * @public
   * @memberof Morpho
   * @return {Object[]}  Array of conjugation forms available for the language
   */
-  Me.gform = function(){
+  Me.lform = function(){
     //Past and Present are defaults
     return {
       "Indicative present": {

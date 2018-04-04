@@ -200,7 +200,7 @@
   * @return {String[]}   array of strings, with ISO639-2 codes
   */
   JsLingua.serviceLanguages = function(serviceID) {
-    return JsLingua.llang(serviceID);
+    return JsLingua.llang(serviceID.toLowerCase());
   };
 
   /**
@@ -217,7 +217,7 @@
    * @return {String}     either "rtl" or "ltr"
    */
   JsLingua.getDir = function(langCode) {
-    return JsLingua.gdir();
+    return JsLingua.gdir(langCode);
   };
 
   /**

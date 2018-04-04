@@ -12,8 +12,12 @@ This will break the projects developed on precedent versions.
 * DEL: Delete or deprecate some functions
 
 ## Current
+
+## Version 0.9.0 (2018-04-04)
 * REFACTORING
-* MODIFY: functions names; using more abbreviated ones 
+* MODIFY: functions names; using more abbreviated ones
+* ADD: more concise names (kept the old readable ones)
+* ADD: storage chaining functions
 
 ## Version 0.8.0 (2018-03-31)
 * IMPROVE: Arabic conjugation; Add negation marks when negated

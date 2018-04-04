@@ -67,8 +67,8 @@
     Lang._nChs.call(this, "IndicNumeral", 0x0660, 0x0669);
     Lang._nChs.call(this, "ArabicNumeral", 0x0030, 0x0039);
 
-    Lang._nTrans.call(this, "ind2ara", [{offset: -0x0630, setName:"IndicNumeral"}]);
-    Lang._nTrans.call(this, "ara2ind", [{offset: 0x0630, setName:"ArabicNumeral"}]);
+    Lang._nTrans.call(this, "ind2ara", "Indic to Arabic Numerals", [{offset: -0x0630, setName:"IndicNumeral"}]);
+    Lang._nTrans.call(this, "ara2ind", "Arabic to Indic Numerals", [{offset: 0x0630, setName:"ArabicNumeral"}]);
 
   }
 

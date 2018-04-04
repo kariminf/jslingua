@@ -48,8 +48,8 @@
     Lang._nChs.call(this, "Kanji", 0x4E00, 0x9FBF);
     Lang._nChs.call(this, "Punctuation", 0x3000, 0x303F);
 
-    Lang._nTrans.call(this, "hira2kata", [{offset:0x0060, setName:"Hiragana"}]);
-    Lang._nTrans.call(this, "kata2hira", [{offset:-0x0060, setName:"Katakana"}]);
+    Lang._nTrans.call(this, "hira2kata", "Hiragana to Katakana", [{offset:0x0060, setName:"Hiragana"}]);
+    Lang._nTrans.call(this, "kata2hira", "Katakana to Hiragana", [{offset:-0x0060, setName:"Katakana"}]);
   }
 
   JpnLang.prototype = Object.create(Lang.prototype);

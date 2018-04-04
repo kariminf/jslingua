@@ -56,8 +56,8 @@
     //
     Lang._nChs.call(this, "BasicLatin", 0x0000, 0x007F);
 
-    Lang._nTrans.call(this, "min2maj", [{offset:-0x0020, begin:0x0061, end:0x007A}]);
-    Lang._nTrans.call(this, "maj2min", [{offset:0x0020, begin:0x0041, end:0x005A}]);
+    Lang._nTrans.call(this, "min2maj", "Miniscule to Majuscule", [{offset:-0x0020, begin:0x0061, end:0x007A}]);
+    Lang._nTrans.call(this, "maj2min", "Majuscule to Miniscule", [{offset:0x0020, begin:0x0041, end:0x005A}]);
 
   }
 
