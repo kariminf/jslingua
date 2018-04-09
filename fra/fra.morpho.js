@@ -1054,7 +1054,7 @@
   // CONJUGATION FUNCTIONS
   //==========================================
 
-  Me.conj = function(verb, opts) {
+  Me._conj = function(verb, opts) {
 
     //will be used for dé-faire, re-faire, satis-faire
     //to carry the first part before the hyphen

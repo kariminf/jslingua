@@ -703,7 +703,7 @@
   //==========================================
 
   //Override conjugate function
-  Me.conj = function(verb, opts) {
+  Me._conj = function(verb, opts) {
 
     if((opts.mood) && (opts.mood === Mood.Imp)) {
       if(opts.person === Person.S) return verb;

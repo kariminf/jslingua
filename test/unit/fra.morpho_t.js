@@ -478,10 +478,10 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("choisir", {
 
-      "Indicative Present (présent)":
+      "pres"://Indicative Present (présent)
       ["choisis", "choisis", "choisit", "choisissons", "choisissez", "choisissent" ],
 
-      "Indicative Simple past (passé simple)":
+      "past"://Indicative Simple past (passé simple)
       [
         "choisis",
         "choisis",
@@ -491,7 +491,7 @@ describe("French Verb conjugation", function(){
         "choisirent"
       ],
 
-      "Indicative Imperfect (imparfait)":
+      "imperf"://Indicative Imperfect (imparfait)
       [
         "choisissais",
         "choisissais",
@@ -501,7 +501,7 @@ describe("French Verb conjugation", function(){
         "choisissaient"
       ],
 
-      "Indicative Simple future (futur simple)":
+      "fut"://Indicative Simple future (futur simple)
       [
         "choisirai",
         "choisiras",
@@ -511,7 +511,7 @@ describe("French Verb conjugation", function(){
         "choisiront"
       ],
 
-      "Subjunctive Present":
+      "subj_pres"://Subjunctive Present
       [
         "choisisse",
         "choisisses",
@@ -521,7 +521,7 @@ describe("French Verb conjugation", function(){
         "choisissent"
       ],
 
-      "Subjunctive Imperfect":
+      "subj_imperf"://Subjunctive Imperfect
       [
         "choisisse",
         "choisisses",
@@ -531,7 +531,7 @@ describe("French Verb conjugation", function(){
         "choisissent"
       ],
 
-      "Conditional Present":
+      "cond_pres"://Conditional Present
       [
         "choisirais",
         "choisirais",
@@ -541,7 +541,7 @@ describe("French Verb conjugation", function(){
         "choisiraient"
       ],
 
-      "Imperative Present":
+      "imp_pres"://Imperative Present
       [
         "",
         "choisis",
@@ -559,7 +559,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("partir", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "pars",
         "pars",
@@ -572,7 +572,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("requérir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "requerrai",
         "requerras",
@@ -582,7 +582,7 @@ describe("French Verb conjugation", function(){
         "requerront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "requiers",
         "requiers",
@@ -592,7 +592,7 @@ describe("French Verb conjugation", function(){
         "requièrent"
       ],
 
-      "Subjunctive Present":
+      "subj_pres":
       [
         "requière",
         "requières",
@@ -602,7 +602,7 @@ describe("French Verb conjugation", function(){
         "requièrent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai requis",
         "as requis",
@@ -612,7 +612,7 @@ describe("French Verb conjugation", function(){
         "ont requis"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "requis",
         "requis",
@@ -625,7 +625,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("ouvrir", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "ouvre",
         "ouvres",
@@ -635,7 +635,7 @@ describe("French Verb conjugation", function(){
         "ouvrent"
       ],
 
-      "Subjunctive Present":
+      "subj_pres":
       [
         "ouvre",
         "ouvres",
@@ -645,7 +645,7 @@ describe("French Verb conjugation", function(){
         "ouvrent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai ouvert",
         "as ouvert",
@@ -658,7 +658,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("cueillir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "cueillerai",
         "cueilleras",
@@ -668,7 +668,7 @@ describe("French Verb conjugation", function(){
         "cueilleront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "cueille",
         "cueilles",
@@ -681,7 +681,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("venir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "viendrai",
         "viendras",
@@ -691,7 +691,7 @@ describe("French Verb conjugation", function(){
         "viendront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "viens",
         "viens",
@@ -701,7 +701,7 @@ describe("French Verb conjugation", function(){
         "viennent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "suis venu",
         "es venu",
@@ -711,7 +711,7 @@ describe("French Verb conjugation", function(){
         "sont venues"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "vins",
         "vins",
@@ -724,7 +724,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("mourir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "mourrai",
         "mourras",
@@ -734,7 +734,7 @@ describe("French Verb conjugation", function(){
         "mourront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "meurs",
         "meurs",
@@ -744,7 +744,7 @@ describe("French Verb conjugation", function(){
         "meurent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "suis mort",
         "es mort",
@@ -754,7 +754,7 @@ describe("French Verb conjugation", function(){
         "sont mortes"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "mourus",
         "mourus",
@@ -772,7 +772,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("voir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "verrai",
         "verras",
@@ -782,7 +782,7 @@ describe("French Verb conjugation", function(){
         "verront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "vois",
         "vois",
@@ -792,7 +792,7 @@ describe("French Verb conjugation", function(){
         "voient"
       ],
 
-      "Subjunctive Present":
+      "subj_pres":
       [
         "voie",
         "voies",
@@ -802,7 +802,7 @@ describe("French Verb conjugation", function(){
         "voient"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai vu",
         "as vu",
@@ -812,7 +812,7 @@ describe("French Verb conjugation", function(){
         "ont vu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "vis",
         "vis",
@@ -825,7 +825,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("devoir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "devrai",
         "devras",
@@ -835,7 +835,7 @@ describe("French Verb conjugation", function(){
         "devront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "dois",
         "dois",
@@ -845,7 +845,7 @@ describe("French Verb conjugation", function(){
         "doivent"
       ],
 
-      "Subjunctive Present":
+      "subj_pres":
       [
         "doive",
         "doives",
@@ -855,7 +855,7 @@ describe("French Verb conjugation", function(){
         "doivent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai dû",
         "as dû",
@@ -868,7 +868,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("mouvoir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "mouvrai",
         "mouvras",
@@ -878,7 +878,7 @@ describe("French Verb conjugation", function(){
         "mouvront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "meus",
         "meus",
@@ -888,7 +888,7 @@ describe("French Verb conjugation", function(){
         "meuvent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai mû",
         "as mû",
@@ -901,7 +901,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("asseoir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "assoirai",
         "assoiras",
@@ -911,7 +911,7 @@ describe("French Verb conjugation", function(){
         "assoiront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "assois",
         "assois",
@@ -921,7 +921,7 @@ describe("French Verb conjugation", function(){
         "assoient"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai assis",
         "as assis",
@@ -939,7 +939,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("vendre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "vends",
         "vends",
@@ -949,7 +949,7 @@ describe("French Verb conjugation", function(){
         "vendent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai vendu",
         "as vendu",
@@ -962,7 +962,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("craindre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "crains",
         "crains",
@@ -972,7 +972,7 @@ describe("French Verb conjugation", function(){
         "craignent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai craint",
         "as craint",
@@ -982,7 +982,7 @@ describe("French Verb conjugation", function(){
         "ont craint"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "craignis",
         "craignis",
@@ -996,7 +996,7 @@ describe("French Verb conjugation", function(){
     //-uire verbs
     conjugateFRFondamentalEndings("cuire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "cuis",
         "cuis",
@@ -1006,7 +1006,7 @@ describe("French Verb conjugation", function(){
         "cuisent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai cuit",
         "as cuit",
@@ -1016,7 +1016,7 @@ describe("French Verb conjugation", function(){
         "ont cuit"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "cuisis",
         "cuisis",
@@ -1030,7 +1030,7 @@ describe("French Verb conjugation", function(){
     //dire, interdire, contredire
     conjugateFRFondamentalEndings("dire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "dis",
         "dis",
@@ -1040,7 +1040,7 @@ describe("French Verb conjugation", function(){
         "disent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai dit",
         "as dit",
@@ -1050,7 +1050,7 @@ describe("French Verb conjugation", function(){
         "ont dit"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "dis",
         "dis",
@@ -1063,7 +1063,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("interdire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "interdis",
         "interdis",
@@ -1077,7 +1077,7 @@ describe("French Verb conjugation", function(){
     //lire
     conjugateFRFondamentalEndings("lire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "lis",
         "lis",
@@ -1087,7 +1087,7 @@ describe("French Verb conjugation", function(){
         "lisent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai lu",
         "as lu",
@@ -1100,7 +1100,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("décrire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "décris",
         "décris",
@@ -1110,7 +1110,7 @@ describe("French Verb conjugation", function(){
         "décrivent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai décrit",
         "as décrit",
@@ -1120,7 +1120,7 @@ describe("French Verb conjugation", function(){
         "ont décrit"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "décrivis",
         "décrivis",
@@ -1133,7 +1133,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("confire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "confis",
         "confis",
@@ -1143,7 +1143,7 @@ describe("French Verb conjugation", function(){
         "confisent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai confit",
         "as confit",
@@ -1156,7 +1156,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("suffire", {
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai suffi",
         "as suffi",
@@ -1169,7 +1169,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("frire", {
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai frit",
         "as frit",
@@ -1182,7 +1182,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("circoncire", {
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai circoncis",
         "as circoncis",
@@ -1195,7 +1195,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("boire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "bois",
         "bois",
@@ -1205,7 +1205,7 @@ describe("French Verb conjugation", function(){
         "boivent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai bu",
         "as bu",
@@ -1215,7 +1215,7 @@ describe("French Verb conjugation", function(){
         "ont bu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "bus",
         "bus",
@@ -1228,7 +1228,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("croire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "crois",
         "crois",
@@ -1238,7 +1238,7 @@ describe("French Verb conjugation", function(){
         "croient"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai cru",
         "as cru",
@@ -1251,7 +1251,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("plaire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "plais",
         "plais",
@@ -1261,7 +1261,7 @@ describe("French Verb conjugation", function(){
         "plaisent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai plu",
         "as plu",
@@ -1274,7 +1274,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("surprendre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "surprends",
         "surprends",
@@ -1284,7 +1284,7 @@ describe("French Verb conjugation", function(){
         "surprennent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai surpris",
         "as surpris",
@@ -1294,7 +1294,7 @@ describe("French Verb conjugation", function(){
         "ont surpris"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "surpris",
         "surpris",
@@ -1308,7 +1308,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("vivre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "vis",
         "vis",
@@ -1318,7 +1318,7 @@ describe("French Verb conjugation", function(){
         "vivent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai vécu",
         "as vécu",
@@ -1328,7 +1328,7 @@ describe("French Verb conjugation", function(){
         "ont vécu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "vécus",
         "vécus",
@@ -1341,7 +1341,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("poursuivre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "poursuis",
         "poursuis",
@@ -1351,7 +1351,7 @@ describe("French Verb conjugation", function(){
         "poursuivent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai poursuivi",
         "as poursuivi",
@@ -1365,7 +1365,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("naître", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "nais",
         "nais",
@@ -1375,7 +1375,7 @@ describe("French Verb conjugation", function(){
         "naissent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "suis né",
         "es né",
@@ -1385,7 +1385,7 @@ describe("French Verb conjugation", function(){
         "sont nées"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "naquis",
         "naquis",
@@ -1399,7 +1399,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("connaître", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "connais",
         "connais",
@@ -1409,7 +1409,7 @@ describe("French Verb conjugation", function(){
         "connaissent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai connu",
         "as connu",
@@ -1419,7 +1419,7 @@ describe("French Verb conjugation", function(){
         "ont connu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "connus",
         "connus",
@@ -1432,7 +1432,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("promettre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "promets",
         "promets",
@@ -1442,7 +1442,7 @@ describe("French Verb conjugation", function(){
         "promettent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai promis",
         "as promis",
@@ -1452,7 +1452,7 @@ describe("French Verb conjugation", function(){
         "ont promis"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "promis",
         "promis",
@@ -1465,7 +1465,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("convaincre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "convaincs",
         "convaincs",
@@ -1475,7 +1475,7 @@ describe("French Verb conjugation", function(){
         "convainquent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai convaincu",
         "as convaincu",
@@ -1485,7 +1485,7 @@ describe("French Verb conjugation", function(){
         "ont convaincu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "convainquis",
         "convainquis",
@@ -1505,7 +1505,7 @@ describe("French Verb conjugation", function(){
     //So, we will follow this analogie
     conjugateFRFondamentalEndings("extraire", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "extrais",
         "extrais",
@@ -1515,7 +1515,7 @@ describe("French Verb conjugation", function(){
         "extraient"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai extrait",
         "as extrait",
@@ -1525,7 +1525,7 @@ describe("French Verb conjugation", function(){
         "ont extrait"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "extrayai",
         "extrayas",
@@ -1538,7 +1538,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("coudre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "couds",
         "couds",
@@ -1548,7 +1548,7 @@ describe("French Verb conjugation", function(){
         "cousent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai cousu",
         "as cousu",
@@ -1558,7 +1558,7 @@ describe("French Verb conjugation", function(){
         "ont cousu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "cousis",
         "cousis",
@@ -1571,7 +1571,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("moudre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "mouds",
         "mouds",
@@ -1581,7 +1581,7 @@ describe("French Verb conjugation", function(){
         "moulent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai moulu",
         "as moulu",
@@ -1591,7 +1591,7 @@ describe("French Verb conjugation", function(){
         "ont moulu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "moulus",
         "moulus",
@@ -1604,7 +1604,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("résoudre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "résous",
         "résous",
@@ -1614,7 +1614,7 @@ describe("French Verb conjugation", function(){
         "résolvent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai résolu",
         "as résolu",
@@ -1624,7 +1624,7 @@ describe("French Verb conjugation", function(){
         "ont résolu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "résolus",
         "résolus",
@@ -1637,7 +1637,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("absoudre", {
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "absous",
         "absous",
@@ -1647,7 +1647,7 @@ describe("French Verb conjugation", function(){
         "absolvent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai absous",
         "as absous",
@@ -1657,7 +1657,7 @@ describe("French Verb conjugation", function(){
         "ont absous"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "absolus",
         "absolus",
@@ -1674,7 +1674,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("pouvoir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "pourrai",
         "pourras",
@@ -1684,7 +1684,7 @@ describe("French Verb conjugation", function(){
         "pourront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "peux",
         "peux",
@@ -1694,7 +1694,7 @@ describe("French Verb conjugation", function(){
         "peuvent"
       ],
 
-      "Subjunctive Present":
+      "subj_pres":
       [
         "puisse",
         "puisses",
@@ -1704,7 +1704,7 @@ describe("French Verb conjugation", function(){
         "puissent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai pu",
         "as pu",
@@ -1714,7 +1714,7 @@ describe("French Verb conjugation", function(){
         "ont pu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "pus",
         "pus",
@@ -1727,7 +1727,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("pouvoir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "pourrai",
         "pourras",
@@ -1737,7 +1737,7 @@ describe("French Verb conjugation", function(){
         "pourront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "peux",
         "peux",
@@ -1747,7 +1747,7 @@ describe("French Verb conjugation", function(){
         "peuvent"
       ],
 
-      "Subjunctive Present":
+      "subj_pres":
       [
         "puisse",
         "puisses",
@@ -1757,7 +1757,7 @@ describe("French Verb conjugation", function(){
         "puissent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai pu",
         "as pu",
@@ -1767,7 +1767,7 @@ describe("French Verb conjugation", function(){
         "ont pu"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "pus",
         "pus",
@@ -1780,7 +1780,7 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("savoir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       [
         "saurai",
         "sauras",
@@ -1790,7 +1790,7 @@ describe("French Verb conjugation", function(){
         "sauront"
       ],
 
-      "Indicative Present (présent)":
+      "pres":
       [
         "sais",
         "sais",
@@ -1800,7 +1800,7 @@ describe("French Verb conjugation", function(){
         "savent"
       ],
 
-      "Subjunctive Present":
+      "subj_pres":
       [
         "sache",
         "saches",
@@ -1810,7 +1810,7 @@ describe("French Verb conjugation", function(){
         "sachent"
       ],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       [
         "ai su",
         "as su",
@@ -1820,7 +1820,7 @@ describe("French Verb conjugation", function(){
         "ont su"
       ],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       [
         "sus",
         "sus",
@@ -1833,73 +1833,73 @@ describe("French Verb conjugation", function(){
 
     conjugateFRFondamentalEndings("valoir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       ["vaudrai", "vaudras", "vaudra", "vaudrons", "vaudrez", "vaudront"],
 
-      "Indicative Present (présent)":
+      "pres":
       ["vaux", "vaux", "vaut", "valons", "valez", "valent"],
 
-      "Subjunctive Present":
+      "subj_pres":
       ["vaille", "vailles", "vaille", "valions", "valiez", "vaillent"],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       ["ai valu", "as valu", "a valu", "avons valu", "avez valu", "ont valu"],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       ["valus", "valus", "valut", "valûmes", "valûtes", "valurent"]
     });
 
     conjugateFRFondamentalEndings("falloir", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       ["", "", "faudra", "", "", ""],
 
-      "Indicative Present (présent)":
+      "pres":
       ["", "", "faut", "", "", ""],
 
-      "Subjunctive Present":
+      "subj_pres":
       ["", "", "faille", "", "", ""],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       ["", "", "a fallu", "", "", ""],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       ["", "", "falut", "", "", ""]
     });
 
     conjugateFRFondamentalEndings("faire", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       ["ferai", "feras", "fera", "ferons", "ferez", "feront"],
 
-      "Indicative Present (présent)":
+      "pres":
       ["fais", "fais", "fait", "faisons", "faites", "font"],
 
-      "Subjunctive Present":
+      "subj_pres":
       ["fasse", "fasses", "fasse", "fassions", "fassiez", "fassent"],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       ["ai fait", "as fait", "a fait", "avons fait", "avez fait", "ont fait"],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       ["fis", "fis", "fit", "fîmes", "fîtes", "firent"]
     });
 
     conjugateFRFondamentalEndings("satisfaire", {
 
-      "Indicative Simple future (futur simple)":
+      "fut":
       ["satisferai", "satisferas", "satisfera", "satisferons", "satisferez", "satisferont"],
 
-      "Indicative Present (présent)":
+      "pres":
       ["satisfais", "satisfais", "satisfait", "satisfaisons", "satisfaites", "satisfont"],
 
-      "Subjunctive Present":
+      "subj_pres":
       ["satisfasse", "satisfasses", "satisfasse", "satisfassions", "satisfassiez", "satisfassent"],
 
-      "Indicative Present perfect (passé composé)":
+      "pres_perf":
       ["ai satisfait", "as satisfait", "a satisfait", "avons satisfait", "avez satisfait", "ont satisfait"],
 
-      "Indicative Simple past (passé simple)":
+      "past":
       ["satisfis", "satisfis", "satisfit", "satisfîmes", "satisfîtes", "satisfirent"]
     });
 

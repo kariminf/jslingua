@@ -407,6 +407,17 @@
     }
   };
 
+  /**
+   * [description]
+   * @protected
+   * @param  {[type]} verb  [description]
+   * @param  {[type]} _opts [description]
+   * @return {[type]}       [description]
+   */
+  Me._conj = function(verb, _opts){
+    return verb;
+  };
+
   //==========================================
   // DEBUGGING FUNCTIONS
   //==========================================
@@ -552,6 +563,7 @@
   *
   * @method conj
   * @public
+  * @final
   * @memberof Morpho
   * @param  {String} verb the word to be conjugated
   * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
@@ -559,8 +571,15 @@
   * @return {String}      Conjugated verb
   */
   Me.conj = function(verb, _opts, _form){
-    return verb;
+    let opts = _opts || {};
+    if (typeof _form === "string") {
+      let form = this.gform(_form);
+      if (typeof form === "object") opts = {...opts, ...form};
+    }
+    return this._conj(verb, opts);
   };
+
+
 
   //==========================================
   // CONJUGATION OPTIONS PUBLIC FUNCTIONS
@@ -648,6 +667,15 @@
       }
     };
   };
+
+  /**
+   * [description]
+   * @param  {[type]} formName [description]
+   * @return {[type]}          [description]
+   */
+  Me.gform = function(formName){
+    return this.lform()[formName];
+  }
 
 
   /**

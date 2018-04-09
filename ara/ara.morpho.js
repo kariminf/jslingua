@@ -604,7 +604,7 @@
   // CONJUGATION FUNCTIONS
   //==========================================
 
-  Me.conj = function(verb, opts) {
+  Me._conj = function(verb, opts) {
 
     if (opts.mood === Mood.Imp) return __getImperative(verb, opts);
 

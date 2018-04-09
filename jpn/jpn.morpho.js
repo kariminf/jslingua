@@ -227,7 +227,7 @@
 
   //https://en.wikipedia.org/wiki/Japanese_verb_conjugation
   //Override conjugate function
-  Me.conjugate = function(verb, opts) {
+  Me._conj = function(verb, opts) {
 
     if (!opts.mood) opts.mood = Mood.Ind;
     let vtype = (opts.vtype)? opts.vtype: this.getVerbType(verb);
