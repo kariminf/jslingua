@@ -463,48 +463,60 @@
   //==========================================
   // CONJUGATION OPTIONS PUBLIC FUNCTIONS
   //==========================================
-  Me.getForms = function() {
+  Me.lform = function() {
     //Indicative is the default mood
     return {
-      "Present": { // go
+      "pres": { // go
+        desc: "Present",
         tense: Tense.Pr
       },
-      "Past": { //went
+      "past": { //went
+        desc: "Past",
         tense: Tense.Pa
       },
-      "Present continuous": { //is going
+      "pres_cont": { //is going
+        desc: "Present continuous",
         tense: Tense.Pr,
         aspect: Aspect.C
       },
-      "Past continuous": {//was going
+      "past_cont": {//was going
+        desc: "Past continuous",
         tense: Tense.Pa,
         aspect: Aspect.C
       },
-      "Provision": {//First type of condition
+      "prov": {//First type of condition
+        desc: "Provision",
         mood: Mood.Cnd,
         cond: "ba"
       },
-      "Condition": { //Second type of condition
+      "cond": { //Second type of condition
+        desc: "Condition",
         mood: Mood.Cnd,
         cond: "tara"
       },
-      "Imperative": {// go
+      "imp": {// go
+        desc: "Imperative",
         mood: Mood.Imp
       },
-      "Volitional": {//let's go //Optative mood
+      "vol": {//let's go //Optative mood
+        desc: "Volitional",
         mood: Mood.Opt
       },
-      "Causative": {// make go
+      "caus": {// make go
+        desc: "Causative",
         cause: 1
       },
-      "Potential": {// I can go
+      "pot": {// I can go
+        desc: "Potential",
         mood: Mood.Pot
       },
-      "Passive": {// I can go
+      "pass": {// I can go
+        desc: "Passive",
         voice: Voice.P,
         tense: Tense.Pr
       },
-      "Causative Passive": {// I can go
+      "caus_pass": {// I can go
+        desc: "Causative Passive",
         voice: Voice.P,
         tense: Tense.Pr,
         cause: 1
@@ -619,14 +631,14 @@
   /**
    * Normalizes Japanese words
    *
-   * @method normalize
+   * @method norm
    * @override
    * @memberof JpnMorpho
    * @param  {String}  word a word to be normalized
    * @param  {Object}  opts For the time being, no options for Japanese
    * @return {String}       normalized ord
    */
-  Me.normalize = function(word, _opts) {
+  Me.norm = function(word, _opts) {
     let m;
     if (notNull(m = /^(.*ね)[えぇ]+$/.exec(word))) return m[1];
     if (notNull(m = /^(.*な)[あぁ]+$/.exec(word))) return m[1];

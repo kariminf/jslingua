@@ -347,7 +347,7 @@
   };
 
   //http://teflpedia.com/Non-standard_English
-  const norm = {
+  const NORM = {
     "ain't": "is not",
     "innit": "is not it",
     "gonna": "going to",
@@ -853,47 +853,56 @@
     //super doesn't work here
     let superFrm = Morpho.prototype.lform.call(this);
     const engForms =  {
-      "Indicative present perfect": {
+      "pres_perf": {
+        desc: "Indicative present perfect",
         mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.P
       },
-      "Indicative past perfect": {
+      "past_perf": {
+        desc: "Indicative past perfect",
         mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.P
       },
-      "Indicative future perfect": {
+      "fut_perf": {
+        desc: "Indicative future perfect",
         mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.P
       },
-      "Indicative present continuous": {
+      "pres_cont": {
+        desc: "Indicative present continuous",
         mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.C
       },
-      "Indicative past continuous": {
+      "past_cont": {
+        desc: "Indicative past continuous",
         mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.C
       },
-      "Indicative future continuous": {
+      "fut_cont": {
+        desc: "Indicative future continuous",
         mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.C
       },
-      "Indicative present perfect continuous": {
+      "pres_perf_cont": {
+        desc: "Indicative present perfect continuous",
         mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.PC
       },
-      "Indicative past perfect continuous": {
+      "past_perf_cont": {
+        desc: "Indicative past perfect continuous",
         mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.PC
       },
-      "Indicative future perfect continuous": {
+      "fut_perf_cont": {
+        desc: "Indicative future perfect continuous",
         mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.PC
@@ -947,7 +956,7 @@
   //==========================================
 
   Me.norm = function(word, _opts){
-    let result = norm[word];
+    let result = NORM[word];
     if(result) return result;
     return word;
   };

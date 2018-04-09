@@ -1246,11 +1246,12 @@
     return "";
   };
 
-  Me.getForms = function() {
+  Me.lform = function() {
     //super doesn't work here
-    let superFrm = Morpho.prototype.getForms.call(this);
+    let superFrm = Morpho.prototype.lform.call(this);
     const araForms =  {
-      "Imperative": {
+      "imp": {
+        desc: "Imperative",
         mood: Mood.Imp
       }
     };

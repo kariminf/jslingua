@@ -6,7 +6,7 @@
 
   "use strict";
 
-  let version = "0.9.0";
+  let version = "0.10.0";
 
   const rtls = ["ara", "heb"];
 
@@ -81,6 +81,8 @@
   * @param {Object} theClass  The class that affords the service
   */
   JsLingua.aserv = function(serviceID, langCode, theClass) {
+    serviceID = serviceID.toLowerCase();
+    langCode = langCode.toLowerCase();
     if (services[serviceID] === undefined){
       services[serviceID] = {};
     }
@@ -100,7 +102,7 @@
   */
   JsLingua.llang = function(serviceID) {
     if (services[serviceID] === undefined) return [];
-    return Object.keys(services[serviceID]);
+    return Object.keys(services[serviceID.toLowerCase()]);
   };
 
   /**
@@ -116,6 +118,8 @@
   */
   JsLingua.gserv = function(serviceID, langCode) {
     if (services[serviceID] === undefined) return null;
+    langCode = langCode.toLowerCase();
+    serviceID = serviceID.toLowerCase();
     if (! (langCode in services[serviceID])) return null;
     return services[serviceID][langCode];
   };
@@ -187,7 +191,7 @@
   * @return {Class}   The class that affords the service
   */
   JsLingua.getService = function(serviceID, langCode) {
-    return JsLingua.gserv(serviceID.toLowerCase(), langCode);
+    return JsLingua.gserv(serviceID, langCode);
   };
 
   /**
@@ -200,7 +204,7 @@
   * @return {String[]}   array of strings, with ISO639-2 codes
   */
   JsLingua.serviceLanguages = function(serviceID) {
-    return JsLingua.llang(serviceID.toLowerCase());
+    return JsLingua.llang(serviceID);
   };
 
   /**

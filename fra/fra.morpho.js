@@ -1749,96 +1749,113 @@
   Me.lform = function() {
     return  {
       //Indicative
-      "Indicative Present (présent)": {
+      "pres": {
+        desc: "Indicative Present (présent)",
         mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.S
       },
-      "Indicative Present perfect (passé composé)": {
+      "pres_perf": {
+        desc: "Indicative Present perfect (passé composé)",
         mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.P
       },
-      "Indicative Imperfect (imparfait)": {
+      "imperf": {
+        desc: "Indicative Imperfect (imparfait)",
         mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.I
       },
       //Exprime une action passée, achevée, d'une durée plutôt longue et antérieure à une autre action passée:
       //https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-8681.php
-      "Indicative Pluperfect (plus-que-parfait)": {
+      "plupref": {
+        desc: "Indicative Pluperfect (plus-que-parfait)",
         mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.P,
         period: "long"
       },
-      "Indicative Simple past (passé simple)": {
+      "past": {
+        desc: "Indicative Simple past (passé simple)",
         mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.S
       },
       //Exprime une action passée, achevée, d'une durée assez brève et antérieure à une autre action passée:
       //https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-8681.php
-      "Indicative Past perfect (passé antérieur)": {
+      "past_perf": {
+        desc: "Indicative Past perfect (passé antérieur)",
         mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.P,
         period: "short"
       },
-      "Indicative Simple future (futur simple)": {
+      "fut": {
+        desc: "Indicative Simple future (futur simple)",
         mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.S
       },
-      "Indicative Future perfect (futur antérieur)": {
+      "fut_perf": {
+        desc: "Indicative Future perfect (futur antérieur)",
         mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.P
       },
 
       //Subjunctive
-      "Subjunctive Present": {
+      "subj_pres": {
+        desc: "Subjunctive Present",
         mood: Mood.Sub,
         tense: Tense.Pr,
         aspect: Aspect.S
       },
-      "Subjunctive Past (passé)": {
+      "subj_past": {
+        desc: "Subjunctive Past (passé)",
         mood: Mood.Sub,
         tense: Tense.Pa,
         aspect: Aspect.S
       },
-      "Subjunctive Imperfect": {
+      "subj_imperf": {
+        desc: "Subjunctive Imperfect",
         mood: Mood.Sub,
         tense: Tense.Pr,
         aspect: Aspect.I
       },
-      "Subjunctive Pluperfect": {
+      "subj_pluperf": {
+        desc: "Subjunctive Pluperfect",
         mood: Mood.Sub,
         tense: Tense.Pa,
         aspect: Aspect.P
       },
 
       //Imperative
-      "Imperative Present": {
+      "imp_pres": {
+        desc: "Imperative Present",
         mood: Mood.Imp,
         tense: Tense.Pr
       },
-      "Imperative Past": {
+      "imp_past": {
+        desc: "Imperative Past",
         mood: Mood.Imp,
         tense: Tense.Pa
       },
 
       //Conditional
-      "Conditional Present": {
+      "cond_pres": {
+        desc: "Conditional Present",
         mood: Mood.Cnd,
         tense: Tense.Pr
       },
-      "Conditional Past (form 1)": {
+      "cond_past1": {
+        desc: "Conditional Past (form 1)",
         mood: Mood.Cnd,
         tense: Tense.Pa,
         form: 1
       },
-      "Conditional Past (form 2)": {
+      "cond_past2": {
+        desc: "Conditional Past (form 2)",
         mood: Mood.Cnd,
         tense: Tense.Pa,
         form: 2

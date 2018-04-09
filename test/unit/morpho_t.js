@@ -92,7 +92,7 @@ describe("Morphology storage chaining functions ", function(){
                 .sstem("lancaster").stem("maximum")
                 .conj("go").conj("go", $({tense:"future"}, hesheit))
                 .conv("leaf")
-                .stem("presumably")
+                .stem("presumably");
 
     expect(eng.s.lstem()).to.eql(resStem);
     expect(eng.s.lconj()).to.eql(resConj);

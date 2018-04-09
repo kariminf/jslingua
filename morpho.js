@@ -332,10 +332,10 @@
 
       //Storers
 
-      conj: (verb, opt) => {
+      conj: (verb, opt, form) => {
         let opt2 = opt || conjOpt;
         conjOpt = opt2;
-        conjList.push(this.conj(verb, opt2));
+        conjList.push(this.conj(verb, opt2, form));
         return this.s;
       },
 
@@ -554,10 +554,11 @@
   * @public
   * @memberof Morpho
   * @param  {String} verb the word to be conjugated
-  * @param  {Object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+  * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+  * @param  {Sring} _form
   * @return {String}      Conjugated verb
   */
-  Me.conj = function(verb, _opts){
+  Me.conj = function(verb, _opts, _form){
     return verb;
   };
 
@@ -627,17 +628,20 @@
   Me.lform = function(){
     //Past and Present are defaults
     return {
-      "Indicative present": {
+      "pres": {
+        desc: "Indicative present",
         mood: Mood.Ind,
         tense: Tense.Pr,
         aspect: Aspect.S
       },
-      "Indicative past": {
+      "past": {
+        desc: "Indicative past",
         mood: Mood.Ind,
         tense: Tense.Pa,
         aspect: Aspect.S
       },
-      "Indicative future": {
+      "fut": {
+        desc: "Indicative future",
         mood: Mood.Ind,
         tense: Tense.Fu,
         aspect: Aspect.S
@@ -1078,11 +1082,12 @@
   * @public
   * @memberof Morpho
   * @param  {String} verb the word to be conjugated
-  * @param  {Object} opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+  * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+  * @param  {String} _form  the form's ID
   * @return {String}      Conjugated verb
   */
-  Me.conjugate = function(verb, _opts){
-    return this.conj(verb, _opts);
+  Me.conjugate = function(verb, _opts, _form){
+    return this.conj(verb, _opts, _form);
   };
 
   /**
