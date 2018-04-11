@@ -23,6 +23,17 @@ describe("Segmentation", function(){
 
 });
 
+describe("Conjugation variations", function(){
+
+  it("with form name", function(){
+    let heSheIt = {person:"third", number:"singular"};
+    expect(eng.conj("go", heSheIt, "pres")).to.eql("goes");
+    expect(eng.conj("go", heSheIt, "past")).to.eql("went");
+    expect(eng.conj("go", heSheIt, "fut")).to.eql("will go");
+  });
+
+});
+
 describe("Morphology abbreviated functions ", function(){
 
   it("stemming", function() {

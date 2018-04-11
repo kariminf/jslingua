@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
@@ -38,7 +38,7 @@
     "library",
     "front-end",
     "back-end",
-    "pronounciation",
+    "pronunciation",
     "multi-lingual",
     "multilingual",
     "normalization",
@@ -55,9 +55,7 @@
     "ara/",
     "jpn/",
     "eng/",
-    "fra/",
-    "dist/",
-    "test"
+    "fra/"
   ],
   "author": "Abdelkrime Aries <kariminfo0@gmail.com>",
   "contributors": [

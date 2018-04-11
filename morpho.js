@@ -574,7 +574,7 @@
     let opts = _opts || {};
     if (typeof _form === "string") {
       let form = this.gform(_form);
-      if (typeof form === "object") opts = {...opts, ...form};
+      if (typeof form === "object") opts = Object.assign({}, opts, form);
     }
     return this._conj(verb, opts);
   };
@@ -675,7 +675,15 @@
    */
   Me.gform = function(formName){
     return this.lform()[formName];
-  }
+  };
+
+  Me.gformdesc = function (formName) {
+    let forms = this.lform();
+    if (formName in forms){
+      return forms[formName].desc;
+    }
+    return "";
+  };
 
 
   /**
@@ -1058,6 +1066,10 @@
 
   Me.getStemmerDesc = function (stemmerName) {
     return this.gstemdesc(stemmerName);
+  }
+
+  Me.getFormDesc = function (formName) {
+    return this.gformdesc(formName);
   }
 
   /**
