@@ -6,9 +6,9 @@
 
   "use strict";
 
-  let version = "0.10.0";
+  let version = "0.10.1";
 
-  const rtls = ["ara", "heb"];
+  const rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
 
   //service name: [services for languages]
   let services = {};

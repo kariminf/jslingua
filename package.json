@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
@@ -55,7 +55,8 @@
     "ara/",
     "jpn/",
     "eng/",
-    "fra/"
+    "fra/",
+    "dist/"
   ],
   "author": "Abdelkrime Aries <kariminfo0@gmail.com>",
   "contributors": [
