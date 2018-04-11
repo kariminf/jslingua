@@ -101,8 +101,9 @@
   * @return {String[]}   array of strings, with ISO639-2 codes
   */
   JsLingua.llang = function(serviceID) {
-    if (services[serviceID] === undefined) return [];
-    return Object.keys(services[serviceID.toLowerCase()]);
+    let service = services[serviceID.toLowerCase()];
+    if (service === undefined) return [];
+    return Object.keys(service);
   };
 
   /**
@@ -117,11 +118,11 @@
   * @return {Class}   The class that affords the service
   */
   JsLingua.gserv = function(serviceID, langCode) {
-    if (services[serviceID] === undefined) return null;
+    let service = services[serviceID.toLowerCase()];
+    if (service === undefined) return null;
     langCode = langCode.toLowerCase();
-    serviceID = serviceID.toLowerCase();
-    if (! (langCode in services[serviceID])) return null;
-    return services[serviceID][langCode];
+    if (! (langCode in service)) return null;
+    return service[langCode];
   };
 
   /**

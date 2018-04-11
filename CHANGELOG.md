@@ -12,6 +12,8 @@ This will break the projects developed on precedent versions.
 * DEL: Delete or deprecate some functions
 
 ## Current
+
+## Version 0.10.0 (2018-04-11)
 * MODIFY: references of conjugation forms: more short references
 
 ## Version 0.9.0 (2018-04-04)
