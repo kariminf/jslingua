@@ -1769,7 +1769,7 @@
       },
       //Exprime une action passée, achevée, d'une durée plutôt longue et antérieure à une autre action passée:
       //https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-8681.php
-      "plupref": {
+      "pluperf": {
         desc: "Indicative Pluperfect (plus-que-parfait)",
         mood: Mood.Ind,
         tense: Tense.Pa,

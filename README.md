@@ -14,7 +14,7 @@
 [![Inline docs](http://inch-ci.org/github/kariminf/jslingua.svg?branch=master)](http://inch-ci.org/github/kariminf/jslingua)
 [![CodeFactor](https://www.codefactor.io/repository/github/kariminf/jslingua/badge/master)](https://www.codefactor.io/repository/github/kariminf/jslingua/overview/master)
 [![codebeat badge](https://codebeat.co/badges/dd8cf628-627a-42f3-8ae5-5bfa1a53d525)](https://codebeat.co/projects/github-com-kariminf-jslingua-master)
-[![Code Climate](https://img.shields.io/codeclimate/github/kariminf/jslingua.svg)](https://codeclimate.com/github/kariminf/jslingua/)
+[![Code Climate](https://img.shields.io/codeclimate/maintainability-percentage/kariminf/jslingua.svg?style=plastic)](https://codeclimate.com/github/kariminf/jslingua/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/jslingua.svg?style=social&label=Follow)](https://twitter.com/jslingua)
 
 
@@ -75,14 +75,20 @@ Here the importation of all classes, where:
 ```
 You can use a CDN (content-delivery network):
 ```javascript
-<script type="text/javascript" src="https://unpkg.com/jslingua@version/file" ></script>
+<script type="text/javascript" src="https://unpkg.com/jslingua@version/file.js" ></script>
 ```
+
+The minified version of the file:
+```javascript
+<script type="text/javascript" src="https://unpkg.com/jslingua@version/dist/file.min.js" ></script>
+```
+
 if you want to use the last version, just replace "version" with "latest".
 For example:
 ```javascript
-<script type="text/javascript" src="https://unpkg.com/jslingua@latest/jslingua.min.js" ></script>
-<script type="text/javascript" src="https://unpkg.com/jslingua@latest/lang.min.js" ></script>
-<script type="text/javascript" src="https://unpkg.com/jslingua@latest/ara.lang.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/jslingua@latest/dist/jslingua.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/jslingua@latest/dist/lang.min.js" ></script>
+<script type="text/javascript" src="https://unpkg.com/jslingua@latest/dist/ara.lang.min.js" ></script>
 ...
 ```
 
@@ -142,7 +148,7 @@ for (let i = 0; i < langIDs.length; i++){
 }
 ```
 
-Check (More)[#More] section for more tutorials.
+Check [More](#More) section for more tutorials.
 
 ## Community
 
