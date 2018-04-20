@@ -148,7 +148,7 @@ for (let i = 0; i < langIDs.length; i++){
 }
 ```
 
-Check [More](#More) section for more tutorials.
+Check [More](#more) section for more tutorials.
 
 ## Community
 

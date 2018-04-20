@@ -881,7 +881,7 @@
    */
   Me.gsents = function (text) {
     return text.split(/[.?!]\s*/).filter(Boolean);
-  }
+  };
 
   /**
    * Tokenize a given text (mostly, a sentence)
@@ -890,7 +890,7 @@
    */
   Me.tokenize = function (text) {
     return text.split(/\s+/);
-  }
+  };
 
   /**
    * Delete stop words from a list of words
@@ -899,7 +899,7 @@
    */
   Me.filter = function (words) {
     return words;
-  }
+  };
 
   //==========================================
   // HELPER FUNCTIONS
@@ -1013,7 +1013,7 @@
    */
   Me.splitToSentences = function (text) {
     return this.gsents(text);
-  }
+  };
 
   /**
    * Delete stop words from a list of words
@@ -1022,7 +1022,7 @@
    */
   Me.filterStopWords = function (words) {
     return this.filter(words);
-  }
+  };
 
   /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
@@ -1066,11 +1066,11 @@
 
   Me.getStemmerDesc = function (stemmerName) {
     return this.gstemdesc(stemmerName);
-  }
+  };
 
   Me.getFormDesc = function (formName) {
     return this.gformdesc(formName);
-  }
+  };
 
   /**
   * Convert a word: singular to plural; verb to noun; etc
@@ -1139,7 +1139,7 @@
   * @return {String}       the name of the tense in the selected language
   */
   Me.getTenseName = function(tense){
-    return this.gtensename();
+    return this.gtensename(tense);
   };
 
   /**
