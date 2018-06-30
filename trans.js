@@ -397,7 +397,7 @@
 	* @param {String} methodName method's name
 	*/
 	Me.setCurrentMethod = function(methodName) {
-		this.strans(methodName);
+		this.strans(methodName.toLowerCase());
 	};
 
 	/**
