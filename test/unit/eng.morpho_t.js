@@ -166,6 +166,9 @@ describe("English Verb conjugation", function(){
     expect(morpho.conjugate("be",$({tense:"present"}, I))).to.eql("am");
     expect(morpho.conjugate("be",$({tense:"present"}, heSheIt))).to.eql("is");
     expect(morpho.conjugate("be",$({tense:"present"}, they))).to.eql("are");
+    //Override
+    expect(morpho.conjugate("override",$({tense:"present"}, I))).to.eql("override");
+    expect(morpho.conjugate("override",$({tense:"present"}, heSheIt))).to.eql("overrides");
 
   });
 
@@ -188,6 +191,8 @@ describe("English Verb conjugation", function(){
     expect(morpho.conjugate("be",$({tense:"past"}, they))).to.eql("were");
     //Go
     expect(morpho.conjugate("go",$({tense:"past"}, I))).to.eql("went");
+    //Override
+    expect(morpho.conjugate("override",$({tense:"past"}, I))).to.eql("overrode");
 
   });
 
@@ -205,6 +210,8 @@ describe("English Verb conjugation", function(){
     expect(morpho.conjugate("be",$({tense:"past", voice: "passive"}, I))).to.eql("was been");
     //Go
     expect(morpho.conjugate("go",$({tense:"past", voice: "passive"}, I))).to.eql("was gone");
+    //Override
+    expect(morpho.conjugate("override",$({tense:"past", voice: "passive"}, I))).to.eql("was overridden");
 
   });
 
@@ -222,6 +229,8 @@ describe("English Verb conjugation", function(){
     expect(morpho.conjugate("be",$({tense:"past", aspect: "perfect"}, I))).to.eql("had been");
     //Go
     expect(morpho.conjugate("go",$({tense:"past", aspect: "perfect"}, I))).to.eql("had gone");
+    //Override
+    expect(morpho.conjugate("override",$({tense:"past", aspect: "perfect"}, I))).to.eql("had overridden");
 
   });
 
@@ -246,6 +255,8 @@ describe("English Verb conjugation", function(){
     expect(morpho.conjugate("lie",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been lying");
     expect(morpho.conjugate("die",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dying");
 
+    //override
+    expect(morpho.conjugate("override",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been overriding");
   });
 
   it("Negation", function() {

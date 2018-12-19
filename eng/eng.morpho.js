@@ -44,7 +44,7 @@
       Pp: "had"
     }
   },
-  irregular0 = {
+  irregular2 = {
     "bet": 1, "bid": 1, "broadcast": 1, "burst": 1,  "cast": 1, "clad": 1,
     "clearcut": 1, "cost": 1, "crosscut": 1, "cut": 1, "fit": 1, "handset": 1,
     "hit": 1, "hurt": 1, "intercut": 1, "let": 1, "lipread": 1, "podcast": 1,
@@ -53,7 +53,7 @@
     "split": 1, "spread": 1, "sublet": 1, "telecast": 1, "thrust": 1,
     "typecast": 1, "typeset": 1, "webcast": 1, "wed": 1
   },
-  irregular1 = {
+  irregular3 = {
     "babysit": "babysat", "bend": "bent", "beseech": "besought",
     "besprenge": "besprent", "bind": "bound", "bleed": "bled",
     "breastfeed": "breastfed", "breed": "bred", "bring": "brought",
@@ -78,7 +78,7 @@
     "tell": "told", "think": "thought", "tread": "trod", "understand": "understood",
     "waylay": "waylaid", "win": "won", "wind": "wound", "wring": "wrung"
   },
-  irregular2 = {
+  irregular4 = {
     "acknow":  ["acknew", "1n"], "ake":  ["oke", "1n"], "arise":  ["arose", "1n"],
     "awake":  ["awoke", "2n"], "bear":  ["bore", "born"], "beat":  ["1", "1en"],
     "bedo":  ["bedid", "1ne"], "begin":  ["began", "begun"], "bego":  ["bewent", "1ne"],
@@ -379,6 +379,26 @@
   //==========================================
 
   let g;
+
+  /**
+   * An object to be a medium between different functions,
+   * Its function is to optimize conjugation when the same verb is used
+   * @type {Object}
+   */
+  let verbInfo = {
+    /**
+     * The verb
+     * @type {String}
+     */
+    verb: "",
+    /**
+     * Is it irregular, values are: null (no value yet), 0 (regular) or 1 (irregular)
+     * @type {Number}
+     */
+    irregular: null,
+    prefix: "",
+    rverb: ""
+  };
 
   //==========================================
   // CLASS CONSTRUCTOR
@@ -712,31 +732,74 @@
 
     let begin = "", end = "";
 
+    __verbTypes(verb);
+
+    //the case of be and have
+    let conjVerb = {
+      v: verbInfo.rverb, //verb
+      p: verbInfo.prefix,
+      i: verbInfo.irregular, //irregular
+      c: verbInfo.conj //conjugation table
+    };
+
     if ((opts.voice) && (opts.voice === Voice.P)) {
-      if (beHave[verb]) end = " " + __beHaveConj(verb, "Pp", opts);
-      else if (__isIrregular(verb)) end = " " + __irregularConj(verb, 1);
-      else end = " " + this.conj(verb, {tense:Tense.Pa});
-      verb = "be";
+        switch (conjVerb.i) {
+            case 1:
+                end = " " + __beHaveConj(conjVerb, "Pp", opts);
+                break;
+            case 2:
+            case 3:
+            case 4:
+                end = " " + __irregularConj(conjVerb, 1);
+                break;
+            default:
+                end = " " + this.conj(verb, {tense:Tense.Pa});
+        }
+        conjVerb = {
+            v: "be",
+            p: "",
+            i: 1,
+            c: beHave["be"]
+        };
     }
 
     if (opts.aspect) {
       if ([Aspect.C, Aspect.PC].includes(opts.aspect)) {
         // http://www.eclecticenglish.com/grammar/PresentContinuous1G.html
-        let base = verb;
+        let base = conjVerb.v;
         if(["lie", "die"].includes(verb)) base = verb.slice(0,-2) + "y";
         else if (/^[^aeuio]*[aeuio][^aeuioy]$/g.test(verb)) base = verb + verb.slice(-1);
         else if (/^.{2,}e$/g.test(verb)) base = verb.slice(0,-1);
 
         end = " " + base + "ing" + end;
-        verb = "be";
+        conjVerb = {
+            v: "be",
+            p: "",
+            i: 1,
+            c: beHave["be"]
+        };
       }
 
       if ([Aspect.P, Aspect.PC].includes(opts.aspect)) {
-        if (beHave[verb]) end = " " + __beHaveConj(verb, "Pp", opts) + end;
-        else if (__isIrregular(verb)) end = " " + __irregularConj(verb, 1) + end;
-        else end = " " + this.conj(verb, {tense:Tense.Pa}) + end;
-        verb = "have";
-      }
+          switch (conjVerb.i) {
+              case 1:
+                  end = " " + __beHaveConj(conjVerb, "Pp", opts) + end;
+                  break;
+              case 2:
+              case 3:
+              case 4:
+                  end = " " + __irregularConj(conjVerb, 1) + end;
+                  break;
+              default:
+                  end = " " + this.conj(verb, {tense:Tense.Pa}) + end;
+          }
+          conjVerb = {
+              v: "have",
+              p: "",
+              i: 1,
+              c: beHave["have"]
+          };
+       }
     }
 
     if ((opts.negated) && (opts.tense !== Tense.Fu)) {
@@ -744,47 +807,44 @@
       if ((!opts.aspect) || opts.aspect === Aspect.S) {
         if ((!opts.voice) || opts.voice === Voice.A) {
           end += " " + verb;
-          verb = "do";
+          conjVerb = {
+              v: "do",
+              p: "",
+              i: 4,
+              c: irregular4["do"]
+          };
           //console.log("negation active aspect");
         }
       }
     }
 
+    let cverb = conjVerb.v;
+
     switch (opts.tense) {
 
       case Tense.Pr:
-      if (beHave[verb]) return begin + __beHaveConj(verb, "Pr", opts) + end;
+      if (conjVerb.i == 1) return begin + __beHaveConj(conjVerb, "Pr", opts) + end;
+      cverb = conjVerb.p + cverb;
       if (opts.person == Person.T && opts.number === GNumber.S) {
         //hurry, clarify
-        verb = verb.replace(/([^aeuio])y$/, "$1ie");
+        cverb = cverb.replace(/([^aeuio])y$/, "$1ie");
         //go, veto, do, wash, mix, fizz (add e )
-        verb = verb.replace(/(s|z|sh|ch|[^aeui]o)$/, "$1e");
+        cverb = cverb.replace(/(s|z|sh|ch|[^aeui]o)$/, "$1e");
         end = "s" + end;
       }
       break;
 
       case Tense.Pa:
       //To be, To have
-      if (beHave[verb]) return begin + __beHaveConj(verb, "Pa", opts) + end;
+      if (conjVerb.i == 1) return begin + __beHaveConj(conjVerb, "Pa", opts) + end;
       //Irregular (the block is just for variables)
-      {
-        const pref = /(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
-        let match = pref.exec(verb);
-        if (match) {
-          //verify if the verb is in Irregular list with the prefix
-          if (__isIrregular(verb)) return begin + __irregularConj(verb, 0) + end;
-          //Otherwise, delete the prefix and procede
-          begin = match[1];
-          verb = match[2];
-        }
-      }
 
-      if (__isIrregular(verb)) return begin + __irregularConj(verb, 0) + end;
+      if (conjVerb.i > 1) return begin + __irregularConj(conjVerb, 0) + end;
 
-      verb = verb.replace(/([^aeuio])y$/, "$1i");
-      verb = verb.replace(/c$/, "ck");
-      verb = verb.replace(/^([^aeuio]*[aeuio])([^aeuiohwxy])$/, "$1$2$2");
-      if (verb.endsWith("e")) end = "d" + end;
+      cverb = cverb.replace(/([^aeuio])y$/, "$1i");
+      cverb = cverb.replace(/c$/, "ck");
+      cverb = cverb.replace(/^([^aeuio]*[aeuio])([^aeuiohwxy])$/, "$1$2$2");
+      if (cverb.endsWith("e")) end = "d" + end;
       else end = "ed" + end;
       break;
 
@@ -795,30 +855,22 @@
 
     }//swich(tense)
 
-    return begin + verb + end;
+    return begin + cverb + end;
 
   };
 
-  function __beHaveConj(verb, idx, opts) {
-    if (! (verb in beHave)) return verb;
-    if (! "Pr|Pa|Pp".includes(idx)) return verb;
-    if (idx === "Pp") return beHave[verb][idx];
+  function __beHaveConj(conjVerb, idx, opts) {
+    if (conjVerb.i != 1) return conjVerb.v;
+    if (! "Pr|Pa|Pp".includes(idx)) return conjVerb.v;
+    if (idx === "Pp") return conjVerb.c[idx];
 
     if (opts.number === GNumber.S) {
-      if (opts.person == Person.F) return beHave[verb][idx][0];
-      else if (opts.person == Person.T) return beHave[verb][idx][1];
-      return beHave[verb][idx][2];
+      if (opts.person == Person.F) return conjVerb.c[idx][0];
+      else if (opts.person == Person.T) return conjVerb.c[idx][1];
+      return conjVerb.c[idx][2];
     }
 
-    return beHave[verb][idx][2];
-  }
-
-
-  function __isIrregular(verb) {
-    if (irregular0[verb]) return 1;
-    if (irregular1[verb]) return 1;
-    if (irregular2[verb]) return 1;
-    return 0;//false
+    return conjVerb.c[idx][2];
   }
 
   /**
@@ -828,21 +880,83 @@
    * @method __irregularConj
    * @private
    * @memberof EngMorpho
-   * @param  {String}      verb the irregular verb
+   * @param  {Object}      verb the irregular verb
    * @param  {Number}      idx  0 for past, 1 for past participle
    * @return {String}           the conjugation
    */
-  function __irregularConj(verb, idx) {
-    if (irregular0[verb]) return verb;
-    if (irregular1[verb])return irregular1[verb];
-    //Here, we suppose it is irregular2[verb]
-    let res = irregular2[verb][idx];
-    res = res.replace("1", verb);
-    if(idx === 1) {
-      res = res.replace("2", irregular2[verb][0]);
-      res = res.replace(/.-/,"");
+  function __irregularConj(conjVerb, idx) {
+      switch (conjVerb.i) {
+          case 3: return conjVerb.p + conjVerb.c;
+          case 4:
+            let res = conjVerb.c[idx];
+            res = res.replace("1", conjVerb.v);
+            if(idx === 1) {
+                res = res.replace("2", conjVerb.c[0]);
+                res = res.replace(/.-/,"");
+            }
+            return conjVerb.p + res;
+          default: return conjVerb.p + conjVerb.v;
+      }
+  }
+
+  //==========================================
+  // CONJUGATION PREPROCESSOR FUNCTIONS
+  //==========================================
+
+  function __verbTypes(verb) {
+    //delete spaces
+    verb = verb.trim();
+    if (verb === verbInfo.verb) return;
+
+    verbInfo.rverb = verb;
+    verbInfo.prefix = "";
+
+    // conjugation table for the verb "be" or "have"
+    let conjInfo = beHave[verb];
+
+    if (conjInfo) {
+        verbInfo.irregular = 1;
+        verbInfo.conj = conjInfo;
+        return;
     }
-    return res;
+
+    {
+      const pref = /(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
+      let match = pref.exec(verb);
+      if (match) {
+          verbInfo.prefix = match[1];
+          verbInfo.rverb = match[2];
+      }
+    }
+
+    //These verbs do not need conjugation table
+    // Past = past participle = verb
+    if (irregular2[verbInfo.rverb]) {
+        verbInfo.irregular = 2;
+        verbInfo.conj = null;
+        return;
+    }
+
+    //These verbs have irregularities in past participle and past
+    // past = past participle
+    conjInfo = irregular3[verbInfo.rverb];
+    if (conjInfo) {
+        verbInfo.irregular = 3;
+        verbInfo.conj = conjInfo;
+        return;
+    }
+
+    // These verbs have irregularities in te past: a table of conjugation
+    conjInfo = irregular4[verbInfo.rverb];
+    if (conjInfo) {
+        verbInfo.irregular = 4;
+        verbInfo.conj = conjInfo;
+        return;
+    }
+
+    verbInfo.irregular = 0;
+    verbInfo.conj = null;
+
   }
 
   //==========================================
