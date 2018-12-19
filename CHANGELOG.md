@@ -13,6 +13,10 @@ This will break the projects developed on precedent versions.
 
 ## Current
 
+## Version 0.10.2 (2018-12-19)
+* FIX: english conjugation with verbs starting with: over-, under-, etc.
+* FIX: transliteration in case of uppercase 
+
 ## Version 0.10.0 (2018-04-11)
 * MODIFY: references of conjugation forms: more short references
 
