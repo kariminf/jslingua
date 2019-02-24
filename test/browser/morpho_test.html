@@ -164,6 +164,20 @@
     $("conj").innerHTML = result;
   }
 
+  function segment() {
+    var result = "";
+    var text = $("insegtxt").value;
+
+    var sentences = morpho.gsents(text);
+
+    for (var si in sentences) {
+      result += morpho.tokenize(sentences[si]).join(" | ");
+      result += "<br>";
+    }
+
+    $("outsegtxt").innerHTML = result;
+  }
+
 
 
 function stem(){
@@ -229,6 +243,12 @@ function norm(){
     <input type="text" id="verb" />
     <button onclick="conjugate()">Conjugate</button><br>
     <div id="conj"></div>
+  </div>
+  <div class="kfs" >
+    <b>Text segmentation</b>
+    <input type="text" id="insegtxt" />
+    <button onclick="segment()">Segment</button><br>
+    <div id="outsegtxt"></div>
   </div>
   <script>
   loading();
