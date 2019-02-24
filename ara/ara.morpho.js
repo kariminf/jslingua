@@ -1356,6 +1356,19 @@
   // SEGMENTATION FUNCTIONS
   //==========================================
 
+  /**
+   * Segment a given text
+   * @param  {String} text the text to be segmennted into sentences
+   * @return {String[]}      a list of sentences
+   */
+  Me.gsents = function (text) {
+
+    return text.split(/([.?؟!])(?:\s+|$)/).filter(Boolean);
+  };
+
+  /*
+   * Tokenization is the same as morpho
+   */
 
   //==========================================
   // HELPER FUNCTIONS

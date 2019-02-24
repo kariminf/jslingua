@@ -365,6 +365,8 @@
 
     };
 
+    this.ssplitter = /([.?!])(?:\s+|$)/;
+
   }
 
   let Me = Morpho.prototype;
@@ -874,13 +876,33 @@
   // SEGMENTATION FUNCTIONS
   //==========================================
 
+  function joinAbbrev(sents, abbr) {
+    let i;
+    for (i = sents.length - 1; i >= 0; i--) {
+      if (sents[i] === "." && i > 0) {
+        let lastword = sents[i-1].split(" ").pop();
+        if (lastword.indexOf(".") > -1 || abbr[lastword]) {
+          sents[i-1] += ".";
+          if (i+1 < sents.length) {
+            sents[i-1] += " " + sents[i+1];
+            sents.splice(i, 2);//delete i-th element and its successor
+          }
+          else { sents.splice(i, 2); }//delete i-th element
+        }
+      }
+    }
+    return sents;
+  }
+
   /**
    * Segment a given text
    * @param  {String} text the text to be segmennted into sentences
    * @return {String[]}      a list of sentences
    */
   Me.gsents = function (text) {
-    return text.split(/[.?!]\s*/).filter(Boolean);
+    let sents =  text.split(this.ssplitter).filter(Boolean);
+    if (this.abbr) return joinAbbrev(sents, this.abbr);
+    return sents;
   };
 
   /**

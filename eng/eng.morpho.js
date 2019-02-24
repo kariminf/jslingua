@@ -374,6 +374,12 @@
     "wot": "what"
   };
 
+  const abbreviation = {
+    "jan": 1, "feb": 1, "mar": 1, "apr": 1, "may": 1, "jun": 1,
+    "jul": 1, "aug": 1, "sep": 1, "oct": 1, "nov": 1, "dec": 1,
+
+  }
+
   //==========================================
   // INNER VARIABLES
   //==========================================
@@ -417,6 +423,7 @@
 
     Morpho._nConv.call(this, "sing2pl", "Singular noun to Plural", __singular2plural);
     g = this.g;
+    this.abbr = abbreviation;
   }
 
   EngMorpho.prototype = Object.create(Morpho.prototype);
@@ -1078,6 +1085,10 @@
   //==========================================
   // SEGMENTATION FUNCTIONS
   //==========================================
+
+  /**
+   * Segment a given text
+   */
 
   //==========================================
   // HELPER FUNCTIONS
