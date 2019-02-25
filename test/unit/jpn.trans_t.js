@@ -1,22 +1,22 @@
 var JpnTrans = require('../../jpn/jpn.trans');
 var expect = require('expect.js');
 
-var src = "じゃ、しゃしん、いっぱい"
+var src = "じゃ,しゃしん,いっぱい"
 var exp = {
-  "Hepburn": {
-    "rev": "じゃ、しゃしん、いっぱい",
-    "dst": "ja、shashin、ippai"
+  "hepburn": {
+    "rev": "じゃ,しゃしん,いっぱい",
+    "dst": "ja,shashin,ippai"
   },
-  "NihonShiki": {
-    "rev": "じゃ、しゃしん、いっぱい",
-    "dst": "zya、syasin、ippai"
+  "nihonshiki": {
+    "rev": "じゃ,しゃしん,いっぱい",
+    "dst": "zya,syasin,ippai"
   },
-  "KunreiShiki": {
-    "rev": "じゃ、しゃしん、いっぱい",
-    "dst": "zya、syasin、ippai"
+  "kunreishiki": {
+    "rev": "じゃ,しゃしん,いっぱい",
+    "dst": "zya,syasin,ippai"
   },
-  "Morse": {
-    "rev": "じや、しやしん、いつばい",
+  "morse": {
+    "rev": "じや,しやしん,いつばい",
     "dst": "-..--- --.-. .. .-- --..-- --.-. .-- --.-. .-.-. --..-- .- .--. -... .. .- ...-."
   }
 };
@@ -26,15 +26,32 @@ var trans = new JpnTrans();
 describe("Japanese Transliteration", function(){
 
   it("Methods check", function(){
-    var methods = trans.availableMethods();
+    let methods = trans.availableMethods();
     expect(methods.length).to.eql(4);//number of methods
-    var j;
-    for (j = 0; j < methods.length; j++){
-      var method = methods[j];
-      trans.setCurrentMethod(method);
-      expect(trans.transliterate(src)).to.eql(exp[method].dst);//transliterate
-      expect(trans.untransliterate(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
-    }
+  });
+
+  it("Hepburn", function(){
+    trans.setCurrentMethod("hepburn");
+    expect(trans.transliterate(src)).to.eql(exp["hepburn"].dst);//transliterate
+    expect(trans.untransliterate(exp["hepburn"].dst)).to.eql(exp["hepburn"].rev);//untransliterate
+  });
+
+  it("NihonShiki", function(){
+    trans.setCurrentMethod("nihonshiki");
+    expect(trans.transliterate(src)).to.eql(exp["nihonshiki"].dst);//transliterate
+    expect(trans.untransliterate(exp["nihonshiki"].dst)).to.eql(exp["nihonshiki"].rev);//untransliterate
+  });
+
+  it("kunreishiki", function(){
+    trans.setCurrentMethod("kunreishiki");
+    expect(trans.transliterate(src)).to.eql(exp["kunreishiki"].dst);//transliterate
+    expect(trans.untransliterate(exp["kunreishiki"].dst)).to.eql(exp["kunreishiki"].rev);//untransliterate
+  });
+
+  it("morse", function(){
+    trans.setCurrentMethod("morse");
+    expect(trans.transliterate(src)).to.eql(exp["morse"].dst);//transliterate
+    expect(trans.untransliterate(exp["morse"].dst)).to.eql(exp["morse"].rev);//untransliterate
   });
 
 });

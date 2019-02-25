@@ -2,57 +2,59 @@
 * The main module
 * @module JsLingua
 */
+(function () {
 
-(function(){
+  "use strict";
 
+  let version = "0.10.1";
 
-  var version = "0.4.0";
-
-  var rtls = ["ara", "heb"];
+  const rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
 
   //service name: [services for languages]
-  var services = {};
+  let services = {};
+
+  let JsLingua = {};
 
   /**
-  * The main class
-  * @class JsLingua
+  * Contains the super-classes: Info, Lang, Trans, Morpho. <br>
+  * for example, JsLingua.Cls.Info returns Info class
+  *
+  * @attribute Cls
+  * @public
+  * @static
+  * @type {Object}
   */
-  var JsLingua = {};
-
   JsLingua.Cls = {};
 
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+  if (typeof module === "object" && module && typeof module.exports === "object") {
     //In case of nodeJs, we load all available modules
     services = {
-      "Info": {
+      "info": {
         "ara": require("./ara/ara.info.js"),//Arabic information class
         "jpn": require("./jpn/jpn.info.js"),//Japanese information class
-        "eng": require("./eng/eng.info.js")//English information class
+        "eng": require("./eng/eng.info.js"),//English information class
+        "fra": require("./fra/fra.info.js")//French information class
       },
-      "Lang": {
+      "lang": {
         "ara": require("./ara/ara.lang.js"),//Arabic language class
         "jpn": require("./jpn/jpn.lang.js"),//Japanese language class
-        "eng": require("./eng/eng.lang.js")//English language class
+        "eng": require("./eng/eng.lang.js"),//English language class
+        "fra": require("./fra/fra.lang.js")//English language class
       },
-      "Trans": {
+      "trans": {
         "ara": require("./ara/ara.trans.js"),//Arabic transliteration class
         "jpn": require("./jpn/jpn.trans.js"),//Japanese transliteration class
-        "eng": require("./eng/eng.trans.js")//English transliteration class
+        "eng": require("./eng/eng.trans.js"),//English transliteration class
+        "fra": require("./fra/fra.trans.js")//French transliteration class
       },
-      "Morpho": {
+      "morpho": {
         "ara": require("./ara/ara.morpho.js"),//Arabic Morphology class
         "jpn": require("./jpn/jpn.morpho.js"),//Japanese Morphology class
-        "eng": require("./eng/eng.morpho.js")//English Morphology class
+        "eng": require("./eng/eng.morpho.js"),//English Morphology class
+        "fra": require("./fra/fra.morpho.js")//French Morphology class
       }
     };
 
-    /**
-    * Contains the super-classes: Info, Lang, Trans, Morpho. <br>
-    * for example, JsLingua.Cls.Info returns Info class
-    * @attribute Cls
-    * @static
-    * @type {Object}
-    */
     JsLingua.Cls = {
       Info: require("./info.js"),
       Lang: require("./lang.js"),
@@ -62,55 +64,95 @@
 
     module.exports = JsLingua;
 
-  } else {
+  }
+  else {
     //In case of browser, the called classes will subscribe themeselves
     window.JsLingua = JsLingua;
   }
 
   /**
   * Add a service for a specific language
-  * @method addService
-  * @param {string} serviceID The services name: "Info", "Lang", etc.
-  * @param {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
-  * @param {object} theClass  The class that affords the service
+  *
+  * @method aserv
+  * @public
+  * @static
+  * @param {String} serviceID The services name: "Info", "Lang", etc.
+  * @param {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
+  * @param {Object} theClass  The class that affords the service
   */
-  JsLingua.addService = function(serviceID, langCode, theClass){
+  JsLingua.aserv = function(serviceID, langCode, theClass) {
+    serviceID = serviceID.toLowerCase();
+    langCode = langCode.toLowerCase();
     if (services[serviceID] === undefined){
       services[serviceID] = {};
     }
 
     services[serviceID][langCode] = theClass;
 
-  }
+  };
 
   /**
   * Get the codes of available languages of a given service
-  * @method serviceLanguages
-  * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @return {array}   array of strings, with ISO639-2 codes
+  *
+  * @method llang
+  * @public
+  * @static
+  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
+  * @return {String[]}   array of strings, with ISO639-2 codes
   */
-  JsLingua.serviceLanguages = function(serviceID){
-    if (services[serviceID] === undefined) return [];
-    return Object.keys(services[serviceID]);
-  }
+  JsLingua.llang = function(serviceID) {
+    let service = services[serviceID.toLowerCase()];
+    if (service === undefined) return [];
+    return Object.keys(service);
+  };
 
   /**
   * Get the service class for a given language and service name.<br>
-  * For example: JsLingua.getService("Info", "ara") Gives a class AraInfo
-  * @method getService
-  * @param  {string} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @param  {string} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
-  * @return {object}   The class that affords the service
+  * For example: JsLingua.gserv("Info", "ara") Gives a class AraInfo
+  *
+  * @method gserv
+  * @public
+  * @static
+  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
+  * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
+  * @return {Class}   The class that affords the service
   */
-  JsLingua.getService = function(serviceID, langCode){
-    if (services[serviceID] === undefined) return null;
-    if (! langCode in services[serviceID]) return null;
-    return services[serviceID][langCode];
-  }
+  JsLingua.gserv = function(serviceID, langCode) {
+    let service = services[serviceID.toLowerCase()];
+    if (service === undefined) return null;
+    langCode = langCode.toLowerCase();
+    if (! (langCode in service)) return null;
+    return service[langCode];
+  };
 
-  JsLingua.getVersion = function(){
+  /**
+  * Get an object of a service class for a given language and service name.<br>
+  * For example: JsLingua.nserv("Info", "ara") Gives an object of the class AraInfo
+  *
+  * @method nserv
+  * @public
+  * @static
+  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
+  * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
+  * @return {Class}   The class that affords the service
+  */
+  JsLingua.nserv = function(serviceID, langCode) {
+    let Cls = JsLingua.gserv(serviceID, langCode);
+    if (Cls === null) return null;
+    return new Cls();
+  };
+
+  /**
+   * Returns the version of JsLingua
+   *
+   * @method gversion
+   * @public
+   * @static
+   * @return {String}   JsLingua version
+   */
+  JsLingua.gversion = function() {
     return version;
-  }
+  };
 
   /**
    * To recover the direction of writing for the given language <br>
@@ -118,16 +160,81 @@
    * But, the direction is used a lot for presentation, so a centralized
    * version is to be afforded, so we don't import the js file for each
    * language in each webpage.
-   * @param  {string} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
+   *
+   * @method gdir
+   * @public
+   * @static
+   * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
    * @return {String}     either "rtl" or "ltr"
    */
-  JsLingua.getDir = function(langCode){
+  JsLingua.gdir = function(langCode) {
 
     if (rtls.indexOf(langCode) < 0) return "ltr";
 
     return "rtl";
 
-  }
+  };
 
+
+  //========================================
+  // LONG FUNCTIONS
+  //========================================
+
+  /**
+  * Get the service class for a given language and service name.<br>
+  * For example: JsLingua.getService("Info", "ara") Gives a class AraInfo
+  *
+  * @method getService
+  * @public
+  * @static
+  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
+  * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
+  * @return {Class}   The class that affords the service
+  */
+  JsLingua.getService = function(serviceID, langCode) {
+    return JsLingua.gserv(serviceID, langCode);
+  };
+
+  /**
+  * Get the codes of available languages of a given service
+  *
+  * @method serviceLanguages
+  * @public
+  * @static
+  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
+  * @return {String[]}   array of strings, with ISO639-2 codes
+  */
+  JsLingua.serviceLanguages = function(serviceID) {
+    return JsLingua.llang(serviceID);
+  };
+
+  /**
+   * To recover the direction of writing for the given language <br>
+   * This can be done using the info.js instance of the target language.
+   * But, the direction is used a lot for presentation, so a centralized
+   * version is to be afforded, so we don't import the js file for each
+   * language in each webpage.
+   *
+   * @method getDir
+   * @public
+   * @static
+   * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
+   * @return {String}     either "rtl" or "ltr"
+   */
+  JsLingua.getDir = function(langCode) {
+    return JsLingua.gdir(langCode);
+  };
+
+  /**
+   * Returns the version of JsLingua
+   *
+   * @method getVersion
+   * @public
+   * @static
+   * @return {String}   JsLingua version
+   */
+  JsLingua.getVersion = function() {
+    return version;
+  };
 
 }());

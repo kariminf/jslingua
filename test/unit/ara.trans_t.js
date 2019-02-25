@@ -3,15 +3,15 @@ var expect = require('expect.js');
 
 var src = "ذلك البرنامج مسلّ";
 var exp = {
-  "Buckwalter": {
+  "buckwalter": {
     "rev": "ذلك البرنامج مسلّ",
     "dst": "*lk AlbrnAmj msl~"
   },
-  "ArabTeX": {
+  "arabtex": {
     "rev": "ذلك البرنامج مسلّ",
     "dst": "_dlk AlbrnAmj mslxx"
   },
-  "Morse": {
+  "morse": {
     "rev": "ذلك البرنامج مسل",
     "dst": "--.. .-.. -.-     .- .-.. -... .-. -. .- -- .---     -- ... .-.."
   }

@@ -3,12 +3,16 @@ node_js:
 - '7'
 before_install:
 - npm install codecov -g
+- npm install -g codeclimate-test-reporter
 after_success:
 - codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
+- codeclimate < ./coverage/lcov.info
 before_deploy:
-- npm install uglify-js -g
+- npm install uglify-es
+- bash min.sh
 deploy:
   provider: npm
+  skip_cleanup: true
   email: kariminfo0@gmail.com
   api_key:
-    secure: DrqJoaX/2c/dvcB4qLCrpvpC2zfWUfvBSjf8Y+2fsSQ0hsSvLmtlet5bsvOL8UkEKS6sIhhp5mem6g04lLlNLIl80EEWDblYm8lvhUwOg1qrV/smVYz0ymKdilKpDkyf6lSSykgj5sGRUMmFHGNL2yBN73VhSmDHIamsY4IuuFsOwuHugw3q+P1oTrXd2O9cnlJNbIrlKQ6/au61hKZL7hHCylcEmq33blTWiKcBL05lmzApeCZDLRODwRiiOLQyeJAv+YjLcljIWOHbUjnLd44tEHMH4ByNIQwo7NoTxDJnhgt1mDcHDFUVcIojLp/W+LnQyF+xDE1v5UO3ouRUdMO9d+uAWknN1dU3VD+a3BLIH3n5mAFHEQ2NJKnqtCFzt9HOkc5cUXMODqNDLybA0E3vXCCMvcYeOBMDk3QaY3nju9VIjU3io8oA93JsiDIWE8+DXU1OZ5BmtQeeLhJTlLv8/wQgRiJWCSiqQVnQKbisYCOisBdnQm9GigTBPUue4ZLvVNvqXYF1cgFqimjcZXC9syH/tvlJV/3mETZFRlJAWE1bfVig5ojgvqqssm0D3G6NPu671DC/Pl4qe33mF4bQwUq/X4NhdTzPzYBWP6/txBQb8+VDkOJ92sdhAXTjUtJgwL2/+SjHcRsJ+YfRSybrYMyTb65B5jTlT+lPBiE=
+    secure: YDtfzzOgnj/NVGCHDegAFWIFbmIhJmmDzpJ7NH1hOfzAiAzUxfotAAYYIvEoSmjMQANQ11NGAjPeJB29qDUrMeb5gu6AA4QaDve/L8fCydrLU6bGh6OByuppxyCLetDSRIMxi2oOYpYfZDLZRLIn1ZCDAJ0rEmZii3dsyZ1TAMrrr/3MI4H2JBQbnhtH/bBAAufDkCg8EKIi5mrhHN887pvIZbKmFX7dfz5PSEjN83F69GpqF4/ZWrd3gZ1A1gm2eYhvm927MGwXblp+GRws0DlJs7NdC4ZCU/TxvlM3GrogECN3v2LCHhQb1BTjmtVxcQFgR1XrlrWJeIdkvuPiRs0WJfWnLq7KZFy8HvMn7+A4T0g+OSuw12Pexq0ty9fdlJjxI9dISsAgvtEkT7gZZgc/QQoebjRnhSNdsLi/yEQ4fWfwv4mUJEBTF+EFl3twJs8BCsVnhgieWPKF9NVkk+V8sQY2ujOQLUSnSL1oPLIfiC1PRYzzN50g4UrJKn+c3c8wi7cKHThH34SKgPz2+b/PxxS0TsWxZGLlyFRfHz78niCgTcYBcKHawEj1r8/XJd5kU5bD6nOAZtEIacOUHAiveGv4+MUlAlnG/WvUN/A04Iqswt9NPh1spyd9UCJau0kCgMnDGj4pnVd61gnzsAs4ErkhZO88kfVsE18MKwQ=

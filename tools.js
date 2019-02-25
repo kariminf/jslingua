@@ -2,35 +2,37 @@
  * The tools module
  * @module Tools
  */
-
- /**
-  * The tools class
-  * @class Tools
-  * @static
-  */
+"use strict";
 
 /**
  * Read morse code and output as sound <br>
- * Example: readMorse("..-. .--   ..-.");
+ * @example
+ * readMorse("..-. .--   ..-.");
+ *
  * @method readMorse
- * @param  {string} morse morse code written using ".", "-" and blacks " ".
+ * @public
+ * @static
+ * @param  {String} morse morse code written using ".", "-" and blacks " ".
  */
-function readMorse(morse){
-  var dotLength = 0.07;
-  var AudioContext = window.AudioContext || window.webkitAudioContext;
-  var context = new AudioContext();
-  var gain = context.createGain();
+function readMorse(morse) {
+  let dotLength = 0.07,
+  AudioContext = window.AudioContext || window.webkitAudioContext,
+  context = new AudioContext(),
+  gain = context.createGain(),
+  osc = context.createOscillator();
+
   gain.gain.value = 0;
-  var osc = context.createOscillator();
+
   osc.frequency.value = 600;
   osc.connect(gain);
   gain.connect(context.destination);
   osc.start(0);
-  var i;
-  var time0 = context.currentTime;
-  var time = time0;
+  let i,
+  time0 = context.currentTime,
+  time = time0;
+
   for (i =0; i< morse.length; i++){
-    var char = morse.charAt(i);
+    let char = morse.charAt(i);
     switch (char) {
       case ".":
         gain.gain.setValueAtTime(1.0, time);
@@ -45,8 +47,9 @@ function readMorse(morse){
         time += dotLength;
         break;
       case " ":
-      gain.gain.setValueAtTime(0.0, time);
-      time += 3 * dotLength;
+        gain.gain.setValueAtTime(0.0, time);
+        time += 3 * dotLength;
+        break;
       default:
     }
   }
@@ -57,12 +60,15 @@ function readMorse(morse){
 /**
  * Transform HTML reserved characters to their equivalent codes in HTML.<br>
  * for example: "<" is transformed to "&lt;".
+ *
  * @method htmlEntities
- * @param  {string} str normal string
- * @return {string}     skip string
+ * @public
+ * @static
+ * @param  {String} str normal string
+ * @return {String}     skip string
  */
 function htmlEntities(str) {
-  var result = String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  result = result.replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /gi, "&nbsp;");
+  let result = String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  result = result.replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/ /gi, "&nbsp;");
   return result;
 }

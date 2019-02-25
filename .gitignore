@@ -38,7 +38,7 @@ jspm_packages
 .eslintcache
 
 # Optional REPL history
-.node_repl_history 
+.node_repl_history
 
 #unpkg minified files folder
 dist
@@ -47,3 +47,11 @@ dist
 
 #yuido out folder
 out
+docs/
+
+package-lock.json
+#inchjs generated docs
+docs.json
+
+#ignore text files in helpers folder 
+test/helpers/*.txt

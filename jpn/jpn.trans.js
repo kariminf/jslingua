@@ -1,15 +1,23 @@
-(function(){
-  var Trans = {};
+(function() {
+
+  "use strict";
+
+  //==========================================
+  // EXPORTING MODULE
+  //==========================================
+
+  let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = JpnTrans;
-  } else {
+  }
+  else {
     Trans = window.JsLingua.Cls.Trans;
     //window.JpnTrans = JpnTrans;
-    window.JsLingua.addService("Trans", "jpn", JpnTrans);
+    window.JsLingua.aserv("trans", "jpn", JpnTrans);
   }
 
-  var hiragana = [
+  let hiragana = [
     "が",
     "ぎ",
     "ぐ",
@@ -92,10 +100,8 @@
     "ゅ",
     "ぃ",
     "ょ"
-  ];
-
-  //https://en.wikipedia.org/wiki/Hepburn_romanization
-  var hepburn = [
+  ],
+  hepburn = [//https://en.wikipedia.org/wiki/Hepburn_romanization
     "ga",
     "gi",
     "gu",
@@ -178,9 +184,8 @@
     "xyu",
     "xyi",
     "xyo"
-  ];
-
-  var loneUnTrans = {
+  ],
+  loneUnTrans = {
     "ku": "く",
     "su": "す",
     "nu": "ぬ",
@@ -194,9 +199,8 @@
     "du": "づ",
     "bu": "ぶ",
     "pu": "ぷ"
-  };
-
-  var wabun = [
+  },
+  wabun = [
     " .-..  .. ",//ga
     " -.-..  .. ",//gi
     " ..-  .. ",//gu
@@ -281,130 +285,102 @@
     " -- "//xyo
   ];
 
-  var otherMourseBef = [
-    //numbers,
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    //punctuation,
-    "。", //actually it is a dot, this is to prevent conflect
-    "、"
-  ];
-
-  var otherMourseAft = [
-    //numbers
-    " ----- ",
-    " .---- ",
-    " ..--- ",
-    " ...-- ",
-    " ....- ",
-    " ..... ",
-    " -.... ",
-    " --... ",
-    " ---.. ",
-    " ----. ",
-    //punctuation
-    " .-.-.- ",
-    " --..-- "
-  ];
-
-  var otherMourseTrans = new Trans("otherMourse");
-  Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
 
   /**
    * Japanese transliteration
+   *
    * @class JpnTrans
    * @extends Trans
-   * @constructor
    */
   function JpnTrans() {
     Trans.call(this, "jpn");
 
-    Trans.newMethod.call(this, "Hepburn", hiragana, hepburn);
-    Trans.addTransPrePostMethods.call(this, "Hepburn", hepburnPreTrans, shikiPostTrans);
-    Trans.addUntransPrePostMethods.call(this, "Hepburn", hepburnPreUntrans, loneCharReplace);
+    Trans._nTrans.call(this, "hepburn", hiragana, hepburn);
+    Trans._sTransCnd.call(this, "hepburn", __hepburnPreTrans, __shikiPostTrans);
+    Trans._sUntransCnd.call(this, "hepburn", __hepburnPreUntrans, __loneCharReplace);
 
-    Trans.newMethod.call(this, "NihonShiki", hiragana, hepburn);
-    Trans.addTransPrePostMethods.call(this, "NihonShiki", nihonShikiPreTrans, shikiPostTrans);
-    Trans.addUntransPrePostMethods.call(this, "NihonShiki", nihonShikiPreUntrans, loneCharReplace);
+    Trans._nTrans.call(this, "nihonshiki", hiragana, hepburn);
+    Trans._sTransCnd.call(this, "nihonshiki", __nihonShikiPreTrans, __shikiPostTrans);
+    Trans._sUntransCnd.call(this, "nihonshiki", __nihonShikiPreUntrans, __loneCharReplace);
 
-    Trans.newMethod.call(this, "KunreiShiki", hiragana, hepburn);
-    Trans.addTransPrePostMethods.call(this, "KunreiShiki", kunreiShikiPreTrans, shikiPostTrans);
-    Trans.addUntransPrePostMethods.call(this, "KunreiShiki", kunreiShikiPreUntrans, loneCharReplace);
+    Trans._nTrans.call(this, "kunreishiki", hiragana, hepburn);
+    Trans._sTransCnd.call(this, "kunreishiki", __kunreiShikiPreTrans, __shikiPostTrans);
+    Trans._sUntransCnd.call(this, "kunreishiki", __kunreiShikiPreUntrans, __loneCharReplace);
 
-    Trans.newMethod.call(this, "Morse", hiragana, wabun);
-    Trans.addTransPrePostMethods.call(this, "Morse", morsePreTrans, morsePostTrans);
-    Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
+    Trans._nTrans.call(this, "morse", hiragana, wabun);
+    Trans._sTransCnd.call(this, "morse", __morsePreTrans, __morsePostTrans);
+    Trans._sUntransCnd.call(this, "morse", __morsePreUntrans, __morsePostUntrans);
   }
 
   JpnTrans.prototype = Object.create(Trans.prototype);
   JpnTrans.prototype.constructor = JpnTrans;
 
-  function ja2morseNormalize(text){
+  //==========================================
+  // MORSE FUNCTIONS
+  //==========================================
+
+  function __ja2morseNormalize(text) {
     var result = text;
     result = result.replace(/[っ]/gi, "つ");
     //Japanese space
-    result = result.replace(/　/gi, "\t");
+    //result = result.replace(/　/gi, "\t");
     return result;
   }
 
-  function morsePreTrans(text){
+  function __morsePreTrans(text) {
     var result = text;
     //cleaning non supported codes
-    result = result.replace(/[\.\-]/gi, "");
+    result = result.replace(/[.-]/gi, "");
     result = result.replace(/[ ]+/gi, "\t");
     //result = result.replace(/([^\t])([^\t])/gi, "$1 $2");
-    result = ja2morseNormalize(result);
+    result = __ja2morseNormalize(result);
     return result;
   }
 
-  function morsePostTrans(text){
+  function __morsePostTrans(text) {
     var result = text;
-    result = otherMourseTrans.transliterate(result);
+    result = Trans.specialCharTrans(result);
     result = result.replace(/ +/gi, " ");
     result = result.replace(/\t/gi, "   ");
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
 
     //Add DO and SN prosigns
     result = "-..---" + result + "...-.";
     return result;
   }
 
-  function morsePreUntrans(text){
+  function __morsePreUntrans(text) {
     var result = text;
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
     result = result.replace(/[ ]{3,}/gi, " \t ");
     result = result.replace(/ +/gi, "  ");
     result = result.replace(/^/gi, " ");
     result = result.replace(/$/gi, " ");
 
     //delete DO and SN prosigns used to specify the beginning and end of wabun
-    result = result.replace(/ \-\.\.\-\-\- /gi, " ");
-    result = result.replace(/ \.\.\.\-\. /gi, " ");
-
+    result = result.replace(/ -\.\.--- /gi, " ");
+    result = result.replace(/ \.\.\.-\. /gi, " ");
     return result;
   }
 
-  function morsePostUntrans(text){
+  function __morsePostUntrans(text) {
     var result = text;
-    result = otherMourseTrans.untransliterate(result);
+    result = Trans.specialCharUntrans(result);
     result = result.replace(/ +/gi, "");
     result = result.replace(/\t/gi, "　");
     return result;
   }
 
+  //==========================================
+  // SHIKI FUNCTIONS
+  //==========================================
 
-
-  function shikiPreTrans(text){
+  function __shikiPreTrans(text) {
     var result = text.replace(/し/gi, "si");
     result = result.replace(/ち/gi, "ti");
     result = result.replace(/つ/gi, "tu");
@@ -417,8 +393,8 @@
     return result;
   }
 
-  function shikiPreUntrans(text){
-    var result = text;
+  function __shikiPreUntrans(text) {
+    let result = text;
     //result = result.replace(/([tzs])y/gi, "$1iy");
     result = result.replace(/si/gi, "し");
     result = result.replace(/ti/gi, "ち");
@@ -433,55 +409,28 @@
     return result;
   }
 
-
-  function hepburnPreTrans(text){
-    return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){
-      var result = hepburn[hiragana.indexOf(p1)];
-      result = result + hepburn[hiragana.indexOf(p2)];
-      return result.replace("ixy", "");
-    });
-  }
-
-  function hepburnPreUntrans(text){
-    var result = doubleReplace(text);
-    result = result.replace(/(sh|ch|j)([aeuo])/gi, function(match, p1, p2){
-      var key = p1 + "i";
-      if (hepburn.indexOf(key) > -1){
-        var result =  hiragana[hepburn.indexOf(key)];
-        key = "xy" + p2;
-        if (hepburn.indexOf(key) > -1){
-          result += hiragana[hepburn.indexOf(key)];
-        }
-        return result;
-      }
-      return match;
-    });
-
-    return xya2Jap(result);
-  }
-
-  function shikiPostTrans(text){
+  function __shikiPostTrans(text) {
     var result = text.replace(/ix/gi, "");
-    result = littleTsuPostTrans(result);
+    result = __littleTsuPostTrans(result);
     return result;
   }
 
-  function littleTsuPostTrans(text){
-    return text.replace(/(っ+)(.)/gi, function(match, p1, p2){
+  function __littleTsuPostTrans(text) {
+    return text.replace(/(っ+)(.)/gi, function(match, p1, p2) {
       return new Array(2 + p1.length).join(p2);
     });
   }
 
-  function nihonShikiPreUntrans(text){
-    var result = doubleReplace(text);
-    result = shikiPreUntrans(result);
+  function __nihonShikiPreUntrans(text) {
+    let result = __doubleReplace(text);
+    result = __shikiPreUntrans(result);
     result = result.replace(/di/gi, "ぢ");
     result = result.replace(/du/gi, "づ");
-    return xya2Jap(result);
+    return __xya2Jap(result);
   }
 
-  function nihonShikiPreTrans(text){
-    var result = shikiPreTrans(text);
+  function __nihonShikiPreTrans(text) {
+    let result = __shikiPreTrans(text);
     result = result.replace(/ぢ/gi, "di");
     result = result.replace(/づ/gi, "du");
     return result;
@@ -489,13 +438,15 @@
 
   /**
    * kunreiShiki pre-transliteration function
-   * @method kunreiShikiPreTrans
+   *
+   * @method __kunreiShikiPreTrans
    * @private
-   * @param  {string} text Japanese text
-   * @return {string}      Pre-tranliterated text
+   * @memberof JpnTrans
+   * @param  {String} text Japanese text
+   * @return {String}      Pre-tranliterated text
    */
-  function kunreiShikiPreTrans(text){
-    var result = shikiPreTrans(text);
+  function __kunreiShikiPreTrans(text) {
+    let result = __shikiPreTrans(text);
     result = result.replace(/ぢ/gi, "zi");
     //result = result.replace(/づ/gi, "zu"); //already on hepburn
     return result;
@@ -503,31 +454,66 @@
 
   /**
    * kunreiShiki pre-untransliteration function
-   * @method kunreiShikiPreUntrans
+   *
+   * @method __kunreiShikiPreUntrans
    * @private
-   * @param  {string} text Romanized text
-   * @return {string}      Pre-untranliterated text
+   * @memberof JpnTrans
+   * @param  {String} text Romanized text
+   * @return {String}      Pre-untranliterated text
    */
-  function kunreiShikiPreUntrans(text){
-    var result = doubleReplace(text);
-    result = shikiPreUntrans(result);
+  function __kunreiShikiPreUntrans(text) {
+    var result = __doubleReplace(text);
+    result = __shikiPreUntrans(result);
     result = result.replace(/zi/gi, "ぢ");
-    return xya2Jap(result);
+    return __xya2Jap(result);
   }
+
+  //==========================================
+  // HEPBURN FUNCTIONS
+  //==========================================
+
+  function __hepburnPreTrans(text) {
+    return text.replace(/([しちじぢ])([ゃぇゅょ])/gi, function(match, p1, p2){
+      let result = hepburn[hiragana.indexOf(p1)];
+      result = result + hepburn[hiragana.indexOf(p2)];
+      return result.replace("ixy", "");
+    });
+  }
+
+  function __hepburnPreUntrans(text) {
+    var result = __doubleReplace(text);
+    result = result.replace(/(sh|ch|j)([aeuo])/gi, function(match, p1, p2){
+      let key = p1 + "i";
+      if (hepburn.indexOf(key) > -1) {
+        var result =  hiragana[hepburn.indexOf(key)];
+        key = "xy" + p2;
+        if (hepburn.indexOf(key) > -1) {
+          result += hiragana[hepburn.indexOf(key)];
+        }
+        return result;
+      }
+      return match;
+    });
+
+    return __xya2Jap(result);
+  }
+
+
 
 
   /**
   * Replace the doubled characters with a little "tsu" if different from "n"
+  *
   * @method doubleReplace
   * @private
+  * @memberof JpnTrans
   * @param  {String} text The text to be replaced
   * @return {String} The same string but the repeated characters are replaced
   */
-  function doubleReplace(text){
-    return text.replace(/(sh|ch|.)\1+/gi, function(match, p1){
+  function __doubleReplace(text) {
+    return text.replace(/(sh|ch|.)\1+/gi, function(match, p1) {
       //vowels are ignored
-      if ("aeuio".indexOf(p1)>-1)
-        return match;
+      if ("aeuio".indexOf(p1) > -1 ) return match;
 
       var repChar = "っ";
 
@@ -543,19 +529,21 @@
 
   /**
    * Transform xya to Japanese little 'tsu' followed by ya
-   * @method xya2Jap
+   *
+   * @method __xya2Jap
    * @private
+   * @memberof JpnTrans
    * @param  {string} text Romanized text
    * @return {string}      text with xya transformed to Japanese
    */
-  function xya2Jap(text){
+  function __xya2Jap(text) {
     //var result = text.replace("sh", "し").replace("ch", "ち");
-    return text.replace(/(sh|ch|.)y([aeuio])/gi, function(match, p1, p2){
+    return text.replace(/(sh|ch|.)y([aeuio])/gi, function(match, p1, p2) {
       var key = p1 + "i";
-      if (hepburn.indexOf(key) > -1){
+      if (hepburn.indexOf(key) > -1) {
         var result =  hiragana[hepburn.indexOf(key)];
         key = "xy" + p2;
-        if (hepburn.indexOf(key) > -1){
+        if (hepburn.indexOf(key) > -1) {
           result += hiragana[hepburn.indexOf(key)];
         }
         return result;
@@ -569,16 +557,18 @@
 
   /**
   * Replace the lone characters with their equivalent + "u"
-  * @method loneCharReplace
+  *
+  * @method __loneCharReplace
   * @private
-  * @param  {string} text the text to be replaced
-  * @return {string}      The resulted text
+  * @memberof JpnTrans
+  * @param  {String} text the text to be replaced
+  * @return {String}      The resulted text
   */
-  function loneCharReplace(text){
-    return text.replace(/[a-z][う]?/gi, function(x){
+  function __loneCharReplace(text) {
+    return text.replace(/[a-z][う]?/gi, function(x) {
       var key = x;
-      if (x.length > 1){
-        if (x === "tう"){
+      if (x.length > 1) {
+        if (x === "tう") {
           return "つ";
         }
         key = x[0];
@@ -586,11 +576,11 @@
 
       key += "u";
       var result = "";
-      if (key in loneUnTrans){
+      if (key in loneUnTrans) {
         result = loneUnTrans[key];
       }
 
-      if (x.length > 1){
+      if (x.length > 1) {
         result += "う";
       }
 

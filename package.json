@@ -1,31 +1,51 @@
 {
   "name": "jslingua",
-  "version": "0.4.3",
+  "version": "0.10.2",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
-    "codecov": "^2.2.0",
+    "codecov": "^2.3.1",
+    "eslint": "^4.19.1",
     "expect.js": "^0.3.1",
+    "http-server": "^0.10.0",
+    "inchjs": "^0.4.1",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.3",
-    "mocha": "^3.0.2",
-    "uglify-js": "^3.0.20"
+    "jslint": "^0.11.0",
+    "mocha": "^3.5.3",
+    "tui-jsdoc-template": "^1.2.2",
+    "uglify-es": "^3.3.10"
   },
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
-    "prepublish": "bash min.sh"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
   },
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kariminf/JsLingua.git"
+    "url": "git://github.com/kariminf/jslingua.git"
   },
   "keywords": [
     "language",
     "transliteration",
-    "NLP"
+    "NLP",
+    "conjugation",
+    "IR",
+    "stemming",
+    "stemmer",
+    "toolkit",
+    "library",
+    "front-end",
+    "back-end",
+    "pronunciation",
+    "multi-lingual",
+    "multilingual",
+    "normalization",
+    "arabic",
+    "english",
+    "japanese",
+    "french"
   ],
   "files": [
     "info.js",
@@ -35,8 +55,8 @@
     "ara/",
     "jpn/",
     "eng/",
-    "dist/",
-    "test"
+    "fra/",
+    "dist/"
   ],
   "author": "Abdelkrime Aries <kariminfo0@gmail.com>",
   "contributors": [
@@ -44,7 +64,7 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/kariminf/JsLingua/issues"
+    "url": "https://github.com/kariminf/jslingua/issues"
   },
-  "homepage": "http://kariminf.github.io/JsLingua"
+  "homepage": "https://kariminf.github.io/jslingua.web/"
 }

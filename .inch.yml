@@ -1,0 +1,8 @@
+files:
+  included:
+    - "**.js"
+    - "{ara, eng, jpn}/**.js"
+  excluded:
+    - test/
+    - node_modules/
+    - dist/

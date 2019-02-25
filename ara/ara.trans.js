@@ -1,14 +1,26 @@
-(function(){
-  var Trans = {};
+(function() {
+
+  "use strict";
+
+	//==========================================
+  // EXPORTING MODULE
+  //==========================================
+
+  let Trans = {};
   if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     Trans = require("../trans.js");
     module.exports = AraTrans;
-  } else {
+  }
+  else {
     Trans = window.JsLingua.Cls.Trans;
-    window.JsLingua.addService("Trans", "ara", AraTrans);
+    window.JsLingua.aserv("trans", "ara", AraTrans);
   }
 
-  var arabic = [
+  //==========================================
+  // CONSTANTS
+  //==========================================
+
+  const arabic = [
     "ث", // tha
     "ح", // Ḥa
     "خ", // kha
@@ -62,9 +74,8 @@
 
     "ء", // lone hamza
     "ا" // alif
-  ];
-
-  var buckwalter = [
+  ],
+  buckwalter = [
     "v", // tha
     "H", // Ḥa
     "x", // kha
@@ -118,9 +129,8 @@
 
     "'", // lone hamza
     "A" // alif
-  ];
-
-  var arabtex = [
+  ],
+  arabtex = [
     "_t", // tha
     ".h", // Ḥa
     "_h", // kha
@@ -150,10 +160,10 @@
     "w", // waw or "U"
     "y", // ya or "I"
 
-    "a'", // hamza on alif
-    "i'", // hamza below alif
-    "U'", // hamza on waw
-    "'y", // hamza on ya
+    "'", // hamza on alif
+    "'i", // hamza below alif
+    "'", // hamza on waw
+    "'", // hamza on ya
 
     "'A", // madda on alif
     "|", // alif alwasla <<<<<<
@@ -174,10 +184,8 @@
 
     "'", // lone hamza
     "A" // alif
-  ];
-
-  //https://en.wikipedia.org/wiki/Morse_code_for_non-Latin_alphabets
-  var armorse = [
+  ],
+  armorse = [//https://en.wikipedia.org/wiki/Morse_code_for_non-Latin_alphabets
     " -.-. ", // tha
     " .... ", // Ḥa
     " --- ", // kha
@@ -233,102 +241,44 @@
     " .- " // alif
   ];
 
-  var otherMourseBef = [
-    //numbers,
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    //punctuation,
-    "#", //actually it is a dot, this is to prevent conflect
-    "،",
-    "؟",
-    "'",
-    "!",
-    "/",
-    "(",
-    ")",
-    "&",
-    ":",
-    "؛",
-    "=",
-    "+",
-    "^", //actually it is a hyphen, this is to prevent conflect
-    "_",
-    "\"",
-    "$",
-    "@"
-  ];
-
-  var otherMourseAft = [
-    //numbers
-    " ----- ",
-    " .---- ",
-    " ..--- ",
-    " ...-- ",
-    " ....- ",
-    " ..... ",
-    " -.... ",
-    " --... ",
-    " ---.. ",
-    " ----. ",
-    //punctuation
-    " .-.-.- ",
-    " --..-- ",
-    " ..--.. ",
-    " .----. ",
-    " -.-.-- ",
-    " -..-. ",
-    " -.--. ",
-    " -.--.- ",
-    " .-... ",
-    " ---... ",
-    " -.-.-. ",
-    " -...- ",
-    " .-.-. ",
-    " -....- ",
-    " ..--.- ",
-    " .-..-. ",
-    " ...-..- ",
-    " .--.-. "
-  ];
-
-  var otherMourseTrans = new Trans("otherMourse");
-  Trans.newMethod.call(otherMourseTrans, "def", otherMourseBef, otherMourseAft);
+  //==========================================
+  // CLASS CONSTRUCTOR
+  //==========================================
 
   /**
-   * Arabic transliteration
+   * Arabic transliteration class
+   *
    * @class AraTrans
    * @extends Trans
-   * @constructor
    */
   function AraTrans() {
     Trans.call(this, "ara");
-    Trans.newMethod.call(this, "Buckwalter", arabic, buckwalter);
-    Trans.newMethod.call(this,"ArabTeX", arabic, arabtex);
-    Trans.newMethod.call(this,"Morse", arabic, armorse);
-    Trans.addTransPrePostMethods.call(this, "Morse", morsePreTrans, morsePostTrans);
-    Trans.addUntransPrePostMethods.call(this, "Morse", morsePreUntrans, morsePostUntrans);
+    Trans._nTrans.call(this, "buckwalter", arabic, buckwalter);
+    Trans._nTrans.call(this,"arabtex", arabic, arabtex);
+    Trans._nTrans.call(this,"morse", arabic, armorse);
+    Trans._sTransCnd.call(this, "morse", __morsePreTrans, __morsePostTrans);
+    Trans._sUntransCnd.call(this, "morse", __morsePreUntrans, __morsePostUntrans);
   }
 
   AraTrans.prototype = Object.create(Trans.prototype);
   AraTrans.prototype.constructor = AraTrans;
 
+
+  //==========================================
+  // MORSE FUNCTIONS
+  //==========================================
+
   /**
    * Arabic to morse normalization
-   * @method ar2morseNormalize
+   *
+   * @method __morseNorm
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      normalized text
+   * @memberof AraTrans
+   * @param  {String} text Arabic text
+   * @return {String}      normalized text
    */
-  function ar2morseNormalize(text){
-    var result = text;
+  function __ar2morseNorm(text) {
+    let result = text;
     result = result.replace(/[أإئؤ]/gi, "ء");
     result = result.replace(/[ىآ]/gi, "ا");
     result = result.replace(/[ة]/gi, "ه");
@@ -337,52 +287,58 @@
 
   /**
    * pre-transliteration for morse: cleaning non supported codes
-   * @method morsePreTrans
+   *
+   * @method __morsePreTrans
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      processed text for morse transliteration
+   * @memberof AraTrans
+   * @param  {String} text Arabic text
+   * @return {String}      processed text for morse transliteration
    */
-  function morsePreTrans(text){
-    var result = text;
+  function __morsePreTrans(text) {
+    let result = text;
     //cleaning non supported codes
-    result = result.replace(/[\^\#]/gi, "");
-    result = result.replace(/\./gi, "#").replace(/\-/gi, "^");
+    result = result.replace(/[\^#]/gi, "");
+    result = result.replace(/\./gi, "#").replace(/-/gi, "^");
     result = result.replace(/[ ]+/gi, "\t");
     //result = result.replace(/([^\t])([^\t])/gi, "$1 $2");
-    result = ar2morseNormalize(result);
+    result = __ar2morseNorm(result);
     return result;
   }
 
   /**
    * post-transliteration for morse: clean non morse characters
-   * @method morsePostTrans
+   *
+   * @method __morsePostTrans
    * @private
-   * @param  {string} text morse code
-   * @return {string}      filtered morse code
+   * @memberof AraTrans
+   * @param  {String} text morse code
+   * @return {String}      filtered morse code
    */
-  function morsePostTrans(text){
-    var result = text;
-    result = otherMourseTrans.transliterate(result);
+  function __morsePostTrans(text) {
+    let result = text;
+    result = Trans.specialCharTrans(result);
     result = result.replace(/ +/gi, " ");
     result = result.replace(/^ /gi, "");
     result = result.replace(/ $/gi, "");
     result = result.replace(/\t/gi, "   ");
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
     return result.trim();
   }
 
   /**
    * pre-untransliteration for morse: clean non morse characters
-   * @method morsePreUntrans
+   *
+   * @method __morsePreUntrans
    * @private
-   * @param  {string} text morse code
-   * @return {string}      processed morse code for untransliteration
+   * @memberof AraTrans
+   * @param  {String} text morse code
+   * @return {String}      processed morse code for untransliteration
    */
-  function morsePreUntrans(text){
-    var result = text;
+  function __morsePreUntrans(text) {
+    let result = text;
     //clean non morse characters
-    result = result.replace(/[^ \.\-]/gi, "");
+    result = result.replace(/[^ .-]/gi, "");
     result = result.replace(/[ ]{3,}/gi, " \t ");
     result = result.replace(/ +/gi, "  ");
     result = result.replace(/^/gi, " ");
@@ -392,15 +348,17 @@
 
   /**
    * post-untransliteration for morse
-   * @method morsePostUntrans
+   *
+   * @method __morsePostUntrans
    * @private
-   * @param  {string} text Arabic text
-   * @return {string}      filtered Arabic text
+   * @memberof AraTrans
+   * @param  {String} text Arabic text
+   * @return {String}      filtered Arabic text
    */
-  function morsePostUntrans(text){
-    var result = text;
-    result = otherMourseTrans.untransliterate(result);
-    result = result.replace(/\#/gi, ".").replace(/\^/gi, "-");
+  function __morsePostUntrans(text) {
+    let result = text;
+    result = Trans.specialCharUntrans(result);
+    result = result.replace(/#/gi, ".").replace(/\^/gi, "-");
     result = result.replace(/ +/gi, "");
     result = result.replace(/\t/gi, " ");
     return result;

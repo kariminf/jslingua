@@ -1,7 +1,7 @@
 
 # JsLingua Functions
 
-YuiDoc generated API is located in [https://kariminf.github.com/JsLingua/docs/](https://kariminf.github.com/JsLingua/docs/)
+jsdoc generated API is located in [https://kariminf.github.io/jslingua.web/docs/](https://kariminf.github.io/jslingua.web/docs/)
 
 
 ## JsLingua
