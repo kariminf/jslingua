@@ -1923,9 +1923,12 @@
       return "Vous";
 
       case Person.T:
-      let pl = (opts.number === GNumber.S)? "": "s";
-      if (opts.gender === Gender.M) return "Il" + pl;
-      return "Elle" + pl;
+      {
+        let pl = (opts.number === GNumber.S)? "": "s";
+        if (opts.gender === Gender.M) return "Il" + pl;
+        return "Elle" + pl;
+      }
+
     }
     return "";
   };

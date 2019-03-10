@@ -378,7 +378,15 @@
     "jan": 1, "feb": 1, "mar": 1, "apr": 1, "may": 1, "jun": 1,
     "jul": 1, "aug": 1, "sep": 1, "oct": 1, "nov": 1, "dec": 1,
 
-  }
+    "sat": 1, "sun": 1, "mon": 1, "tue": 1, "wed": 1, "thu": 1, "fri": 1,
+
+    "mr": 1, "mrs": 1, "ms": 1, "dr": 1, "prof": 1, "gen": 1, "rep": 1,
+    "sen": 1, "etc": 1, "st": 1, "jr": 1, "sr": 1,
+
+    "in": 1, //http://plato.algonquincollege.com/applications/guideToGrammarUS/?page_id=146
+
+
+  };
 
   //==========================================
   // INNER VARIABLES
@@ -895,6 +903,7 @@
       switch (conjVerb.i) {
           case 3: return conjVerb.p + conjVerb.c;
           case 4:
+          {
             let res = conjVerb.c[idx];
             res = res.replace("1", conjVerb.v);
             if(idx === 1) {
@@ -902,6 +911,7 @@
                 res = res.replace(/.-/,"");
             }
             return conjVerb.p + res;
+          }
           default: return conjVerb.p + conjVerb.v;
       }
   }

@@ -366,6 +366,7 @@
     };
 
     this.ssplitter = /([.?!])(?:\s+|$)/;
+    this.tsplitter = /([,;])?\s+/;
 
   }
 
@@ -881,11 +882,15 @@
     for (i = sents.length - 1; i >= 0; i--) {
       if (sents[i] === "." && i > 0) {
         let lastword = sents[i-1].split(" ").pop();
-        if (lastword.indexOf(".") > -1 || abbr[lastword]) {
+        if (/(?:[^.\d]\.[^.\d])+/.test(lastword) || abbr[lastword.toLowerCase()]) {
           sents[i-1] += ".";
-          if (i+1 < sents.length) {
-            sents[i-1] += " " + sents[i+1];
-            sents.splice(i, 2);//delete i-th element and its successor
+          if (i+1 < sents.length) {//maybe you have to test if the next char is uppercase
+            let firstChar = sents[i+1].charAt(0);
+            if (firstChar !== firstChar.toLowerCase()) {
+              sents[i-1] += " " + sents[i+1];
+              sents.splice(i, 2);//delete i-th element and its successor
+            }
+            else { sents.splice(i, 2); }//delete i-th element
           }
           else { sents.splice(i, 2); }//delete i-th element
         }
@@ -911,7 +916,7 @@
    * @return {String[]}      a list of words
    */
   Me.tokenize = function (text) {
-    return text.split(/\s+/);
+    return text.split(this.tsplitter).filter(Boolean);
   };
 
   /**

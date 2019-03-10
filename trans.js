@@ -130,7 +130,7 @@
       },
 
       nbr2str: num => {
-        pronList.push(this.nbr2str(num));
+        transList.push(this.nbr2str(num));
         return this.s;
       }
 

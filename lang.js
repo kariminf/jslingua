@@ -38,8 +38,8 @@
     this.CS = {};
     this.TR = {};
     this.charFctsDef = {
-      contains: function(text){return false},
-      all: function(text){return false}
+      contains: function(_text){return false},
+      all: function(_text){return false}
     };
 
     this.charFcts = this.charFctsDef;

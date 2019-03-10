@@ -48,7 +48,7 @@
       EngTrans.call(this);
       let oldPreTrans = this.methods["morse"].preTrans;
       this.methods["morse"].preTrans = function(text) {
-        let result = text.toLowerCase();
+        //let result = text.toLowerCase();
         text = text.replace(new RegExp(latinChars, "g"), c => latinRep[c]);
         return oldPreTrans(text);
       }

@@ -326,7 +326,7 @@
     var result = text;
     result = result.replace(/[っ]/gi, "つ");
     //Japanese space
-    //result = result.replace(/　/gi, "\t");
+    //result = result.replace(/\s/gi, "\t");
     return result;
   }
 

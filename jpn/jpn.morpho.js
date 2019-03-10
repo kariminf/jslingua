@@ -188,6 +188,7 @@
   function JpnMorpho() {
     Morpho.call(this, "jpn");
     Morpho._nStem.call(this, "jslingua", "JsLingua Japanese stemmer", __jslinguaJpnStemmer);
+    this.ssplitter = /([?!。])(?:\s+|$)/;
   }
 
   JpnMorpho.prototype = Object.create(Morpho.prototype);
@@ -693,15 +694,15 @@
       "[ァ-ヴーｱ-ﾝﾞｰ]":"K",
       "[a-zA-Zａ-ｚＡ-Ｚ]":"A",
       "[0-9０-９]":"N"
-    }
+    };
     this.chartype_ = [];
     for (var i in patterns) {
       var regexp = new RegExp;
-      regexp.compile(i)
+      regexp.compile(i);
       this.chartype_.push([regexp, patterns[i]]);
     }
 
-    this.BIAS__ = -332
+    this.BIAS__ = -332;
     this.BC1__ = {"HH":6,"II":2461,"KH":406,"OH":-1378};
     this.BC2__ = {"AA":-3267,"AI":2744,"AN":-878,"HH":-4070,"HM":-1711,"HN":4012,"HO":3761,"IA":1327,"IH":-1184,"II":-1332,"IK":1721,"IO":5492,"KI":3831,"KK":-8741,"MH":-3132,"MK":3334,"OO":-2920};
     this.BC3__ = {"HH":996,"HI":626,"HK":-721,"HN":-1307,"HO":-836,"IH":-301,"KK":2762,"MK":1079,"MM":4034,"OA":-1652,"OH":266};
@@ -755,12 +756,12 @@
       }
     }
     return "O";
-  }
+  };
 
   TinySegmenter.prototype.ts_ = function(v) {
     if (v) { return v; }
     return 0;
-  }
+  };
 
   TinySegmenter.prototype.segment = function(input) {
     if (input == null || input == undefined || input == "") {
@@ -772,7 +773,7 @@
     var o = input.split("");
     for (i = 0; i < o.length; ++i) {
       seg.push(o[i]);
-      ctype.push(this.ctype_(o[i]))
+      ctype.push(this.ctype_(o[i]));
     }
     seg.push("E1");
     seg.push("E2");
@@ -855,18 +856,13 @@
     result.push(word);
 
     return result;
-  }
+  };
 
   let segmenter = new TinySegmenter();
 
   /**
    * Segment a given text
-   * @param  {String} text the text to be segmennted into sentences
-   * @return {String[]}      a list of sentences
    */
-  Me.gsents = function (text) {
-    return text.split(/[.?!。]\s*/).filter(Boolean);
-  };
 
   /**
    * Tokenize a given text (mostly, a sentence)

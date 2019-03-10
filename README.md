@@ -15,6 +15,7 @@
 [![codebeat badge](https://codebeat.co/badges/dd8cf628-627a-42f3-8ae5-5bfa1a53d525)](https://codebeat.co/projects/github-com-kariminf-jslingua-master)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability-percentage/kariminf/jslingua.svg?style=plastic)](https://codeclimate.com/github/kariminf/jslingua/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/jslingua.svg?style=social&label=Follow)](https://twitter.com/jslingua)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/jslingua.svg)](bundlephobia.com/result?p=jslingua@latest)
 
 
 This project aims to afford some of the tasks related to languages, such as: detecting language, some transformations (majuscule to minuscule), verb conjugation, etc.
@@ -55,6 +56,7 @@ Javascript library to process languages:
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 
 To get tutorials [Click here](https://github.com/kariminf/jslingua_docs/blob/master/doc/index.md)
+
 
 ## How to use?
 
@@ -181,7 +183,7 @@ A Youtube tutorial for JsLingua and nodejs is located in this list: [https://www
 
 ## License
 
-Copyright (C) 2016-2018 Abdelkrime Aries
+Copyright (C) 2016-2019 Abdelkrime Aries
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

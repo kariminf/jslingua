@@ -242,6 +242,8 @@
     Morpho._nConv.call(this, "sing2pl", "Singular noun to Plural", __singular2plural);
     Morpho._nConv.call(this, "sing2dual", "Singular noun to Dual", __singular2dual);
 
+    this.ssplitter = /([.؟!])(?:\s+|$)/;
+
     //g = this.g;
   }
 
@@ -1356,15 +1358,9 @@
   // SEGMENTATION FUNCTIONS
   //==========================================
 
-  /**
+  /*
    * Segment a given text
-   * @param  {String} text the text to be segmennted into sentences
-   * @return {String[]}      a list of sentences
    */
-  Me.gsents = function (text) {
-
-    return text.split(/([.?؟!])(?:\s+|$)/).filter(Boolean);
-  };
 
   /*
    * Tokenization is the same as morpho
