@@ -693,7 +693,7 @@
     "bn": 1, "boul": 1, "c": 1, "cam": 1, "cart": 1, "cb": 1,
     "ch": 1, "ci": 1, "coll": 1, "cymb": 1, "dr": 1, "dre": 1,
     "éd": 1, "ép": 1, "ex": 1, "fig": 1, "fi": 1, "gén": 1,
-    "hb": 1, "hon": 1, "hpe": 1, "lal": 1, "fi": 1, "Ltée": 1,
+    "hb": 1, "hon": 1, "hpe": 1, "lal": 1,  "Ltée": 1,
     "m": 1, "me": 1, "mlle": 1, "mm": 1, "mme": 1, "mmes": 1,
     "ms": 1, "mtl": 1, "néerl": 1, "qc": 1, "resp": 1, "rte": 1,
     "sask": 1, "sax": 1, "st": 1, "ste": 1, "surt": 1, "tbn": 1,

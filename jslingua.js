@@ -6,7 +6,7 @@
 
   "use strict";
 
-  let version = "0.10.1";
+  let version = "0.11.0";
 
   const rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
 
