@@ -11,10 +11,10 @@ This will break the projects developed on precedent versions.
 * FIX: Fixing bugs
 * DEL: Delete or deprecate some functions
 
-## Current
+## Version 0.11.0 (2019-03-24)
 
 * IMPROVE: splitToSentences, tokenize
-* IMPROVE: Arabic singular to plural 
+* IMPROVE: Arabic singular to plural
 
 ## Version 0.10.2 (2018-12-19)
 * FIX: english conjugation with verbs starting with: over-, under-, etc.
