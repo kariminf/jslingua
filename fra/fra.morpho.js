@@ -687,6 +687,22 @@
     irr: {}
   };
 
+  const abbreviation = {
+    //https://en.wiktionary.org/wiki/Category:French_abbreviations
+    "all": 1, "art": 1, "auj": 1, "av": 1, "bar": 1, "bd": 1,
+    "bn": 1, "boul": 1, "c": 1, "cam": 1, "cart": 1, "cb": 1,
+    "ch": 1, "ci": 1, "coll": 1, "cymb": 1, "dr": 1, "dre": 1,
+    "éd": 1, "ép": 1, "ex": 1, "fig": 1, "fi": 1, "gén": 1,
+    "hb": 1, "hon": 1, "hpe": 1, "lal": 1, "fi": 1, "Ltée": 1,
+    "m": 1, "me": 1, "mlle": 1, "mm": 1, "mme": 1, "mmes": 1,
+    "ms": 1, "mtl": 1, "néerl": 1, "qc": 1, "resp": 1, "rte": 1,
+    "sask": 1, "sax": 1, "st": 1, "ste": 1, "surt": 1, "tbn": 1,
+    "trb": 1, "trgl": 1, "vc": 1, "vl": 1, "vlc": 1, "vn": 1,
+    "voy": 1,
+    //https://fr.wikipedia.org/wiki/Mois#Abr.C3.A9viations
+    "janv": 1, "févr": 1, "avr": 1, "juil": 1, "juill": 1, "sept": 1, "oct": 1, "nov": 1, "déc": 1,
+  };
+
   //==========================================
   // CLASS CONSTRUCTOR
   //==========================================
@@ -703,6 +719,7 @@
 
     Morpho._nConv.call(this, "sing2pl", "Singular noun to Plural", __singular2plural);
     //g = this.g;
+    this.abbr = abbreviation;
   }
 
   FraMorpho.prototype = Object.create(Morpho.prototype);

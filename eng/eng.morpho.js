@@ -380,11 +380,15 @@
 
     "sat": 1, "sun": 1, "mon": 1, "tue": 1, "wed": 1, "thu": 1, "fri": 1,
 
+    //http://plato.algonquincollege.com/applications/guideToGrammarUS/?page_id=146
+    //Titles before names
     "mr": 1, "mrs": 1, "ms": 1, "dr": 1, "prof": 1, "gen": 1, "rep": 1,
-    "sen": 1, "etc": 1, "st": 1, "jr": 1, "sr": 1,
-
-    "in": 1, //http://plato.algonquincollege.com/applications/guideToGrammarUS/?page_id=146
-
+    "sen": 1, "st": 1,
+    //Titles after names
+    "jr": 1, "sr": 1,
+    "etc": 1,
+    "in": 1,
+    //TODO: https://public.oed.com/how-to-use-the-oed/abbreviations/
 
   };
 

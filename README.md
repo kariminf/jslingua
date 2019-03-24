@@ -14,11 +14,10 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/kariminf/jslingua/badge/master)](https://www.codefactor.io/repository/github/kariminf/jslingua/overview/master)
 [![codebeat badge](https://codebeat.co/badges/dd8cf628-627a-42f3-8ae5-5bfa1a53d525)](https://codebeat.co/projects/github-com-kariminf-jslingua-master)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability-percentage/kariminf/jslingua.svg?style=plastic)](https://codeclimate.com/github/kariminf/jslingua/)
-[![Twitter Follow](https://img.shields.io/twitter/follow/jslingua.svg?style=social&label=Follow)](https://twitter.com/jslingua)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/jslingua.svg)](bundlephobia.com/result?p=jslingua@latest)
 
 
-This project aims to afford some of the tasks related to languages, such as: detecting language, some transformations (majuscule to minuscule), verb conjugation, etc.
+This project aims to afford some of the tasks related to languages, such as: detecting charsets, some transformations (majuscule to minuscule), verb conjugation, etc.
 There are a lot of projects like this such as: [NLTK](https://github.com/nltk/nltk) (python), [OpenNLP](https://github.com/apache/opennlp) (Java), etc.
 But, mostly, they are server side and needs some configurations before being put in action.
 
@@ -65,13 +64,13 @@ To get tutorials [Click here](https://github.com/kariminf/jslingua_docs/blob/mas
 Just import the class that you want to use and its implementations.
 You, always, have to import "jaslingua" first, then the module class, then its implementations.
 Here the importation of all classes, where:
-* < module > : info, lang, trans, morpho
-* < lang > : ara, jpn, eng
+* [module] : info, lang, trans, morpho
+* [lang] : ara, jpn, eng
 
 ```javascript
 <script type="text/javascript" src="jslingua.js" ></script>
 <script type="text/javascript" src="<module>.js" ></script>
-<script type="text/javascript" src="<lang>/<lang>.<module>.js" ></script>
+<script type="text/javascript" src="[lang]/[lang].[module].js" ></script>
 ...
 ```
 You can use a CDN (content-delivery network):
