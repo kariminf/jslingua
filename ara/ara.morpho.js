@@ -237,10 +237,10 @@
   function AraMorpho() {
     Morpho.call(this, "ara");
     Morpho._nStem.call(this, "isri", "ISRI Arabic stemmer", __IsriAraStemmer);
-    Morpho._nStem.call(this, "jslingua", "JsLingua Arabic stemmer", __jslinguaAraStemmer);
+    //Morpho._nStem.call(this, "jslingua", "JsLingua Arabic stemmer", __jslinguaAraStemmer);
 
     Morpho._nConv.call(this, "sing2pl", "Singular noun to Plural", __singular2plural);
-    Morpho._nConv.call(this, "sing2dual", "Singular noun to Dual", __singular2dual);
+    //Morpho._nConv.call(this, "sing2dual", "Singular noun to Dual", __singular2dual);
 
     this.ssplitter = /([.؟!])(?:\s+|$)/;
 
@@ -572,6 +572,9 @@
   // CONVERTION FUNCTIONS
   //==========================================
 
+
+  //https://blogs.transparent.com/arabic/broken-plural-in-arabic/
+  //https://en.wikipedia.org/wiki/Broken_plural
   /**
    * Transforms a singular noun to plural
    *
@@ -583,8 +586,59 @@
    * @return {String}             Plural form of the given noun
    */
   function __singular2plural(noun){
-    if (noun.endsWith("ة")) return noun.slice(0, -1) + "ات";
-    return noun + "ون" ;
+    let pattern = __find_pattern(noun);
+    let nodiac = noun.replace(/[َُِْ]/g, "");
+    nodiac = nodiac.replace(/(.)ّ/g, "$1$1");
+    switch (pattern) {
+      case "CiCaAC" || "CaCiICah": // "CaCiICah" two cases, one shared with "CiCaACah"
+        return nodiac[0] + "ُ" + nodiac[1] + "ُ" + nodiac[3];
+      //case "CaCiIC" //three cases
+      case "CuCCah" || "CaCCah":
+        return nodiac[0] + "ُ" + nodiac[1] + "َ" + nodiac[2];
+      case "CiCCah":
+        return nodiac[0] + "ِ" + nodiac[1] + "َ" + nodiac[2];
+      case "CiCC":
+        if (nodiac[1] == nodiac[2]) pattern = "CiIC";
+      case "CiIC":
+        return nodiac[0] + "ِ" + nodiac[1] + "َ" + nodiac[2] + "َة";
+      //case "CiCC" || "CuCC" || "CaCC": //three cases
+      case "CaCaC" || "CaCaCah":
+        return "أَ" + nodiac[0] + "ْ" + nodiac[1] + "َا" + nodiac[2];
+      case "CaCuUC":
+        return "أَ" + nodiac[0] + "ْ" + nodiac[1] + "ِ" + nodiac[3] + "َة";
+      case "CaACiC":
+        return nodiac[0] + "ُ" + nodiac[2] + "َّا" + nodiac[3];
+      case "CaACiCah":
+        return nodiac[0] + "َوَا" + nodiac[2] + "ِ" + nodiac[3];
+      case "CaACuUC":
+        return nodiac[0] + "َوَا" + nodiac[2] + "ِي" + nodiac[4];
+      case "CiCaACah": //|| "CaCiICah"
+        return nodiac[0] + "َ" + nodiac[1] + "َائِ" + nodiac[3];
+      case "CaCCaC" || "CuCCuC":
+        return nodiac[0] + "َ" + nodiac[1] + "ْ" + nodiac[2] + "َ" + nodiac[3];
+      case "maCCaC" || "maCCiC" || "miCCaCah":
+        return nodiac[0] + "َ" + nodiac[1] + "َا" + nodiac[2] + "ِ" + nodiac[3];
+      case (pattern.match(/^[Cm][aiu]CC(uU|aA|iI)C$/) || {}).input:
+        return nodiac[0] + "َ" + nodiac[1] + "َا" + nodiac[2] + "ِي" + nodiac[4];
+      default:
+        if (noun.endsWith("ة")) return noun.slice(0, -1) + "ات";
+        return noun + "ون" ;
+    }
+  }
+
+  function __find_pattern(noun) {
+    let meter = noun;
+    meter = meter.replace("ا", "A");
+    meter = meter.replace("ي", "I");
+    meter = meter.replace("و", "U");
+    meter = meter.replace(/^م/, "m");
+    meter = meter.replace(/َ/g, "a").replace(/ِ/g, "i").replace(/ُ/g, "u");
+    meter = meter.replace(/ْ/g, "").replace(/ة/g, "h");
+    meter = meter.replace(/[^AIUaiumh]/g, "C");
+    meter = meter.replace(/(.)ّ/g, "$1$1");
+    meter = meter.replace(/[^C]+$/, "");
+
+    return meter;
   }
 
   /**
