@@ -1082,13 +1082,49 @@ describe("Arabic Morphology Pos Converter ", function(){
     morpho.setCurrentPosConverter("sing2pl");
     expect(morpho.convertPoS("معلمة")).to.eql("معلمات");
     expect(morpho.convertPoS("معلم")).to.eql("معلمون");
+    expect(morpho.convertPoS("كِتَاب")).to.eql("كُتُب");
+    expect(morpho.convertPoS("سَفِينَة")).to.eql("سُفُن");
+    //expect(morpho.convertPoS("سَبِيل")).to.eql("سُبُل");
+    expect(morpho.convertPoS("غُرْفَة")).to.eql("غُرَف");
+    expect(morpho.convertPoS("شَقَّة")).to.eql("شُقَق");
+    expect(morpho.convertPoS("قِطَّة")).to.eql("قِطَط");
+    expect(morpho.convertPoS("هِرّ")).to.eql("هِرَرَة");
+    //expect(morpho.convertPoS("قَلْب")).to.eql("قُلُوب");
+    //expect(morpho.convertPoS("عِلْم")).to.eql("عُلُوم");
+    //expect(morpho.convertPoS("جُحْر")).to.eql("جُحُور");
+    //expect(morpho.convertPoS("كَلْب")).to.eql("كِلَاب");
+    //expect(morpho.convertPoS("ظِلّ")).to.eql("ظِلَال");
+    //expect(morpho.convertPoS("رُمْح")).to.eql("رِمَاح");
+    //expect(morpho.convertPoS("جَمَل")).to.eql("جِمَال");
+    expect(morpho.convertPoS("رَجُل")).to.eql("رِجَال");
+    //expect(morpho.convertPoS("يَوْم")).to.eql("أَيَّام");
+    //expect(morpho.convertPoS("حِلْم")).to.eql("أَحْلَام");
+    //expect(morpho.convertPoS("رُبْع")).to.eql("أَرْبَاع");
+    //expect(morpho.convertPoS("سَبَب")).to.eql("أَسْبَاب");
+    expect(morpho.convertPoS("وَرَقَة")).to.eql("أَوْرَاق");
+    expect(morpho.convertPoS("عَمُود")).to.eql("أَعْمِدَة");
+    //expect(morpho.convertPoS("صَدِيق")).to.eql("أَصْدِقَاء");
+    //expect(morpho.convertPoS("سَعِيد")).to.eql("سُعَدَاء");
+    expect(morpho.convertPoS("كَاتِب")).to.eql("كُتَّاب");
+    expect(morpho.convertPoS("قَائِمَة")).to.eql("قَوَائِم");
+    expect(morpho.convertPoS("صَارُوخ")).to.eql("صَوَارِيخ");
+    expect(morpho.convertPoS("رِسَالَة")).to.eql("رَسَائِل");
+    expect(morpho.convertPoS("دَفْتَر")).to.eql("دَفَاتِر");
+    expect(morpho.convertPoS("فُنْدُق")).to.eql("فَنَادِق");
+    expect(morpho.convertPoS("مَلْبَس")).to.eql("مَلَابِس");
+    expect(morpho.convertPoS("مَسْجِد")).to.eql("مَسَاجِد");
+    expect(morpho.convertPoS("مِنْطَقَة")).to.eql("مَنَاطِق");
+    expect(morpho.convertPoS("صَنْدُوق")).to.eql("صَنَادِيق");
+    expect(morpho.convertPoS("مِفْتَاح")).to.eql("مَفَاتِيح");
+    expect(morpho.convertPoS("مَكْتُوب")).to.eql("مَكَاتِيب");
+    //expect(morpho.convertPoS("")).to.eql("");
   });
 
-  it("Singular to dual", function() {
+  /*it("Singular to dual", function() {
     morpho.setCurrentPosConverter("sing2dual");
     expect(morpho.convertPoS("معلمة")).to.eql("معلمتان");
     expect(morpho.convertPoS("معلم")).to.eql("معلمان");
-  });
+  });*/
 
 
 });

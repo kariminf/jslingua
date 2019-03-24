@@ -14,6 +14,7 @@ This will break the projects developed on precedent versions.
 ## Current
 
 * IMPROVE: splitToSentences, tokenize
+* IMPROVE: Arabic singular to plural 
 
 ## Version 0.10.2 (2018-12-19)
 * FIX: english conjugation with verbs starting with: over-, under-, etc.

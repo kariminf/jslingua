@@ -589,20 +589,25 @@
     let pattern = __find_pattern(noun);
     let nodiac = noun.replace(/[َُِْ]/g, "");
     nodiac = nodiac.replace(/(.)ّ/g, "$1$1");
+    //console.log(nodiac, " ", pattern);
+    if (pattern == "CiCC" && nodiac[1] == nodiac[2]) pattern = "CiIC";
     switch (pattern) {
-      case "CiCaAC" || "CaCiICah": // "CaCiICah" two cases, one shared with "CiCaACah"
+      case "CiCaAC":
+      case "CaCiICah": // "CaCiICah" two cases, one shared with "CiCaACah"
         return nodiac[0] + "ُ" + nodiac[1] + "ُ" + nodiac[3];
       //case "CaCiIC" //three cases
-      case "CuCCah" || "CaCCah":
+      case "CuCCah":
+      case "CaCCah":
         return nodiac[0] + "ُ" + nodiac[1] + "َ" + nodiac[2];
       case "CiCCah":
         return nodiac[0] + "ِ" + nodiac[1] + "َ" + nodiac[2];
-      case "CiCC":
-        if (nodiac[1] == nodiac[2]) pattern = "CiIC";
       case "CiIC":
         return nodiac[0] + "ِ" + nodiac[1] + "َ" + nodiac[2] + "َة";
       //case "CiCC" || "CuCC" || "CaCC": //three cases
-      case "CaCaC" || "CaCaCah":
+      case "CaCuC":
+        return nodiac[0] + "ِ" + nodiac[1] + "َا" + nodiac[2];
+      //case "CaCaC": two  cases af3al fi3al
+      case "CaCaCah":
         return "أَ" + nodiac[0] + "ْ" + nodiac[1] + "َا" + nodiac[2];
       case "CaCuUC":
         return "أَ" + nodiac[0] + "ْ" + nodiac[1] + "ِ" + nodiac[3] + "َة";
@@ -614,9 +619,12 @@
         return nodiac[0] + "َوَا" + nodiac[2] + "ِي" + nodiac[4];
       case "CiCaACah": //|| "CaCiICah"
         return nodiac[0] + "َ" + nodiac[1] + "َائِ" + nodiac[3];
-      case "CaCCaC" || "CuCCuC":
-        return nodiac[0] + "َ" + nodiac[1] + "ْ" + nodiac[2] + "َ" + nodiac[3];
-      case "maCCaC" || "maCCiC" || "miCCaCah":
+      case "CaCCaC":
+      case "CuCCuC":
+        return nodiac[0] + "َ" + nodiac[1] + "َا" + nodiac[2] + "ِ" + nodiac[3];
+      case "maCCaC":
+      case "maCCiC":
+      case "miCCaCah":
         return nodiac[0] + "َ" + nodiac[1] + "َا" + nodiac[2] + "ِ" + nodiac[3];
       case (pattern.match(/^[Cm][aiu]CC(uU|aA|iI)C$/) || {}).input:
         return nodiac[0] + "َ" + nodiac[1] + "َا" + nodiac[2] + "ِي" + nodiac[4];
@@ -628,15 +636,14 @@
 
   function __find_pattern(noun) {
     let meter = noun;
-    meter = meter.replace("ا", "A");
-    meter = meter.replace("ي", "I");
-    meter = meter.replace("و", "U");
+    meter = meter.replace(/(.)ا/, "$1A");
+    meter = meter.replace(/(.)ي/, "$1I");
+    meter = meter.replace(/(.)و/, "$1U");
     meter = meter.replace(/^م/, "m");
     meter = meter.replace(/َ/g, "a").replace(/ِ/g, "i").replace(/ُ/g, "u");
     meter = meter.replace(/ْ/g, "").replace(/ة/g, "h");
     meter = meter.replace(/[^AIUaiumh]/g, "C");
     meter = meter.replace(/(.)ّ/g, "$1$1");
-    meter = meter.replace(/[^C]+$/, "");
 
     return meter;
   }
