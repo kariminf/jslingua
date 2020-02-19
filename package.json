@@ -4,7 +4,7 @@
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
-    "codecov": "^2.3.1",
+    "codecov": "^3.6.5",
     "eslint": "^4.19.1",
     "expect.js": "^0.3.1",
     "http-server": "^0.10.0",
