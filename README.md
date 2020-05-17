@@ -14,7 +14,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/kariminf/jslingua/badge/master)](https://www.codefactor.io/repository/github/kariminf/jslingua/overview/master)
 [![codebeat badge](https://codebeat.co/badges/dd8cf628-627a-42f3-8ae5-5bfa1a53d525)](https://codebeat.co/projects/github-com-kariminf-jslingua-master)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability-percentage/kariminf/jslingua.svg?style=plastic)](https://codeclimate.com/github/kariminf/jslingua/)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/jslingua.svg)](bundlephobia.com/result?p=jslingua@latest)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/jslingua.svg)](https://bundlephobia.com/result?p=jslingua@latest)
 
 
 This project aims to afford some of the tasks related to languages, such as: detecting charsets, some transformations (majuscule to minuscule), verb conjugation, etc.
@@ -69,7 +69,7 @@ Here the importation of all classes, where:
 
 ```javascript
 <script type="text/javascript" src="jslingua.js" ></script>
-<script type="text/javascript" src="<module>.js" ></script>
+<script type="text/javascript" src="[module].js" ></script>
 <script type="text/javascript" src="[lang]/[lang].[module].js" ></script>
 ...
 ```

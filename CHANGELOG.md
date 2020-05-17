@@ -11,6 +11,10 @@ This will break the projects developed on precedent versions.
 * FIX: Fixing bugs
 * DEL: Delete or deprecate some functions
 
+## Version
+
+* FIX: english conjugation, verbs starting with re; also verb "can"
+
 ## Version 0.11.0 (2019-03-24)
 
 * IMPROVE: splitToSentences, tokenize

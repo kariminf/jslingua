@@ -744,6 +744,16 @@
   //Override conjugate function
   Me._conj = function(verb, opts) {
 
+    if (verb == "can"){
+      if (opts.voice === Voice.P) return ""
+      if ([Aspect.P, Aspect.PC, Aspect.C].includes(opts.aspect)) return ""
+      let end = ""
+      if (opts.negated) end = " not"
+      if (opts.tense === Tense.Pr) return "can" + end
+      else if (opts.tense === Tense.Pa) return "could" + end
+      return ""
+    }
+
     if((opts.mood) && (opts.mood === Mood.Imp)) {
       if(opts.person === Person.S) return verb;
       return "";
@@ -837,13 +847,13 @@
       }
     }
 
-    let cverb = conjVerb.v;
+    let cverb = conjVerb.p + conjVerb.v;
 
     switch (opts.tense) {
 
       case Tense.Pr:
       if (conjVerb.i == 1) return begin + __beHaveConj(conjVerb, "Pr", opts) + end;
-      cverb = conjVerb.p + cverb;
+      //cverb = conjVerb.p + cverb;
       if (opts.person == Person.T && opts.number === GNumber.S) {
         //hurry, clarify
         cverb = cverb.replace(/([^aeuio])y$/, "$1ie");
@@ -942,7 +952,7 @@
     }
 
     {
-      const pref = /(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
+      const pref = /^(back|be|down|fore|for|in|mis|off|out|over|pre|re|sub|under|un|up|with)(.{3,})/gi;
       let match = pref.exec(verb);
       if (match) {
           verbInfo.prefix = match[1];
