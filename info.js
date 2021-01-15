@@ -1,26 +1,5 @@
-(function() {
-
-  //==========================================
-  // MODULE & CONSTRUCTOR
-  //==========================================
-
-  "use strict";
-
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-    module.exports = Info;
-  }
-  else {
-    window.JsLingua.Cls.Info = Info;
-  }
-
-  /**
-   * Contains information about the specified language
-   *
-   * @class Info
-   * @param {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
-   */
-  function Info(langCode) {
-
+class Info {
+  constructor(langCode) {
     //ISO639-2/5 code: ara, eng, jpn, etc.
     this.code = langCode;
 
@@ -42,16 +21,6 @@
     this.branch = "";
   }
 
-  //==========================================
-  // DATA
-  //==========================================
-
-  let Me = Info.prototype;
-
-  //==========================================
-  // GETTER FUNCTIONS
-  //==========================================
-
   /**
    * Get the name of the language
    *
@@ -60,9 +29,9 @@
    * @memberof Info
    * @return {String}  the language name: arabic, english, japanese, etc.
    */
-  Me.getName = function() {
+  getName() {
     return this.name;
-  };
+  }
 
   /**
    * Get the name of the language in its own writing system
@@ -72,10 +41,9 @@
    * @memberof Info
    * @return {String}  the language original name: عربية, english, 日本語, etc.
    */
-  Me.getOrigName = function() {
+  getOrigName() {
     return this.origName;
-  };
-
+  }
 
   /**
    * Get the code of the language
@@ -85,9 +53,9 @@
    * @memberof Info
    * @return {String}  The language ISO639-2 code: "ara", "jpn", "eng", etc.
    */
-  Me.getCode = function() {
+  getCode() {
     return this.code;
-  };
+  }
 
   /**
    * Get the family of the language
@@ -97,9 +65,9 @@
    * @memberof Info
    * @return {String}  The language family: Afro-asiatic, Japonic, etc.
    */
-  Me.getFamily = function() {
+  getFamily() {
     return this.family;
-  };
+  }
 
   /**
    * Get the branch of the language, if any
@@ -109,9 +77,9 @@
    * @memberof Info
    * @return {String}  The language branch: semitic, etc.
    */
-  Me.getBranch = function() {
+  getBranch() {
     return this.branch;
-  };
+  }
 
   /**
    * Get the direction of writing of the language: ltr or rtl
@@ -121,9 +89,9 @@
    * @memberof Info
    * @return {String}  The language direction: left to right (ltr) or right to left (rtl)
    */
-  Me.getDir = function() {
+  getDir() {
     return this.dir;
-  };
+  }
 
   /**
    * Get the words order:
@@ -139,8 +107,8 @@
    * @memberof Info
    * @return {String}  The words order in the language
    */
-  Me.getWordOrder = function() {
+  getWordOrder() {
     return this.wordOrder;
-  };
+  }
 
-}());
+}
