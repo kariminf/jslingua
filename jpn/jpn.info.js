@@ -10,3 +10,5 @@ class JpnInfo extends Info {
     this.family = "Japonic";
   }
 }
+
+export default JpnInfo;

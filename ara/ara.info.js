@@ -11,3 +11,5 @@ class AraInfo extends Info {
     this.branch = "Semitic";
   }
 }
+
+export default AraInfo;

@@ -1,3 +1,5 @@
+class
+
 /**
 * The main module
 * @module JsLingua

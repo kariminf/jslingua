@@ -1,120 +1,18 @@
-(function() {
+import Lang from "../lang.js"
 
-  "use strict";
-
-  //==========================================
-  // EXPORTING MODULE
-  //==========================================
-
-  let Lang = {};
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-    Lang = require("../lang.js");
-    module.exports = FraLang;
-  }
-  else {
-    Lang = window.JsLingua.Cls.Lang;
-    window.JsLingua.aserv("lang", "fra", FraLang);
-  }
-
-  //==========================================
-  // CONSTANTS
-  //==========================================
-
-  //https://fr.wikipedia.org/wiki/Liste_de_nombres
-  //https://openclassrooms.com/courses/nombres-et-operations-1/prononcer-et-ecrire-les-nombres-en-francais
-  const lookup = {
-    0: "zéro", 1: "un", 2: "deux", 3:"trois", 4: "quatre",
-    5: "cinq", 6: "six", 7: "sept", 8: "huit", 9: "neuf",
-
-    10: "dix", 11: "onze", 12: "douze", 13: "treize",
-    14: "quatorze", 15: "quinze", 16: "seize",
-    17: "dix-sept", 18: "dix-huit", 19: "dix-neuf",
-
-    20: "vingt", 30: "trente", 40: "quarante", 50: "cinquante",
-    60: "soixante", 80: "quatre-vingt", //70 and 90 can be deduced from 60 and 80
-
-    100: "cent",
-    1000: "mille",
-    1000000: "million",
-    1000000000: "billion"
-  },
-  bigNbr = [
-    100, 1000, 1000000, 1000000000
-    //1000000000, 1000000, 1000, 100, 10
-  ];
-
-  //==========================================
-  // CLASS CONSTRUCTOR
-  //==========================================
-
-  /**
-  * Contains French charsets and transformations
-  *
-  * @class FraLang
-  * @extends Lang
-  */
-  function FraLang() {
-    Lang.call(this, "fra");
-
-    //
-    Lang._nChs.call(this, "BasicLatin", 0x0000, 0x007F);
-    Lang._nChs.call(this, "Latin-1Supplement", 0x00A0, 0x00FF);
-
-    Lang._nTrans.call(this, "min2maj", "Miniscule to Majuscule", [
-      {offset:-0x0020, begin:0x0061, end:0x007A},
-      {offset:-0x0020, begin:0x00E0, end:0x00FF}
-    ]);
-    Lang._nTrans.call(this, "maj2min", "Majuscule to Miniscule", [
-      {offset:0x0020, begin:0x0041, end:0x005A},
-      {offset:0x0020, begin:0x00C0, end:0x00DF}
-    ]);
-  }
-
-  FraLang.prototype = Object.create(Lang.prototype);
-  let Me = FraLang.prototype;
-  Me.constructor = FraLang;
-
-  //==========================================
-  // STATIC FUNCTIONS
-  //==========================================
-
-  //==========================================
-  // CHARSETS FUNCTIONS
-  //==========================================
-
-  //Inhereted: no override
-
-  //==========================================
-  // TRANSFORMATION FUNCTIONS
-  //==========================================
-
-  //The transformations are added in the constructor
-
-  //==========================================
-  // PRONOUNCE FUNCTIONS
-  //==========================================
+class FraLang extends Lang {
+  static CS = {};
+  static TR = {};
+  static langCode = "fra";
 
   /*
   * Write the Arabic number into French letters
   * @override
   */
-  Me.nbr2str = __toFrenchLetters;
-
-
-  /**
-  * Transform from Arabic numbers to English letters
-  *
-  * @method __toFrenchLetters
-  * @private
-  * @memberof FraLang
-  * @param {Number} nbr the integer number
-  * @return {String} French writing of numbers
-  */
-  function __toFrenchLetters(num) {
-
+  static nbr2str(num){
     if (isNaN(num)) return "";
 
-    if(num < 0) return "moins " + __toFrenchLetters(-num);
+    if(num < 0) return "moins " + this.nbr2str(-num);
 
     if (num === 81) return "quatre-vingt-un";
     if (num === 80) return "quatre-vingts";
@@ -150,17 +48,56 @@
     let div = ~~(num/bigNbr[bigIdx]),
     rem = ~~(num % bigNbr[bigIdx]);
 
-    let pronounce = (div === 1)? "": __toFrenchLetters(div) + " ";
+    let pronounce = (div === 1)? "": this.nbr2str(div) + " ";
     pronounce += lookup[bigNbr[bigIdx]];
 
     //if (div > 1) pronounce += "s"; //plural
 
     if (rem > 0){
-      pronounce += " " + __toFrenchLetters(rem);
+      pronounce += " " + this.nbr2str(rem);
     }
 
     return pronounce;
-
   }
+}
 
-}());
+FraLang._nChs("BasicLatin", 0x0000, 0x007F);
+FraLang._nChs("Latin-1Supplement", 0x00A0, 0x00FF);
+
+FraLang._nTrans("min2maj", "Miniscule to Majuscule", [
+  {offset:-0x0020, begin:0x0061, end:0x007A},
+  {offset:-0x0020, begin:0x00E0, end:0x00FF}
+]);
+FraLang._nTrans("maj2min", "Majuscule to Miniscule", [
+  {offset:0x0020, begin:0x0041, end:0x005A},
+  {offset:0x0020, begin:0x00C0, end:0x00DF}
+]);
+
+//==========================================
+// CONSTANTS
+//==========================================
+
+//https://fr.wikipedia.org/wiki/Liste_de_nombres
+//https://openclassrooms.com/courses/nombres-et-operations-1/prononcer-et-ecrire-les-nombres-en-francais
+const lookup = {
+  0: "zéro", 1: "un", 2: "deux", 3:"trois", 4: "quatre",
+  5: "cinq", 6: "six", 7: "sept", 8: "huit", 9: "neuf",
+
+  10: "dix", 11: "onze", 12: "douze", 13: "treize",
+  14: "quatorze", 15: "quinze", 16: "seize",
+  17: "dix-sept", 18: "dix-huit", 19: "dix-neuf",
+
+  20: "vingt", 30: "trente", 40: "quarante", 50: "cinquante",
+  60: "soixante", 80: "quatre-vingt", //70 and 90 can be deduced from 60 and 80
+
+  100: "cent",
+  1000: "mille",
+  1000000: "million",
+  1000000000: "billion"
+},
+bigNbr = [
+  100, 1000, 1000000, 1000000000
+  //1000000000, 1000000, 1000, 100, 10
+];
+
+export default FraLang;

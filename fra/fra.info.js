@@ -9,3 +9,5 @@ class FraInfo extends Info {
     this.branch = "Romance";
   }
 }
+
+export default FraInfo;

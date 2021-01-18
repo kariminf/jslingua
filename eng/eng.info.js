@@ -9,3 +9,5 @@ class EngInfo extends Info {
     this.branch = "Germanic";
   }
 }
+
+export default EngInfo;

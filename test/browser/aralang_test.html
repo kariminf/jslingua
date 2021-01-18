@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Language test</title>
+  <!--script type="module" src="../../ara/ara.lang.js" ></script-->
+  <script type="module">
+  import AraLang from "../../jpn/jpn.lang.js";
+  var tester = new AraLang();
+  var cs = AraLang.availableCharSets();
+  var $ = function(id){return window.document.getElementById(id)};
+  var _ = function(e){return e.options[e.selectedIndex]};
+
+  window.update = function(){
+    affectElements($("lanCS"));
+    var tsel = $("tsel");
+    var tr = AraLang.ltrans();
+    tr.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      tsel.add(option);
+    });
+  }
+
+  window.nbrPronounce = function() {
+    $("nbrp").value = AraLang.pronounceNumber($("nbr").value);
+  }
+
+  window.affectElements = function(container, func, text){
+    var res = "";
+    cs.forEach(function(element, index, array){
+      var found = true;
+      if (func === undefined)
+        found = false;
+      else
+        found = AraLang[func](element)(text);
+      if (found)
+      res += '<span class="l t">' + element + "</span>";
+      else {
+        res += '<span class="l f">' + element + "</span>";
+      }
+    });
+    container.innerHTML = res;
+  }
+
+  window.testLang = function() {
+    affectElements($("contCS"), "containsCharSetFunction", $("ltst").value);
+    affectElements($("allCS"), "allCharSetFunction", $("ltst").value);
+  }
+
+  window.transform = function(){
+    var transFunc = AraLang.transformationFunction(_($("tsel")).value);
+    $("tdest").value = transFunc($("tsrc").value);
+  }
+
+  </script>
+
+  <style >
+  .l {
+    display: inline-block;
+    border: 1px solid Black;
+    margin: 2px;
+    padding: 2px;
+  }
+  .t {
+    background-color: Violet;
+  }
+  .f {
+    background-color: Gray;
+  }
+  </style>
+
+</head>
+<body onload="update()">
+  <h2>Number in chars</h2>
+  <input type="text" id="nbr" />
+  <button onclick="nbrPronounce()">In letters</button>
+  <input type="text" id="nbrp" />
+  <br>
+  <hr>
+  <h2>Language test</h2>
+  <input type="text" id="ltst" />
+  <br>
+  <button onclick="testLang()">test text</button>
+  <br>
+  <h4>Language charsets</h4>
+  <div id="lanCS"></div>
+  <h4>Text contains charsets</h4>
+  <div id="contCS"></div>
+  <h4>Text all charsets</h4>
+  <div id="allCS"></div>
+
+  <h2>Transformation</h2>
+  <div id="trans">
+    <select id="tsel">
+    </select>
+    <input type="text" id="tsrc" />
+    <button onclick="transform()">transform</button>
+    <input type="text" id="tdest" />
+  </div>
+</body>
+</html>
