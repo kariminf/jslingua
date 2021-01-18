@@ -1,7 +1,6 @@
 files:
   included:
-    - "**.js"
-    - "{ara, eng, jpn}/**.js"
+    - "src/**.js"
   excluded:
     - test/
     - node_modules/

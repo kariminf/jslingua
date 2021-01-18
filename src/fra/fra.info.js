@@ -1,13 +1,11 @@
 import Info from "../info.js"
 
 class FraInfo extends Info {
-  constructor(){
-    super("fra");
-    this.name = "French";
-    this.origName = "Français";
-    this.family = "Indo-European";
-    this.branch = "Romance";
-  }
+  static code = "fra";
+  static name = "French";
+  static origName = "Français";
+  static family = "Indo-European";
+  static branch = "Romance";
 }
 
 export default FraInfo;

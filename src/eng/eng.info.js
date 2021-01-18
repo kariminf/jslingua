@@ -1,13 +1,11 @@
 import Info from "../info.js"
 
 class EngInfo extends Info {
-  constructor(){
-    super("eng");
-    this.name = "English";
-    this.origName = "English";
-    this.family = "Indo-European";
-    this.branch = "Germanic";
-  }
+  static code = "eng";
+  static name = "English";
+  static origName = "English";
+  static family = "Indo-European";
+  static branch = "Germanic";
 }
 
 export default EngInfo;
