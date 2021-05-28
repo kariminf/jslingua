@@ -3,30 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Language test</title>
-  <!--script type="module" src="../../ara/ara.lang.js" ></script-->
+  <!--script type="module" src="../../src/ara/ara.lang.js" ></script-->
   <script type="module">
   import AraLang from "../../src/ara/ara.lang.js";
-  var tester = new AraLang();
-  var cs = AraLang.availableCharSets();
+  window.AraLang = AraLang;
+  </script>
+  <script type="text/javascript">
+  var tester;
+  var cs;
   var $ = function(id){return window.document.getElementById(id)};
   var _ = function(e){return e.options[e.selectedIndex]};
 
-  window.update = function(){
-    affectElements($("lanCS"));
-    var tsel = $("tsel");
-    var tr = AraLang.ltrans();
-    tr.forEach(function(element, index, array){
-      var option = document.createElement("option");
-      option.text = element;
-      tsel.add(option);
-    });
-  }
-
-  window.nbrPronounce = function() {
+  function nbrPronounce() {
     $("nbrp").value = AraLang.pronounceNumber($("nbr").value);
   }
 
-  window.affectElements = function(container, func, text){
+  function affectElements(container, func, text){
     var res = "";
     cs.forEach(function(element, index, array){
       var found = true;
@@ -34,8 +26,9 @@
         found = false;
       else
         found = AraLang[func](element)(text);
-      if (found)
-      res += '<span class="l t">' + element + "</span>";
+      if (found){
+        res += '<span class="l t">' + element + "</span>";
+      }
       else {
         res += '<span class="l f">' + element + "</span>";
       }
@@ -43,17 +36,31 @@
     container.innerHTML = res;
   }
 
-  window.testLang = function() {
-    affectElements($("contCS"), "containsCharSetFunction", $("ltst").value);
-    affectElements($("allCS"), "allCharSetFunction", $("ltst").value);
+  function testLang() {
+    window.affectElements($("contCS"), "containsCharSetFunction", $("ltst").value);
+    window.affectElements($("allCS"), "allCharSetFunction", $("ltst").value);
   }
 
-  window.transform = function(){
+  function update(){
+    tester = new AraLang();
+    cs = AraLang.listCharSets();
+    var tsel = $("tsel");
+    var tr = AraLang.listTransformations();
+    tr.forEach(function(element, index, array){
+      var option = document.createElement("option");
+      option.text = element;
+      tsel.add(option);
+    });
+    affectElements($("lanCS"));
+    testLang();
+  }
+
+  function transform(){
     var transFunc = AraLang.transformationFunction(_($("tsel")).value);
     $("tdest").value = transFunc($("tsrc").value);
   }
 
-  </script>
+</script>
 
   <style >
   .l {
@@ -71,7 +78,7 @@
   </style>
 
 </head>
-<body onload="update()">
+<body onload="update()"> <!--onload="update()"-->
   <h2>Number in chars</h2>
   <input type="text" id="nbr" />
   <button onclick="nbrPronounce()">In letters</button>

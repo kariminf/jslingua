@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Language test</title>
-  <script type="text/javascript" src="../../jslingua.js" ></script>
-  <script type="text/javascript" src="../../lang.js" ></script>
-  <script type="text/javascript" src="../../ara/ara.lang.js" ></script>
-  <script type="text/javascript" src="../../jpn/jpn.lang.js" ></script>
-  <script type="text/javascript" src="../../eng/eng.lang.js" ></script>
-  <script type="text/javascript" src="../../fra/fra.lang.js" ></script>
+  <script type="module">
+  import JsLingua from "../../src/jslingua.js";
+  window.JsLingua = JsLingua;
+  </script>
   <script type="text/javascript">
   var tester;
+  var LangClass;
   var cs = [];
   var $ = function(id){return document.getElementById(id)};
   var _ = function(e){return e.options[e.selectedIndex]};
 
   function setTester (){
     var langID = _($("l")).text;
-    var LangClass = JsLingua.getService("Lang", langID);
+    LangClass = JsLingua.getService("Lang", langID);
     tester = new LangClass();
-    cs = tester.availableCharSets();
+    cs = LangClass.listCharSets();
   }
 
   function loading(){
     var e = $("l");
-    var langIDs = JsLingua.serviceLanguages("Lang");
+    var langIDs = JsLingua.listLanguages("Lang");
     var i;
     for (i = 0; i < langIDs.length; i++){
       var option = document.createElement("option");
@@ -38,7 +37,7 @@
     setTester();
     affectElements($("lanCS"));
     var tsel = $("tsel");
-    var tr = tester.availableTransformations();
+    var tr = LangClass.listTransformations();
     for(var i = tsel.options.length - 1 ; i >= 0 ; i--)
     tsel.remove(i);
     tr.forEach(function(element, index, array){
@@ -50,7 +49,7 @@
   }
 
   function nbrPronounce() {
-    $("nbrp").value = tester.pronounceNumber($("nbr").value);
+    $("nbrp").value = LangClass.pronounceNumber($("nbr").value);
   }
 
   function affectElements(container, func, text){
@@ -60,7 +59,7 @@
       if (func === undefined)
       found = false;
       else
-      found = tester[func](element)(text);
+      found = LangClass[func](element)(text);
       if (found)
       res += '<span class="l t">' + element + "</span>";
       else {
@@ -76,9 +75,21 @@
   }
 
   function transform(){
-    var transFunc = tester.transformationFunction(_($("tsel")).value);
+    var transFunc = LangClass.transformationFunction(_($("tsel")).value);
     $("tdest").value = transFunc($("tsrc").value);
   }
+
+async function loadingAsync(){
+  await Promise.all([
+    JsLingua.load("Lang", "Ara"),
+    JsLingua.load("Lang", "Jpn"),
+    JsLingua.load("Lang", "Eng"),
+    JsLingua.load("Lang", "Fra")
+  ]);
+  loading();
+}
+
+  window.onload = loadingAsync;
   </script>
 
   <style >
@@ -128,8 +139,5 @@
     <button onclick="transform()">transform</button>
     <input type="text" id="tdest" />
   </div>
-  <script>
-  loading();
-  </script>
 </body>
 </html>

@@ -1,75 +1,28 @@
-class
+class JsLingua {
+  static version = "0.12.0";
+  static rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
+  static services = {};
 
-/**
-* The main module
-* @module JsLingua
-*/
-(function () {
-
-  "use strict";
-
-  let version = "0.11.0";
-
-  const rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
-
-  //service name: [services for languages]
-  let services = {};
-
-  let JsLingua = {};
-
-  /**
-  * Contains the super-classes: Info, Lang, Trans, Morpho. <br>
-  * for example, JsLingua.Cls.Info returns Info class
-  *
-  * @attribute Cls
-  * @public
-  * @static
-  * @type {Object}
-  */
-  JsLingua.Cls = {};
-
-  if (typeof module === "object" && module && typeof module.exports === "object") {
-    //In case of nodeJs, we load all available modules
-    services = {
-      "info": {
-        "ara": require("./ara/ara.info.js"),//Arabic information class
-        "jpn": require("./jpn/jpn.info.js"),//Japanese information class
-        "eng": require("./eng/eng.info.js"),//English information class
-        "fra": require("./fra/fra.info.js")//French information class
-      },
-      "lang": {
-        "ara": require("./ara/ara.lang.js"),//Arabic language class
-        "jpn": require("./jpn/jpn.lang.js"),//Japanese language class
-        "eng": require("./eng/eng.lang.js"),//English language class
-        "fra": require("./fra/fra.lang.js")//English language class
-      },
-      "trans": {
-        "ara": require("./ara/ara.trans.js"),//Arabic transliteration class
-        "jpn": require("./jpn/jpn.trans.js"),//Japanese transliteration class
-        "eng": require("./eng/eng.trans.js"),//English transliteration class
-        "fra": require("./fra/fra.trans.js")//French transliteration class
-      },
-      "morpho": {
-        "ara": require("./ara/ara.morpho.js"),//Arabic Morphology class
-        "jpn": require("./jpn/jpn.morpho.js"),//Japanese Morphology class
-        "eng": require("./eng/eng.morpho.js"),//English Morphology class
-        "fra": require("./fra/fra.morpho.js")//French Morphology class
+  static async load(serviceID, langCode){
+    serviceID = serviceID.toLowerCase();
+    langCode = langCode.toLowerCase();
+    let service = this.services[serviceID];//load the service from the internal list
+    if (service === undefined){
+      if (!(serviceID in servicesURLs)){
+        return false; //the service is not available
       }
-    };
-
-    JsLingua.Cls = {
-      Info: require("./info.js"),
-      Lang: require("./lang.js"),
-      Trans: require("./trans.js"),
-      Morpho: require("./morpho.js")
-    };
-
-    module.exports = JsLingua;
-
-  }
-  else {
-    //In case of browser, the called classes will subscribe themeselves
-    window.JsLingua = JsLingua;
+      service = servicesURLs[serviceID];//load the service map
+      if (!(langCode in service)){
+        return false; //the service is not available for this language
+      }
+    }
+    let serviceLang = service[langCode];
+    if (typeof serviceLang == "string") {//if it is a string, then it came from servicesURLs
+      let services = this.services;
+      let module = await import(serviceLang);
+      this.aserv(serviceID, langCode, module.default);
+    }
+    return true;
   }
 
   /**
@@ -82,16 +35,15 @@ class
   * @param {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
   * @param {Object} theClass  The class that affords the service
   */
-  JsLingua.aserv = function(serviceID, langCode, theClass) {
+  static aserv(serviceID, langCode, theClass) {
     serviceID = serviceID.toLowerCase();
     langCode = langCode.toLowerCase();
-    if (services[serviceID] === undefined){
-      services[serviceID] = {};
+    if (this.services[serviceID] === undefined){
+      this.services[serviceID] = {};
     }
 
-    services[serviceID][langCode] = theClass;
-
-  };
+    this.services[serviceID][langCode] = theClass;
+  }
 
   /**
   * Get the codes of available languages of a given service
@@ -102,11 +54,11 @@ class
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
   * @return {String[]}   array of strings, with ISO639-2 codes
   */
-  JsLingua.llang = function(serviceID) {
-    let service = services[serviceID.toLowerCase()];
+  static llang(serviceID) {
+    let service = this.services[serviceID.toLowerCase()];
     if (service === undefined) return [];
     return Object.keys(service);
-  };
+  }
 
   /**
   * Get the service class for a given language and service name.<br>
@@ -119,13 +71,13 @@ class
   * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
   * @return {Class}   The class that affords the service
   */
-  JsLingua.gserv = function(serviceID, langCode) {
-    let service = services[serviceID.toLowerCase()];
+  static gserv(serviceID, langCode) {
+    let service = this.services[serviceID.toLowerCase()];
     if (service === undefined) return null;
     langCode = langCode.toLowerCase();
     if (! (langCode in service)) return null;
     return service[langCode];
-  };
+  }
 
   /**
   * Get an object of a service class for a given language and service name.<br>
@@ -138,11 +90,11 @@ class
   * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
   * @return {Class}   The class that affords the service
   */
-  JsLingua.nserv = function(serviceID, langCode) {
-    let Cls = JsLingua.gserv(serviceID, langCode);
+  static nserv(serviceID, langCode) {
+    let Cls = this.gserv(serviceID, langCode);
     if (Cls === null) return null;
     return new Cls();
-  };
+  }
 
   /**
    * Returns the version of JsLingua
@@ -152,9 +104,9 @@ class
    * @static
    * @return {String}   JsLingua version
    */
-  JsLingua.gversion = function() {
-    return version;
-  };
+  static gversion() {
+    return this.version;
+  }
 
   /**
    * To recover the direction of writing for the given language <br>
@@ -169,13 +121,13 @@ class
    * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
    * @return {String}     either "rtl" or "ltr"
    */
-  JsLingua.gdir = function(langCode) {
+  static gdir(langCode) {
 
     if (rtls.indexOf(langCode) < 0) return "ltr";
 
     return "rtl";
 
-  };
+  }
 
 
   //========================================
@@ -193,22 +145,22 @@ class
   * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
   * @return {Class}   The class that affords the service
   */
-  JsLingua.getService = function(serviceID, langCode) {
+  static getService(serviceID, langCode) {
     return JsLingua.gserv(serviceID, langCode);
-  };
+  }
 
   /**
   * Get the codes of available languages of a given service
   *
-  * @method serviceLanguages
+  * @method listLanguages
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
   * @return {String[]}   array of strings, with ISO639-2 codes
   */
-  JsLingua.serviceLanguages = function(serviceID) {
-    return JsLingua.llang(serviceID);
-  };
+  static listLanguages(serviceID) {
+    return this.llang(serviceID);
+  }
 
   /**
    * To recover the direction of writing for the given language <br>
@@ -223,9 +175,9 @@ class
    * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
    * @return {String}     either "rtl" or "ltr"
    */
-  JsLingua.getDir = function(langCode) {
-    return JsLingua.gdir(langCode);
-  };
+  static getDir(langCode) {
+    return this.gdir(langCode);
+  }
 
   /**
    * Returns the version of JsLingua
@@ -235,8 +187,38 @@ class
    * @static
    * @return {String}   JsLingua version
    */
-  JsLingua.getVersion = function() {
-    return version;
-  };
+  static getVersion() {
+    return this.version;
+  }
 
-}());
+}
+
+
+let servicesURLs = {
+  "info": {
+    "ara": "./ara/ara.info.js",//Arabic information class
+    "jpn": "./jpn/jpn.info.js",//Japanese information class
+    "eng": "./eng/eng.info.js",//English information class
+    "fra": "./fra/fra.info.js"//French information class
+  },
+  "lang": {
+    "ara": "./ara/ara.lang.js",//Arabic language class
+    "jpn": "./jpn/jpn.lang.js",//Japanese language class
+    "eng": "./eng/eng.lang.js",//English language class
+    "fra": "./fra/fra.lang.js"//English language class
+  },
+  "trans": {
+    "ara": "./ara/ara.trans.js",//Arabic transliteration class
+    "jpn": "./jpn/jpn.trans.js",//Japanese transliteration class
+    "eng": "./eng/eng.trans.js",//English transliteration class
+    "fra": "./fra/fra.trans.js"//French transliteration class
+  },
+  "morpho": {
+    "ara": "./ara/ara.morpho.js",//Arabic Morphology class
+    "jpn": "./jpn/jpn.morpho.js",//Japanese Morphology class
+    "eng": "./eng/eng.morpho.js",//English Morphology class
+    "fra": "./fra/fra.morpho.js"//French Morphology class
+  }
+};
+
+export default JsLingua;
