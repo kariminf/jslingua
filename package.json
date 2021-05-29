@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Language processing modules",
   "main": "jslingua.js",
   "devDependencies": {
@@ -48,14 +48,7 @@
     "french"
   ],
   "files": [
-    "info.js",
-    "lang.js",
-    "trans.js",
-    "morpho.js",
-    "ara/",
-    "jpn/",
-    "eng/",
-    "fra/",
+    "src/",
     "dist/"
   ],
   "author": "Abdelkrime Aries <kariminfo0@gmail.com>",

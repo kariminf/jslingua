@@ -123,7 +123,7 @@ class JsLingua {
    */
   static gdir(langCode) {
 
-    if (rtls.indexOf(langCode) < 0) return "ltr";
+    if (this.rtls.indexOf(langCode) < 0) return "ltr";
 
     return "rtl";
 
