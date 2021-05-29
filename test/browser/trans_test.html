@@ -3,20 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Transliteration</title>
-  <script type="text/javascript" src="../../jslingua.js" ></script>
-  <script type="text/javascript" src="../../trans.js" ></script>
-  <script type="text/javascript" src="../../ara/ara.trans.js" ></script>
-  <script type="text/javascript" src="../../eng/eng.trans.js" ></script>
-  <script type="text/javascript" src="../../jpn/jpn.trans.js" ></script>
-  <script type="text/javascript" src="../../fra/fra.trans.js" ></script>
+  <script type="module">
+  import JsLingua from "../../src/jslingua.js";
+  window.JsLingua = JsLingua;
+  </script>
   <script type="text/javascript">
-  var transformer = {};
+  var Trans = {};
   var $ = function(id){return document.getElementById(id)};
   var _ = function(e){return e.options[e.selectedIndex]};
 
   function loading(){
     var e = $("l");
-    var langIDs = JsLingua.serviceLanguages("Trans");
+    var langIDs = JsLingua.llang("Trans");
     var i;
     for (i = 0; i < langIDs.length; i++){
       var option = document.createElement("option");
@@ -28,9 +26,8 @@
 
   function update (){
     var langID = _($("l")).text;
-    var TransClass = JsLingua.getService("Trans", langID);
-    transformer = new TransClass();
-    var methods = transformer.availableMethods();
+    Trans = JsLingua.gserv("Trans", langID);
+    var methods = Trans.ltrans();
     var m = $("m");
     var i;
     for(i = m.options.length - 1 ; i >= 0 ; i--){
@@ -46,20 +43,32 @@
   }
 
   function setMethod(){
-    transformer.setCurrentMethod(_($("m")).value);
+    Trans.strans(_($("m")).value);
   }
 
   function lang2trans() {
     var lang = $("lang");
     var trans = $("2trans");
-    trans.value = transformer.transliterate(lang.value);
+    trans.value = Trans.trans(lang.value);
   }
 
   function trans2lang() {
     var lang = $("2lang");
     var trans = $("trans");
-    lang.value = transformer.untransliterate(trans.value);
+    lang.value = Trans.untrans(trans.value);
   }
+
+  async function loadingAsync(){
+    await Promise.all([
+      JsLingua.load("Trans", "Ara"),
+      JsLingua.load("Trans", "Eng"),
+      JsLingua.load("Trans", "Fra"),
+      JsLingua.load("Trans", "Jpn")
+    ]);
+    loading();
+  }
+
+  window.onload = loadingAsync;
 
   </script>
 
@@ -84,8 +93,5 @@
   <input type="text" id="trans" /><br>
   <button onclick="trans2lang()">From Transliteration</button><br>
   <input type="text" id="2lang" /><br>
-  <script>
-  loading();
-  </script>
 </body>
 </html>

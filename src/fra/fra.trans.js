@@ -1,70 +1,32 @@
-(function() {
+import Trans from "../trans.js";
+import EngTrans from "../eng/eng.trans.js";
 
-  "use strict";
+class FraTrans extends Trans {
+  static code = "fra";
+  static defMethod = "";
+  static currentMethod = "";
+  static methods ={};
+}
 
-  //==========================================
-  // EXPORTING MODULE
-  //==========================================
+//==========================================
+// CONSTANTS
+//==========================================
 
-  let Trans = null;
-  let EngTrans = null;
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-    Trans = require("../trans.js");
-    module.exports = FraTrans;
-    EngTrans = require("../eng/eng.trans.js");
-  }
-  else {
-    Trans = window.JsLingua.Cls.Trans;
-    window.JsLingua.aserv("trans", "fra", FraTrans);
-    EngTrans = window.JsLingua.gserv("trans", "eng");
-  }
+const latinRep = {
+  "ç": "c",
+  "à": "a",
+  "è": "e",
+  "é": "e",
+  "ù": "u"
+},
+latinChars = "[" + Object.keys(latinRep).toString().replace(/,/g, "") + "]";
 
-  //==========================================
-  // CONSTANTS
-  //==========================================
+FraTrans.methods["morse"] = Object.assign({}, EngTrans.methods["morse"]);
 
-  const latinRep = {
-    "ç": "c",
-    "à": "a",
-    "è": "e",
-    "é": "e",
-    "ù": "u"
-  },
-  latinChars = "[" + Object.keys(latinRep).toString().replace(/,/g, "") + "]";
+FraTrans.methods["morse"].preTrans = function(text) {
+  //let result = text.toLowerCase();
+  text = text.replace(new RegExp(latinChars, "g"), c => latinRep[c]);
+  return EngTrans.methods["morse"].preTrans(text);
+}
 
-  //==========================================
-  // CLASS CONSTRUCTOR
-  //==========================================
-
-  /**
-   * French transliteration
-   *
-   * @class FraTrans
-   * @extends Trans
-   * @uses EngTrans
-   */
-  function FraTrans() {
-    if (EngTrans.prototype != null){
-      EngTrans.call(this);
-      let oldPreTrans = this.methods["morse"].preTrans;
-      this.methods["morse"].preTrans = function(text) {
-        //let result = text.toLowerCase();
-        text = text.replace(new RegExp(latinChars, "g"), c => latinRep[c]);
-        return oldPreTrans(text);
-      }
-    }
-    else Trans.call(this, "fra");
-    this.code = "fra";
-  }
-
-  if (EngTrans.prototype != null) {
-    FraTrans.prototype = Object.create(EngTrans.prototype);
-  }
-  else {
-    FraTrans.prototype = Object.create(Trans.prototype);
-  }
-
-  FraTrans.prototype.constructor = FraTrans;
-
-
-}());
+export default FraTrans;

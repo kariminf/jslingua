@@ -1,151 +1,14 @@
-(function() {
+class Trans {
 
-	"use strict";
+  static code = "";
+  static methods = {};
+  //default method (here we will take the first added one)
+  static defMethod = "";
+  static currentMethod = "";
 
-	//==========================================
-  // EXPORTING MODULE
   //==========================================
-
-	if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-		module.exports = Trans;
-	}
-	else {
-		window.JsLingua.Cls.Trans = Trans;
-	}
-
-	//==========================================
-  // CONSTANTS
-  //==========================================
-
-	const specialBef = [
-		//numbers,
-		"0",
-		"1",
-		"2",
-		"3",
-		"4",
-		"5",
-		"6",
-		"7",
-		"8",
-		"9",
-		//punctuation,
-		"#", //actually it is a dot, this is to prevent conflect
-		",",
-		"?",
-		"'",
-		"!",
-		"/",
-		"(",
-		")",
-		"&",
-		":",
-		";",
-		"=",
-		"+",
-		"^", //actually it is a hyphen, this is to prevent conflect
-		"_",
-		"\"",
-		"$",
-		"@"
-	],
-	specialAft = [
-		//numbers
-		" ----- ",
-		" .---- ",
-		" ..--- ",
-		" ...-- ",
-		" ....- ",
-		" ..... ",
-		" -.... ",
-		" --... ",
-		" ---.. ",
-		" ----. ",
-		//punctuation
-		" .-.-.- ",
-		" --..-- ",
-		" ..--.. ",
-		" .----. ",
-		" -.-.-- ",
-		" -..-. ",
-		" -.--. ",
-		" -.--.- ",
-		" .-... ",
-		" ---... ",
-		" -.-.-. ",
-		" -...- ",
-		" .-.-. ",
-		" -....- ",
-		" ..--.- ",
-		" .-..-. ",
-		" ...-..- ",
-		" .--.-. "
-	];
-
-	//==========================================
-  // CLASS CONSTRUCTOR
-  //==========================================
-
-	/**
-	* translateration of the language words
-	*
-	* @class Trans
-	* @param {String} langCode the code of the language: ara, jpn, etc.
-	*/
-	function Trans(langCode) {
-		this.code = langCode;
-		this.methods = {};
-		//default method (here we will take the first added one)
-		this.defMethod = "";
-
-		this.currentMethod = "";
-
-		//Trans.newMethod.call("def", otherMourseBef, otherMourseAft);
-
-		let transList = [];
-
-    this.s = {
-      clear: () => {
-        transList = [];
-        return this.s;
-      },
-
-      strans: transName => {
-        this.strans(transName);
-        return this.s;
-      },
-
-      trans: text => {
-        transList.push(this.trans(text));
-        return this.s;
-      },
-
-			untrans: text => {
-        transList.push(this.untrans(text));
-        return this.s;
-      },
-
-      ltrans: () => {
-        return transList;
-      },
-
-      nbr2str: num => {
-        transList.push(this.nbr2str(num));
-        return this.s;
-      }
-
-    };
-
-	}
-
-	let Me = Trans.prototype;
-
-	//==========================================
   // STATIC FUNCTIONS
   //==========================================
-
-	Trans.specialCharTrans = __createTrans(specialBef, specialAft);
-	Trans.specialCharUntrans = __createTrans(specialAft, specialBef);
 
 	/**
 	* Add new transliteration method using two parallele tables
@@ -157,7 +20,7 @@
 	* @param  {String[]} langTbl    array of strigs, the languages characters
 	* @param  {String[]} transTbl   array of strigs, their respective representations
 	*/
-	Trans._nTrans = function(methodName, langTbl, transTbl) {
+	static _nTrans(methodName, langTbl, transTbl) {
 		if (typeof methodName === "string" && methodName.length > 0) {
 			this.methods[methodName] = {};
 			if (this.defMethod.length < 1)
@@ -171,7 +34,7 @@
 				this.methods[methodName].untrans = __createTrans(transTbl, langTbl);
 			}
 		}
-	};
+	}
 
 	/**
 	* Set transliteration methods directly
@@ -183,7 +46,7 @@
 	* @param {Function} trans      function of transliteration
 	* @param {Function} untrans    function of untransliteration
 	*/
-	Trans._sTrans = function(methodName, trans, untrans) {
+	static _sTrans(methodName, trans, untrans) {
 		if (methodName in this.methods){
 
 			if (typeof trans === "function") {
@@ -195,7 +58,7 @@
 			}
 
 		}
-	};
+	}
 
 	/**
 	* add pre- and post-transliteration functions to a method
@@ -209,7 +72,7 @@
 	* @param {Function} postFunc   function that executes after transliteration;
 	* It takes a string and returns a string
 	*/
-	Trans._sTransCnd = function(methodName, preFunc, postFunc) {
+	static _sTransCnd(methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preTrans = preFunc;
@@ -218,7 +81,7 @@
 				this.methods[methodName].postTrans = postFunc;
 			}
 		}
-	};
+	}
 
 	/**
 	* add pre- and post-untransliteration functions to a method
@@ -232,7 +95,7 @@
 	* @param {Function} postFunc   function that executes after untransliteration;
 	* It takes a string and returns a string
 	*/
-	Trans._sUntransCnd = function(methodName, preFunc, postFunc) {
+	static _sUntransCnd(methodName, preFunc, postFunc) {
 		if (methodName in this.methods){
 			if (typeof preFunc === "function"){
 				this.methods[methodName].preUntrans = preFunc;
@@ -241,7 +104,7 @@
 				this.methods[methodName].postUntrans = postFunc;
 			}
 		}
-	};
+	}
 
 	//==========================================
   // TRANSLITERATION MANAGEMENT FUNCTIONS
@@ -256,11 +119,13 @@
 	* @memberof Trans
 	* @param {String} methodName method's name
 	*/
-	Me.strans = function(methodName) {
+	static strans(methodName) {
 		if (methodName in this.methods) {
 			this.currentMethod = methodName;
 		}
-	};
+	}
+
+
 
 	/**
 	* Returns the list of available transliteration methods
@@ -271,32 +136,22 @@
 	* @memberof Trans
 	* @return {String[]}  methods names
 	*/
-	Me.ltrans = function() {
+	static ltrans = function() {
 		return Object.keys(this.methods);
-	};
-
-	/**
-	* This function returns another function which do the transformation
-	*
-	* @method __createTrans
-	* @private
-	* @memberof Trans
-	* @memberof Trans
-	* @param  {String[]} srcTbl array which contains the source strings
-	* @param  {String[]} dstTbl array which contains the destination strings
-	* @return {Function}        a function which takes a string and transforme it using
-	* srcTbl and dstTbl
-	*/
-	function __createTrans(srcTbl, dstTbl) {
-		return function(text) {
-			let result = text;
-			for (let i=0; i< srcTbl.length; i++) {
-				let keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|[\]/\\])/g, "\\$1");
-				result = result.replace(new RegExp(keyEscaped, "g"), dstTbl[i]);
-			}
-			return result;
-		};
 	}
+
+  /**
+	* Returns the list of available transliteration methods
+	*
+	* @method listTransliterations
+	* @public
+	* @final
+	* @memberof Trans
+	* @return {String[]}  methods names
+	*/
+	static listTransliterations() {
+		return this.ltrans();
+	};
 
 	//==========================================
   // TRANSLITERATE FUNCTIONS
@@ -312,7 +167,7 @@
 	* @param  {String} text the untransliterated text (original)
 	* @return {String}      the transliterated text
 	*/
-	Me.trans = function(text) {
+	static trans(text) {
 		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preTrans === "function") {
@@ -325,7 +180,21 @@
 			result = this.methods[this.currentMethod].postTrans(result);
 		}
 		return result;
-	};
+	}
+
+  /**
+	* transliterate the text using the current method
+	*
+	* @method transliterate
+	* @public
+	* @final
+	* @memberof Trans
+	* @param  {String} text the untransliterated text (original)
+	* @return {String}      the transliterated text
+	*/
+	static transliterate(text) {
+		return this.trans(text);
+	}
 
 	//==========================================
   // UNTRANSLITERATE FUNCTIONS
@@ -341,7 +210,7 @@
 	* @param  {String} text translaterated text
 	* @return {String}      untranslaterated text (original text)
 	*/
-	Me.untrans = function(text) {
+	static untrans(text) {
 		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preUntrans === "function") {
@@ -354,14 +223,9 @@
 			result = this.methods[this.currentMethod].postUntrans(result);
 		}
 		return result;
-	};
+	}
 
-
-	//==========================================
-  // LONG FUNCTIONS
-  //==========================================
-
-	/**
+  /**
 	 * untransliterate the text using the current method
 	 * @public
  	 * @final
@@ -369,49 +233,106 @@
  	 * @param  {String} text translaterated text
  	 * @return {String}      untranslaterated text (original text)
 	 */
-	Me.untransliterate = function(text) {
+	static untransliterate(text) {
 		return this.untrans(text);
 	}
 
-	/**
-	* transliterate the text using the current method
-	*
-	* @method transliterate
-	* @public
-	* @final
-	* @memberof Trans
-	* @param  {String} text the untransliterated text (original)
-	* @return {String}      the transliterated text
-	*/
-	Me.transliterate = function(text) {
-		return this.trans(text);
-	}
+}
 
-	/**
-	* Sets the current method to be used for [un]transliteration
-	*
-	* @method setCurrentMethod
-	* @public
-	* @final
-	* @memberof Trans
-	* @param {String} methodName method's name
-	*/
-	Me.setCurrentMethod = function(methodName) {
-		this.strans(methodName.toLowerCase());
-	};
+//==========================================
+// CONSTANTS
+//==========================================
 
-	/**
-	* Returns the list of available transliteration methods
-	*
-	* @method availableMethods
-	* @public
-	* @final
-	* @memberof Trans
-	* @return {String[]}  methods names
-	*/
-	Me.availableMethods = function() {
-		return this.ltrans();
-	};
+const specialBef = [
+  //numbers,
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  //punctuation,
+  "#", //actually it is a dot, this is to prevent conflect
+  ",",
+  "?",
+  "'",
+  "!",
+  "/",
+  "(",
+  ")",
+  "&",
+  ":",
+  ";",
+  "=",
+  "+",
+  "^", //actually it is a hyphen, this is to prevent conflect
+  "_",
+  "\"",
+  "$",
+  "@"
+],
+specialAft = [
+  //numbers
+  " ----- ",
+  " .---- ",
+  " ..--- ",
+  " ...-- ",
+  " ....- ",
+  " ..... ",
+  " -.... ",
+  " --... ",
+  " ---.. ",
+  " ----. ",
+  //punctuation
+  " .-.-.- ",
+  " --..-- ",
+  " ..--.. ",
+  " .----. ",
+  " -.-.-- ",
+  " -..-. ",
+  " -.--. ",
+  " -.--.- ",
+  " .-... ",
+  " ---... ",
+  " -.-.-. ",
+  " -...- ",
+  " .-.-. ",
+  " -....- ",
+  " ..--.- ",
+  " .-..-. ",
+  " ...-..- ",
+  " .--.-. "
+];
 
 
-}());
+/**
+* This function returns another function which do the transformation
+*
+* @method __createTrans
+* @private
+* @memberof Trans
+* @memberof Trans
+* @param  {String[]} srcTbl array which contains the source strings
+* @param  {String[]} dstTbl array which contains the destination strings
+* @return {Function}        a function which takes a string and transforme it using
+* srcTbl and dstTbl
+*/
+function __createTrans(srcTbl, dstTbl) {
+  return function(text) {
+    let result = text;
+    for (let i=0; i< srcTbl.length; i++) {
+      let keyEscaped = srcTbl[i].replace(/([.*+?^=!:${}()|[\]/\\])/g, "\\$1");
+      result = result.replace(new RegExp(keyEscaped, "g"), dstTbl[i]);
+    }
+    return result;
+  };
+}
+
+Trans.specialCharTrans = __createTrans(specialBef, specialAft);
+Trans.specialCharUntrans = __createTrans(specialAft, specialBef);
+
+export default Trans;
