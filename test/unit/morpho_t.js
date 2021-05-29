@@ -1,4 +1,4 @@
-
+/*
 let expect = require('expect.js');
 
 let morpho = new (require('../../morpho'))();
@@ -111,3 +111,4 @@ describe("Morphology storage chaining functions ", function(){
   });
 
 });
+*/

@@ -1,28 +1,26 @@
-var FraInfo = require('../../fra/fra.info');
-var expect = require('expect.js');
-
-var info = new FraInfo();
+let FraInfo = import("../../src/fra/fra.info");
+let expect = require('expect.js');
 
 describe("French Info", function(){
 
   it("Name", function(){
-    expect(info.getName()).to.eql("French");
+    expect(FraInfo.getName()).to.eql("French");
   });
 
   it("Family", function(){
-    expect(info.getFamily()).to.eql("Indo-European");
+    expect(FraInfo.getFamily()).to.eql("Indo-European");
   });
 
   it("Branch", function(){
-    expect(info.getBranch()).to.eql("Romance");
+    expect(FraInfo.getBranch()).to.eql("Romance");
   });
 
   it("Writing direction", function(){
-    expect(info.getDir()).to.eql("ltr");
+    expect(FraInfo.getDir()).to.eql("ltr");
   });
 
   it("Words order", function(){
-    expect(info.getWordOrder()).to.eql("svo");
+    expect(FraInfo.getWordOrder()).to.eql("svo");
   });
 
 });

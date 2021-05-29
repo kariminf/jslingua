@@ -5,48 +5,6 @@ class Lang {
   static TR = {};
   static langCode = "";
 
-  constructor(){
-    //current transformation function
-    this.transFct = function(text) {return text;};
-    //current charset functions
-    this.charFcts = charFctsDef;
-
-    let transList = [];
-    let pronList = [];
-
-    this.s = {
-      clear: () => {
-        transList = [];
-        pronList = [];
-        return this.s;
-      },
-
-      strans: transName => {
-        this.strans(transName);
-        return this.s;
-      },
-
-      trans: text => {
-        transList.push(this.trans(text));
-        return this.s;
-      },
-
-      ltrans: () => {
-        return transList;
-      },
-
-      nbr2str: num => {
-        pronList.push(this.nbr2str(num));
-        return this.s;
-      },
-
-      lnbr2str: () => {
-        return pronList;
-      },
-
-    };
-  }
-
   //==========================================
   // STATIC FUNCTIONS (protected)
   //==========================================

@@ -1,22 +1,20 @@
-var JpnLang = require('../../jpn/jpn.lang');
-var expect = require('expect.js');
-
-var lang = new JpnLang();
+let JpnLang = import("../../src/jpn/jpn.lang");
+let expect = require('expect.js');
 
 describe("Japanese Lang", function(){
 
   it("pronounceNumber", function(){
-    expect(lang.pronounceNumber(1025)).to.eql("千二十五");
+    expect(JpnLang.pronounceNumber(1025)).to.eql("千二十五");
   });
 
   it("charSets", function(){
-    var charsets = lang.availableCharSets();
+    var charsets = JpnLang.listCharSets();
     expect(charsets.length).to.eql(4);//the number of charsets
     var txt = "皆さん、こんにちは";
     var j, all=0, contains=0;
     for(j=0; j < charsets.length; j++){
-      var allFct = lang.allCharSetFunction(charsets[j]);
-      var containsFct = lang.containsCharSetFunction(charsets[j]);
+      var allFct = JpnLang.allCharSetFunction(charsets[j]);
+      var containsFct = JpnLang.containsCharSetFunction(charsets[j]);
       all += (allFct(txt))? 1 : 0;
       contains += (containsFct(txt))? 1 : 0;
     }
@@ -25,12 +23,12 @@ describe("Japanese Lang", function(){
   });
 
   it("Transform", function(){
-    expect(lang.availableTransformations().length).to.eql(2);
+    expect(JpnLang.ltrans().length).to.eql(2);
     var hiragana = "こんにちは";
     var katakana = "コンニチハ";
-    var func = lang.transformationFunction("hira2kata");
+    var func = JpnLang.transformationFunction("hira2kata");
     expect(func(hiragana)).to.eql(katakana);
-    func = lang.transformationFunction("kata2hira");
+    func = JpnLang.transformationFunction("kata2hira");
     expect(func(katakana)).to.eql(hiragana);
   });
 

@@ -1,3 +1,4 @@
+/*
 let jpn = new (require('../../jpn/jpn.trans'))();
 let expect = require('expect.js');
 
@@ -50,3 +51,4 @@ describe("Trans Storage", function(){
   });
 
 });
+*/

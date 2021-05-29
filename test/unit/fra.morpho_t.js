@@ -1,15 +1,13 @@
-var FraMorpho = require('../../fra/fra.morpho');
-var expect = require('expect.js');
+let FraMorpho = import("../../src/fra/fra.morpho");
+let expect = require('expect.js');
 
-var morpho = new FraMorpho();
-
-//morpho.setCurrentStemmer("porterStemmer");
-//morpho.enableDebug();
+//FraMorpho.setCurrentStemmer("porterStemmer");
+//FraMorpho.enableDebug();
 
 describe("French Snowball stemmer ", function(){
 
   before(function(){
-    morpho.setCurrentStemmer("snowball");
+    FraMorpho.sstem("snowball");
   });
 
 
@@ -19,89 +17,89 @@ describe("French Snowball stemmer ", function(){
 
   //TODO regroupe as steps
   it("Groupe 1", function(){
-    expect(morpho.stem("continu")).to.eql("continu");
-    expect(morpho.stem("continua")).to.eql("continu");
-    expect(morpho.stem("continuait")).to.eql("continu");
-    expect(morpho.stem("continuant")).to.eql("continu");
-    expect(morpho.stem("continuation")).to.eql("continu");
-    expect(morpho.stem("continue")).to.eql("continu");
-    expect(morpho.stem("continué")).to.eql("continu");
-    expect(morpho.stem("continuel")).to.eql("continuel");
-    expect(morpho.stem("continuelle")).to.eql("continuel");
-    expect(morpho.stem("continuellement")).to.eql("continuel");
-    expect(morpho.stem("continuelles")).to.eql("continuel");
-    expect(morpho.stem("continuels")).to.eql("continuel");
-    expect(morpho.stem("continuer")).to.eql("continu");
-    expect(morpho.stem("continuera")).to.eql("continu");
-    expect(morpho.stem("continuerait")).to.eql("continu");
-    expect(morpho.stem("continueront")).to.eql("continu");
-    expect(morpho.stem("continuez")).to.eql("continu");
-    expect(morpho.stem("continuité")).to.eql("continu");
-    expect(morpho.stem("continuons")).to.eql("continuon");
-    expect(morpho.stem("contorsions")).to.eql("contors");
-    expect(morpho.stem("contour")).to.eql("contour");
-    expect(morpho.stem("contournait")).to.eql("contourn");
-    expect(morpho.stem("contournant")).to.eql("contourn");
-    expect(morpho.stem("contourne")).to.eql("contourn");
-    expect(morpho.stem("contours")).to.eql("contour");
-    expect(morpho.stem("contractait")).to.eql("contract");
-    expect(morpho.stem("contracté")).to.eql("contract");
-    expect(morpho.stem("contractée")).to.eql("contract");
-    expect(morpho.stem("contracter")).to.eql("contract");
-    expect(morpho.stem("contractés")).to.eql("contract");
-    expect(morpho.stem("contractions")).to.eql("contract");
-    expect(morpho.stem("contradictoirement")).to.eql("contradictoir");
-    expect(morpho.stem("contradictoires")).to.eql("contradictoir");
-    expect(morpho.stem("contraindre")).to.eql("contraindr");
-    expect(morpho.stem("contraint")).to.eql("contraint");
-    expect(morpho.stem("contrainte")).to.eql("contraint");
-    expect(morpho.stem("contraintes")).to.eql("contraint");
-    expect(morpho.stem("contraire")).to.eql("contrair");
-    expect(morpho.stem("contraires")).to.eql("contrair");
-    expect(morpho.stem("contraria")).to.eql("contrari");
+    expect(FraMorpho.stem("continu")).to.eql("continu");
+    expect(FraMorpho.stem("continua")).to.eql("continu");
+    expect(FraMorpho.stem("continuait")).to.eql("continu");
+    expect(FraMorpho.stem("continuant")).to.eql("continu");
+    expect(FraMorpho.stem("continuation")).to.eql("continu");
+    expect(FraMorpho.stem("continue")).to.eql("continu");
+    expect(FraMorpho.stem("continué")).to.eql("continu");
+    expect(FraMorpho.stem("continuel")).to.eql("continuel");
+    expect(FraMorpho.stem("continuelle")).to.eql("continuel");
+    expect(FraMorpho.stem("continuellement")).to.eql("continuel");
+    expect(FraMorpho.stem("continuelles")).to.eql("continuel");
+    expect(FraMorpho.stem("continuels")).to.eql("continuel");
+    expect(FraMorpho.stem("continuer")).to.eql("continu");
+    expect(FraMorpho.stem("continuera")).to.eql("continu");
+    expect(FraMorpho.stem("continuerait")).to.eql("continu");
+    expect(FraMorpho.stem("continueront")).to.eql("continu");
+    expect(FraMorpho.stem("continuez")).to.eql("continu");
+    expect(FraMorpho.stem("continuité")).to.eql("continu");
+    expect(FraMorpho.stem("continuons")).to.eql("continuon");
+    expect(FraMorpho.stem("contorsions")).to.eql("contors");
+    expect(FraMorpho.stem("contour")).to.eql("contour");
+    expect(FraMorpho.stem("contournait")).to.eql("contourn");
+    expect(FraMorpho.stem("contournant")).to.eql("contourn");
+    expect(FraMorpho.stem("contourne")).to.eql("contourn");
+    expect(FraMorpho.stem("contours")).to.eql("contour");
+    expect(FraMorpho.stem("contractait")).to.eql("contract");
+    expect(FraMorpho.stem("contracté")).to.eql("contract");
+    expect(FraMorpho.stem("contractée")).to.eql("contract");
+    expect(FraMorpho.stem("contracter")).to.eql("contract");
+    expect(FraMorpho.stem("contractés")).to.eql("contract");
+    expect(FraMorpho.stem("contractions")).to.eql("contract");
+    expect(FraMorpho.stem("contradictoirement")).to.eql("contradictoir");
+    expect(FraMorpho.stem("contradictoires")).to.eql("contradictoir");
+    expect(FraMorpho.stem("contraindre")).to.eql("contraindr");
+    expect(FraMorpho.stem("contraint")).to.eql("contraint");
+    expect(FraMorpho.stem("contrainte")).to.eql("contraint");
+    expect(FraMorpho.stem("contraintes")).to.eql("contraint");
+    expect(FraMorpho.stem("contraire")).to.eql("contrair");
+    expect(FraMorpho.stem("contraires")).to.eql("contrair");
+    expect(FraMorpho.stem("contraria")).to.eql("contrari");
   });
 
   it("Groupe 2", function(){
-    expect(morpho.stem("main")).to.eql("main");
-    expect(morpho.stem("mains")).to.eql("main");
-    expect(morpho.stem("maintenaient")).to.eql("mainten");
-    expect(morpho.stem("maintenait")).to.eql("mainten");
-    expect(morpho.stem("maintenant")).to.eql("mainten");
-    expect(morpho.stem("maintenir")).to.eql("mainten");
-    expect(morpho.stem("maintenue")).to.eql("maintenu");
-    expect(morpho.stem("maintien")).to.eql("maintien");
-    expect(morpho.stem("maintint")).to.eql("maintint");
-    expect(morpho.stem("maire")).to.eql("mair");
-    expect(morpho.stem("maires")).to.eql("mair");
-    expect(morpho.stem("mairie")).to.eql("mair");
-    expect(morpho.stem("mais")).to.eql("mais");
-    expect(morpho.stem("maïs")).to.eql("maï");
-    expect(morpho.stem("maison")).to.eql("maison");
-    expect(morpho.stem("maisons")).to.eql("maison");
-    expect(morpho.stem("maistre")).to.eql("maistr");
-    expect(morpho.stem("maitre")).to.eql("maitr");
-    expect(morpho.stem("maître")).to.eql("maîtr");
-    expect(morpho.stem("maîtres")).to.eql("maîtr");
-    expect(morpho.stem("maîtresse")).to.eql("maîtress");
-    expect(morpho.stem("maîtresses")).to.eql("maîtress");
-    expect(morpho.stem("majesté")).to.eql("majest");
-    expect(morpho.stem("majestueuse")).to.eql("majestu");
-    expect(morpho.stem("majestueusement")).to.eql("majestu");
-    expect(morpho.stem("majestueux")).to.eql("majestu");
-    expect(morpho.stem("majeur")).to.eql("majeur");
-    expect(morpho.stem("majeure")).to.eql("majeur");
-    expect(morpho.stem("major")).to.eql("major");
-    expect(morpho.stem("majordome")).to.eql("majordom");
-    expect(morpho.stem("majordomes")).to.eql("majordom");
-    expect(morpho.stem("majorité")).to.eql("major");
-    expect(morpho.stem("majorités")).to.eql("major");
-    expect(morpho.stem("mal")).to.eql("mal");
-    expect(morpho.stem("malacca")).to.eql("malacc");
-    expect(morpho.stem("malade")).to.eql("malad");
-    expect(morpho.stem("malades")).to.eql("malad");
-    expect(morpho.stem("maladie")).to.eql("malad");
-    expect(morpho.stem("maladies")).to.eql("malad");
-    expect(morpho.stem("maladive")).to.eql("malad");
+    expect(FraMorpho.stem("main")).to.eql("main");
+    expect(FraMorpho.stem("mains")).to.eql("main");
+    expect(FraMorpho.stem("maintenaient")).to.eql("mainten");
+    expect(FraMorpho.stem("maintenait")).to.eql("mainten");
+    expect(FraMorpho.stem("maintenant")).to.eql("mainten");
+    expect(FraMorpho.stem("maintenir")).to.eql("mainten");
+    expect(FraMorpho.stem("maintenue")).to.eql("maintenu");
+    expect(FraMorpho.stem("maintien")).to.eql("maintien");
+    expect(FraMorpho.stem("maintint")).to.eql("maintint");
+    expect(FraMorpho.stem("maire")).to.eql("mair");
+    expect(FraMorpho.stem("maires")).to.eql("mair");
+    expect(FraMorpho.stem("mairie")).to.eql("mair");
+    expect(FraMorpho.stem("mais")).to.eql("mais");
+    expect(FraMorpho.stem("maïs")).to.eql("maï");
+    expect(FraMorpho.stem("maison")).to.eql("maison");
+    expect(FraMorpho.stem("maisons")).to.eql("maison");
+    expect(FraMorpho.stem("maistre")).to.eql("maistr");
+    expect(FraMorpho.stem("maitre")).to.eql("maitr");
+    expect(FraMorpho.stem("maître")).to.eql("maîtr");
+    expect(FraMorpho.stem("maîtres")).to.eql("maîtr");
+    expect(FraMorpho.stem("maîtresse")).to.eql("maîtress");
+    expect(FraMorpho.stem("maîtresses")).to.eql("maîtress");
+    expect(FraMorpho.stem("majesté")).to.eql("majest");
+    expect(FraMorpho.stem("majestueuse")).to.eql("majestu");
+    expect(FraMorpho.stem("majestueusement")).to.eql("majestu");
+    expect(FraMorpho.stem("majestueux")).to.eql("majestu");
+    expect(FraMorpho.stem("majeur")).to.eql("majeur");
+    expect(FraMorpho.stem("majeure")).to.eql("majeur");
+    expect(FraMorpho.stem("major")).to.eql("major");
+    expect(FraMorpho.stem("majordome")).to.eql("majordom");
+    expect(FraMorpho.stem("majordomes")).to.eql("majordom");
+    expect(FraMorpho.stem("majorité")).to.eql("major");
+    expect(FraMorpho.stem("majorités")).to.eql("major");
+    expect(FraMorpho.stem("mal")).to.eql("mal");
+    expect(FraMorpho.stem("malacca")).to.eql("malacc");
+    expect(FraMorpho.stem("malade")).to.eql("malad");
+    expect(FraMorpho.stem("malades")).to.eql("malad");
+    expect(FraMorpho.stem("maladie")).to.eql("malad");
+    expect(FraMorpho.stem("maladies")).to.eql("malad");
+    expect(FraMorpho.stem("maladive")).to.eql("malad");
   });
 
 });
@@ -120,13 +118,13 @@ var $ = Object.assign;//shorten the function
 
 function conjugateFR (verb, form, resList) {
   for (let i = 0; i< pronouns.length; i++) {
-    expect(morpho.conjugate(verb,$({}, form, pronouns[i]))).to.eql(resList[i]);
+    expect(FraMorpho.conjugate(verb,$({}, form, pronouns[i]))).to.eql(resList[i]);
   }
 }
 
 function conjugateFRFondamentalEndings(verb, conjs) {
 
-  let forms = morpho.getForms();
+  let forms = FraMorpho.getForms();
 
   for (let formName in conjs) {
     if (formName in forms) {
@@ -1958,32 +1956,32 @@ describe("French Verb conjugation", function(){
 describe("French Morphology Pos Converter ", function(){
 
   it("Singular to plural", function() {
-    morpho.setCurrentPosConverter("sing2pl");
+    FraMorpho.sconv("sing2pl");
 
     //-s, -x, -z
-    expect(morpho.convertPoS("souris")).to.eql("souris");
-    expect(morpho.convertPoS("croix")).to.eql("croix");
-    expect(morpho.convertPoS("nez")).to.eql("nez");
+    expect(FraMorpho.conv("souris")).to.eql("souris");
+    expect(FraMorpho.conv("croix")).to.eql("croix");
+    expect(FraMorpho.convertPoS("nez")).to.eql("nez");
 
     //-ou
-    expect(morpho.convertPoS("clou")).to.eql("clous");
-    expect(morpho.convertPoS("chou")).to.eql("choux");
+    expect(FraMorpho.convertPoS("clou")).to.eql("clous");
+    expect(FraMorpho.convertPoS("chou")).to.eql("choux");
 
     // -al
-    expect(morpho.convertPoS("cheval")).to.eql("chevaux");
-    expect(morpho.convertPoS("chacal")).to.eql("chacals");
+    expect(FraMorpho.convertPoS("cheval")).to.eql("chevaux");
+    expect(FraMorpho.convertPoS("chacal")).to.eql("chacals");
 
     // -ail
-    expect(morpho.convertPoS("rail")).to.eql("rails");
-    expect(morpho.convertPoS("travail")).to.eql("travaux");
+    expect(FraMorpho.convertPoS("rail")).to.eql("rails");
+    expect(FraMorpho.convertPoS("travail")).to.eql("travaux");
 
     // -au, -eu
-    expect(morpho.convertPoS("bateau")).to.eql("bateaux");
-    expect(morpho.convertPoS("pneu")).to.eql("pneus");
-    expect(morpho.convertPoS("landau")).to.eql("landaus");
+    expect(FraMorpho.convertPoS("bateau")).to.eql("bateaux");
+    expect(FraMorpho.convertPoS("pneu")).to.eql("pneus");
+    expect(FraMorpho.convertPoS("landau")).to.eql("landaus");
 
     //the rest
-    expect(morpho.convertPoS("arbre")).to.eql("arbres");
+    expect(FraMorpho.convertPoS("arbre")).to.eql("arbres");
 
   });
 });

@@ -1,20 +1,18 @@
-var AraLang = require('../../ara/ara.lang');
-var expect = require('expect.js');
-
-var lang = new AraLang();
+let AraLang = import("../../src/ara/ara.lang");
+let expect = require('expect.js');
 
 describe("Arabic Lang", function(){
 
   it("pronounceNumber", function(){
     //long way
-    expect(lang.pronounceNumber(1025)).to.eql("ألف وخمسة وعشرون");
+    expect(AraLang.pronounceNumber(1025)).to.eql("ألف وخمسة وعشرون");
     //short way
-    expect(lang.nbr2str(1025)).to.eql("ألف وخمسة وعشرون");
+    expect(AraLang.nbr2str(1025)).to.eql("ألف وخمسة وعشرون");
   });
 
   it("charSets", function(){
     //long way
-    var charsets = lang.availableCharSets();
+    var charsets = lang.listCharSets();
     expect(charsets.length).to.eql(7);//the number of charsets
     //short way
     charsets = lang.lchars();
@@ -47,9 +45,9 @@ describe("Arabic Lang", function(){
     // available Transformations
     // ==========================
     //long way
-    expect(lang.availableTransformations().length).to.eql(2);
+    expect(AraLang.listTransformations().length).to.eql(2);
     //short way
-    expect(lang.ltrans().length).to.eql(2);
+    expect(AraLang.ltrans().length).to.eql(2);
 
     //transformation
     //===============
@@ -57,15 +55,15 @@ describe("Arabic Lang", function(){
     var indicNum = "١٢٣٤٥٦٧٨٩٠";
 
     //long way
-    var func = lang.transformationFunction("ind2ara");
+    var func = AraLang.transformationFunction("ind2ara");
     expect(func(indicNum)).to.eql(arabicNum);
-    func = lang.transformationFunction("ara2ind");
+    func = AraLang.transformationFunction("ara2ind");
     expect(func(arabicNum)).to.eql(indicNum);
 
     //short way
-    lang.strans("ind2ara");
+    AraLang.strans("ind2ara");
     expect(lang.trans(indicNum)).to.eql(arabicNum);
-    lang.strans("ara2ind");
+    AraLang.strans("ara2ind");
     expect(lang.trans(arabicNum)).to.eql(indicNum);
 
   });

@@ -1,8 +1,8 @@
-var AraTrans = require('../../ara/ara.trans');
-var expect = require('expect.js');
+let AraTrans = import("../../src/ara/ara.trans");
+let expect = require('expect.js');
 
-var src = "ذلك البرنامج مسلّ";
-var exp = {
+let src = "ذلك البرنامج مسلّ";
+let exp = {
   "buckwalter": {
     "rev": "ذلك البرنامج مسلّ",
     "dst": "*lk AlbrnAmj msl~"
@@ -17,19 +17,17 @@ var exp = {
   }
 };
 
-var trans = new AraTrans();
-
 describe("Arabic Transliteration", function(){
 
   it("Methods check", function(){
-    var methods = trans.availableMethods();
+    var methods = Aratrans.ltrans();
     expect(methods.length).to.eql(3);//number of methods
     var j;
     for (j = 0; j < methods.length; j++){
       var method = methods[j];
-      trans.setCurrentMethod(method);
-      expect(trans.transliterate(src)).to.eql(exp[method].dst);//transliterate
-      expect(trans.untransliterate(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
+      Aratrans.strans(method);
+      expect(Aratrans.trans(src)).to.eql(exp[method].dst);//transliterate
+      expect(Aratrans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
     }
   });
 

@@ -1,28 +1,26 @@
-var JpnInfo = require('../../jpn/jpn.info');
-var expect = require('expect.js');
-
-var info = new JpnInfo();
+let JpnInfo = import("../../src/jpn/jpn.info");
+let expect = require('expect.js');
 
 describe("Japanese Info", function(){
 
   it("Name", function(){
-    expect(info.getName()).to.eql("Japanese");
+    expect(JpnInfo.getName()).to.eql("Japanese");
   });
 
   it("Family", function(){
-    expect(info.getFamily()).to.eql("Japonic");
+    expect(JpnInfo.getFamily()).to.eql("Japonic");
   });
 
   it("Branch", function(){
-    expect(info.getBranch()).to.eql("");
+    expect(JpnInfo.getBranch()).to.eql("");
   });
 
   it("Writing direction", function(){
-    expect(info.getDir()).to.eql("ltr");
+    expect(JpnInfo.getDir()).to.eql("ltr");
   });
 
   it("Words order", function(){
-    expect(info.getWordOrder()).to.eql("sov");
+    expect(JpnInfo.getWordOrder()).to.eql("sov");
   });
 
 });

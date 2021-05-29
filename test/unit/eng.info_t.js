@@ -1,28 +1,26 @@
-var EngInfo = require('../../eng/eng.info');
-var expect = require('expect.js');
-
-var info = new EngInfo();
+let EngInfo = import("../../src/eng/eng.info");
+let expect = require('expect.js');
 
 describe("English Info", function(){
 
   it("Name", function(){
-    expect(info.getName()).to.eql("English");
+    expect(EngInfo.getName()).to.eql("English");
   });
 
   it("Family", function(){
-    expect(info.getFamily()).to.eql("Indo-European");
+    expect(EngInfo.getFamily()).to.eql("Indo-European");
   });
 
   it("Branch", function(){
-    expect(info.getBranch()).to.eql("Germanic");
+    expect(EngInfo.getBranch()).to.eql("Germanic");
   });
 
   it("Writing direction", function(){
-    expect(info.getDir()).to.eql("ltr");
+    expect(EngInfo.getDir()).to.eql("ltr");
   });
 
   it("Words order", function(){
-    expect(info.getWordOrder()).to.eql("svo");
+    expect(EngInfo.getWordOrder()).to.eql("svo");
   });
 
 });

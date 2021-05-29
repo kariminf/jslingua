@@ -1,7 +1,7 @@
-var eng = new (require('../../eng/eng.lang'))();
-var ara = new (require('../../ara/ara.lang'))();
-var expect = require('expect.js');
-
+/*
+let EngLang = require('../../src/eng/eng.lang');
+let AraLang = require('../../src/ara/ara.lang');
+let expect = require('expect.js');
 describe("Lang Storage", function(){
 
   it("Storage Transformation", function(){
@@ -58,3 +58,5 @@ describe("Lang Storage", function(){
   });
 
 });
+
+*/
