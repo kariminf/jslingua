@@ -8,8 +8,6 @@ after_success:
 - codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
 - codeclimate < ./coverage/lcov.info
 before_deploy:
-- npm install uglify-es
-- bash min.sh
 deploy:
   provider: npm
   skip_cleanup: true
