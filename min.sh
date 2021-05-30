@@ -25,13 +25,13 @@ rm -r dist
 mkdir dist
 
 # copy the main files to dist
-for s in src/*.js; do
+for s in src/*.mjs; do
   cp $s dist/
   echo "copying $s"
 done
 
 # copy the languages implementations to dist
-for s in src/*/*.js; do
+for s in src/*/*.mjs; do
   cp $s dist/
   echo "copying $s"
   # minify --output "dist/{{filename}}.min.{{ext}}" $s
@@ -41,7 +41,7 @@ done
 MIN="$PWD/node_modules/uglify-es/bin/uglifyjs"
 (
   cd dist
-  for s in *.js; do
+  for s in *.mjs; do
     ext="${s##*.}"
     file="${s%.*}"
     echo "minifying $s"

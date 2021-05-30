@@ -13,7 +13,11 @@ This will break the projects developed on precedent versions.
 
 ## Version
 
+## Version 0.12.0 (2021-05-30)
+
 * FIX: english conjugation, verbs starting with re; also verb "can"
+* IMPROVE: use of ES6 async import
+* MODIFY: modification of some methods names
 
 ## Version 0.11.0 (2019-03-24)
 

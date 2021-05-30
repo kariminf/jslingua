@@ -9,7 +9,7 @@ engines:
           mass_threshold: 100
 ratings:
   paths:
-  - "src/*.js"
+  - "src/*.mjs"
 
 exclude_paths:
 - "test/"

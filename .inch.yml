@@ -1,6 +1,6 @@
 files:
   included:
-    - "src/**.js"
+    - "src/**.mjs"
   excluded:
     - test/
     - node_modules/

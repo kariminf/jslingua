@@ -14,7 +14,9 @@
     "jslint": "^0.11.0",
     "mocha": "^8.4.0",
     "tui-jsdoc-template": "^1.2.2",
-    "uglify-es": "^3.3.10"
+    "uglify-es": "^3.3.10",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
