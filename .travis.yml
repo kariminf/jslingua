@@ -1,13 +1,14 @@
 language: node_js
 node_js:
-- '14'
+  - '14'
 before_install:
-- npm install codecov -g
-- npm install -g codeclimate-test-reporter
+  - npm install codecov -g
+  - npm install -g codeclimate-test-reporter
 after_success:
-- codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
-- codeclimate < ./coverage/lcov.info
+  - codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json
+  - codeclimate < ./coverage/lcov.info
 before_deploy:
+  - node_modules/webpack-cli/bin/cli.js
 deploy:
   provider: npm
   skip_cleanup: true

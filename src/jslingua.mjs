@@ -1,5 +1,5 @@
 class JsLingua {
-  static version = "0.12.0";
+  static version = "0.12.1";
   static rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
   static services = {};
 
