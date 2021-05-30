@@ -196,28 +196,28 @@ class JsLingua {
 
 let servicesURLs = {
   "info": {
-    "ara": "./ara/ara.info.js",//Arabic information class
-    "jpn": "./jpn/jpn.info.js",//Japanese information class
-    "eng": "./eng/eng.info.js",//English information class
-    "fra": "./fra/fra.info.js"//French information class
+    "ara": "./ara/ara.info.mjs",//Arabic information class
+    "jpn": "./jpn/jpn.info.mjs",//Japanese information class
+    "eng": "./eng/eng.info.mjs",//English information class
+    "fra": "./fra/fra.info.mjs"//French information class
   },
   "lang": {
-    "ara": "./ara/ara.lang.js",//Arabic language class
-    "jpn": "./jpn/jpn.lang.js",//Japanese language class
-    "eng": "./eng/eng.lang.js",//English language class
-    "fra": "./fra/fra.lang.js"//English language class
+    "ara": "./ara/ara.lang.mjs",//Arabic language class
+    "jpn": "./jpn/jpn.lang.mjs",//Japanese language class
+    "eng": "./eng/eng.lang.mjs",//English language class
+    "fra": "./fra/fra.lang.mjs"//English language class
   },
   "trans": {
-    "ara": "./ara/ara.trans.js",//Arabic transliteration class
-    "jpn": "./jpn/jpn.trans.js",//Japanese transliteration class
-    "eng": "./eng/eng.trans.js",//English transliteration class
-    "fra": "./fra/fra.trans.js"//French transliteration class
+    "ara": "./ara/ara.trans.mjs",//Arabic transliteration class
+    "jpn": "./jpn/jpn.trans.mjs",//Japanese transliteration class
+    "eng": "./eng/eng.trans.mjs",//English transliteration class
+    "fra": "./fra/fra.trans.mjs"//French transliteration class
   },
   "morpho": {
-    "ara": "./ara/ara.morpho.js",//Arabic Morphology class
-    "jpn": "./jpn/jpn.morpho.js",//Japanese Morphology class
-    "eng": "./eng/eng.morpho.js",//English Morphology class
-    "fra": "./fra/fra.morpho.js"//French Morphology class
+    "ara": "./ara/ara.morpho.mjs",//Arabic Morphology class
+    "jpn": "./jpn/jpn.morpho.mjs",//Japanese Morphology class
+    "eng": "./eng/eng.morpho.mjs",//English Morphology class
+    "fra": "./fra/fra.morpho.mjs"//French Morphology class
   }
 };
 

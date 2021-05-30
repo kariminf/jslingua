@@ -1,4 +1,4 @@
-let FraTrans = import("../../src/fra/fra.trans");
+let FraTrans;
 let expect = require('expect.js');
 
 let src = "ça, est un exemple."
@@ -10,6 +10,11 @@ let exp = {
 };
 
 describe("French Transliteration", function(){
+
+  before(async () => {
+    let module = await import("../../src/fra/fra.trans.mjs");
+    FraTrans = module.default;
+  });
 
   it("Methods check", function(){
     var methods = FraTrans.ltrans();

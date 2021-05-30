@@ -1,4 +1,4 @@
-import Info from "../info.js"
+import Info from "../info.mjs";
 
 class FraInfo extends Info {
   static code = "fra";

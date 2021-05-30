@@ -653,12 +653,13 @@ class Morpho {
   *
   * @method getVerbType
   * @public
-  * @abstract
+  * @final
+  * @param  {String} verb the verbe
   * @memberof Morpho
   * @return {String}    verb's type
   */
-  static getVerbType(){
-    return this.gvtype();
+  static getVerbType(verb){
+    return this.gvtype(verb);
   }
 
 

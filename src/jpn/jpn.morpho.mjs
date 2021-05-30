@@ -1,4 +1,4 @@
-import Morpho from "../morpho.js";
+import Morpho from "../morpho.mjs";
 
 class JpnMorpho extends Morpho {
   //These static members must be overriden in extended classes;
@@ -96,35 +96,13 @@ class JpnMorpho extends Morpho {
   }
 
   static gvtype(verb){
-
-    if (/(出来)る$/g.test(verb)) return VType.V1;
-    if (/(す|く|来)る$/g.test(verb)) return VType.SK;
-    let end = verb.slice(-1);
-    let bend = verb.slice(-2,-1);
-    if (end === "る") {
-      //If not these before-endings, and hiragana, then it is Godan
-      if (! "いえしせちてにねびべみめりれ".includes(bend)) {
-        let utf8 = bend.charCodeAt(0);
-        if (0x3040 <= utf8 && utf8 <= 0x309F) return VType.V5;
-      }
-
-      {//If it ends with these; it is Godan
-        let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
-        if (v5r.test(verb) || ruV5List[bend]) return VType.V5;
-      }
-
-      //Otherwise, it is Ichidan
-      return VType.V1;
-    }
-
-    return VType.V5;
-
-  };
+    return __getVerbType(verb);
+  }
 
   static lconjopt(optLabel) {
     if (optLabel === "Formality") return __getFormalityOpts();
     return Morpho.lconjopt(optLabel);
-  };
+  }
 
   //==========================================
   // CONJUGATION OPTIONS PROTECTED FUNCTIONS
@@ -395,12 +373,35 @@ function __jslinguaJpnStemmer(word) {
 // CONJUGATION FUNCTIONS
 //==========================================
 
+function __getVerbType(verb){
+  if (/(出来)る$/g.test(verb)) return VType.V1;
+  if (/(す|く|来)る$/g.test(verb)) return VType.SK;
+  let end = verb.slice(-1);
+  let bend = verb.slice(-2,-1);
+  if (end === "る") {
+    //If not these before-endings, and hiragana, then it is Godan
+    if (! "いえしせちてにねびべみめりれ".includes(bend)) {
+      let utf8 = bend.charCodeAt(0);
+      if (0x3040 <= utf8 && utf8 <= 0x309F) return VType.V5;
+    }
+
+    {//If it ends with these; it is Godan
+      let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
+      if (v5r.test(verb) || ruV5List[bend]) return VType.V5;
+    }
+
+    //Otherwise, it is Ichidan
+    return VType.V1;
+  }
+
+  return VType.V5;
+}
 //https://en.wikipedia.org/wiki/Japanese_verb_conjugation
 //Override conjugate function
 function __conj(verb, opts) {
 
   if (!opts.mood) opts.mood = Morpho.Mood.Ind;
-  let vtype = (opts.vtype)? opts.vtype: this.getVerbType(verb);
+  let vtype = (opts.vtype)? opts.vtype: __getVerbType(verb);
 
   //console.log(vtype);
   let end ="";

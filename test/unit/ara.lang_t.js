@@ -1,7 +1,12 @@
-let AraLang = import("../../src/ara/ara.lang");
+let AraLang;
 let expect = require('expect.js');
 
 describe("Arabic Lang", function(){
+
+  before(async () => {
+    let module = await import("../../src/ara/ara.lang.mjs");
+    AraLang = module.default;
+  });
 
   it("pronounceNumber", function(){
     //long way
@@ -12,27 +17,26 @@ describe("Arabic Lang", function(){
 
   it("charSets", function(){
     //long way
-    var charsets = lang.listCharSets();
+    let charsets = AraLang.listCharSets();
     expect(charsets.length).to.eql(7);//the number of charsets
     //short way
-    charsets = lang.lchars();
+    charsets = AraLang.lchars();
     expect(charsets.length).to.eql(7);//the number of charsets
 
-    var txt = "أهْلاً بِكُمْ فِي هـٰـذَا الاِختِبَار";
+    let txt = "أهْلاً بِكُمْ فِي هـٰـذَا الاِختِبَار";
 
-    var j, all=0, contains=0, all2 =0, contains2=0;
+    let j, all=0, contains=0, all2 =0, contains2=0;
 
     for(j=0; j < charsets.length; j++){
       //long way
-      var allFct = lang.allCharSetFunction(charsets[j]);
-      var containsFct = lang.containsCharSetFunction(charsets[j]);
-      all += (allFct(txt))? 1 : 0;
-      contains += (containsFct(txt))? 1 : 0;
+      let verifyFcts = AraLang.getCharSetFunctions(charsets[j]);
+      all += (verifyFcts.all(txt))? 1 : 0;
+      contains += (verifyFcts.contains(txt))? 1 : 0;
 
       //short way
-      lang.schars(charsets[j]);
-      all2 += (lang.all(txt))? 1 : 0;
-      contains2 += (lang.contains(txt))? 1 : 0;
+      AraLang.schars(charsets[j]);
+      all2 += (AraLang.all(txt))? 1 : 0;
+      contains2 += (AraLang.contains(txt))? 1 : 0;
     }
 
     expect(all).to.eql(0);
@@ -55,16 +59,16 @@ describe("Arabic Lang", function(){
     var indicNum = "١٢٣٤٥٦٧٨٩٠";
 
     //long way
-    var func = AraLang.transformationFunction("ind2ara");
+    var func = AraLang.getTransformationFunction("ind2ara");
     expect(func(indicNum)).to.eql(arabicNum);
-    func = AraLang.transformationFunction("ara2ind");
+    func = AraLang.gtrans("ara2ind");
     expect(func(arabicNum)).to.eql(indicNum);
 
     //short way
     AraLang.strans("ind2ara");
-    expect(lang.trans(indicNum)).to.eql(arabicNum);
+    expect(AraLang.trans(indicNum)).to.eql(arabicNum);
     AraLang.strans("ara2ind");
-    expect(lang.trans(arabicNum)).to.eql(indicNum);
+    expect(AraLang.trans(arabicNum)).to.eql(indicNum);
 
   });
 

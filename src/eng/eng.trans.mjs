@@ -1,4 +1,4 @@
-import Trans from "../trans.js";
+import Trans from "../trans.mjs";
 
 class EngTrans extends Trans {
   static code = "eng";

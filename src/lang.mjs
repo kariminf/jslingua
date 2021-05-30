@@ -131,6 +131,25 @@ class Lang {
   }
 
   /**
+  * Get an object with verification functions
+  * contains: returns a function which verifies if the text contains
+  *           at least one of the charsets
+  * all : returns a function which verifies if all the chacaters of the text
+  *           are in this charset
+  *
+  * @method gcharverify
+  * @public
+  * @static
+  * @final
+  * @memberof Lang
+  * @param  {String} charSet the name of the charset
+  * @return {object} object with verifying functions
+  */
+  static getCharSetFunctions(charSet) {
+    return this.gcharverify(charSet);
+  }
+
+  /**
   * Sets the current charset we are using for functions
   *
   * @method lchars
@@ -139,9 +158,35 @@ class Lang {
   * @memberof Lang
   * @param  {String} charSet the name of the charset
   */
-  schars(charSet) {
-    this.charFcts = this.constructor.gcharverify(charSet);
+  static schars(charSet) {
+    this.charFcts = this.gcharverify(charSet);
   }
+
+  /**
+   * Verify if all text's characters belong to the current charSet
+   * @method contains
+   * @public
+   * @final
+   * @param  {String} text the text to verify
+   * @return {Boolean}      the text contains some chars of the current charset or not
+   */
+  static contains(text){
+    return this.charFcts.contains(text);
+  }
+
+  /**
+   * Verify if all text's characters belong to the current charSet
+   * @method all
+   * @public
+   * @final
+   * @param  {String} text the text to verify
+   * @return {Boolean}      the text contains some chars of the current charset or not
+   */
+  static all(text){
+    return this.charFcts.all(text);
+  }
+
+
 
   //==========================================
   // TRANSFORMATION FUNCTIONS (public)
@@ -191,6 +236,21 @@ class Lang {
   }
 
   /**
+  * Get the the transformation function
+  *
+  * @method getTransformationFunction
+  * @public
+  * @static
+  * @final
+  * @memberof Lang
+  * @param  {String} transName name of the transformation function
+  * @return {function}  a function which transforms a given text
+  */
+  static getTransformationFunction(transName) {
+    return this.gtrans(transName);
+  }
+
+  /**
   * Get the description of the transformation function
   *
   * @method gtransdesc
@@ -220,21 +280,9 @@ class Lang {
   * @return {Text}  description
   */
   static getTransDesc(transName){
-    return gtransdesc(transName);
+    return this.gtransdesc(transName);
   }
 
-  /**
-  * Returns the available transformations for the current language
-  * (Dynamic version)
-  * @method ltrans
-  * @public
-  * @final
-  * @memberof Lang
-  * @return {String[]} a set of strings containing the names of transformation functions
-  */
-  ltrans() {
-    return this.constructor.ltrans();
-  }
 
   /**
   * Sets the current transformations for the current object
@@ -245,8 +293,8 @@ class Lang {
   * @memberof Lang
   * @param  {String} transName the name of transformation method
   */
-  strans(transName) {
-    this.transFct = this.constructor.gtrans(transName);
+  static strans(transName) {
+    this.transFct = this.gtrans(transName);
   }
 
   /**
@@ -259,24 +307,8 @@ class Lang {
   * @param  {String} text text to be transformed
   * @return {Text}  transformed text
   */
-  trans(text) {
+  static trans(text) {
     return this.transFct(text);
-  }
-
-  /**
-  * Transforms a text from a charset to another
-  * (Static version)
-  * @method trans
-  * @public
-  * @static
-  * @final
-  * @memberof Lang
-  * @param  {String} transName the name of transformation method
-  * @param  {String} text text to be transformed
-  * @return {Text}  transformed text
-  */
-  static trans(transName, text) {
-    return gtrans(transName)(text);
   }
 
 
@@ -304,56 +336,6 @@ class Lang {
     return this.nbr2str(num);
   }
 
-  //==========================================
-  // LONG FUNCTIONS
-  //==========================================
-
-
-  /**
-  * Returns a function which verifies if a char belongs to a charset or not
-  *
-  * @method verifyCharSetFunction
-  * @public
-  * @static
-  * @memberof Lang
-  * @param  {String} setName CharSet name, for example: hiragana, kanji, Arabic suppliment
-  * @return {Function}  A function which takes a char and returns true if it belongs to the charset
-  */
-  static verifyCharSetFunction(setName) {
-    if (typeof setName !== "string") {
-      return function() { return false; };
-    }
-
-    return this.CS[setName];
-  }
-
-  /**
-  * Returns the transformation function
-  *
-  * @method transformationFunction
-  * @public
-  * @static
-  * @memberof Lang
-  * @param  {String} transName transformation name (function name), for example: hiragana2Katakana
-  * @return {Function}  a function which takes a string and transforme it to another string with different charset
-  */
-  static transformationFunction(transName) {
-    if (typeof transName !== "string") {
-      return function(text) { return text; };
-    }
-
-    return this.TR[transName].fct;
-  }
-
-  static containsCharSetFunction(charSet){
-    let chVerif = this.CS[charSet];
-    return (chVerif)? __createContains(chVerif): charFctsDef.contains;
-  }
-
-  static allCharSetFunction(charSet){
-    let chVerif = this.CS[charSet];
-    return (chVerif)? __createAll(chVerif): charFctsDef.all;
-  }
 
 } //End of class Lang
 

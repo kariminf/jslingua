@@ -1,4 +1,4 @@
-import Info from "../info.js"
+import Info from "../info.mjs";
 
 class AraInfo extends Info {
   static code = "ara";

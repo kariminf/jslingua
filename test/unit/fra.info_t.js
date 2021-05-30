@@ -1,7 +1,12 @@
-let FraInfo = import("../../src/fra/fra.info");
+let FraInfo;
 let expect = require('expect.js');
 
 describe("French Info", function(){
+
+  before(async () => {
+    let module = await import("../../src/fra/fra.info.mjs");
+    FraInfo = module.default;
+  });
 
   it("Name", function(){
     expect(FraInfo.getName()).to.eql("French");

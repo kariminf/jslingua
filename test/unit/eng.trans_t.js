@@ -1,8 +1,8 @@
-let EngTrans = import("../../src/eng/eng.trans");
+let EngTrans;
 let expect = require('expect.js');
 
-var src = "This is an example."
-var exp = {
+let src = "This is an example."
+let exp = {
   "morse": {
     "rev": "THIS IS AN EXAMPLE.",
     "dst": "- .... .. ...     .. ...     .- -.     . -..- .- -- .--. .-.. . .-.-.-"
@@ -11,15 +11,20 @@ var exp = {
 
 describe("English Transliteration", function(){
 
+  before(async () => {
+    let module = await import("../../src/eng/eng.trans.mjs");
+    EngTrans = module.default;
+  });
+
   it("Methods check", function(){
-    var methods = trans.ltrans();
+    var methods = EngTrans.ltrans();
     expect(methods.length).to.eql(1);//number of methods
     var j;
     for (j = 0; j < methods.length; j++){
       var method = methods[j];
-      trans.strans(method);
-      expect(trans.trans(src)).to.eql(exp[method].dst);//transliterate
-      expect(trans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
+      EngTrans.strans(method);
+      expect(EngTrans.trans(src)).to.eql(exp[method].dst);//transliterate
+      expect(EngTrans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
     }
   });
 

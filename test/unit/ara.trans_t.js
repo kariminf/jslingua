@@ -1,4 +1,4 @@
-let AraTrans = import("../../src/ara/ara.trans");
+let AraTrans;
 let expect = require('expect.js');
 
 let src = "ذلك البرنامج مسلّ";
@@ -19,15 +19,20 @@ let exp = {
 
 describe("Arabic Transliteration", function(){
 
+  before(async () => {
+    let module = await import("../../src/ara/ara.trans.mjs");
+    AraTrans = module.default;
+  });
+
   it("Methods check", function(){
-    var methods = Aratrans.ltrans();
+    var methods = AraTrans.ltrans();
     expect(methods.length).to.eql(3);//number of methods
     var j;
     for (j = 0; j < methods.length; j++){
       var method = methods[j];
-      Aratrans.strans(method);
-      expect(Aratrans.trans(src)).to.eql(exp[method].dst);//transliterate
-      expect(Aratrans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
+      AraTrans.strans(method);
+      expect(AraTrans.trans(src)).to.eql(exp[method].dst);//transliterate
+      expect(AraTrans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
     }
   });
 

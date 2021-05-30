@@ -1,7 +1,12 @@
-let JpnInfo = import("../../src/jpn/jpn.info");
+let JpnInfo;
 let expect = require('expect.js');
 
 describe("Japanese Info", function(){
+
+  before(async () => {
+    let module = await import("../../src/jpn/jpn.info.mjs");
+    JpnInfo = module.default;
+  });
 
   it("Name", function(){
     expect(JpnInfo.getName()).to.eql("Japanese");

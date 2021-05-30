@@ -1,7 +1,14 @@
-let AraInfo = import("../../src/ara/ara.info");
+let AraInfo;
+
 let expect = require('expect.js');
 
+
 describe("Arabic Info", function(){
+
+  before(async () => {
+    let module = await import("../../src/ara/ara.info.mjs");
+    AraInfo = module.default;
+  });
 
   it("Name", function(){
     expect(AraInfo.getName()).to.eql("Arabic");

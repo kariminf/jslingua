@@ -7,12 +7,12 @@
     "codecov": "^3.6.5",
     "eslint": "^4.19.1",
     "expect.js": "^0.3.1",
-    "http-server": "^0.10.0",
+    "http-server": "^0.12.3",
     "inchjs": "^0.4.1",
     "istanbul": "^0.4.5",
-    "jshint": "^2.9.3",
+    "jshint": "^2.12.0",
     "jslint": "^0.11.0",
-    "mocha": "^3.5.3",
+    "mocha": "^8.4.0",
     "tui-jsdoc-template": "^1.2.2",
     "uglify-es": "^3.3.10"
   },
@@ -48,7 +48,7 @@
     "french"
   ],
   "files": [
-    "src/",
+    "src/*",
     "dist/"
   ],
   "author": "Abdelkrime Aries <kariminfo0@gmail.com>",

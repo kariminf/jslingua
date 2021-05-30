@@ -1,7 +1,12 @@
-let EngInfo = import("../../src/eng/eng.info");
+let EngInfo;
 let expect = require('expect.js');
 
 describe("English Info", function(){
+
+  before(async () => {
+    let module = await import("../../src/eng/eng.info.mjs");
+    EngInfo = module.default;
+  });
 
   it("Name", function(){
     expect(EngInfo.getName()).to.eql("English");

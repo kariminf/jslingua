@@ -1,4 +1,4 @@
-import Morpho from "../morpho.js";
+import Morpho from "../morpho.mjs";
 
 class AraMorpho extends Morpho {
   //These static members must be overriden in extended classes;

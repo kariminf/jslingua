@@ -1,22 +1,26 @@
-let FraLang = import("../../src/fra/fra.lang");
+let FraLang;
 let expect = require('expect.js');
 
 describe("French Lang", function(){
+
+  before(async () => {
+    let module = await import("../../src/fra/fra.lang.mjs");
+    FraLang = module.default;
+  });
 
   it("pronounceNumber", function(){
     expect(FraLang.pronounceNumber(1025)).to.eql("mille vingt-cinq");
   });
 
   it("charSets", function(){
-    var charsets = FraLang.listCharSets();
+    let charsets = FraLang.listCharSets();
     expect(charsets.length).to.eql(2);//the number of charsets
-    var txt = "ça dépend.";
-    var j, all=0, contains=0;
+    let txt = "ça dépend.";
+    let j, all=0, contains=0;
     for(j=0; j < charsets.length; j++){
-      var allFct = FraLang.allCharSetFunction(charsets[j]);
-      var containsFct = FraLang.containsCharSetFunction(charsets[j]);
-      all += (allFct(txt))? 1 : 0;
-      contains += (containsFct(txt))? 1 : 0;
+      let verifyFcts = FraLang.gcharverify(charsets[j]);
+      all += (verifyFcts.all(txt))? 1 : 0;
+      contains += (verifyFcts.contains(txt))? 1 : 0;
     }
     expect(all).to.eql(0);
     expect(contains).to.eql(2);
@@ -24,12 +28,17 @@ describe("French Lang", function(){
 
   it("Transform", function(){
     expect(FraLang.ltrans().length).to.eql(2);
-    var min = "azertyçùéèà";
-    var maj = "AZERTYÇÙÉÈÀ";
-    var func = FraLang.transformationFunction("min2maj");
+    let min = "azertyçùéèà";
+    let maj = "AZERTYÇÙÉÈÀ";
+    let func = FraLang.getTransformationFunction("min2maj");
     expect(func(min)).to.eql(maj);
-    func = FraLang.transformationFunction("maj2min");
+    func = FraLang.gtrans("maj2min");
     expect(func(maj)).to.eql(min);
+
+    FraLang.strans("min2maj");
+    expect(FraLang.trans(min)).to.eql(maj);
+    FraLang.strans("maj2min");
+    expect(FraLang.trans(maj)).to.eql(min);
   });
 
 });

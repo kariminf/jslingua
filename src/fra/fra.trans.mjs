@@ -1,5 +1,5 @@
-import Trans from "../trans.js";
-import EngTrans from "../eng/eng.trans.js";
+import Trans from "../trans.mjs";
+import EngTrans from "../eng/eng.trans.mjs";
 
 class FraTrans extends Trans {
   static code = "fra";

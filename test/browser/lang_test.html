@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Language test</title>
   <script type="module">
-  import JsLingua from "../../src/jslingua.js";
+  import JsLingua from "../../src/jslingua.mjs";
   window.JsLingua = JsLingua;
   </script>
   <script type="text/javascript">
@@ -35,7 +35,7 @@
 
   function update(){
     setTester();
-    affectElements($("lanCS"));
+    testLang();
     var tsel = $("tsel");
     var tr = LangClass.listTransformations();
     for(var i = tsel.options.length - 1 ; i >= 0 ; i--)
@@ -54,28 +54,23 @@
 
   function affectElements(container, func, text){
     var res = "";
-    cs.forEach(function(element, index, array){
+    cs.forEach(function(charSet, index, array){
       var found = true;
-      if (func === undefined)
-      found = false;
-      else
-      found = LangClass[func](element)(text);
-      if (found)
-      res += '<span class="l t">' + element + "</span>";
-      else {
-        res += '<span class="l f">' + element + "</span>";
-      }
+      if (func === undefined)    found = false;
+      else                       found = LangClass.gcharverify(charSet)[func](text);
+      if (found) res += '<span class="l t">' + charSet + "</span>";
+      else       res += '<span class="l f">' + charSet + "</span>";
     });
     container.innerHTML = res;
   }
 
   function testLang() {
-    affectElements($("contCS"), "containsCharSetFunction", $("ltst").value);
-    affectElements($("allCS"), "allCharSetFunction", $("ltst").value);
+    affectElements($("contCS"), "contains", $("ltst").value);
+    affectElements($("allCS"), "all", $("ltst").value);
   }
 
   function transform(){
-    var transFunc = LangClass.transformationFunction(_($("tsel")).value);
+    var transFunc = LangClass.gtrans(_($("tsel")).value);
     $("tdest").value = transFunc($("tsrc").value);
   }
 

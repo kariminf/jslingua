@@ -1,4 +1,4 @@
-import Lang from "../lang.js";
+import Lang from "../lang.mjs";
 
 class AraLang extends Lang {
   static CS = {};
