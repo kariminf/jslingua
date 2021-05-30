@@ -14,5 +14,5 @@ ratings:
 exclude_paths:
 - "test/"
 - "dist/"
-- "design/"
+- "assets/"
 - "node_modules/"

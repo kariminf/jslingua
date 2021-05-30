@@ -1,7 +1,0 @@
-files:
-  included:
-    - "src/**.mjs"
-  excluded:
-    - test/
-    - node_modules/
-    - dist/

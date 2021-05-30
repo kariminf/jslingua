@@ -5,7 +5,7 @@
   "main": "dist/jslingua.js",
   "devDependencies": {
     "codecov": "^3.6.5",
-    "eslint": "^4.19.1",
+    "eslint": "^7.27.0",
     "expect.js": "^0.3.1",
     "http-server": "^0.12.3",
     "jshint": "^2.12.0",

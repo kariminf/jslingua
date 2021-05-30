@@ -11,5 +11,13 @@
         "semi": ["error", "always"],
         "no-console": "off",
         "no-unused-vars": ["error", { "vars": "all", "argsIgnorePattern": "^_"}]
+    },
+    "settings": {
+    "import/extensions": [".mjs", ".js"],
+    "import/resolver": {
+      "node": {
+        "extensions": [".mjs", ".js"]
+      }
     }
+  }
 }
