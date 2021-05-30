@@ -13,7 +13,7 @@
     "default": {
       "staticFiles": {
         "include": [
-            "./design/logo.png"
+            "./assets/design/logo.png"
         ]
       }
     },
