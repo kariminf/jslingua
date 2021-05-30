@@ -1,5 +1,5 @@
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: "./package/jslingua-static.js",
   output: {
     filename: 'jslingua.js',

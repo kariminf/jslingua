@@ -1,25 +1,23 @@
 {
   "name": "jslingua",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "Language processing modules",
-  "main": "jslingua.js",
+  "main": "dist/jslingua.js",
   "devDependencies": {
     "codecov": "^3.6.5",
     "eslint": "^4.19.1",
     "expect.js": "^0.3.1",
     "http-server": "^0.12.3",
-    "inchjs": "^0.4.1",
-    "istanbul": "^0.4.5",
     "jshint": "^2.12.0",
     "jslint": "^0.11.0",
     "mocha": "^8.4.0",
+    "nyc": "^15.1.0",
     "tui-jsdoc-template": "^1.2.2",
-    "uglify-es": "^3.3.10",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/mocha test/unit/"
+    "test": "nyc mocha test/unit/"
   },
   "publishConfig": {
     "access": "public"
