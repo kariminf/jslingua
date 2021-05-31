@@ -4,17 +4,10 @@
 ![Logo](assets/design/logo128.png)
 [![NPM](https://nodei.co/npm/jslingua.png?downloads=true&downloadRank=true)](https://nodei.co/npm/jslingua/)
 
-[![Project](https://img.shields.io/badge/Project-JsLingua-FDEE00.svg)](https://kariminf.github.com/jslingua.web)
-[![License](https://img.shields.io/badge/License-Apache_2.0-FDEE00.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Version](https://img.shields.io/npm/v/jslingua.svg)](https://www.npmjs.com/package/jslingua)
+[![Project](https://img.shields.io/badge/Testing-Click_here-4BC51D.svg)](https://kariminf.github.com/jslingua.web)
+[![License](https://img.shields.io/badge/License-Apache_2.0-4BC51D.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.org/kariminf/jslingua)
-[![codecov](https://img.shields.io/codecov/c/github/kariminf/jslingua.svg)](https://codecov.io/gh/kariminf/jslingua)
 [![downloads](https://img.shields.io/npm/dm/jslingua.svg)](https://www.npmjs.com/package/jslingua)
-[![Inline docs](http://inch-ci.org/github/kariminf/jslingua.svg?branch=master)](http://inch-ci.org/github/kariminf/jslingua)
-[![CodeFactor](https://www.codefactor.io/repository/github/kariminf/jslingua/badge)](https://www.codefactor.io/repository/github/kariminf/jslingua)
-[![codebeat badge](https://codebeat.co/badges/dd8cf628-627a-42f3-8ae5-5bfa1a53d525)](https://codebeat.co/projects/github-com-kariminf-jslingua-master)
-[![Code Climate](https://img.shields.io/codeclimate/maintainability-percentage/kariminf/jslingua.svg?style=plastic)](https://codeclimate.com/github/kariminf/jslingua/)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/jslingua.svg)](https://bundlephobia.com/result?p=jslingua@latest)
 
 Javascript library for language processing.
 
@@ -60,6 +53,20 @@ To get tutorials [Click here](https://github.com/kariminf/jslingua_docs/blob/mas
 
 ### Use in Browser
 
+You can either use it by downloading it via **NPM** or by using **UNPKG** CDN (content delivery network).
+There are two versions:
+- One file containing all the functions at once (not very large): it is usefull if you want to use all the functions in your website. Also, if you don't want to use ES6 asynchronuous import.
+- Many files : not recomanded since the files are not minimized.
+
+Here an example using UNPKG CDN
+```javascript
+<script type="text/javascript" src="https://unpkg.com/jslingua@latest/dist/jslingua.js"></script>
+<script type="text/javascript">
+  alert(JsLingua.version);
+</script>
+```
+
+Here an example when you want to select the services at execution time.
 ```javascript
 <script type="module">
   import JsLingua from "../../src/jslingua.mjs";
@@ -84,18 +91,9 @@ First of all, you have to install the package in your current project
 ```
 npm install jslingua
 ```
-Then in your test file, call the main module "jslingua".
+Then, you can import it as follows :
 ```javascript
-let JsLingua;
-import("path-to-jslingua.mjs")
-  .then(async(module)=>{
-    JsLingua = module.default;
-    await Promise.all([
-      JsLingua.load("[Service]", "[lang]"),
-      JsLingua.load("[Service]", "[lang]"),
-      ...
-    ]);
-  });
+let JsLingua = require("jslingua");
 ```
 
 ### Get the services (Browser & Node)
@@ -174,6 +172,10 @@ The project's ambitions are:
 * To give the web-master the ability to choose witch tasks they want to use by using many modules instead of using one giant program.
 * To afford good resources for those who want to learn javascript programming.
 * **TO HAVE FUN**: programming is fun, spend time for useful things, happiness is when your work is helpful to others, more obstacles give more experience.
+
+## Contributors
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=kariminf/jslingua)
 
 ## License
 
