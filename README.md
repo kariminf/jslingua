@@ -4,7 +4,7 @@
 ![Logo](assets/design/logo128.png)
 [![NPM](https://nodei.co/npm/jslingua.png?downloads=true&downloadRank=true)](https://nodei.co/npm/jslingua/)
 
-[![Project](https://img.shields.io/badge/Testing-Click_here-4BC51D.svg)](https://kariminf.github.com/jslingua.web)
+[![Project](https://img.shields.io/badge/Testing-Click_here-4BC51D.svg)](https://kariminf.github.io/jslingua.web)
 [![License](https://img.shields.io/badge/License-Apache_2.0-4BC51D.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.org/kariminf/jslingua)
 [![downloads](https://img.shields.io/npm/dm/jslingua.svg)](https://www.npmjs.com/package/jslingua)
