@@ -1,3 +1,12 @@
+/**
+ * Morphology module
+ * @module morpho
+ */
+
+/**
+ * Morphology specific functions such as stemming, conjugation, etc.
+ * @hideconstructor
+ */
 class Morpho {
 
   //These static members must be overriden in extended classes;
@@ -24,15 +33,14 @@ class Morpho {
   * @readOnly
   * @public
   * @static
-  * @memberof Morpho
   * @enum {String}
   */
   static Tense = {
-    /** past */
+    /* past */
     Pa: "past",
-    /** present */
+    /* present */
     Pr: "present",
-    /** future */
+    /* future */
     Fu: "future"
   };
 
@@ -43,19 +51,18 @@ class Morpho {
   * @readOnly
   * @public
   * @static
-  * @memberof Morpho
   * @enum {String}
   */
   static Aspect = {
-    /** simple */
+    /* simple */
     S: "simple",
-    /** continuous */
+    /* continuous */
     C: "continuous",
-    /** perfect */
+    /* perfect */
     P: "perfect",
-    /** perfect-continuous */
+    /* perfect-continuous */
     PC: "perfect-continuous",
-    /** imperfect */
+    /* imperfect */
     I: "imperfect"
   };
 
@@ -70,11 +77,10 @@ class Morpho {
   * @readOnly
   * @public
   * @static
-  * @memberof Morpho
   * @enum {String}
   */
   static Mood = {
-    /**
+    /*
      * indicative: The indicative can be considered the default mood.
      * A verb in indicative merely states that something happens,
      * has happened or will happen, without adding any attitude of the speaker.
@@ -82,13 +88,13 @@ class Morpho {
      */
     Ind: "indicative",
 
-    /**
+    /*
      * imperative: The speaker uses imperative to order or ask the addressee to do the action of the verb.
      * @example Study at the university
      */
     Imp: "imperative",
 
-    /**
+    /*
      * conditional: The conditional mood is used to express actions that would have taken
      * place under some circumstances but they actually did not / do not happen.
      * Grammars of some languages may classify conditional as tense (rather than mood)
@@ -97,14 +103,14 @@ class Morpho {
      */
     Cnd: "conditional",
 
-    /**
+    /*
      * potential: The action of the verb is possible but not certain.
      * This mood corresponds to the modal verbs can, might, be able to. Used e.g. in Finnish.
      * @example she can go home
      */
     Pot: "potential",
 
-    /**
+    /*
      * subjunctive: The subjunctive mood is used under certain circumstances in subordinate clauses,
      * typically for actions that are subjective or otherwise uncertain.
      * In German, it may be also used to convey the conditional meaning.
@@ -112,7 +118,7 @@ class Morpho {
      */
     Sub: "subjunctive",
 
-    /**
+    /*
      * jussive: The jussive mood expresses the desire that the action happens;
      * it is thus close to both imperative and optative.
      * Unlike in desiderative, it is the speaker, not the subject who wishes that it happens.
@@ -121,36 +127,36 @@ class Morpho {
      */
     Jus: "jussive",
 
-    /**
+    /*
      * purposive: Means “in order to”, occurs in Amazonian languages.
      */
     Prp: "purposive",
 
-    /**
+    /*
      * quotative: The quotative mood is used e.g. in Estonian to denote direct speech.
      */
     Qot: "quotative",
 
-    /**
+    /*
      * optative: Expresses exclamations like “May you have a long life!” or
      * “If only I were rich!” In Turkish it also expresses suggestions.
      * @example let’s go home
      */
     Opt: "optative",
 
-    /**
+    /*
      * desiderative: The desiderative mood corresponds to the modal verb “want to”:
      * “He wants to come.” Used e.g. in Turkish.
      */
     Des: "desiderative",
 
-    /**
+    /*
      * necessitative: The necessitative mood expresses necessity and corresponds to the modal
      * verbs “must, should, have to”: “He must come.”
      */
     Nec: "necessitative",
 
-    /**
+    /*
      * admirative: Expresses surprise, irony or doubt. Occurs in Albanian,
      * other Balkan languages, and in Caddo (Native American from Oklahoma).
      */
@@ -165,15 +171,14 @@ class Morpho {
   * @readOnly
   * @public
   * @static
-  * @memberof Morpho
   * @enum {String}
   */
   static Voice = {
-    /** active */
+    /* active */
     A: "active",
-    /** passive */
+    /* passive */
     P: "passive",
-    /** middle */
+    /* middle */
     M: "middle"
   };
 
@@ -184,15 +189,14 @@ class Morpho {
   * @readOnly
   * @public
   * @static
-  * @memberof Morpho
   * @enum {String}
   */
   static GNumber = {
-    /** singular */
+    /* singular */
     S: "singular",
-    /** dual */
+    /* dual */
     D: "dual",
-    /** plural */
+    /* plural */
     P: "plural"
   };
 
@@ -203,15 +207,14 @@ class Morpho {
   * @readOnly
   * @public
   * @static
-  * @memberof Morpho
   * @enum {String}
   */
   static Person = {
-    /** first */
+    /* first */
     F: "first",
-    /** second */
+    /* second */
     S: "second",
-    /** third */
+    /* third */
     T: "third"
   };
 
@@ -222,15 +225,14 @@ class Morpho {
   * @readOnly
   * @public
   * @static
-  * @memberof Morpho
   * @enum {String}
   */
   static Gender = {
-    /** masculine */
+    /* masculine */
     M: "masculine",
-    /** feminine */
+    /* feminine */
     F: "feminine",
-    /** neuter */
+    /* neuter */
     N: "neuter"
   };
 
@@ -244,9 +246,9 @@ class Morpho {
    * @enum {String}
    */
   static Formality = {
-    /** plain */
+    /* plain */
     Pl: "plain",
-    /** polite */
+    /* polite */
     Po: "polite"
   };
 
@@ -256,10 +258,8 @@ class Morpho {
 
   /**
   * Add new stemmer method
-  * @method _nStem
   * @protected
   * @static
-  * @memberof Morpho
   * @param  {String} stemmerName the name of the stemmer
   * @param  {String} stemmerDesc   the description of the stemmer
   * @param  {Function} stemmerFct   the function stem(word)
@@ -274,10 +274,8 @@ class Morpho {
 
   /**
   * Add new part of speach converter method
-  * @method _nConv
   * @protected
   * @static
-  * @memberof Morpho
   * @param  {String} converterName the name of the converter
   * @param  {String} converterDesc   the description of the converter
   * @param  {Function} converterFct   the function convert(word)
@@ -292,13 +290,13 @@ class Morpho {
 
   /**
    *
-   * @method _conj
    * @protected
    * @static
-   * @memberof Morpho
-   * @param  {[type]} verb  [description]
-   * @param  {[type]} _opts [description]
-   * @return {[type]}       [description]
+   * @see conj
+   * @param  {String} verb the word to be conjugated
+   * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
+   * @param  {Sring} _form
+   * @return {String}      Conjugated verb
    */
   static _conj(verb, _opts){
     return verb;
@@ -311,10 +309,8 @@ class Morpho {
   /**
   * Stem a word: delete prefixes, suffixes and infixes
   *
-  * @method stem
   * @public
   * @final
-  * @memberof Morpho
   * @param  {String} word the word to be stemmed
   * @return {String}      stemmed word
   */
@@ -327,10 +323,8 @@ class Morpho {
 
   /**
   * Returns the list of available stemming methods
-  * @method lstem
   * @public
   * @final
-  * @memberof Morpho
   * @return {String[]}  Array of Strings containing stemmers names
   */
   static lstem(){
@@ -339,10 +333,8 @@ class Morpho {
 
   /**
   * Returns the list of available stemming methods
-  * @method listStemmers
   * @public
   * @final
-  * @memberof Morpho
   * @return {String[]}  Array of Strings containing stemmers names
   */
   static listStemmers(){
@@ -352,10 +344,8 @@ class Morpho {
   /**
   * Sets the current stemmer
   *
-  * @method sstem
   * @public
   * @final
-  * @memberof Morpho
   * @param {String} StemmerName stemmer method's name
   */
   static sstem = function (StemmerName) {
@@ -367,11 +357,9 @@ class Morpho {
   /**
     * Sets the current stemmer
     *
-    * @method setCurrentStemmer
     * @public
     * @final
-    * @memberof Morpho
-    * @param {String} StemmerName stemmer method's name
+     * @param {String} StemmerName stemmer method's name
     */
     static setCurrentStemmer(StemmerName) {
       this.sstem(StemmerName);
@@ -379,11 +367,9 @@ class Morpho {
 
   /**
    * Get the description of a stemmer
-   * @method gstemdesc
    * @public
    * @final
    * @see getStemmerDescription
-   * @memberof Morpho
    * @param  {string} stemmerName stemmer's name
    * @return {string}             stemmer's description
    */
@@ -396,11 +382,9 @@ class Morpho {
 
   /**
    * Get the description of a stemmer
-   * @method getStemmerDescription
    * @public
    * @final
    * @see gstemdesc
-   * @memberof Morpho
    * @param  {string} stemmerName stemmer's name
    * @return {string}             stemmer's description
    */
@@ -415,12 +399,10 @@ class Morpho {
   /**
   * Convert a word: singular to plural; verb to noun; etc
   *
-  * @method conv
   * @public
   * @final
   * @static
   * @see convertPoS
-  * @memberof Morpho
   * @param  {String} word the word to be converted
   * @return {String}      converted word
   */
@@ -434,12 +416,10 @@ class Morpho {
   /**
   * Convert a word: singular to plural; verb to noun; etc
   *
-  * @method convertPoS
   * @public
   * @final
   * @static
   * @see conv
-  * @memberof Morpho
   * @param  {String} word the word to be converted
   * @return {String}      converted word
   */
@@ -449,12 +429,10 @@ class Morpho {
 
   /**
   * Returns the list of available converting methods
-  * @method lconv
   * @public
   * @final
   * @static
   * @see listPosConverters
-  * @memberof Morpho
   * @return {String[]}  Array of Strings containing converters names
   */
   static lconv = function(){
@@ -463,11 +441,9 @@ class Morpho {
 
   /**
   * Returns the list of available converting methods
-  * @method listPosConverters
   * @public
   * @final
   * @see lconv
-  * @memberof Morpho
   * @return {String[]}  Array of Strings containing converters names
   */
   static listPosConverters(){
@@ -477,12 +453,10 @@ class Morpho {
   /**
   * Sets the current PoS converter
   *
-  * @method sconv
   * @public
   * @static
   * @final
   * @see setCurrentPosConverter
-  * @memberof Morpho
   * @param {String} converterName converter method's name
   */
   static sconv(converterName) {
@@ -494,12 +468,10 @@ class Morpho {
   /**
   * Sets the current PoS converter
   *
-  * @method setCurrentPosConverter
   * @public
   * @static
   * @final
   * @see sconv
-  * @memberof Morpho
   * @param {String} converterName converter method's name
   */
   static setCurrentPosConverter(converterName) {
@@ -508,7 +480,6 @@ class Morpho {
 
   /**
    * Get the description of a PoS converter by its name
-   * @method gconvdesc
    * @public
    * @static
    * @see getPosConverterDesc
@@ -524,14 +495,13 @@ class Morpho {
 
   /**
    * Get the description of a PoS converter by its name
-   * @method getPosConverterDesc
    * @public
    * @static
    * @see gconvdesc
    * @param  {string} converterName the name of the converter
    * @return {string}               the description of the converter
    */
-  static getPosConverterDesc = function (converterName) {
+  static getPosConverterDesc(converterName) {
     return this.gconvdesc(converterName);
   }
 
@@ -542,10 +512,8 @@ class Morpho {
   /**
   * This function is used for verb conjugation
   *
-  * @method conj
   * @public
   * @final
-  * @memberof Morpho
   * @param  {String} verb the word to be conjugated
   * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
   * @param  {Sring} _form
@@ -563,9 +531,7 @@ class Morpho {
   /**
   * This function is used for verb conjugation
   *
-  * @method conjugate
   * @public
-  * @memberof Morpho
   * @param  {String} verb the word to be conjugated
   * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
   * @param  {String} _form  the form's ID
@@ -577,9 +543,7 @@ class Morpho {
 
   /**
   * This method is used to recover the name of the tense
-  * @method gtensename
   * @public
-  * @memberof Morpho
   * @param  {String} tense the tense which we want to get the name (See {@link Morpho.Tense})
   * @return {String}       the name of the tense in the selected language
   */
@@ -598,9 +562,7 @@ class Morpho {
 
   /**
   * This method is used to recover the name of the tense
-  * @method getTenseName
   * @public
-  * @memberof Morpho
   * @param  {String} tense the tense which we want to get the name (See {@link Morpho.Tense})
   * @return {String}       the name of the tense in the selected language
   */
@@ -611,10 +573,8 @@ class Morpho {
   /**
    * Returns a list of verb types
    *
-   * @method gverbtype
    * @public
    * @abstract
-   * @memberof Morpho
    * @return {String[]}     list of verb types
    */
   static lvtype(){
@@ -624,10 +584,8 @@ class Morpho {
   /**
   * Returns a list of verb types
   *
-  * @method listVerbTypes
   * @public
   * @abstract
-  * @memberof Morpho
   * @return {String[]}     list of verb types
   */
   static listVerbTypes(){
@@ -637,10 +595,8 @@ class Morpho {
   /**
    * Given a verb, it detects its type
    *
-   * @method getVerbType
    * @public
    * @abstract
-   * @memberof Morpho
    * @param  {String} verb the verbe
    * @return {String}    verb's type
    */
@@ -651,11 +607,9 @@ class Morpho {
   /**
   * Given a verb, it detects its type
   *
-  * @method getVerbType
   * @public
   * @final
   * @param  {String} verb the verbe
-  * @memberof Morpho
   * @return {String}    verb's type
   */
   static getVerbType(verb){
@@ -671,9 +625,7 @@ class Morpho {
   *  "form_name": {opts}
   * }
   *
-  * @method lform
   * @public
-  * @memberof Morpho
   * @return {Object[]}  Array of conjugation forms available for the language
   */
   static lform(){
@@ -707,11 +659,9 @@ class Morpho {
   *  "form_name": {opts}
   * }
   *
-  * @method listForms
   * @public
   * @static
   * @see lform
-  * @memberof Morpho
   * @return {Object[]}  Array of conjugation forms available for the language
   */
   static listForms(){
@@ -720,10 +670,8 @@ class Morpho {
 
   /**
    * Get the form  by name
-   * @method gform
    * @public
    * @static
-   * @memberof Morpho
    * @param  {string} formName form's name
    * @return {object}          form composition
    */
@@ -733,10 +681,8 @@ class Morpho {
 
   /**
    * Get the description of a conjugation form
-   * @method gform
    * @public
    * @static
-   * @memberof Morpho
    * @see getFormDescription
    * @param  {string} formName form's name
    * @return {string}          form's description
@@ -751,10 +697,8 @@ class Morpho {
 
   /**
    * Get the description of a conjugation form
-   * @method getFormDescription
    * @public
    * @static
-   * @memberof Morpho
    * @see gform
    * @param  {string} formName form's name
    * @return {string}          form's description
@@ -768,9 +712,7 @@ class Morpho {
   * Each language has a conjugation table model.
   * For example, in English, Arabic and French, we put pronouns in rows.
   * As for Japanese, the conjugation doesn't follow that pattern.
-  * @method gconjmod
   * @public
-  * @memberof Morpho
   * @return {Object}   conjugation model with rows and cols
   */
   static gconjmod(){
@@ -785,9 +727,7 @@ class Morpho {
   * Each language has a conjugation table model.
   * For example, in English, Arabic and French, we put pronouns in rows.
   * As for Japanese, the conjugation doesn't follow that pattern.
-  * @method getConjugationModel
   * @public
-  * @memberof Morpho
   * @return {Object}   conjugation model with rows and cols
   */
   static getConjugationModel(){
@@ -797,9 +737,7 @@ class Morpho {
 
   /**
    * Returns the available options for conjugation such as pronouns, negation, voice, etc.
-   * @method lconjopt
    * @public
-   * @memberof Morpho
    * @param  {String}    optLabel Can be: "Pronoun", "Negation", "Voice"
    * @return {Object[]}             A list of parameters related to optLabel and the processed language
    */
@@ -814,9 +752,7 @@ class Morpho {
 
   /**
   * Returns the available options for conjugation such as pronouns, negation, voice, etc.
-  * @method listConjugationOptions
   * @public
-  * @memberof Morpho
   * @param  {String}    optLabel Can be: "Pronoun", "Negation", "Voice"
   * @return {Object[]}             A list of parameters related to optLabel and the processed language
   */
@@ -835,9 +771,7 @@ class Morpho {
    * // In English, it will give: "I"
    * // In Arabic, it will give: "أنا"
    *
-   * @method goptname
    * @public
-   * @memberof Morpho
    * @param  {String}   optLabel can be: Pronoun, Negation, Voice
    * @param  {Object}   opts     The parameters
    * @return {String}            The label of this parameter in the current language
@@ -864,9 +798,7 @@ class Morpho {
   * // In English, it will give: "I"
   * // In Arabic, it will give: "أنا"
   *
-  * @method getOptName
   * @public
-  * @memberof Morpho
   * @param  {String}   optLabel can be: Pronoun, Negation, Voice
   * @param  {Object}   opts     The parameters
   * @return {String}            The label of this parameter in the current language
@@ -883,9 +815,7 @@ class Morpho {
   /**
    * Returns the list of negation options for verb conjugation
    *
-   * @method _gNegOpts
    * @protected
-   * @memberof Morpho
    * @return {Object[]}        The list of available negation options
    */
   static _gNegOpts(){
@@ -898,9 +828,7 @@ class Morpho {
   /**
    * Returns the label of the negation in the current language
    *
-   * @method _gNegName
    * @protected
-   * @memberof Morpho
    * @param  {Object}        opts An object containing the attribute: negated: (0|1)
    * @return {String}             the label of the negation in the current language
    */
@@ -913,9 +841,7 @@ class Morpho {
   /**
    * Returns the list of conjugation voice for the current language
    *
-   * @method _gVoiceOpts
    * @protected
-   * @memberof Morpho
    * @return {Object[]}     A list of conjugation voice parameters for the current language
    */
   static _gVoiceOpts(){
@@ -928,9 +854,7 @@ class Morpho {
   /**
    * Returns the conjugation voice's name in the current language
    *
-   * @method _gVoiceName
    * @protected
-   * @memberof Morpho
    * @param  {Object}     opts An object with one attribute: voice
    * @return {String}          the label of the voice in the current language
    */
@@ -947,12 +871,10 @@ class Morpho {
   /**
    * Returns a list of options for pronouns in the current language
    *
-   * @method _gPpOpts
    * @protected
-   * @memberof Morpho
    * @return {Object[]}       List of pronouns options
    */
-  static _gPpOpts = function(){
+  static _gPpOpts(){
     return [{}];
   }
 
@@ -967,9 +889,7 @@ class Morpho {
   *      number: Morpho.Feature.Number.S // "singular"
   *    }
   *
-  * @method _gPpName
   * @protected
-  * @memberof Morpho
   * @param  {Object} opts An object containing parameters: person, gender, number.
   * @return {String}      the pronoun
   */
@@ -984,9 +904,7 @@ class Morpho {
   /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
   *
-  * @method norm
   * @public
-  * @memberof Morpho
   * @param  {String} word the word to be normalized
   * @param  {String} opts some options (optional) where each language defines its own
   * normalization options
@@ -999,9 +917,7 @@ class Morpho {
   /**
   * Normalization method, used to delete non used chars or to replace some with others, etc.
   *
-  * @method normalize
   * @public
-  * @memberof Morpho
   * @param  {String} word the word to be normalized
   * @param  {String} opts some options (optional) where each language defines its own
   * normalization options
@@ -1077,10 +993,8 @@ class Morpho {
    * It takes a Morpho object of a certain language, then creates
    * rows labels and columns labels for this language
    *
-   * @method parseConjModel
    * @public
    * @static
-   * @memberof Morpho
    * @param  {Morpho}       morpho A Morpho object specified for a given language
    * @return {{rows: {labels: String[][], spans: Number[], opts: Object[]} ,
    * cols: {labels: String[][], spans: Number[], opts: Object[]} }}  - Information about columns and rows in conjugation
@@ -1133,7 +1047,6 @@ function joinAbbrev(sents, abbr) {
 * Given a morpho object for a certain language, and a branch (row or col);
 * This function returns an object containing its lables, spans and opts
 *
-* @method parseConjModelBranch
 * @private
 * @static
 * @memberof Morpho

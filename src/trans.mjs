@@ -1,3 +1,12 @@
+/**
+ * Transliteration module
+ * @module trans
+ */
+
+/**
+ * Transliteration functions
+ * @hideconstructor
+ */
 class Trans {
 
   static code = "";
@@ -13,9 +22,7 @@ class Trans {
 	/**
 	* Add new transliteration method using two parallele tables
 	*
-	* @method _nTrans
 	* @protected
-	* @memberof Trans
 	* @param  {String} methodName the name of the method
 	* @param  {String[]} langTbl    array of strigs, the languages characters
 	* @param  {String[]} transTbl   array of strigs, their respective representations
@@ -39,9 +46,7 @@ class Trans {
 	/**
 	* Set transliteration methods directly
 	*
-	* @method sTrans
 	* @protected
-	* @memberof Trans
 	* @param {String} methodName the name of the method
 	* @param {Function} trans      function of transliteration
 	* @param {Function} untrans    function of untransliteration
@@ -63,9 +68,7 @@ class Trans {
 	/**
 	* add pre- and post-transliteration functions to a method
 	*
-	* @method _sTransCond
 	* @protected
-	* @memberof Trans
 	* @param {String} methodName the name of the method
 	* @param {Function} preFunc    function that executes before transliteration;
 	* It takes a string and returns a string
@@ -86,9 +89,7 @@ class Trans {
 	/**
 	* add pre- and post-untransliteration functions to a method
 	*
-	* @method _sUntransCnd
 	* @protected
-	* @memberof Trans
 	* @param {String} methodName the name of the method
 	* @param {Function} preFunc    function that executes before untransliteration;
 	* It takes a string and returns a string
@@ -113,10 +114,8 @@ class Trans {
 	/**
 	* Sets the current method to be used for [un]transliteration
 	*
-	* @method s
 	* @public
 	* @final
-	* @memberof Trans
 	* @param {String} methodName method's name
 	*/
 	static strans(methodName) {
@@ -130,10 +129,8 @@ class Trans {
 	/**
 	* Returns the list of available transliteration methods
 	*
-	* @method l
 	* @public
 	* @final
-	* @memberof Trans
 	* @return {String[]}  methods names
 	*/
 	static ltrans = function() {
@@ -143,10 +140,8 @@ class Trans {
   /**
 	* Returns the list of available transliteration methods
 	*
-	* @method listTransliterations
 	* @public
 	* @final
-	* @memberof Trans
 	* @return {String[]}  methods names
 	*/
 	static listTransliterations() {
@@ -160,10 +155,8 @@ class Trans {
 	/**
 	* transliterate the text using the current method
 	*
-	* @method trans
 	* @public
 	* @final
-	* @memberof Trans
 	* @param  {String} text the untransliterated text (original)
 	* @return {String}      the transliterated text
 	*/
@@ -185,10 +178,8 @@ class Trans {
   /**
 	* transliterate the text using the current method
 	*
-	* @method transliterate
 	* @public
 	* @final
-	* @memberof Trans
 	* @param  {String} text the untransliterated text (original)
 	* @return {String}      the transliterated text
 	*/
@@ -203,10 +194,8 @@ class Trans {
 	/**
 	* untransliterate the text using the current method
 	*
-	* @method untrans
 	* @public
 	* @final
-	* @memberof Trans
 	* @param  {String} text translaterated text
 	* @return {String}      untranslaterated text (original text)
 	*/
@@ -312,7 +301,6 @@ specialAft = [
 /**
 * This function returns another function which do the transformation
 *
-* @method __createTrans
 * @private
 * @memberof Trans
 * @memberof Trans

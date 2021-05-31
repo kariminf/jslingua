@@ -1,6 +1,7 @@
 {
   "source": {
-        "exclude": ["docs", "out", "test", ".git", "dist", "node_modules"]
+        "exclude": ["docs", "out", "test", ".git", "dist", "node_modules"],
+        "includePattern": "src/[^/]+\\.m?js$"
     },
   "opts": {
     "template": "node_modules/tui-jsdoc-template",

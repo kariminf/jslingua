@@ -1,5 +1,14 @@
+/**
+ * Global module
+ * @module jslingua
+ */
+
+/**
+ * Global class which affords services for a specific language
+ * @hideconstructor
+ */
 class JsLingua {
-  static version = "0.12.2";
+  static version = "0.12.3";
   static rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
   static services = {};
 
@@ -28,7 +37,6 @@ class JsLingua {
   /**
   * Add a service for a specific language
   *
-  * @method aserv
   * @public
   * @static
   * @param {String} serviceID The services name: "Info", "Lang", etc.
@@ -48,7 +56,6 @@ class JsLingua {
   /**
   * Get the codes of available languages of a given service
   *
-  * @method llang
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
@@ -64,7 +71,6 @@ class JsLingua {
   * Get the service class for a given language and service name.<br>
   * For example: JsLingua.gserv("Info", "ara") Gives a class AraInfo
   *
-  * @method gserv
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
@@ -83,7 +89,6 @@ class JsLingua {
   * Get an object of a service class for a given language and service name.<br>
   * For example: JsLingua.nserv("Info", "ara") Gives an object of the class AraInfo
   *
-  * @method nserv
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
@@ -99,7 +104,6 @@ class JsLingua {
   /**
    * Returns the version of JsLingua
    *
-   * @method gversion
    * @public
    * @static
    * @return {String}   JsLingua version
@@ -115,7 +119,6 @@ class JsLingua {
    * version is to be afforded, so we don't import the js file for each
    * language in each webpage.
    *
-   * @method gdir
    * @public
    * @static
    * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
@@ -138,7 +141,6 @@ class JsLingua {
   * Get the service class for a given language and service name.<br>
   * For example: JsLingua.getService("Info", "ara") Gives a class AraInfo
   *
-  * @method getService
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
@@ -152,7 +154,6 @@ class JsLingua {
   /**
   * Get the codes of available languages of a given service
   *
-  * @method listLanguages
   * @public
   * @static
   * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
@@ -169,7 +170,6 @@ class JsLingua {
    * version is to be afforded, so we don't import the js file for each
    * language in each webpage.
    *
-   * @method getDir
    * @public
    * @static
    * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
@@ -182,7 +182,6 @@ class JsLingua {
   /**
    * Returns the version of JsLingua
    *
-   * @method getVersion
    * @public
    * @static
    * @return {String}   JsLingua version

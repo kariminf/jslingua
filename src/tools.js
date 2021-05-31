@@ -1,6 +1,6 @@
 /**
  * The tools module
- * @module Tools
+ * @module tools
  */
 "use strict";
 
