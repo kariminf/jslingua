@@ -25,14 +25,14 @@ describe("Arabic Transliteration", function(){
   });
 
   it("Methods check", function(){
-    var methods = AraTrans.ltrans();
+    var methods = AraTrans.l();
     expect(methods.length).to.eql(3);//number of methods
     var j;
     for (j = 0; j < methods.length; j++){
       var method = methods[j];
-      AraTrans.strans(method);
-      expect(AraTrans.trans(src)).to.eql(exp[method].dst);//transliterate
-      expect(AraTrans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
+      AraTrans.s(method);
+      expect(AraTrans.t(src)).to.eql(exp[method].dst);//transliterate
+      expect(AraTrans.u(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
     }
   });
 

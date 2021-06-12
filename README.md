@@ -17,18 +17,105 @@ For now, there are 4 modules : Info, Lang, Trans and Morpho.
 
 ### Information about the language (Info)
 
+
+```shell
+Welcome to Node.js v14.17.0
+Type ".help" for more information.
+> let JsLingua = require('jslingua')
+undefined
+> JsLingua.version
+0.12.2
+> let AraInfo = JsLingua.gserv('info', 'ara')
+undefined
+> AraInfo.getName()
+'Arabic'
+> AraInfo.getOrigName()
+'عربية'
+> AraInfo.getDir()
+'rtl'
+> AraInfo.getFamily()
+'Afro-asiatic'
+> AraInfo.getWordOrder()
+'vso'
+> AraInfo.getName()
+'Semitic'
+```
+
+<!--
 ![Info](assets/info.png)
+-->
 
 ### Basic language functions (Lang)
 
 - Detection of language's characters
 - Transforming numbers to strings (pronunciation)
 
+```shell
+Welcome to Node.js v14.17.0
+Type ".help" for more information.
+> let JsLingua = require('jslingua')
+undefined
+> JsLingua.version
+0.12.2
+> let FraLang = JsLingua.gserv('lang', 'fra')
+undefined
+> FraLang.nbr2str(58912)
+'cinquante-huit mille neuf cent douze'
+> FraLang.lchar()
+['BasicLatin', 'Latin-1Supplement']
+> let verifyFcts = FraLang.gcharverify('BasicLatin')
+undefined
+> verifyFcts.all('un élève')
+false
+> verifyFcts.contains('un élève')
+true
+> FraLang.strans('min2maj')
+undefined
+> FraLang.trans('Un texte en minuscule : lowercase')
+'UN TEXTE EN MINUSCULE : LOWERCASE'
+> FraLang.strans('maj2min')
+undefined
+> FraLang.trans('UN TEXTE EN MAJUSCULE : uppercase')
+'un texte en majuscule : uppercase'
+>
+```
+<!--
 ![Lang](assets/lang.png)
+-->
 
 ### Transliteration (Trans)
 
+```shell
+Welcome to Node.js v14.17.0
+Type ".help" for more information.
+> let JsLingua = require('jslingua')
+undefined
+> JsLingua.version
+0.12.2
+> let JpnTrans = JsLingua.gserv('trans', 'jpn')
+undefined
+> JpnTrans.ltrans()
+[ 'hepburn', 'nihonshiki', 'kunreishiki', 'morse' ]
+> JpnTrans.strans('hepburn')
+undefined
+> JpnTrans.trans('じゃ,しゃしん,いっぱい')
+'ja,shashin,ippai'
+> JpnTrans.untrans('ja,shashin,ippai')
+'じゃ,しゃしん,いっぱい'
+> JpnTrans.strans('nihonshiki')
+undefined
+> JpnTrans.trans('じゃ,しゃしん,いっぱい')
+'zya,syasin,ippai'
+> JpnTrans.untrans('zya,syasin,ippai')
+'じゃ,しゃしん,いっぱい'
+> JpnTrans.strans('morse')
+undefined
+> JpnTrans.trans('しゃしん')
+'-..--- --.-. .-- --.-. .-.-. ...-.'
+```
+<!--
 ![Trans](assets/trans.png)
+-->
 
 ### Morphology (Morpho)
 
@@ -40,9 +127,61 @@ Different morphological functions
   - Text normalization
   - Stop words filtering
 
+
+```shell
+Welcome to Node.js v14.17.0
+Type ".help" for more information.
+> let JsLingua = require('jslingua')
+undefined
+> let EngMorpho = JsLingua.gserv('morpho', 'eng')
+undefined
+> let forms = EngMorpho.lform()
+undefined
+> Object.keys(forms)
+[
+  'pres',           'past',
+  'fut',            'pres_perf',
+  'past_perf',      'fut_perf',
+  'pres_cont',      'past_cont',
+  'fut_cont',       'pres_perf_cont',
+  'past_perf_cont', 'fut_perf_cont'
+]
+> let I = {person:'first', number:'singular'}
+undefined
+> Morpho.conj('go', Object.assign({}, forms['past_perf'], I))
+'had gone'
+> Morpho.goptname('Pronoun', I)
+'I'
+> EngMorpho.lconv()
+['sing2pl']
+> EngMorpho.sconv('sing2pl')
+undefined
+> EngMorpho.conv('ox')
+'oxen'
+> EngMorpho.lstem()
+[ 'porter', 'lancaster']
+> EngMorpho.sstem('porter')
+undefined
+> EngMorpho.stem('formative')
+'form'
+> EngMorpho.norm("ain't")
+'is not'
+> EngMorpho.gsents('Where is Dr. Whatson? I cannot see him with Mr. Charloc.')
+[
+  'Where is Dr. Whatson',
+  '?',
+  'I cannot see him with Mr. Charloc',
+  '.'
+]
+> EngMorpho.gsents('Where is Dr. Whatson')
+[ 'Where', 'is', 'Dr.', 'Watson']
+>
+```
+<!--
 ![Morpho](assets/morpho.png)
 
 ![Morpho](assets/morpho2.png)
+-->
 
 To get the list of available functionalities, check [FCT.md](./FCT.md)
 

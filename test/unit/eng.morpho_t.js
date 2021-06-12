@@ -131,7 +131,7 @@ describe("English Morphology", function(){
   describe("English Lancaster Stemmer", function(){
 
           before(function(){
-            EngMorpho.setCurrentStemmer("lancaster");
+            EngMorpho.sstem("lancaster");
           });
 
           it("Strip suffixes", function(){
@@ -164,129 +164,129 @@ describe("English Morphology", function(){
       expect(EngMorpho.conj("go",$({tense:"present"}, heSheIt))).to.eql("goes");
       //Verbs end with vowal + y
       expect(EngMorpho.conj("stay",$({tense:"present"}, I))).to.eql("stay");
-      expect(EngMorpho.conjugate("stay",$({tense:"present"}, heSheIt))).to.eql("stays");
+      expect(EngMorpho.conj("stay",$({tense:"present"}, heSheIt))).to.eql("stays");
       //Verbs end with cons. + y
-      expect(EngMorpho.conjugate("try",$({tense:"present"}, I))).to.eql("try");
-      expect(EngMorpho.conjugate("try",$({tense:"present"}, heSheIt))).to.eql("tries");
+      expect(EngMorpho.conj("try",$({tense:"present"}, I))).to.eql("try");
+      expect(EngMorpho.conj("try",$({tense:"present"}, heSheIt))).to.eql("tries");
       //Be
-      expect(EngMorpho.conjugate("be",$({tense:"present"}, I))).to.eql("am");
-      expect(EngMorpho.conjugate("be",$({tense:"present"}, heSheIt))).to.eql("is");
-      expect(EngMorpho.conjugate("be",$({tense:"present"}, they))).to.eql("are");
+      expect(EngMorpho.conj("be",$({tense:"present"}, I))).to.eql("am");
+      expect(EngMorpho.conj("be",$({tense:"present"}, heSheIt))).to.eql("is");
+      expect(EngMorpho.conj("be",$({tense:"present"}, they))).to.eql("are");
       //Override
-      expect(EngMorpho.conjugate("override",$({tense:"present"}, I))).to.eql("override");
-      expect(EngMorpho.conjugate("override",$({tense:"present"}, heSheIt))).to.eql("overrides");
+      expect(EngMorpho.conj("override",$({tense:"present"}, I))).to.eql("override");
+      expect(EngMorpho.conj("override",$({tense:"present"}, heSheIt))).to.eql("overrides");
 
     });
 
     it("Past simple", function() {
       //Regular
-      expect(EngMorpho.conjugate("dream",$({tense:"past"}, I))).to.eql("dreamed");
+      expect(EngMorpho.conj("dream",$({tense:"past"}, I))).to.eql("dreamed");
       //Regular vowal + y
-      expect(EngMorpho.conjugate("stay",$({tense:"past"}, I))).to.eql("stayed");
+      expect(EngMorpho.conj("stay",$({tense:"past"}, I))).to.eql("stayed");
       //Regular  cons. + y
-      expect(EngMorpho.conjugate("try",$({tense:"past"}, I))).to.eql("tried");
+      expect(EngMorpho.conj("try",$({tense:"past"}, I))).to.eql("tried");
       //irregular0 No change
-      expect(EngMorpho.conjugate("cut",$({tense:"past"}, I))).to.eql("cut");
+      expect(EngMorpho.conj("cut",$({tense:"past"}, I))).to.eql("cut");
       //irregular1 past == past participle
-      expect(EngMorpho.conjugate("buy",$({tense:"past"}, I))).to.eql("bought");
+      expect(EngMorpho.conj("buy",$({tense:"past"}, I))).to.eql("bought");
       //irregular2 past != past participle
-      expect(EngMorpho.conjugate("eat",$({tense:"past"}, I))).to.eql("ate");
+      expect(EngMorpho.conj("eat",$({tense:"past"}, I))).to.eql("ate");
       //Be
-      expect(EngMorpho.conjugate("be",$({tense:"past"}, I))).to.eql("was");
-      expect(EngMorpho.conjugate("be",$({tense:"past"}, heSheIt))).to.eql("was");
-      expect(EngMorpho.conjugate("be",$({tense:"past"}, they))).to.eql("were");
+      expect(EngMorpho.conj("be",$({tense:"past"}, I))).to.eql("was");
+      expect(EngMorpho.conj("be",$({tense:"past"}, heSheIt))).to.eql("was");
+      expect(EngMorpho.conj("be",$({tense:"past"}, they))).to.eql("were");
       //Go
-      expect(EngMorpho.conjugate("go",$({tense:"past"}, I))).to.eql("went");
+      expect(EngMorpho.conj("go",$({tense:"past"}, I))).to.eql("went");
       //Override
-      expect(EngMorpho.conjugate("override",$({tense:"past"}, I))).to.eql("overrode");
+      expect(EngMorpho.conj("override",$({tense:"past"}, I))).to.eql("overrode");
 
     });
 
     //Past simple test
     it("Past simple passive", function() {
       //Regular
-      expect(EngMorpho.conjugate("dream",$({tense:"past", voice: "passive"}, I))).to.eql("was dreamed");
+      expect(EngMorpho.conj("dream",$({tense:"past", voice: "passive"}, I))).to.eql("was dreamed");
       //irregular0 No change
-      expect(EngMorpho.conjugate("cut",$({tense:"past", voice: "passive"}, I))).to.eql("was cut");
+      expect(EngMorpho.conj("cut",$({tense:"past", voice: "passive"}, I))).to.eql("was cut");
       //irregular1 past == past participle
-      expect(EngMorpho.conjugate("buy",$({tense:"past", voice: "passive"}, I))).to.eql("was bought");
+      expect(EngMorpho.conj("buy",$({tense:"past", voice: "passive"}, I))).to.eql("was bought");
       //irregular2 past != past participle
-      expect(EngMorpho.conjugate("eat",$({tense:"past", voice: "passive"}, I))).to.eql("was eaten");
+      expect(EngMorpho.conj("eat",$({tense:"past", voice: "passive"}, I))).to.eql("was eaten");
       //Be
-      expect(EngMorpho.conjugate("be",$({tense:"past", voice: "passive"}, I))).to.eql("was been");
+      expect(EngMorpho.conj("be",$({tense:"past", voice: "passive"}, I))).to.eql("was been");
       //Go
-      expect(EngMorpho.conjugate("go",$({tense:"past", voice: "passive"}, I))).to.eql("was gone");
+      expect(EngMorpho.conj("go",$({tense:"past", voice: "passive"}, I))).to.eql("was gone");
       //Override
-      expect(EngMorpho.conjugate("override",$({tense:"past", voice: "passive"}, I))).to.eql("was overridden");
+      expect(EngMorpho.conj("override",$({tense:"past", voice: "passive"}, I))).to.eql("was overridden");
 
     });
 
     //Past participle test
     it("Present perfect", function() {
       //Regular
-      expect(EngMorpho.conjugate("dream",$({tense:"past", aspect: "perfect"}, I))).to.eql("had dreamed");
+      expect(EngMorpho.conj("dream",$({tense:"past", aspect: "perfect"}, I))).to.eql("had dreamed");
       //irregular0 No change
-      expect(EngMorpho.conjugate("cut",$({tense:"past", aspect: "perfect"}, I))).to.eql("had cut");
+      expect(EngMorpho.conj("cut",$({tense:"past", aspect: "perfect"}, I))).to.eql("had cut");
       //irregular1 past == past participle
-      expect(EngMorpho.conjugate("buy",$({tense:"past", aspect: "perfect"}, I))).to.eql("had bought");
+      expect(EngMorpho.conj("buy",$({tense:"past", aspect: "perfect"}, I))).to.eql("had bought");
       //irregular2 past != past participle
-      expect(EngMorpho.conjugate("eat",$({tense:"past", aspect: "perfect"}, I))).to.eql("had eaten");
+      expect(EngMorpho.conj("eat",$({tense:"past", aspect: "perfect"}, I))).to.eql("had eaten");
       //Be
-      expect(EngMorpho.conjugate("be",$({tense:"past", aspect: "perfect"}, I))).to.eql("had been");
+      expect(EngMorpho.conj("be",$({tense:"past", aspect: "perfect"}, I))).to.eql("had been");
       //Go
-      expect(EngMorpho.conjugate("go",$({tense:"past", aspect: "perfect"}, I))).to.eql("had gone");
+      expect(EngMorpho.conj("go",$({tense:"past", aspect: "perfect"}, I))).to.eql("had gone");
       //Override
-      expect(EngMorpho.conjugate("override",$({tense:"past", aspect: "perfect"}, I))).to.eql("had overridden");
+      expect(EngMorpho.conj("override",$({tense:"past", aspect: "perfect"}, I))).to.eql("had overridden");
 
     });
 
     //Present participle test: -ing
     it("Past perfect continuous", function() {
       //Normal
-      expect(EngMorpho.conjugate("dream",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dreaming");
+      expect(EngMorpho.conj("dream",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dreaming");
 
       //ends with a vowel + cons. (with no further vowels)
-      expect(EngMorpho.conjugate("cut",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been cutting");
-      expect(EngMorpho.conjugate("swim",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been swimming");
-      expect(EngMorpho.conjugate("dream",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dreaming");
+      expect(EngMorpho.conj("cut",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been cutting");
+      expect(EngMorpho.conj("swim",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been swimming");
+      expect(EngMorpho.conj("dream",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dreaming");
 
       //ends with a vowel + y (with no further vowels)
-      expect(EngMorpho.conjugate("buy",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been buying");
+      expect(EngMorpho.conj("buy",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been buying");
 
       //Ends with e
-      expect(EngMorpho.conjugate("be",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been being");
-      expect(EngMorpho.conjugate("write",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been writing");
+      expect(EngMorpho.conj("be",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been being");
+      expect(EngMorpho.conj("write",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been writing");
 
       //lie and die
-      expect(EngMorpho.conjugate("lie",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been lying");
-      expect(EngMorpho.conjugate("die",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dying");
+      expect(EngMorpho.conj("lie",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been lying");
+      expect(EngMorpho.conj("die",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been dying");
 
       //override
-      expect(EngMorpho.conjugate("override",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been overriding");
+      expect(EngMorpho.conj("override",$({tense:"past", aspect: "perfect-continuous"}, I))).to.eql("had been overriding");
     });
 
     it("Negation", function() {
       //Present, I, negated
-      expect(EngMorpho.conjugate("dream",$({tense:"present", negated:1}, I))).to.eql("do not dream");
+      expect(EngMorpho.conj("dream",$({tense:"present", negated:1}, I))).to.eql("do not dream");
 
       //Present, He She It, negated
-      expect(EngMorpho.conjugate("dream",$({tense:"present", negated:1}, heSheIt))).to.eql("does not dream");
+      expect(EngMorpho.conj("dream",$({tense:"present", negated:1}, heSheIt))).to.eql("does not dream");
 
       //Future, I, perfect continuous, negated
-      expect(EngMorpho.conjugate("cut",$({tense:"future", aspect: "perfect-continuous", negated:1}, I)))
+      expect(EngMorpho.conj("cut",$({tense:"future", aspect: "perfect-continuous", negated:1}, I)))
       .to.eql("will not have been cutting");
 
     });
 
     it("Imperative mood", function() {
       //No imperative with first person
-      expect(EngMorpho.conjugate("drink", $({mood:"imperative"}, I))).to.eql("");
+      expect(EngMorpho.conj("drink", $({mood:"imperative"}, I))).to.eql("");
 
       //No imperative with third person
-      expect(EngMorpho.conjugate("eat", $({mood:"imperative"}, heSheIt))).to.eql("");
+      expect(EngMorpho.conj("eat", $({mood:"imperative"}, heSheIt))).to.eql("");
 
       //Imperative with second person
-      expect(EngMorpho.conjugate("buy", $({mood:"imperative"}, you))).to.eql("buy");
+      expect(EngMorpho.conj("buy", $({mood:"imperative"}, you))).to.eql("buy");
 
 
     });
@@ -301,22 +301,43 @@ describe("English Morphology", function(){
       expect(EngMorpho.conv("address")).to.eql("addresses");
       expect(EngMorpho.conv("box")).to.eql("boxes");
       expect(EngMorpho.conv("match")).to.eql("matches");
-      expect(EngMorpho.convertPoS("quiz")).to.eql("quizzes");
-      expect(EngMorpho.convertPoS("ox")).to.eql("oxen");
+      expect(EngMorpho.conv("quiz")).to.eql("quizzes");
+      expect(EngMorpho.conv("ox")).to.eql("oxen");
 
-      expect(EngMorpho.convertPoS("alley")).to.eql("alleys");
-      expect(EngMorpho.convertPoS("ally")).to.eql("allies");
+      expect(EngMorpho.conv("alley")).to.eql("alleys");
+      expect(EngMorpho.conv("ally")).to.eql("allies");
 
-      expect(EngMorpho.convertPoS("life")).to.eql("lives");
-      expect(EngMorpho.convertPoS("leaf")).to.eql("leaves");
-      expect(EngMorpho.convertPoS("staff")).to.eql("staffs");
+      expect(EngMorpho.conv("life")).to.eql("lives");
+      expect(EngMorpho.conv("leaf")).to.eql("leaves");
+      expect(EngMorpho.conv("staff")).to.eql("staffs");
 
 
-      expect(EngMorpho.convertPoS("cat")).to.eql("cats");
+      expect(EngMorpho.conv("cat")).to.eql("cats");
       //TODO complete
     });
 
 
+  });
+
+  let words = [
+    "stop", "words", "are", "words", "which", "are", "filtered", "out"
+  ];
+  let words_filtered1 = [
+  "stop", "words", "words", "filtered"
+  ];
+  let stop_words = [
+    "stop", "words", "filtered"
+  ];
+  let words_filtered2 = [
+    "are", "which", "are", "out"
+  ];
+  describe("English Stop Words filtering", function(){
+    it("Internal filtering", function() {
+      expect(EngMorpho.filter(words)).to.eql(words_filtered1);
+    });
+    it("External filtering", function() {
+      expect(EngMorpho.filter(words, stop_words)).to.eql(words_filtered2);
+    });
   });
 
 });

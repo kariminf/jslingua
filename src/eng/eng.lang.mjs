@@ -9,7 +9,7 @@ class EngLang extends Lang {
   * Write the English number into Arabic letters
   * @override
   */
-  static nbr2str(num){
+  static nbr2words(num){
     return __toEnglishLetters2(num, true);
   }
 }

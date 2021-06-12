@@ -124,13 +124,13 @@ describe("French Morphology", function(){
 
   function conjugateFR (verb, form, resList) {
     for (let i = 0; i< pronouns.length; i++) {
-      expect(FraMorpho.conjugate(verb,$({}, form, pronouns[i]))).to.eql(resList[i]);
+      expect(FraMorpho.conj(verb,$({}, form, pronouns[i]))).to.eql(resList[i]);
     }
   }
 
   function conjugateFRFondamentalEndings(verb, conjs) {
 
-    let forms = FraMorpho.listForms();
+    let forms = FraMorpho.lform();
 
     for (let formName in conjs) {
       if (formName in forms) {
@@ -1967,28 +1967,51 @@ describe("French Morphology", function(){
       //-s, -x, -z
       expect(FraMorpho.conv("souris")).to.eql("souris");
       expect(FraMorpho.conv("croix")).to.eql("croix");
-      expect(FraMorpho.convertPoS("nez")).to.eql("nez");
+      expect(FraMorpho.conv("nez")).to.eql("nez");
 
       //-ou
-      expect(FraMorpho.convertPoS("clou")).to.eql("clous");
-      expect(FraMorpho.convertPoS("chou")).to.eql("choux");
+      expect(FraMorpho.conv("clou")).to.eql("clous");
+      expect(FraMorpho.conv("chou")).to.eql("choux");
 
       // -al
-      expect(FraMorpho.convertPoS("cheval")).to.eql("chevaux");
-      expect(FraMorpho.convertPoS("chacal")).to.eql("chacals");
+      expect(FraMorpho.conv("cheval")).to.eql("chevaux");
+      expect(FraMorpho.conv("chacal")).to.eql("chacals");
 
       // -ail
-      expect(FraMorpho.convertPoS("rail")).to.eql("rails");
-      expect(FraMorpho.convertPoS("travail")).to.eql("travaux");
+      expect(FraMorpho.conv("rail")).to.eql("rails");
+      expect(FraMorpho.conv("travail")).to.eql("travaux");
 
       // -au, -eu
-      expect(FraMorpho.convertPoS("bateau")).to.eql("bateaux");
-      expect(FraMorpho.convertPoS("pneu")).to.eql("pneus");
-      expect(FraMorpho.convertPoS("landau")).to.eql("landaus");
+      expect(FraMorpho.conv("bateau")).to.eql("bateaux");
+      expect(FraMorpho.conv("pneu")).to.eql("pneus");
+      expect(FraMorpho.conv("landau")).to.eql("landaus");
 
       //the rest
-      expect(FraMorpho.convertPoS("arbre")).to.eql("arbres");
+      expect(FraMorpho.conv("arbre")).to.eql("arbres");
 
     });
   });
+
+  let words = [
+    "un", "mot", "vide", "est", "un", "mot", "qui", "est", "tellement",
+    "commun", "qu", "il", "est", "inutile"
+  ];
+  let words_filtered1 = [
+    "mot", "vide", "mot", "tellement", "commun", "inutile"
+  ];
+  let stop_words = [
+    "mot", "tellement", "inutile", "vide", "commun"
+  ];
+  let words_filtered2 = [
+    "un", "est", "un", "qui", "est", "qu", "il", "est"
+  ];
+  describe("French Stop Words filtering", function(){
+    it("Internal filtering", function() {
+      expect(FraMorpho.filter(words)).to.eql(words_filtered1);
+    });
+    it("External filtering", function() {
+      expect(FraMorpho.filter(words, stop_words)).to.eql(words_filtered2);
+    });
+  });
+
 });

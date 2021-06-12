@@ -22,6 +22,8 @@ class Morpho {
   static ssplitter = /([.?!])(?:\s+|$)/;
   static tsplitter = /([,;])?\s+/;
 
+  static stop_words = [];
+
   //==========================================
   // CONSTANTS
   //==========================================
@@ -332,16 +334,6 @@ class Morpho {
   }
 
   /**
-  * Returns the list of available stemming methods
-  * @public
-  * @final
-  * @return {String[]}  Array of Strings containing stemmers names
-  */
-  static listStemmers(){
-    return this.lstem();
-  }
-
-  /**
   * Sets the current stemmer
   *
   * @public
@@ -355,21 +347,9 @@ class Morpho {
   }
 
   /**
-    * Sets the current stemmer
-    *
-    * @public
-    * @final
-     * @param {String} StemmerName stemmer method's name
-    */
-    static setCurrentStemmer(StemmerName) {
-      this.sstem(StemmerName);
-    }
-
-  /**
    * Get the description of a stemmer
    * @public
    * @final
-   * @see getStemmerDescription
    * @param  {string} stemmerName stemmer's name
    * @return {string}             stemmer's description
    */
@@ -378,18 +358,6 @@ class Morpho {
       return this.stemmers[stemmerName].desc;
     }
     return "";
-  }
-
-  /**
-   * Get the description of a stemmer
-   * @public
-   * @final
-   * @see gstemdesc
-   * @param  {string} stemmerName stemmer's name
-   * @return {string}             stemmer's description
-   */
-  static getStemmerDescription(stemmerName) {
-    return this.gstemdesc(stemmerName);
   }
 
   //==========================================
@@ -402,7 +370,6 @@ class Morpho {
   * @public
   * @final
   * @static
-  * @see convertPoS
   * @param  {String} word the word to be converted
   * @return {String}      converted word
   */
@@ -414,40 +381,14 @@ class Morpho {
   }
 
   /**
-  * Convert a word: singular to plural; verb to noun; etc
-  *
-  * @public
-  * @final
-  * @static
-  * @see conv
-  * @param  {String} word the word to be converted
-  * @return {String}      converted word
-  */
-  static convertPoS(word){
-    return this.conv(word);
-  };
-
-  /**
   * Returns the list of available converting methods
   * @public
   * @final
   * @static
-  * @see listPosConverters
   * @return {String[]}  Array of Strings containing converters names
   */
   static lconv = function(){
     return Object.keys(this.converters);
-  }
-
-  /**
-  * Returns the list of available converting methods
-  * @public
-  * @final
-  * @see lconv
-  * @return {String[]}  Array of Strings containing converters names
-  */
-  static listPosConverters(){
-    return this.lconv();
   }
 
   /**
@@ -456,7 +397,6 @@ class Morpho {
   * @public
   * @static
   * @final
-  * @see setCurrentPosConverter
   * @param {String} converterName converter method's name
   */
   static sconv(converterName) {
@@ -466,23 +406,9 @@ class Morpho {
   }
 
   /**
-  * Sets the current PoS converter
-  *
-  * @public
-  * @static
-  * @final
-  * @see sconv
-  * @param {String} converterName converter method's name
-  */
-  static setCurrentPosConverter(converterName) {
-    this.sconv(converterName);
-  }
-
-  /**
    * Get the description of a PoS converter by its name
    * @public
    * @static
-   * @see getPosConverterDesc
    * @param  {string} converterName the name of the converter
    * @return {string}               the description of the converter
    */
@@ -491,18 +417,6 @@ class Morpho {
       return this.converters[converterName].desc;
     }
     return "";
-  }
-
-  /**
-   * Get the description of a PoS converter by its name
-   * @public
-   * @static
-   * @see gconvdesc
-   * @param  {string} converterName the name of the converter
-   * @return {string}               the description of the converter
-   */
-  static getPosConverterDesc(converterName) {
-    return this.gconvdesc(converterName);
   }
 
   //==========================================
@@ -529,19 +443,6 @@ class Morpho {
   }
 
   /**
-  * This function is used for verb conjugation
-  *
-  * @public
-  * @param  {String} verb the word to be conjugated
-  * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
-  * @param  {String} _form  the form's ID
-  * @return {String}      Conjugated verb
-  */
-  static conjugate(verb, _opts, _form){
-    return this.conj(verb, _opts, _form);
-  }
-
-  /**
   * This method is used to recover the name of the tense
   * @public
   * @param  {String} tense the tense which we want to get the name (See {@link Morpho.Tense})
@@ -561,16 +462,6 @@ class Morpho {
   }
 
   /**
-  * This method is used to recover the name of the tense
-  * @public
-  * @param  {String} tense the tense which we want to get the name (See {@link Morpho.Tense})
-  * @return {String}       the name of the tense in the selected language
-  */
-  static getTenseName(tense){
-    return this.gtensename(tense);
-  }
-
-  /**
    * Returns a list of verb types
    *
    * @public
@@ -579,17 +470,6 @@ class Morpho {
    */
   static lvtype(){
     return [];
-  }
-
-  /**
-  * Returns a list of verb types
-  *
-  * @public
-  * @abstract
-  * @return {String[]}     list of verb types
-  */
-  static listVerbTypes(){
-    return this.lvtype();
   }
 
   /**
@@ -603,20 +483,6 @@ class Morpho {
   static gvtype(verb){
     return "";
   }
-
-  /**
-  * Given a verb, it detects its type
-  *
-  * @public
-  * @final
-  * @param  {String} verb the verbe
-  * @return {String}    verb's type
-  */
-  static getVerbType(verb){
-    return this.gvtype(verb);
-  }
-
-
 
   /**
   * This function returns an object of available conjugation forms for the current language
@@ -653,22 +519,6 @@ class Morpho {
   }
 
   /**
-  * This function returns an object of available conjugation forms for the current language
-  * @example
-  * {
-  *  "form_name": {opts}
-  * }
-  *
-  * @public
-  * @static
-  * @see lform
-  * @return {Object[]}  Array of conjugation forms available for the language
-  */
-  static listForms(){
-    return this.lform();
-  }
-
-  /**
    * Get the form  by name
    * @public
    * @static
@@ -696,19 +546,6 @@ class Morpho {
   }
 
   /**
-   * Get the description of a conjugation form
-   * @public
-   * @static
-   * @see gform
-   * @param  {string} formName form's name
-   * @return {string}          form's description
-   */
-  static getFormDescription(formName) {
-    return this.gformdesc(formName);
-  }
-
-
-  /**
   * Each language has a conjugation table model.
   * For example, in English, Arabic and French, we put pronouns in rows.
   * As for Japanese, the conjugation doesn't follow that pattern.
@@ -722,18 +559,6 @@ class Morpho {
       cols: ["Voice", "Negation"]
     };
   }
-
-  /**
-  * Each language has a conjugation table model.
-  * For example, in English, Arabic and French, we put pronouns in rows.
-  * As for Japanese, the conjugation doesn't follow that pattern.
-  * @public
-  * @return {Object}   conjugation model with rows and cols
-  */
-  static getConjugationModel(){
-    return this.gconjmod();
-  }
-
 
   /**
    * Returns the available options for conjugation such as pronouns, negation, voice, etc.
@@ -751,23 +576,13 @@ class Morpho {
   }
 
   /**
-  * Returns the available options for conjugation such as pronouns, negation, voice, etc.
-  * @public
-  * @param  {String}    optLabel Can be: "Pronoun", "Negation", "Voice"
-  * @return {Object[]}             A list of parameters related to optLabel and the processed language
-  */
-  static listConjugationOptions(optLabel){
-    return this.lconjopt(optLabel);
-  }
-
-  /**
    * Returns the name of a conjugation parameter (Pronoun, Negation, Voice) given some options
    * @example
    *    var opts = {
    *      person: "first", // Morpho.Feature.Person.F
    *      number: "singular" // Morpho.Feature.Number.S
    *    };
-   *    var I = getOptName("Pronoun", opts);
+   *    var I = goptname("Pronoun", opts);
    * // In English, it will give: "I"
    * // In Arabic, it will give: "أنا"
    *
@@ -786,27 +601,6 @@ class Morpho {
     }
     return "";
   }
-
-  /**
-  * Returns the name of a conjugation parameter (Pronoun, Negation, Voice) given some options
-  * @example
-  *    var opts = {
-  *      person: "first", // Morpho.Feature.Person.F
-  *      number: "singular" // Morpho.Feature.Number.S
-  *    };
-  *    var I = getOptName("Pronoun", opts);
-  * // In English, it will give: "I"
-  * // In Arabic, it will give: "أنا"
-  *
-  * @public
-  * @param  {String}   optLabel can be: Pronoun, Negation, Voice
-  * @param  {Object}   opts     The parameters
-  * @return {String}            The label of this parameter in the current language
-  */
-  static getOptName(optLabel, opts){
-    return this.goptname(optLabel, opts);
-  }
-
 
   //==========================================
   // CONJUGATION OPTIONS PROTECTED FUNCTIONS
@@ -914,20 +708,6 @@ class Morpho {
     return word;
   }
 
-  /**
-  * Normalization method, used to delete non used chars or to replace some with others, etc.
-  *
-  * @public
-  * @param  {String} word the word to be normalized
-  * @param  {String} opts some options (optional) where each language defines its own
-  * normalization options
-  * @return {String}      normalized word
-  */
-  static normalize(word, _opts){
-    return this.norm(word, _opts);
-  }
-
-
   //==========================================
   // SEGMENTATION FUNCTIONS
   //==========================================
@@ -943,45 +723,35 @@ class Morpho {
     return sents;
   }
 
-  /**
-   * Segment a given text
-   * @param  {String} text the text to be segmennted into sentences
-   * @final
-   * @return {String[]}      a list of sentences
-   */
-  static splitToSentences(text) {
-    return this.gsents(text);
-  }
-
-
 
   /**
    * Tokenize a given text (mostly, a sentence)
    * @param  {String} text the sentence to be tokenized
    * @return {String[]}      a list of words
    */
-  static tokenize(text) {
+  static gwords(text) {
     return text.split(this.tsplitter).filter(Boolean);
   }
 
   /**
    * Delete stop words from a list of words
    * @param  {String[]} words list of words
+   * @param  {String[]} stop_words optional list if you want to use your own
+   * stop words list; otherwise the internal one is used
    * @return {String[]}       filtered list of words
    */
-  static filter(words) {
-    return words;
+  static filter(words, stop_words) {
+    let res = [];
+    let sw;
+    if (stop_words){
+      sw = stop_words.reduce((acc, v) => ({ ...acc, [v]: 1 }),{});
+    }
+    else{
+      sw = this.stop_words;
+    }
+    words.forEach((word) => {if(! sw[word]) res.push(word);});
+    return res;
   }
-
-  /**
-   * Delete stop words from a list of words
-   * @param  {String[]} words list of words
-   * @return {String[]}       filtered list of words
-   */
-  static filterStopWords(words) {
-    return this.filter(words);
-  }
-
 
 
   //==========================================
@@ -1006,7 +776,7 @@ class Morpho {
       cols: {}
     };
 
-    let model = this.getConjugationModel();
+    let model = this.gconjmod();
 
     result.rows = parseConjModelBranch(this, model.rows);
     result.cols = parseConjModelBranch(this, model.cols);
@@ -1073,7 +843,7 @@ function parseConjModelBranch(morpho, branch){
         let fuseOpts = Object.assign({}, val, val2);
         tmpOpts.push(fuseOpts);
         if(!idx){//we process labels just once
-          labels.push(morpho.getOptName(branch[bi], val2));
+          labels.push(morpho.goptname(branch[bi], val2));
         }
       });
     });

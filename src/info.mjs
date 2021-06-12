@@ -35,7 +35,7 @@ class Info {
    * @static
    * @return {String}  the language name: arabic, english, japanese, etc.
    */
-  static getName() {
+  static gname() {
     return this.name;
   }
 
@@ -46,7 +46,7 @@ class Info {
    * @static
    * @return {String}  the language original name: عربية, english, 日本語, etc.
    */
-  static getOrigName() {
+  static goname() {
     return this.origName;
   }
 
@@ -57,7 +57,7 @@ class Info {
    * @static
    * @return {String}  The language ISO639-2 code: "ara", "jpn", "eng", etc.
    */
-  static getCode() {
+  static gcode() {
     return this.code;
   }
 
@@ -68,7 +68,7 @@ class Info {
    * @static
    * @return {String}  The language family: Afro-asiatic, Japonic, etc.
    */
-  static getFamily() {
+  static gfamily() {
     return this.family;
   }
 
@@ -79,7 +79,7 @@ class Info {
    * @static
    * @return {String}  The language branch: semitic, etc.
    */
-  static getBranch() {
+  static gbranch() {
     return this.branch;
   }
 
@@ -90,7 +90,7 @@ class Info {
    * @static
    * @return {String}  The language direction: left to right (ltr) or right to left (rtl)
    */
-  static getDir() {
+  static gdir() {
     return this.dir;
   }
 
@@ -107,7 +107,7 @@ class Info {
    * @static
    * @return {String}  The words order in the language
    */
-  static getWordOrder() {
+  static gorder() {
     return this.wordOrder;
   }
 

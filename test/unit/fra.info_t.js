@@ -9,23 +9,23 @@ describe("French Info", function(){
   });
 
   it("Name", function(){
-    expect(FraInfo.getName()).to.eql("French");
+    expect(FraInfo.gname()).to.eql("French");
   });
 
   it("Family", function(){
-    expect(FraInfo.getFamily()).to.eql("Indo-European");
+    expect(FraInfo.gfamily()).to.eql("Indo-European");
   });
 
   it("Branch", function(){
-    expect(FraInfo.getBranch()).to.eql("Romance");
+    expect(FraInfo.gbranch()).to.eql("Romance");
   });
 
   it("Writing direction", function(){
-    expect(FraInfo.getDir()).to.eql("ltr");
+    expect(FraInfo.gdir()).to.eql("ltr");
   });
 
   it("Words order", function(){
-    expect(FraInfo.getWordOrder()).to.eql("svo");
+    expect(FraInfo.gorder()).to.eql("svo");
   });
 
 });

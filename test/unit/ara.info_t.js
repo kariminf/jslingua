@@ -11,23 +11,23 @@ describe("Arabic Info", function(){
   });
 
   it("Name", function(){
-    expect(AraInfo.getName()).to.eql("Arabic");
+    expect(AraInfo.gname()).to.eql("Arabic");
   });
 
   it("Family", function(){
-    expect(AraInfo.getFamily()).to.eql("Afro-Asiatic");
+    expect(AraInfo.gfamily()).to.eql("Afro-Asiatic");
   });
 
   it("Branch", function(){
-    expect(AraInfo.getBranch()).to.eql("Semitic");
+    expect(AraInfo.gbranch()).to.eql("Semitic");
   });
 
   it("Writing direction", function(){
-    expect(AraInfo.getDir()).to.eql("rtl");
+    expect(AraInfo.gdir()).to.eql("rtl");
   });
 
   it("Words order", function(){
-    expect(AraInfo.getWordOrder()).to.eql("vso");
+    expect(AraInfo.gorder()).to.eql("vso");
   });
 
 });

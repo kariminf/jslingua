@@ -9,10 +9,10 @@ class FraLang extends Lang {
   * Write the Arabic number into French letters
   * @override
   */
-  static nbr2str(num){
+  static nbr2words(num){
     if (isNaN(num)) return "";
 
-    if(num < 0) return "moins " + this.nbr2str(-num);
+    if(num < 0) return "moins " + this.nbr2words(-num);
 
     if (num === 81) return "quatre-vingt-un";
     if (num === 80) return "quatre-vingts";
@@ -48,13 +48,13 @@ class FraLang extends Lang {
     let div = ~~(num/bigNbr[bigIdx]),
     rem = ~~(num % bigNbr[bigIdx]);
 
-    let pronounce = (div === 1)? "": this.nbr2str(div) + " ";
+    let pronounce = (div === 1)? "": this.nbr2words(div) + " ";
     pronounce += lookup[bigNbr[bigIdx]];
 
     //if (div > 1) pronounce += "s"; //plural
 
     if (rem > 0){
-      pronounce += " " + this.nbr2str(rem);
+      pronounce += " " + this.nbr2words(rem);
     }
 
     return pronounce;

@@ -15,9 +15,9 @@ describe("Arabic Morphology", function(){
       expect(AraMorpho.norm("ذَهَبٌ")).to.eql("ذهب");
       expect(AraMorpho.norm("ذَهــَبَ")).to.eql("ذهب");
       expect(AraMorpho.norm("دعى")).to.eql("دعي");
-      expect(AraMorpho.normalize("دعــــى")).to.eql("دعي");
-      expect(AraMorpho.normalize("دعاة")).to.eql("دعاه");
-      expect(AraMorpho.normalize("أَنَا")).to.eql("انا");
+      expect(AraMorpho.norm("دعــــى")).to.eql("دعي");
+      expect(AraMorpho.norm("دعاة")).to.eql("دعاه");
+      expect(AraMorpho.norm("أَنَا")).to.eql("انا");
     });
 
     it("voc option", function(){
@@ -40,21 +40,21 @@ describe("Arabic Morphology", function(){
     });
 
     it("_ option", function(){
-      expect(AraMorpho.normalize("ذهــــــــب", "_")).to.eql("ذهب");
+      expect(AraMorpho.norm("ذهــــــــب", "_")).to.eql("ذهب");
     });
 
     it("options combination", function(){
       expect(AraMorpho.norm("ذَهــَبَ", "voc,_")).to.eql("ذهب");
       expect(AraMorpho.norm("ذَهــَبَ", "_,a lot of non sense,voc")).to.eql("ذهب");
       expect(AraMorpho.norm("دعــــى", "yeh, _")).to.eql("دعي");
-      expect(AraMorpho.normalize("دعــــــاة", "teh,_")).to.eql("دعاه");
-      expect(AraMorpho.normalize("أَنـــــَا", "alef,_,voc")).to.eql("انا");
+      expect(AraMorpho.norm("دعــــــاة", "teh,_")).to.eql("دعاه");
+      expect(AraMorpho.norm("أَنـــــَا", "alef,_,voc")).to.eql("انا");
     });
 
   });
 
 
-  var
+  let
   $ = Object.assign,//shorten the function
   //tenses
   pr = {tense:"present"},
@@ -106,8 +106,8 @@ describe("Arabic Morphology", function(){
 
     it("Sahih Salim (standard) present", function() {
       //present
-      expect(AraMorpho.conjugate("ذهب",$({}, pr, i))).to.eql("أَذْهبُ");
-      expect(AraMorpho.conjugate("ذهب",$({}, pr, we))).to.eql("نَذْهبُ");
+      expect(AraMorpho.conj("ذهب",$({}, pr, i))).to.eql("أَذْهبُ");
+      expect(AraMorpho.conj("ذهب",$({}, pr, we))).to.eql("نَذْهبُ");
       expect(AraMorpho.conj("ذهب",$({}, pr, youm))).to.eql("تَذْهبُ");
       expect(AraMorpho.conj("ذهب",$({}, pr, youf))).to.eql("تَذْهبِينَ");
       expect(AraMorpho.conj("ذهب",$({}, pr, youmd))).to.eql("تَذْهبَانِ");
@@ -1083,54 +1083,85 @@ describe("Arabic Morphology", function(){
   describe("Arabic Morphology Pos Converter ", function(){
 
     it("Singular to plural", function() {
-      AraMorpho.setCurrentPosConverter("sing2pl");
+      AraMorpho.sconv("sing2pl");
       expect(AraMorpho.conv("معلمة")).to.eql("معلمات");
       expect(AraMorpho.conv("معلم")).to.eql("معلمون");
       expect(AraMorpho.conv("كِتَاب")).to.eql("كُتُب");
-      expect(AraMorpho.convertPoS("سَفِينَة")).to.eql("سُفُن");
-      //expect(AraMorpho.convertPoS("سَبِيل")).to.eql("سُبُل");
-      expect(AraMorpho.convertPoS("غُرْفَة")).to.eql("غُرَف");
-      expect(AraMorpho.convertPoS("شَقَّة")).to.eql("شُقَق");
-      expect(AraMorpho.convertPoS("قِطَّة")).to.eql("قِطَط");
-      expect(AraMorpho.convertPoS("هِرّ")).to.eql("هِرَرَة");
-      //expect(AraMorpho.convertPoS("قَلْب")).to.eql("قُلُوب");
-      //expect(AraMorpho.convertPoS("عِلْم")).to.eql("عُلُوم");
-      //expect(AraMorpho.convertPoS("جُحْر")).to.eql("جُحُور");
-      //expect(AraMorpho.convertPoS("كَلْب")).to.eql("كِلَاب");
-      //expect(AraMorpho.convertPoS("ظِلّ")).to.eql("ظِلَال");
-      //expect(AraMorpho.convertPoS("رُمْح")).to.eql("رِمَاح");
-      //expect(AraMorpho.convertPoS("جَمَل")).to.eql("جِمَال");
-      expect(AraMorpho.convertPoS("رَجُل")).to.eql("رِجَال");
-      //expect(AraMorpho.convertPoS("يَوْم")).to.eql("أَيَّام");
-      //expect(AraMorpho.convertPoS("حِلْم")).to.eql("أَحْلَام");
-      //expect(AraMorpho.convertPoS("رُبْع")).to.eql("أَرْبَاع");
-      //expect(AraMorpho.convertPoS("سَبَب")).to.eql("أَسْبَاب");
-      expect(AraMorpho.convertPoS("وَرَقَة")).to.eql("أَوْرَاق");
-      expect(AraMorpho.convertPoS("عَمُود")).to.eql("أَعْمِدَة");
-      //expect(AraMorpho.convertPoS("صَدِيق")).to.eql("أَصْدِقَاء");
-      //expect(AraMorpho.convertPoS("سَعِيد")).to.eql("سُعَدَاء");
-      expect(AraMorpho.convertPoS("كَاتِب")).to.eql("كُتَّاب");
-      expect(AraMorpho.convertPoS("قَائِمَة")).to.eql("قَوَائِم");
-      expect(AraMorpho.convertPoS("صَارُوخ")).to.eql("صَوَارِيخ");
-      expect(AraMorpho.convertPoS("رِسَالَة")).to.eql("رَسَائِل");
-      expect(AraMorpho.convertPoS("دَفْتَر")).to.eql("دَفَاتِر");
-      expect(AraMorpho.convertPoS("فُنْدُق")).to.eql("فَنَادِق");
-      expect(AraMorpho.convertPoS("مَلْبَس")).to.eql("مَلَابِس");
-      expect(AraMorpho.convertPoS("مَسْجِد")).to.eql("مَسَاجِد");
-      expect(AraMorpho.convertPoS("مِنْطَقَة")).to.eql("مَنَاطِق");
-      expect(AraMorpho.convertPoS("صَنْدُوق")).to.eql("صَنَادِيق");
-      expect(AraMorpho.convertPoS("مِفْتَاح")).to.eql("مَفَاتِيح");
-      expect(AraMorpho.convertPoS("مَكْتُوب")).to.eql("مَكَاتِيب");
-      //expect(AraMorpho.convertPoS("")).to.eql("");
+      expect(AraMorpho.conv("سَفِينَة")).to.eql("سُفُن");
+      //expect(AraMorpho.conv("سَبِيل")).to.eql("سُبُل");
+      expect(AraMorpho.conv("غُرْفَة")).to.eql("غُرَف");
+      expect(AraMorpho.conv("شَقَّة")).to.eql("شُقَق");
+      expect(AraMorpho.conv("قِطَّة")).to.eql("قِطَط");
+      expect(AraMorpho.conv("هِرّ")).to.eql("هِرَرَة");
+      //expect(AraMorpho.conv("قَلْب")).to.eql("قُلُوب");
+      //expect(AraMorpho.conv("عِلْم")).to.eql("عُلُوم");
+      //expect(AraMorpho.conv("جُحْر")).to.eql("جُحُور");
+      //expect(AraMorpho.conv("كَلْب")).to.eql("كِلَاب");
+      //expect(AraMorpho.conv("ظِلّ")).to.eql("ظِلَال");
+      //expect(AraMorpho.conv("رُمْح")).to.eql("رِمَاح");
+      //expect(AraMorpho.conv("جَمَل")).to.eql("جِمَال");
+      expect(AraMorpho.conv("رَجُل")).to.eql("رِجَال");
+      //expect(AraMorpho.conv("يَوْم")).to.eql("أَيَّام");
+      //expect(AraMorpho.conv("حِلْم")).to.eql("أَحْلَام");
+      //expect(AraMorpho.conv("رُبْع")).to.eql("أَرْبَاع");
+      //expect(AraMorpho.conv("سَبَب")).to.eql("أَسْبَاب");
+      expect(AraMorpho.conv("وَرَقَة")).to.eql("أَوْرَاق");
+      expect(AraMorpho.conv("عَمُود")).to.eql("أَعْمِدَة");
+      //expect(AraMorpho.conv("صَدِيق")).to.eql("أَصْدِقَاء");
+      //expect(AraMorpho.conv("سَعِيد")).to.eql("سُعَدَاء");
+      expect(AraMorpho.conv("كَاتِب")).to.eql("كُتَّاب");
+      expect(AraMorpho.conv("قَائِمَة")).to.eql("قَوَائِم");
+      expect(AraMorpho.conv("صَارُوخ")).to.eql("صَوَارِيخ");
+      expect(AraMorpho.conv("رِسَالَة")).to.eql("رَسَائِل");
+      expect(AraMorpho.conv("دَفْتَر")).to.eql("دَفَاتِر");
+      expect(AraMorpho.conv("فُنْدُق")).to.eql("فَنَادِق");
+      expect(AraMorpho.conv("مَلْبَس")).to.eql("مَلَابِس");
+      expect(AraMorpho.conv("مَسْجِد")).to.eql("مَسَاجِد");
+      expect(AraMorpho.conv("مِنْطَقَة")).to.eql("مَنَاطِق");
+      expect(AraMorpho.conv("صَنْدُوق")).to.eql("صَنَادِيق");
+      expect(AraMorpho.conv("مِفْتَاح")).to.eql("مَفَاتِيح");
+      expect(AraMorpho.conv("مَكْتُوب")).to.eql("مَكَاتِيب");
+      //expect(AraMorpho.conv("")).to.eql("");
     });
-
     /*it("Singular to dual", function() {
-      AraMorpho.setCurrentPosConverter("sing2dual");
-      expect(AraMorpho.convertPoS("معلمة")).to.eql("معلمتان");
-      expect(AraMorpho.convertPoS("معلم")).to.eql("معلمان");
+      AraMorpho.sconv("sing2dual");
+      expect(AraMorpho.conv("معلمة")).to.eql("معلمتان");
+      expect(AraMorpho.conv("معلم")).to.eql("معلمان");
     });*/
+  });
 
-
+  let words = [
+    "الكلمات", "المستبعدة", "هي",
+ "الكلمات", "التي", "تستبعد",
+ "قبل", "المعالجة", "اللغوية",
+ "الآلية", "للبيانات"
+  ];
+  let words_filtered1 = [
+  'الكلمات',
+  'المستبعدة',
+  'الكلمات',
+  'تستبعد',
+  'المعالجة',
+  'اللغوية',
+  'الآلية',
+  'للبيانات'
+  ];
+  let stop_words = [
+    'الكلمات',
+    'المستبعدة',
+    'المعالجة',
+    'اللغوية',
+  ];
+  let words_filtered2 = [
+    'هي', 'التي', 'تستبعد', 'قبل', 'الآلية', 'للبيانات'
+  ];
+  describe("Arabic Stop Words filtering", function(){
+    it("Internal filtering", function() {
+      expect(AraMorpho.filter(words)).to.eql(words_filtered1);
+    });
+    it("External filtering", function() {
+      expect(AraMorpho.filter(words, stop_words)).to.eql(words_filtered2);
+    });
   });
 
 });

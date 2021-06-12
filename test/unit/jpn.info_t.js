@@ -9,23 +9,23 @@ describe("Japanese Info", function(){
   });
 
   it("Name", function(){
-    expect(JpnInfo.getName()).to.eql("Japanese");
+    expect(JpnInfo.gname()).to.eql("Japanese");
   });
 
   it("Family", function(){
-    expect(JpnInfo.getFamily()).to.eql("Japonic");
+    expect(JpnInfo.gfamily()).to.eql("Japonic");
   });
 
   it("Branch", function(){
-    expect(JpnInfo.getBranch()).to.eql("");
+    expect(JpnInfo.gbranch()).to.eql("");
   });
 
   it("Writing direction", function(){
-    expect(JpnInfo.getDir()).to.eql("ltr");
+    expect(JpnInfo.gdir()).to.eql("ltr");
   });
 
   it("Words order", function(){
-    expect(JpnInfo.getWordOrder()).to.eql("sov");
+    expect(JpnInfo.gorder()).to.eql("sov");
   });
 
 });

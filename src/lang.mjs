@@ -94,22 +94,10 @@ class Lang {
   }
 
   /**
-  * Returns the available charsets for the current language
-  *
-  * @public
-  * @static
-  * @final
-  * @return {String[]} a set of strings containing the names of charsets
-  */
-  static listCharSets(){
-    return this.lchars();
-  }
-
-  /**
   * Get an object with verification functions
-  * contains: returns a function which verifies if the text contains
+  * some: returns a function which verifies if the text contains
   *           at least one of the charsets
-  * all : returns a function which verifies if all the chacaters of the text
+  * every : returns a function which verifies if all the chacaters of the text
   *           are in this charset
   *
   * @public
@@ -122,28 +110,11 @@ class Lang {
     let chVerif = this.CS[charSet];
     if (chVerif) {
       return {
-        contains: __createContains(chVerif),
-        all: __createAll(chVerif)
+        some: __createContains(chVerif),
+        every: __createAll(chVerif)
       };
     }
     return charFctsDef;
-  }
-
-  /**
-  * Get an object with verification functions
-  * contains: returns a function which verifies if the text contains
-  *           at least one of the charsets
-  * all : returns a function which verifies if all the chacaters of the text
-  *           are in this charset
-  *
-  * @public
-  * @static
-  * @final
-  * @param  {String} charSet the name of the charset
-  * @return {object} object with verifying functions
-  */
-  static getCharSetFunctions(charSet) {
-    return this.gcharverify(charSet);
   }
 
   /**
@@ -164,8 +135,8 @@ class Lang {
    * @param  {String} text the text to verify
    * @return {Boolean}      the text contains some chars of the current charset or not
    */
-  static contains(text){
-    return this.charFcts.contains(text);
+  static some(text){
+    return this.charFcts.some(text);
   }
 
   /**
@@ -175,8 +146,8 @@ class Lang {
    * @param  {String} text the text to verify
    * @return {Boolean}      the text contains some chars of the current charset or not
    */
-  static all(text){
-    return this.charFcts.all(text);
+  static every(text){
+    return this.charFcts.every(text);
   }
 
 
@@ -198,18 +169,6 @@ class Lang {
   }
 
   /**
-  * Returns the available transformations for the current language
-  * (Static version)
-  * @public
-  * @static
-  * @final
-  * @return {String[]} a set of strings containing the names of transformation functions
-  */
-  static listTransformations(){
-    return this.ltrans();
-  }
-
-  /**
   * Get the the transformation function
   *
   * @public
@@ -220,19 +179,6 @@ class Lang {
   */
   static gtrans(transName) {
     return (transName in this.TR)? this.TR[transName].fct: function(text){return text};
-  }
-
-  /**
-  * Get the the transformation function
-  *
-  * @public
-  * @static
-  * @final
-  * @param  {String} transName name of the transformation function
-  * @return {function}  a function which transforms a given text
-  */
-  static getTransformationFunction(transName) {
-    return this.gtrans(transName);
   }
 
   /**
@@ -250,20 +196,6 @@ class Lang {
     }
     return "";
   }
-
-  /**
-  * Get the description of the transformation function
-  *
-  * @public
-  * @static
-  * @final
-  * @param  {String} transName name of the transformation function
-  * @return {Text}  description
-  */
-  static getTransDesc(transName){
-    return this.gtransdesc(transName);
-  }
-
 
   /**
   * Sets the current transformations for the current object
@@ -303,20 +235,16 @@ class Lang {
   * @param  {Number} num A number to be transformed into letters
   * @return {String}  the pronounciation
   */
-  static nbr2str(num) {
+  static nbr2words(num) {
     return num;
-  }
-
-  static pronounceNumber(num) {
-    return this.nbr2str(num);
   }
 
 
 } //End of class Lang
 
 let charFctsDef = {
-  contains: (_text) => {return false},
-  all: (_text) => {return false}
+  some: (_text) => {return false},
+  every: (_text) => {return false}
 }
 
 /**

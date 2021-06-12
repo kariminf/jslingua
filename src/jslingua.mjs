@@ -8,7 +8,7 @@
  * @hideconstructor
  */
 class JsLingua {
-  static version = "0.12.3";
+  static version = "0.13";
   static rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
   static services = {};
 
@@ -130,64 +130,6 @@ class JsLingua {
 
     return "rtl";
 
-  }
-
-
-  //========================================
-  // LONG FUNCTIONS
-  //========================================
-
-  /**
-  * Get the service class for a given language and service name.<br>
-  * For example: JsLingua.getService("Info", "ara") Gives a class AraInfo
-  *
-  * @public
-  * @static
-  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
-  * @return {Class}   The class that affords the service
-  */
-  static getService(serviceID, langCode) {
-    return JsLingua.gserv(serviceID, langCode);
-  }
-
-  /**
-  * Get the codes of available languages of a given service
-  *
-  * @public
-  * @static
-  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @return {String[]}   array of strings, with ISO639-2 codes
-  */
-  static listLanguages(serviceID) {
-    return this.llang(serviceID);
-  }
-
-  /**
-   * To recover the direction of writing for the given language <br>
-   * This can be done using the info.js instance of the target language.
-   * But, the direction is used a lot for presentation, so a centralized
-   * version is to be afforded, so we don't import the js file for each
-   * language in each webpage.
-   *
-   * @public
-   * @static
-   * @param  {String} langCode The language ISO639-2 code: "ara", "jpn", "eng", etc.
-   * @return {String}     either "rtl" or "ltr"
-   */
-  static getDir(langCode) {
-    return this.gdir(langCode);
-  }
-
-  /**
-   * Returns the version of JsLingua
-   *
-   * @public
-   * @static
-   * @return {String}   JsLingua version
-   */
-  static getVersion() {
-    return this.version;
   }
 
 }

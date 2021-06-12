@@ -9,7 +9,7 @@ class JpnLang extends Lang {
   * Write the Arabic number into Japanese letters
   * @override
   */
-  static nbr2str(num){
+  static nbr2words(num){
     if (isNaN(num)) return "";
 
     let neg = false;
@@ -33,9 +33,9 @@ class JpnLang extends Lang {
     let rem = ~~(num % max),
     result = "";
     if (div > 0)
-    if (div > 1 || max > 1000)  result += this.nbr2str(div);
+    if (div > 1 || max > 1000)  result += this.nbr2words(div);
     result += lookup[max];
-    if (rem > 0) result += this.nbr2str(rem);
+    if (rem > 0) result += this.nbr2words(rem);
 
     if (neg) result = "マイナス" + result;
 

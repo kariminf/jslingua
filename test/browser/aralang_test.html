@@ -15,7 +15,7 @@
   var _ = function(e){return e.options[e.selectedIndex]};
 
   function nbrPronounce() {
-    $("nbrp").value = AraLang.pronounceNumber($("nbr").value);
+    $("nbrp").value = AraLang.nbr2words($("nbr").value);
   }
 
   function affectElements(container, func, text){
@@ -25,7 +25,7 @@
       if (func === undefined)
         found = false;
       else
-        found = AraLang[func](element)(text);
+        found = AraLang.gcharverify(element)[func](text);
       if (found){
         res += '<span class="l t">' + element + "</span>";
       }
@@ -37,15 +37,15 @@
   }
 
   function testLang() {
-    window.affectElements($("contCS"), "containsCharSetFunction", $("ltst").value);
-    window.affectElements($("allCS"), "allCharSetFunction", $("ltst").value);
+    window.affectElements($("contCS"), "some", $("ltst").value);
+    window.affectElements($("allCS"), "every", $("ltst").value);
   }
 
   function update(){
     tester = new AraLang();
-    cs = AraLang.listCharSets();
+    cs = AraLang.lchars();
     var tsel = $("tsel");
-    var tr = AraLang.listTransformations();
+    var tr = AraLang.ltrans();
     tr.forEach(function(element, index, array){
       var option = document.createElement("option");
       option.text = element;
@@ -56,7 +56,7 @@
   }
 
   function transform(){
-    var transFunc = AraLang.transformationFunction(_($("tsel")).value);
+    var transFunc = AraLang.gtrans(_($("tsel")).value);
     $("tdest").value = transFunc($("tsrc").value);
   }
 

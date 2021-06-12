@@ -910,6 +910,36 @@ const abbreviation = {
   "janv": 1, "févr": 1, "avr": 1, "juil": 1, "juill": 1, "sept": 1, "oct": 1, "nov": 1, "déc": 1,
 };
 
+const STOP_WORDS = {
+  "afin": 1, "au": 1, "aux": 1, "avec": 1, "ce": 1, "ces": 1,
+ "comme": 1, "dans": 1, "de": 1, "des": 1, "du": 1, "elle": 1,
+ "en": 1, "et": 1, "eux": 1, "il": 1, "je": 1, "la": 1,
+ "le": 1, "leur": 1, "les": 1, "lui": 1, "ma": 1, "mais": 1,
+ "me": 1, "même": 1, "mes": 1, "moi": 1, "mon": 1, "ne": 1,
+ "nos": 1, "notre": 1, "nous": 1, "on": 1, "ou": 1, "par": 1,
+ "pas": 1, "pour": 1, "qu": 1, "que": 1, "qui": 1, "sa": 1,
+ "se": 1, "ses": 1, "son": 1, "sur": 1, "ta": 1, "te": 1,
+ "tes": 1, "toi": 1, "ton": 1, "tu": 1, "un": 1, "une": 1,
+ "vos": 1, "votre": 1, "vous": 1, "c": 1, "d": 1, "j": 1,
+ "l": 1, "à": 1, "m": 1, "n": 1, "s": 1, "t": 1,
+ "y": 1, "été": 1, "étée": 1, "étées": 1, "étés": 1, "étant": 1,
+ "étante": 1, "étants": 1, "étantes": 1, "suis": 1, "es": 1, "est": 1,
+ "sommes": 1, "êtes": 1, "sont": 1, "serai": 1, "seras": 1, "sera": 1,
+ "serons": 1, "serez": 1, "seront": 1, "serais": 1, "serait": 1, "serions": 1,
+ "seriez": 1, "seraient": 1, "étais": 1, "était": 1, "étions": 1, "étiez": 1,
+ "étaient": 1, "fus": 1, "fut": 1, "fûmes": 1, "fûtes": 1, "furent": 1,
+ "sois": 1, "soit": 1, "soyons": 1, "soyez": 1, "soient": 1, "fusse": 1,
+ "fusses": 1, "fût": 1, "fussions": 1, "fussiez": 1, "fussent": 1, "ayant": 1,
+ "ayante": 1, "ayantes": 1, "ayants": 1, "eu": 1, "eue": 1, "eues": 1,
+ "eus": 1, "ai": 1, "as": 1, "avons": 1, "avez": 1, "ont": 1,
+ "aurai": 1, "auras": 1, "aura": 1, "aurons": 1, "aurez": 1, "auront": 1,
+ "aurais": 1, "aurait": 1, "aurions": 1, "auriez": 1, "auraient": 1, "avais": 1,
+ "avait": 1, "avions": 1, "aviez": 1, "avaient": 1, "eut": 1, "eûmes": 1,
+ "eûtes": 1, "eurent": 1, "aie": 1, "aies": 1, "ait": 1, "ayons": 1,
+ "ayez": 1, "aient": 1, "eusse": 1, "eusses": 1, "eût": 1, "eussions": 1,
+ "eussiez": 1, "eussent": 1
+};
+
 //==========================================
 // STEMMING FUNCTIONS
 //==========================================
@@ -1946,5 +1976,6 @@ FraMorpho._nStem("snowball", "French Snowball stemmr", __snowballStemmer);
 FraMorpho._nConv("sing2pl", "Singular noun to Plural", __singular2plural);
 
 FraMorpho.abbr = abbreviation;
+FraMorpho.stop_words = STOP_WORDS;
 
 export default FraMorpho;

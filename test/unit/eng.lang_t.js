@@ -9,7 +9,7 @@ describe("English Lang", function(){
   });
 
   it("pronounceNumber", function(){
-    expect(EngLang.pronounceNumber(1025)).to.eql("one thousand, twenty-five");
+    expect(EngLang.nbr2words(1025)).to.eql("one thousand, twenty-five");
   });
 
   it("charSets", function(){
@@ -19,8 +19,8 @@ describe("English Lang", function(){
     let j, all=0, contains=0;
     for(j=0; j < charsets.length; j++){
       let verifyFcts = EngLang.gcharverify(charsets[j]);
-      all += (verifyFcts.all(txt))? 1 : 0;
-      contains += (verifyFcts.contains(txt))? 1 : 0;
+      all += (verifyFcts.every(txt))? 1 : 0;
+      contains += (verifyFcts.some(txt))? 1 : 0;
     }
     expect(all).to.eql(1);
     expect(contains).to.eql(1);

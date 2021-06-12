@@ -17,14 +17,14 @@ describe("English Transliteration", function(){
   });
 
   it("Methods check", function(){
-    var methods = EngTrans.ltrans();
+    var methods = EngTrans.l();
     expect(methods.length).to.eql(1);//number of methods
     var j;
     for (j = 0; j < methods.length; j++){
       var method = methods[j];
-      EngTrans.strans(method);
-      expect(EngTrans.trans(src)).to.eql(exp[method].dst);//transliterate
-      expect(EngTrans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
+      EngTrans.s(method);
+      expect(EngTrans.t(src)).to.eql(exp[method].dst);//transliterate
+      expect(EngTrans.u(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
     }
   });
 

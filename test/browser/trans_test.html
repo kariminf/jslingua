@@ -27,7 +27,7 @@
   function update (){
     var langID = _($("l")).text;
     Trans = JsLingua.gserv("Trans", langID);
-    var methods = Trans.ltrans();
+    var methods = Trans.l();
     var m = $("m");
     var i;
     for(i = m.options.length - 1 ; i >= 0 ; i--){
@@ -43,19 +43,19 @@
   }
 
   function setMethod(){
-    Trans.strans(_($("m")).value);
+    Trans.s(_($("m")).value);
   }
 
   function lang2trans() {
     var lang = $("lang");
     var trans = $("2trans");
-    trans.value = Trans.trans(lang.value);
+    trans.value = Trans.t(lang.value);
   }
 
   function trans2lang() {
     var lang = $("2lang");
     var trans = $("trans");
-    lang.value = Trans.untrans(trans.value);
+    lang.value = Trans.u(trans.value);
   }
 
   async function loadingAsync(){

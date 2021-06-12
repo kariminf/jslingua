@@ -11,7 +11,11 @@ This will break the projects developed on precedent versions.
 * FIX: Fixing bugs
 * DEL: Delete or deprecate some functions
 
-## Version
+## Version 0.13.0 (2021-06-12)
+
+* MODIFY: modifying API
+* DEL: deleting long functions
+* ADD: stop words filtering (morpho)
 
 ## Version 0.12.0 (2021-05-30)
 

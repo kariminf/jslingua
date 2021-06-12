@@ -10,14 +10,14 @@ describe("Arabic Lang", function(){
 
   it("pronounceNumber", function(){
     //long way
-    expect(AraLang.pronounceNumber(1025)).to.eql("ألف وخمسة وعشرون");
+    expect(AraLang.nbr2words(1025)).to.eql("ألف وخمسة وعشرون");
     //short way
-    expect(AraLang.nbr2str(1025)).to.eql("ألف وخمسة وعشرون");
+    expect(AraLang.nbr2words(1025)).to.eql("ألف وخمسة وعشرون");
   });
 
   it("charSets", function(){
     //long way
-    let charsets = AraLang.listCharSets();
+    let charsets = AraLang.lchars();
     expect(charsets.length).to.eql(7);//the number of charsets
     //short way
     charsets = AraLang.lchars();
@@ -29,14 +29,14 @@ describe("Arabic Lang", function(){
 
     for(j=0; j < charsets.length; j++){
       //long way
-      let verifyFcts = AraLang.getCharSetFunctions(charsets[j]);
-      all += (verifyFcts.all(txt))? 1 : 0;
-      contains += (verifyFcts.contains(txt))? 1 : 0;
+      let verifyFcts = AraLang.gcharverify(charsets[j]);
+      all += (verifyFcts.every(txt))? 1 : 0;
+      contains += (verifyFcts.some(txt))? 1 : 0;
 
       //short way
       AraLang.schars(charsets[j]);
-      all2 += (AraLang.all(txt))? 1 : 0;
-      contains2 += (AraLang.contains(txt))? 1 : 0;
+      all2 += (AraLang.every(txt))? 1 : 0;
+      contains2 += (AraLang.some(txt))? 1 : 0;
     }
 
     expect(all).to.eql(0);
@@ -49,7 +49,7 @@ describe("Arabic Lang", function(){
     // available Transformations
     // ==========================
     //long way
-    expect(AraLang.listTransformations().length).to.eql(2);
+    expect(AraLang.ltrans().length).to.eql(2);
     //short way
     expect(AraLang.ltrans().length).to.eql(2);
 
@@ -59,7 +59,7 @@ describe("Arabic Lang", function(){
     var indicNum = "١٢٣٤٥٦٧٨٩٠";
 
     //long way
-    var func = AraLang.getTransformationFunction("ind2ara");
+    var func = AraLang.gtrans("ind2ara");
     expect(func(indicNum)).to.eql(arabicNum);
     func = AraLang.gtrans("ara2ind");
     expect(func(arabicNum)).to.eql(indicNum);

@@ -29,32 +29,32 @@ describe("Japanese Transliteration", function(){
   });
 
   it("Methods check", function(){
-    let methods = JpnTrans.ltrans();
+    let methods = JpnTrans.l();
     expect(methods.length).to.eql(4);//number of methods
   });
 
   it("Hepburn", function(){
-    JpnTrans.strans("hepburn");
-    expect(JpnTrans.trans(src)).to.eql(exp["hepburn"].dst);//transliterate
-    expect(JpnTrans.untrans(exp["hepburn"].dst)).to.eql(exp["hepburn"].rev);//untransliterate
+    JpnTrans.s("hepburn");
+    expect(JpnTrans.t(src)).to.eql(exp["hepburn"].dst);//transliterate
+    expect(JpnTrans.u(exp["hepburn"].dst)).to.eql(exp["hepburn"].rev);//untransliterate
   });
 
   it("NihonShiki", function(){
-    JpnTrans.strans("nihonshiki");
-    expect(JpnTrans.transliterate(src)).to.eql(exp["nihonshiki"].dst);//transliterate
-    expect(JpnTrans.untransliterate(exp["nihonshiki"].dst)).to.eql(exp["nihonshiki"].rev);//untransliterate
+    JpnTrans.s("nihonshiki");
+    expect(JpnTrans.t(src)).to.eql(exp["nihonshiki"].dst);//transliterate
+    expect(JpnTrans.u(exp["nihonshiki"].dst)).to.eql(exp["nihonshiki"].rev);//untransliterate
   });
 
   it("kunreishiki", function(){
-    JpnTrans.strans("kunreishiki");
-    expect(JpnTrans.transliterate(src)).to.eql(exp["kunreishiki"].dst);//transliterate
-    expect(JpnTrans.untransliterate(exp["kunreishiki"].dst)).to.eql(exp["kunreishiki"].rev);//untransliterate
+    JpnTrans.s("kunreishiki");
+    expect(JpnTrans.t(src)).to.eql(exp["kunreishiki"].dst);//transliterate
+    expect(JpnTrans.u(exp["kunreishiki"].dst)).to.eql(exp["kunreishiki"].rev);//untransliterate
   });
 
   it("morse", function(){
-    JpnTrans.strans("morse");
-    expect(JpnTrans.trans(src)).to.eql(exp["morse"].dst);//transliterate
-    expect(JpnTrans.untrans(exp["morse"].dst)).to.eql(exp["morse"].rev);//untransliterate
+    JpnTrans.s("morse");
+    expect(JpnTrans.t(src)).to.eql(exp["morse"].dst);//transliterate
+    expect(JpnTrans.u(exp["morse"].dst)).to.eql(exp["morse"].rev);//untransliterate
   });
 
 });

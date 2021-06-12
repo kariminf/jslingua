@@ -118,7 +118,7 @@ class Trans {
 	* @final
 	* @param {String} methodName method's name
 	*/
-	static strans(methodName) {
+	static s(methodName) {
 		if (methodName in this.methods) {
 			this.currentMethod = methodName;
 		}
@@ -133,20 +133,9 @@ class Trans {
 	* @final
 	* @return {String[]}  methods names
 	*/
-	static ltrans = function() {
+	static l() {
 		return Object.keys(this.methods);
 	}
-
-  /**
-	* Returns the list of available transliteration methods
-	*
-	* @public
-	* @final
-	* @return {String[]}  methods names
-	*/
-	static listTransliterations() {
-		return this.ltrans();
-	};
 
 	//==========================================
   // TRANSLITERATE FUNCTIONS
@@ -160,7 +149,7 @@ class Trans {
 	* @param  {String} text the untransliterated text (original)
 	* @return {String}      the transliterated text
 	*/
-	static trans(text) {
+	static t(text) {
 		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preTrans === "function") {
@@ -175,18 +164,6 @@ class Trans {
 		return result;
 	}
 
-  /**
-	* transliterate the text using the current method
-	*
-	* @public
-	* @final
-	* @param  {String} text the untransliterated text (original)
-	* @return {String}      the transliterated text
-	*/
-	static transliterate(text) {
-		return this.trans(text);
-	}
-
 	//==========================================
   // UNTRANSLITERATE FUNCTIONS
   //==========================================
@@ -199,7 +176,7 @@ class Trans {
 	* @param  {String} text translaterated text
 	* @return {String}      untranslaterated text (original text)
 	*/
-	static untrans(text) {
+	static u(text) {
 		let result = text;
 
 		if (typeof this.methods[this.currentMethod].preUntrans === "function") {
@@ -212,18 +189,6 @@ class Trans {
 			result = this.methods[this.currentMethod].postUntrans(result);
 		}
 		return result;
-	}
-
-  /**
-	 * untransliterate the text using the current method
-	 * @public
- 	 * @final
- 	 * @memberof Trans
- 	 * @param  {String} text translaterated text
- 	 * @return {String}      untranslaterated text (original text)
-	 */
-	static untransliterate(text) {
-		return this.untrans(text);
 	}
 
 }

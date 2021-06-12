@@ -17,14 +17,14 @@ describe("French Transliteration", function(){
   });
 
   it("Methods check", function(){
-    var methods = FraTrans.ltrans();
+    var methods = FraTrans.l();
     expect(methods.length).to.eql(1);//number of methods
     var j;
     for (j = 0; j < methods.length; j++){
       var method = methods[j];
-      FraTrans.strans(method);
-      expect(FraTrans.trans(src)).to.eql(exp[method].dst);//transliterate
-      expect(FraTrans.untrans(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
+      FraTrans.s(method);
+      expect(FraTrans.t(src)).to.eql(exp[method].dst);//transliterate
+      expect(FraTrans.u(exp[method].dst)).to.eql(exp[method].rev);//untransliterate
     }
   });
 

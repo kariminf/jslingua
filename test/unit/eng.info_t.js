@@ -9,23 +9,23 @@ describe("English Info", function(){
   });
 
   it("Name", function(){
-    expect(EngInfo.getName()).to.eql("English");
+    expect(EngInfo.gname()).to.eql("English");
   });
 
   it("Family", function(){
-    expect(EngInfo.getFamily()).to.eql("Indo-European");
+    expect(EngInfo.gfamily()).to.eql("Indo-European");
   });
 
   it("Branch", function(){
-    expect(EngInfo.getBranch()).to.eql("Germanic");
+    expect(EngInfo.gbranch()).to.eql("Germanic");
   });
 
   it("Writing direction", function(){
-    expect(EngInfo.getDir()).to.eql("ltr");
+    expect(EngInfo.gdir()).to.eql("ltr");
   });
 
   it("Words order", function(){
-    expect(EngInfo.getWordOrder()).to.eql("svo");
+    expect(EngInfo.gorder()).to.eql("svo");
   });
 
 });

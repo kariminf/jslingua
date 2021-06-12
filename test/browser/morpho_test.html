@@ -38,7 +38,7 @@
   function update(){
     var lang = _($("l")).text;
     Morpho = JsLingua.gserv("Morpho", lang);
-    var dir = JsLingua.getDir(lang);
+    var dir = JsLingua.gdir(lang);
     $("verb").dir = dir;
     $("conj").dir = dir;
     $("stemI").dir = dir;
@@ -169,7 +169,7 @@
     var sentences = Morpho.gsents(text);
 
     for (var si in sentences) {
-      result += Morpho.tokenize(sentences[si]).join(" | ");
+      result += Morpho.gwords(sentences[si]).join(" | ");
       result += "<br>";
     }
 

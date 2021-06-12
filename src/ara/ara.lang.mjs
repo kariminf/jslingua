@@ -9,12 +9,12 @@ class AraLang extends Lang {
   * Write the Arabic number into Arabic letters
   * @override
   */
-  static nbr2str(num){
+  static nbr2words(num){
     if (isNaN(num))
     return "";
 
     if(num < 0)
-    return "ناقص " + this.nbr2str(-num);
+    return "ناقص " + this.nbr2words(-num);
 
     if (num == 0)
     return lookup[num];
@@ -39,7 +39,7 @@ class AraLang extends Lang {
         return "أحد " + lookup[10];
         if (rem == 2)
         return "إثنا " + lookup[10];
-        return this.nbr2str(rem) + " " + lookup[10];
+        return this.nbr2words(rem) + " " + lookup[10];
       }
 
       let tenth = lookup[div] + "ون";
@@ -51,7 +51,7 @@ class AraLang extends Lang {
 
       let suff = " و";
 
-      return this.nbr2str(rem) + suff + tenth;
+      return this.nbr2words(rem) + suff + tenth;
 
     }
 
@@ -74,7 +74,7 @@ class AraLang extends Lang {
           pref += "ة ";
           pron = lookupPl[lessBig];
         } else {
-          pref = this.nbr2str(div) + " ";
+          pref = this.nbr2words(div) + " ";
           var rem100 = ~~(div % 100);
           if (rem100 < 11){ // for example 103000
             pron = lookupPl[lessBig];
@@ -89,7 +89,7 @@ class AraLang extends Lang {
 
 
         if (rem > 0)
-        suff = " و" + this.nbr2str(rem);
+        suff = " و" + this.nbr2words(rem);
 
         return pref + pron + suff;
 
@@ -112,11 +112,11 @@ class AraLang extends Lang {
       pref += "ة ";
       pron = lookupPl[lessBig];
     } else {
-      pref = this.nbr2str(div) + " ";
+      pref = this.nbr2words(div) + " ";
     }
 
     if (rem > 0)
-    suff = " و" + this.nbr2str(rem);
+    suff = " و" + this.nbr2words(rem);
 
     return pref + pron + suff;
   }
