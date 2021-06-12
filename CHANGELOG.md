@@ -16,6 +16,7 @@ This will break the projects developed on precedent versions.
 * MODIFY: modifying API
 * DEL: deleting long functions
 * ADD: stop words filtering (morpho)
+* FIX: fixing some fonctions
 
 ## Version 0.12.0 (2021-05-30)
 
