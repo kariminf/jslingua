@@ -6,7 +6,7 @@
 
 [![Project](https://img.shields.io/badge/Testing-Click_here-4BC51D.svg)](https://kariminf.github.io/jslingua.web)
 [![License](https://img.shields.io/badge/License-Apache_2.0-4BC51D.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.org/kariminf/jslingua)
+[![Travis](https://img.shields.io/travis/kariminf/jslingua.svg)](https://travis-ci.com/kariminf/jslingua)
 [![downloads](https://img.shields.io/npm/dm/jslingua.svg)](https://www.npmjs.com/package/jslingua)
 
 Javascript library for language processing.
@@ -24,20 +24,20 @@ Type ".help" for more information.
 > let JsLingua = require('jslingua')
 undefined
 > JsLingua.version
-0.12.2
+0.13.0
 > let AraInfo = JsLingua.gserv('info', 'ara')
 undefined
-> AraInfo.getName()
+> AraInfo.gname()
 'Arabic'
-> AraInfo.getOrigName()
+> AraInfo.goname()
 'عربية'
-> AraInfo.getDir()
+> AraInfo.gdir()
 'rtl'
-> AraInfo.getFamily()
+> AraInfo.gfamily()
 'Afro-asiatic'
-> AraInfo.getWordOrder()
+> AraInfo.gorder()
 'vso'
-> AraInfo.getName()
+> AraInfo.gbranch()
 'Semitic'
 ```
 
@@ -55,19 +55,23 @@ Welcome to Node.js v14.17.0
 Type ".help" for more information.
 > let JsLingua = require('jslingua')
 undefined
-> JsLingua.version
-0.12.2
 > let FraLang = JsLingua.gserv('lang', 'fra')
 undefined
-> FraLang.nbr2str(58912)
+> FraLang.nbr2words(58912)
 'cinquante-huit mille neuf cent douze'
-> FraLang.lchar()
+> FraLang.lchars()
 ['BasicLatin', 'Latin-1Supplement']
 > let verifyFcts = FraLang.gcharverify('BasicLatin')
 undefined
-> verifyFcts.all('un élève')
+> verifyFcts.every('un élève')
 false
-> verifyFcts.contains('un élève')
+> verifyFcts.some('un élève')
+true
+> FraLang.schars('BasicLatin')
+undefined
+> FraLang.every('un élève')
+false
+> FraLang.some('un élève')
 true
 > FraLang.strans('min2maj')
 undefined
@@ -90,27 +94,25 @@ Welcome to Node.js v14.17.0
 Type ".help" for more information.
 > let JsLingua = require('jslingua')
 undefined
-> JsLingua.version
-0.12.2
 > let JpnTrans = JsLingua.gserv('trans', 'jpn')
 undefined
-> JpnTrans.ltrans()
+> JpnTrans.l()
 [ 'hepburn', 'nihonshiki', 'kunreishiki', 'morse' ]
-> JpnTrans.strans('hepburn')
+> JpnTrans.s('hepburn')
 undefined
-> JpnTrans.trans('じゃ,しゃしん,いっぱい')
+> JpnTrans.t('じゃ,しゃしん,いっぱい')
 'ja,shashin,ippai'
-> JpnTrans.untrans('ja,shashin,ippai')
+> JpnTrans.u('ja,shashin,ippai')
 'じゃ,しゃしん,いっぱい'
-> JpnTrans.strans('nihonshiki')
+> JpnTrans.s('nihonshiki')
 undefined
-> JpnTrans.trans('じゃ,しゃしん,いっぱい')
+> JpnTrans.t('じゃ,しゃしん,いっぱい')
 'zya,syasin,ippai'
-> JpnTrans.untrans('zya,syasin,ippai')
+> JpnTrans.u('zya,syasin,ippai')
 'じゃ,しゃしん,いっぱい'
-> JpnTrans.strans('morse')
+> JpnTrans.s('morse')
 undefined
-> JpnTrans.trans('しゃしん')
+> JpnTrans.t('しゃしん')
 '-..--- --.-. .-- --.-. .-.-. ...-.'
 ```
 <!--
@@ -173,7 +175,7 @@ undefined
   'I cannot see him with Mr. Charloc',
   '.'
 ]
-> EngMorpho.gsents('Where is Dr. Whatson')
+> EngMorpho.gwords('Where is Dr. Whatson')
 [ 'Where', 'is', 'Dr.', 'Watson']
 >
 ```

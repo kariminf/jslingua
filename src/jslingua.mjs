@@ -8,7 +8,7 @@
  * @hideconstructor
  */
 class JsLingua {
-  static version = "0.13";
+  static version = "0.13.0";
   static rtls = ["ara", "heb", "aze", "div", "kur", "per", "fas", "urd"];
   static services = {};
 
