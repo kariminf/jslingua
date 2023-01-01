@@ -3,7 +3,7 @@
  * @module syntax
  */
 
- import JslNode from "_jsltree.mjs"
+ import JslNode from "_jslgraph.mjs"
 
 /**
  * Syntactic functions such as PoS tagging, etc.
@@ -163,8 +163,6 @@ class Syntax {
   static pos_tag(sentence){
     return this._pos_tag(sentence);
   }
-
-  
 
   /**
    * Constituency parsing

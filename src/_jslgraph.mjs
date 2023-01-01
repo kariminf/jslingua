@@ -1,6 +1,6 @@
 /**
- * 
- * @module jsltree
+ * Graph structures
+ * @module jslgraph
  */
 
 
