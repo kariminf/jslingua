@@ -136,7 +136,7 @@ class BeamMEMM {
         let j = 0; //since the first one is the max
         while(i > 0){
             next_e = this.BV[i][j];
-            result.push(this.maxent.get_class(next_e[0][0]));
+            result.unshift(this.maxent.get_class(next_e[0][0]));
             j = next_e[0][1];
             i--;
         }

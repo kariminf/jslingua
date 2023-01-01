@@ -3,7 +3,7 @@
  * @module syntax
  */
 
- import JslNode from "_jslgraph.mjs"
+ import JslNode from "_jslgraph.mjs"; 
 
 /**
  * Syntactic functions such as PoS tagging, etc.
@@ -101,21 +101,30 @@ class Syntax {
     dep: "unspecified dependency"
   };
 
+  //==========================================
+  // VARIABLES
+  //==========================================
+
+  //These static members must be overriden in extended classes;
+  //otherwise, the class won't function properly
+  static memm = null;
+
 
   //==========================================
   // PROTECTED FUNCTIONS
   //==========================================
 
   /**
-  * Tagging a list of words
+  * Encoding a word
   *
   * @protected
   * @final
   * @static
+  * @param  {int} i current position
   * @param  {String[]} sentence list of words in sentence
-  * @return {String[]}  list of tags of these words
+  * @return {float[]}  encoding of the current word
   */
-  static _pos_tag(sentence){
+  static _word_encode(i, sentence){
     return [];
   }
 
@@ -161,7 +170,11 @@ class Syntax {
   * @return {String[]}  list of tags of these words
   */
   static pos_tag(sentence){
-    return this._pos_tag(sentence);
+    this.memm.init(this._word_encode(0, sentence));
+    for(let i = 1; i < sentence.length; i++){
+      this.memm.step(this._word_encode(i, sentence));
+    }
+    return this.memm.final();
   }
 
   /**
