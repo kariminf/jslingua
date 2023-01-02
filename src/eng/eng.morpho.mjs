@@ -1143,7 +1143,7 @@ function __verbTypes(verb) {
 
 
 EngMorpho._nStem("porter", "English Porter stemmer", __porterStemmer);
-EngMorpho._nStem("lancaster", "English Lnacaster stemmer", __lancasterStemmer);
+EngMorpho._nStem("lancaster", "English Lancaster stemmer", __lancasterStemmer);
 
 EngMorpho._nConv("sing2pl", "Singular noun to Plural", __singular2plural);
 

@@ -86,22 +86,6 @@ class JsLingua {
   }
 
   /**
-  * Get an object of a service class for a given language and service name.<br>
-  * For example: JsLingua.nserv("Info", "ara") Gives an object of the class AraInfo
-  *
-  * @public
-  * @static
-  * @param  {String} serviceID The name of the service (the super-classe): "Info", "Lang", etc.
-  * @param  {String} langCode  The language ISO639-2 code: "ara", "jpn", "eng", etc.
-  * @return {Class}   The class that affords the service
-  */
-  static nserv(serviceID, langCode) {
-    let Cls = this.gserv(serviceID, langCode);
-    if (Cls === null) return null;
-    return new Cls();
-  }
-
-  /**
    * Returns the version of JsLingua
    *
    * @public

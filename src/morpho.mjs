@@ -582,7 +582,7 @@ class Morpho {
    *      person: "first", // Morpho.Feature.Person.F
    *      number: "singular" // Morpho.Feature.Number.S
    *    };
-   *    var I = goptname("Pronoun", opts);
+   *    var I = gconjoptname("Pronoun", opts);
    * // In English, it will give: "I"
    * // In Arabic, it will give: "أنا"
    *
@@ -591,7 +591,7 @@ class Morpho {
    * @param  {Object}   opts     The parameters
    * @return {String}            The label of this parameter in the current language
    */
-  static goptname(optLabel, opts){
+  static gconjoptname(optLabel, opts){
     switch (optLabel) {
       case "Pronoun": return this._gPpName(opts);
       case "Negation": return this._gNegName(opts);

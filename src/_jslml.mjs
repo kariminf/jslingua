@@ -3,6 +3,8 @@
  * @module jslml
  */
 
+import { NormalModule } from "webpack";
+
 
 //==========================================
 // ACTIVATION FUNCTIONS
@@ -11,6 +13,8 @@
 const Activation = {
     tanh: (X) => X.map(x => 2/(1 + Math.exp(-2*x)) - 1),
     sigmoid: (X) => X.map(x => 1/(1 + Math.exp(-x))),
+    linear: (X) => X,
+    relu: (X) => X.map(x => x < 0 ? 0 : x),
     softmax: (X) => {
         const max = Math.max(...X);
         const s = X.map(x => Math.exp(x - max));
@@ -28,6 +32,10 @@ const Activation = {
  */
 const dot = (X, Y) => X.map((x, i) => x * Y[i]).reduce((e0, e1) => e0 + e1);
 
+const matmul = (X, Y) => X.map((x, i) => x * Y[i]);
+
+const scaledot = (X, Y) => dot(X, Y)/Math.sqrt(X.length);
+
 /**
  * 
  * @param {*} X 
@@ -39,12 +47,26 @@ const zip = (X, Y) => X.map((x, i) => [x, Y[i]]);
 
 const get_k_max = (X, k) => X.sort(([k1, v1], [k2, v2]) => v2 - v1).slice(0, k);
 
+const vplus3 = (X, Y, Z) => X.map((x, i) => x + Y[i] + Z[i]);
+
+const vplus2 = (X, Y) => X.map((x, i) => x + Y[i]);
+
+const vsum = (X) => X.reduce((c, e) => c + e);
+
+const norm = (X) => {
+    const mean = vsum(X)/X.length;
+    const sigma = Math.sqrt(X.reduce((c, e) => c + Math.pow(e - mean, 2), 0)/X.length);
+    return X.map(e => (e - mu)/sigma);
+};
+
+const transpose = (X) => X[0].map((col, i) => X.map(row => row[i]));
+
 
 //==========================================
-// NEURON API
+// NEURAL API
 //==========================================
 
-class Neuron {
+class Perceptron {
 
     constructor(w, b, activate=Activation.sigmoid, cls_names=[], th=0.5){
         this.w = w;
@@ -80,17 +102,106 @@ class Neuron {
 
 }
 
+class JslBERTBlock {
+    /**
+     * 
+     * @param {Perceptron[[]]} encoders h head in each head 3 Perceptrons (Q, K, V)
+     */
+    constructor(encoders, hp, ffp){
+        this.encoders = encoders;
+        this.hp = hp;
+        this.ffp = ffp;
+    }
+
+    predict(Q, K, V, M){ //vectors [[WORD-ENC], [], ...]
+        
+        let Q_enc_head = []; // h X n X d
+        let K_enc_head = []; // h X m X d
+        let V_enc_head = []; // h X m X d
+
+        this.encoders.forEach(QKVenc => {
+            Q_enc_head.add(QKVenc[0].predict_all(Q));
+            K_enc_head.add(QKVenc[1].predict_all(K));
+            V_enc_head.add(QKVenc[2].predict_all(V));
+        }, this);
+
+        Q_enc_head = transpose(Q_enc_head); //n X h X d
+        K_enc_head = transpose(K_enc_head); //m X h X d
+        V_enc_head = transpose(V_enc_head); //m X h X d
+
+        let result = [];
+
+        Q_enc_head.forEach(Qi => { //over n target words
+            let headi = [];
+            for(let h = 0; h < this.encoders.length; h++){//over h heads
+                const perc = [];
+                K_enc_head.forEach((Kj, j) => {//over m source words
+                    perc.push(scaledot(Qi[h], Kj[h]) * M[j]);
+                }, this);
+                perc = softmax(perc);
+                let Ri = matmul(perc, Vj[h]);
+                headi = headi.concat(Ri);
+            }
+            result.push(headi);
+
+        }, this);
+
+        result = this.hp.predict_all(result);
+
+        //add and norm
+        result = result.map((r, i) => norm(vplus2(r, V[i])));
+        //Feed-Forward
+        result = this.ffp.predict_all(result);
+        //add and norm
+        return result.map((r, i) => norm(vplus2(r, V[i])));
+    }
+}
+
+class JslBERT {
+    /**
+     * 
+     * @param {Perceptron[]} encoders encoders for inputs embedding
+     * @param {JslBERTBlock[]} blocks stacked blocks for incoding 
+     */
+    constructor(encoders, blocks){
+        this.encoders = encoders;
+        this.blocks = blocks;
+    }
+
+    predict(X){// X = [[[TOKEN], [POSITION], [SEGMENT]], [[], [], []], ...]
+        
+        //incoding inputs
+        let X_enc = [];
+        X.forEach((word, i) =>{
+            let tok_emb = this.encoders[0].predict(word[0]);
+            let pos_emb = this.encoders[1].predict(word[1]);
+            let seg_emb = this.encoders[2].predict(word[2]);
+            let word_emb = vplus3(tok_emb, pos_emb, seg_emb);
+            X_enc.push(word_emb);
+        }, this);
+
+        //the mask, when the token is all zeros then 0; otherwise 1
+        let M = X.map(x => vsum(x[0]) > 0? 1 : 0);
+
+        this.blocks.forEach(block => {
+            X_enc = block.predict(X_enc, X_enc, X_enc, M);
+        }, this);
+
+        return X_enc;
+    }
+}
+
 
 //==========================================
 // SEQUENCE TAGGING API
 //==========================================
 
-class EmptyNeuron{
-    predict(x){return x;}
-}
+// class EmptyNeuron{
+//     predict(x){return x;}
+// }
 
 class TagEncoder{
-    constructor(tag_list, embedding=new EmptyNeuron()){
+    constructor(tag_list, embedding={predict: x => x}){//new EmptyNeuron()
         this.tag_list = tag_list;
         this.embedding = embedding;
     }
@@ -145,4 +256,4 @@ class BeamMEMM {
 }
 
 
-export default MaxEnt;
+export  {Activation, Perceptron, TagEncoder, BeamMEMM, JslBERTBlock, JslBERT};

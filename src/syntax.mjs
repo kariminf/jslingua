@@ -4,6 +4,7 @@
  */
 
  import JslNode from "_jslgraph.mjs"; 
+ //import {Activation, Neuron, TagEncoder, BeamMEMM} from "_jslml.mjs";
 
 /**
  * Syntactic functions such as PoS tagging, etc.
@@ -122,10 +123,10 @@ class Syntax {
   * @static
   * @param  {int} i current position
   * @param  {String[]} sentence list of words in sentence
-  * @return {float[]}  encoding of the current word
+  * @return {float[[]]}  encoding of each word
   */
-  static _word_encode(i, sentence){
-    return [];
+  static _words_encode(sentence){
+    return [[]];
   }
 
   /**
@@ -170,9 +171,10 @@ class Syntax {
   * @return {String[]}  list of tags of these words
   */
   static pos_tag(sentence){
-    this.memm.init(this._word_encode(0, sentence));
+    let encoded = this._words_encode(sentence);
+    this.memm.init(encoded[0]);
     for(let i = 1; i < sentence.length; i++){
-      this.memm.step(this._word_encode(i, sentence));
+      this.memm.step(encoded[i]);
     }
     return this.memm.final();
   }
