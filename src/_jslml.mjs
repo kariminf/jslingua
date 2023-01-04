@@ -68,11 +68,11 @@ const transpose = (X) => X[0].map((col, i) => X.map(row => row[i]));
 
 class Perceptron {
 
-    constructor(w, b, activate=Activation.sigmoid, cls_names=[], th=0.5){
-        this.w = w;
-        this.b = b;
+    constructor(weights, bias, activate=Activation.sigmoid, cls_names=[], th=0.5){
+        this.weights = weights;
+        this.bias = bias;
         this.activate = activate;
-        this.muliclass = Array.isArray(b);
+        this.muliclass = Array.isArray(bias);
         if (!cls_names || !cls_names.length) this.cls_names = ["Neg", "Pos"];
         else this.cls_names = cls_names;
     }
@@ -85,10 +85,10 @@ class Perceptron {
         let cls = 0;
         if(this.muliclass){
             cls = [];
-            for(let i = 0; i < this.w.length; i++) cls.push(dot(this.w[i], x) + this.b[i]);
+            for(let i = 0; i < this.w.length; i++) cls.push(dot(this.weights[i], x) + this.bias[i]);
         }
         else { //binary
-            cls = dot(this.w, x) + this.b;
+            cls = dot(this.weights, x) + this.bias;
         } 
         
         cls = this.activate(cls);

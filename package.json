@@ -1,6 +1,6 @@
 {
   "name": "jslingua",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "Language processing modules",
   "main": "dist/jslingua.js",
   "devDependencies": {
@@ -36,6 +36,9 @@
     "stemmer",
     "toolkit",
     "library",
+    "syntax",
+    "PoS tagging",
+    "parsing",
     "front-end",
     "back-end",
     "pronunciation",
