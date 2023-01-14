@@ -119,7 +119,7 @@ class Syntax {
   * Encoding a word
   *
   * @protected
-  * @final
+  * @abstract
   * @static
   * @param  {int} i current position
   * @param  {String[]} sentence list of words in sentence
@@ -133,7 +133,7 @@ class Syntax {
    * Constituency parsing
    * @protected
    * @final
-   * @static
+   * @abstract
    * @param {String[]} sentence list of words in sentence
    * @param {String[]} pos list of tags of these words
    * @returns {JslNode} the parse tree's root
@@ -145,7 +145,7 @@ class Syntax {
   /**
    * Dependency parsing
    * @protected
-   * @final
+   * @abstract
    * @static
    * @param {String[]} sentence list of words in sentence
    * @param {String[]} pos list of tags of these words
@@ -171,7 +171,7 @@ class Syntax {
   * @return {String[]}  list of tags of these words
   */
   static pos_tag(sentence){
-    let encoded = this._words_encode(sentence);
+    const encoded = this._words_encode(sentence);
     this.memm.init(encoded[0]);
     for(let i = 1; i < sentence.length; i++){
       this.memm.step(encoded[i]);
@@ -204,6 +204,7 @@ class Syntax {
   static dep_parse(sentence, pos){
     return this._dep_parse(sentence, pos);
   }
+
 
   //==========================================
   // HELPER FUNCTIONS
