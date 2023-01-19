@@ -92,11 +92,11 @@ const X = [
   [[1,0,0,0,0,0,0], [0,0,0,0,0,1], [1, 0]]
 ]
 
-// const Mask = [1,1,1,1,0,0]
+const Mask = [1,1,1,1,0,0]
 
-const wemb = brt.predict(X);
+const wemb = brt.predict(X, Mask);
 
-// console.log("EMB", wemb);
+console.log("EMB", wemb);
 
 
 // const p = new Perceptron([[1, 2, 3], [4, 5, 6]], [1, -1]);
@@ -106,5 +106,5 @@ const wemb = brt.predict(X);
 
 // console.log(EngSem);
 // console.log(EngSem.__word2BERTCodes("cat"));
-console.log(EngSem.word_embedding("cat"));
-console.log(EngSem.word_embedding("Dog"));
+// console.log(EngSem.word_embedding("cat"));
+// console.log(EngSem.word_embedding("Dog"));
