@@ -430,7 +430,7 @@ class Morpho {
   * @final
   * @param  {String} verb the word to be conjugated
   * @param  {Object} _opts  options for tense, case, voice, aspect, person, number, gender, mood, and other
-  * @param  {Sring} _form
+  * @param  {String} _form
   * @return {String}      Conjugated verb
   */
   static conj(verb, _opts, _form){

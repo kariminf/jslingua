@@ -43,7 +43,7 @@ class Sem {
    * @final
    * @static
    * @param {string} word a word
-   * @param {string[]} _opts a list of options
+   * @param {object} _opts a map of options
    * @return {float[]}  embedding of the word
    */
   static word_embedding(word, _opts){
