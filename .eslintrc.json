@@ -1,5 +1,9 @@
 {
-    "env": {
+  "parserOptions": {
+    // Required for certain syntax usages
+    "ecmaVersion": 2020
+  },  
+  "env": {
         "browser": true,
         "commonjs": true,
         "es6": true,

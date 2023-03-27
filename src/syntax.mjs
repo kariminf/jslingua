@@ -116,16 +116,15 @@ class Syntax {
   //==========================================
 
   /**
-  * Encoding a word
+  * Encoding all sentence words for PoS tagging
   *
   * @protected
-  * @abstract
+  * @final
   * @static
-  * @param  {int} i current position
   * @param  {String[]} sentence list of words in sentence
   * @return {float[[]]}  encoding of each word
   */
-  static _words_encode(sentence){
+  static _pos_words_encode(sentence){
     return [[]];
   }
 
@@ -171,7 +170,7 @@ class Syntax {
   * @return {String[]}  list of tags of these words
   */
   static pos_tag(sentence){
-    const encoded = this._words_encode(sentence);
+    const encoded = this._pos_words_encode(sentence);
     this.memm.init(encoded[0]);
     for(let i = 1; i < sentence.length; i++){
       this.memm.step(encoded[i]);
