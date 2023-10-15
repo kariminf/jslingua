@@ -399,6 +399,7 @@ function __jslinguaJpnStemmer(word) {
 //==========================================
 
 function __getVerbType(verb){
+  if (/(.)(け)る$/g.test(verb)) return VType.V1;
   if (/(出来)る$/g.test(verb)) return VType.V1;
   if (/(す|く|来)る$/g.test(verb)) return VType.SK;
   let end = verb.slice(-1);
@@ -411,7 +412,7 @@ function __getVerbType(verb){
     }
 
     {//If it ends with these; it is Godan
-      let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
+      let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|まえ)る$/g;
       if (v5r.test(verb) || ruV5List[bend]) return VType.V5;
     }
 
