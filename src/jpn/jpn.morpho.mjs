@@ -69,15 +69,26 @@ class JpnMorpho extends Morpho {
         desc: "Potential",
         mood: Morpho.Mood.Pot
       },
-      "pass": {// I can go
+      "pres_pass": {// someone goes and causes me to get into trouble
         desc: "Passive",
         voice: Morpho.Voice.P,
         tense: Morpho.Tense.Pr
       },
-      "caus_pass": {// I can go
+      "past_pass": {// someone goes and causes me to get into trouble
+        desc: "Passive",
+        voice: Morpho.Voice.P,
+        tense: Morpho.Tense.Pa
+      },
+      "pres_caus_pass": {// I am forced to go
         desc: "Causative Passive",
         voice: Morpho.Voice.P,
         tense: Morpho.Tense.Pr,
+        cause: 1
+      },
+      "past_caus_pass": {// I was forced to go
+        desc: "Causative Passive",
+        voice: Morpho.Voice.P,
+        tense: Morpho.Tense.Pa,
         cause: 1
       }
     };
@@ -412,7 +423,7 @@ function __getVerbType(verb){
     }
 
     {//If it ends with these; it is Godan
-      let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|たべ|まえ)る$/g;
+      let v5r = /(甦え|蘇え|嘲け|ちぎ|かえ|横ぎ|阿ね|きい|かぎ|はい|はし|しゃべ|まえ)る$/g;
       if (v5r.test(verb) || ruV5List[bend]) return VType.V5;
     }
 
