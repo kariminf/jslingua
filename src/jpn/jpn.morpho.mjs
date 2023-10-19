@@ -410,7 +410,7 @@ function __jslinguaJpnStemmer(word) {
 //==========================================
 
 function __getVerbType(verb){
-　if (/(.)(け)る$/g.test(verb)) return VType.V1;
+　if (/(.)(け|げ)る$/g.test(verb)) return VType.V1;
  if (/(出来|でき|飽き|起き|生き|尽き)る$/g.test(verb)) return VType.V1;
  if (/(い|居)る$/g.test(verb)) return VType.V1;
 　if (/(す|く|来)る$/g.test(verb)) return VType.SK;
